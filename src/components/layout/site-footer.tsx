@@ -9,13 +9,13 @@ const footerNavigation = [
 ];
 
 const footerLinkClass =
-  "inline-flex min-h-10 items-center rounded-md py-1.5 text-[15px] leading-relaxed text-white/80 transition-colors hover:text-white";
+  "inline-flex min-h-11 items-center rounded-md py-1.5 text-[15px] leading-relaxed text-white/80 transition-colors hover:text-white";
 
 export function SiteFooter() {
   return (
     <footer className="bg-navy py-14 text-[15px] leading-[1.7] text-white sm:py-16">
       <SiteContainer>
-        <div className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-[1.05fr_1.25fr_1fr_.9fr] lg:gap-x-16">
+        <div className="grid gap-x-12 gap-y-7 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-[1.05fr_1.25fr_1fr_.9fr] lg:gap-x-16">
           <FooterSection title="Unternehmen">
             <p className="font-semibold text-white">{siteConfig.name}</p>
             <address className="mt-4 not-italic leading-[1.8] text-white/75">
@@ -84,7 +84,7 @@ function FooterSection({
 }: Readonly<{ title: string; children: React.ReactNode }>) {
   return (
     <section>
-      <h2 className="mb-5 text-[14px] font-semibold tracking-[0.12em] text-green-light uppercase">
+      <h2 className="mb-3 text-[14px] font-semibold tracking-[0.12em] text-green-light uppercase sm:mb-5">
         {title}
       </h2>
       {children}

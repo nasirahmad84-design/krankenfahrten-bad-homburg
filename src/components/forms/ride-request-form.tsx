@@ -36,8 +36,8 @@ export function RideRequestForm() {
   }
 
   return (
-    <form noValidate onSubmit={handleSubmit} className="rounded-[22px] border border-[#dce2e9] bg-white p-5 shadow-[0_12px_32px_rgba(2,31,88,0.07)] sm:p-8" aria-label="Fahrt unverbindlich anfragen">
-      <div className="grid gap-5 md:grid-cols-2">
+    <form noValidate onSubmit={handleSubmit} className="rounded-[20px] border border-[#dce2e9] bg-white p-4 shadow-[0_12px_32px_rgba(2,31,88,0.07)] sm:rounded-[22px] sm:p-8" aria-label="Fahrt unverbindlich anfragen">
+      <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
         <Field id="name" label="Vorname und Nachname" required error={errors.name} autoComplete="name" />
         <Field id="phone" label="Telefonnummer" required error={errors.phone} type="tel" autoComplete="tel" />
         <Field id="email" label="E-Mail (optional)" error={errors.email} type="email" autoComplete="email" />
@@ -49,20 +49,20 @@ export function RideRequestForm() {
         <SelectField id="journey" label="Gewünschte Fahrt" required error={errors.journey} options={["Nur Hinfahrt", "Hin- und Rückfahrt"]} />
         <div className="md:col-span-2">
           <label htmlFor="request-notes" className="form-label">Zusätzliche Hinweise (optional)</label>
-          <textarea id="request-notes" name="notes" rows={5} className="form-control resize-y" aria-describedby="request-notes-help" />
-          <p id="request-notes-help" className="mt-2 text-sm leading-relaxed text-[#5b697a]">Bitte keine medizinischen Diagnosen oder Notfalldaten übermitteln.</p>
+          <textarea id="request-notes" name="notes" rows={4} className="form-control min-h-28 resize-y" aria-describedby="request-notes-help" />
+          <p id="request-notes-help" className="mt-2 text-[14px] leading-[1.55] text-[#5b697a]">Bitte keine medizinischen Diagnosen oder Notfalldaten übermitteln.</p>
         </div>
       </div>
 
       <div className="mt-6">
-        <label className="flex items-start gap-3 text-base leading-relaxed text-[#5b697a]" htmlFor="request-consent">
-          <input id="request-consent" name="consent" type="checkbox" className="mt-1 size-5 shrink-0 accent-green" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "request-consent-error" : undefined} />
+        <label className="flex min-h-12 cursor-pointer items-start gap-3 rounded-xl p-2 text-base leading-[1.6] text-[#5b697a] transition-colors hover:bg-[#f6f9fc]" htmlFor="request-consent">
+          <input id="request-consent" name="consent" type="checkbox" className="mt-0.5 size-6 shrink-0 accent-green" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "request-consent-error" : undefined} />
           <span>Ich bin damit einverstanden, zur Bearbeitung meiner Anfrage telefonisch oder per E-Mail kontaktiert zu werden. <span aria-hidden="true">*</span></span>
         </label>
         {errors.consent && <p id="request-consent-error" className="mt-2 text-sm font-semibold text-red-700">{errors.consent}</p>}
       </div>
 
-      <button type="submit" className="mt-7 inline-flex min-h-[54px] w-full items-center justify-center rounded-xl bg-green px-7 text-base font-semibold text-navy transition-colors hover:bg-green-light sm:w-auto">Anfrage technisch prüfen</button>
+      <button type="submit" className="mt-7 inline-flex min-h-[58px] w-full items-center justify-center rounded-xl bg-green px-8 text-[17px] font-semibold text-navy shadow-sm transition-[background-color,box-shadow] hover:bg-green-light hover:shadow-md disabled:cursor-not-allowed disabled:bg-navy/20 sm:w-auto sm:min-w-72">Anfrage technisch prüfen</button>
       {isPrepared && <div role="status" tabIndex={-1} className="mt-6 rounded-xl border border-green/40 bg-[#f0f7eb] p-4 text-base leading-relaxed text-navy">Das Formular ist technisch vorbereitet. Die Übermittlung wird in einem späteren Entwicklungsschritt aktiviert.</div>}
     </form>
   );

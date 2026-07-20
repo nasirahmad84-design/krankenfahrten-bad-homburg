@@ -124,3 +124,12 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 - Vorteile und Leistungskarten erhielten größere Innenabstände, konsistente Mindesthöhen, klarere Schatten sowie stärkere Hover- und Fokuswirkung.
 - Der Ablauf besitzt auf Desktop eine verbindende Linie und mobil eine klar geführte vertikale Nummerierung. FAQ, Abrechnungsbox, Abschluss-CTA und Footer wurden in Lesbarkeit und Rhythmus gestärkt.
 - Verbleibende Figma-Abweichung: Der Hero bleibt bewusst eine responsive Vektorkomposition statt eines fotografischen Motivs, da im freigegebenen Frame kein finales Foto vorliegt.
+
+## Hauptseiten-Feinschliff (DEV-04.1)
+
+- Die mobile Kontaktseite nutzt kompakte Kontaktzeilen mit Symbol, Label und gut umbrechendem Wert. Erreichbarkeitshinweise werden mobil als gemeinsame Liste statt als drei große Karten dargestellt.
+- Formularabstände, Feldhöhen, Hilfetext, Checkbox-Klickfläche und Formular-CTA wurden für 390 px optimiert. Validierungsregeln, ARIA-Verknüpfungen und Fokussteuerung bleiben unverändert erhalten.
+- Der Footer ist mobil enger gruppiert; sein Bottom-Abstand berücksichtigt weiterhin die feste Kontaktleiste und Safe-Area. Im Druck wird die mobile Kontaktleiste ausgeblendet.
+- Die Serienfahrten-Karte belegt auf Desktop bewusst zwei Spalten. Leistungen- und Kostenprozess nutzen verbundene, horizontale Schritte und bleiben mobil vertikal geführt.
+- Inhaltsseiten-Heros verwenden die freie rechte Fläche für eine zurückhaltende geometrische Form und sind auf Desktop etwas kompakter.
+- Der in segmentierten Full-Page-Screenshots sichtbare navyfarbene „Balken“ ist die vom Browser-Compositor pro Aufnahmekachel erneut gerenderte feste Mobile Contact Bar; auch Sticky Header und Seitenanfang werden dabei wiederholt. Im echten DOM existiert genau eine Leiste, ohne Transform, Filter oder Backdrop-Filter. Die funktionierende Fixed-Logik wurde deshalb nicht für ein Werkzeug-Artefakt verändert.

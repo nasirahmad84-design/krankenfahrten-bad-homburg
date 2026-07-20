@@ -14,24 +14,25 @@ export default function ContactPage() {
   return <>
     <PageHero eyebrow="Kontakt & Fahrt anfragen" title="Ihre Fahrt unverbindlich anfragen" description="Rufen Sie uns direkt an oder tragen Sie die Fahrtdaten in das technisch vorbereitete Formular ein. Es findet noch keine Übermittlung statt." />
     <ContentSection id="contact-options" title="Direkter Kontakt">
-      <div className="grid gap-5 md:grid-cols-3">
-        <ContactCard label="Telefon" value={siteConfig.phone.display} href={siteConfig.phone.href} />
-        <ContactCard label="E-Mail" value={siteConfig.email.address} href={siteConfig.email.href} breakText />
-        <ContactCard label="Adresse" value={`${siteConfig.address.street}, ${siteConfig.address.postalCode} ${siteConfig.address.city}`} />
+      <div className="grid gap-3 md:grid-cols-3 md:gap-5">
+        <ContactCard icon="☎" label="Telefon" value={siteConfig.phone.display} href={siteConfig.phone.href} />
+        <ContactCard icon="@" label="E-Mail" value={siteConfig.email.address} href={siteConfig.email.href} breakText />
+        <ContactCard icon="⌂" label="Adresse" value={`${siteConfig.address.street}, ${siteConfig.address.postalCode} ${siteConfig.address.city}`} />
       </div>
-      <div className="mt-6"><InfoList items={contactAvailability} columns={3} /></div>
+      <div className="mt-5 rounded-2xl border border-[#dce2e9] bg-[#f6f9fc] px-4 py-2 md:mt-6 md:bg-transparent md:p-0"><InfoList items={contactAvailability} columns={3} compactMobile /></div>
     </ContentSection>
     <ContentSection id="request-form" title="Fahrtdaten eingeben" description="Pflichtfelder dienen ausschließlich der lokalen technischen Prüfung. Das Formular sendet und speichert keine Daten." muted><RideRequestForm /></ContentSection>
     <ContentSection id="contact-notices" title="Wichtige Hinweise">
-      <div className="grid gap-5 lg:grid-cols-2">
-        <NoticeBox title="Datenschutz und Verbindlichkeit" variant="information"><p>Bitte übermitteln Sie keine medizinischen Diagnosen oder Notfalldaten. Die Anfrage wird erst nach ausdrücklicher Bestätigung verbindlich. Hinweise zum Datenschutz finden Sie unter <a className="font-semibold underline" href="/datenschutz">Datenschutz</a>.</p></NoticeBox>
-        <NoticeBox title="Kein medizinischer Notfalldienst" variant="warning"><p>In akuten Notfällen wählen Sie <strong className="text-xl">112</strong>.</p></NoticeBox>
+      <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
+        <NoticeBox title="Datenschutz und Verbindlichkeit" variant="information" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>Bitte übermitteln Sie keine medizinischen Diagnosen oder Notfalldaten. Die Anfrage wird erst nach ausdrücklicher Bestätigung verbindlich. Hinweise zum Datenschutz finden Sie unter <a className="font-semibold underline" href="/datenschutz">Datenschutz</a>.</p></NoticeBox>
+        <NoticeBox title="Kein medizinischer Notfalldienst" variant="warning" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>In akuten Notfällen wählen Sie <strong className="ml-1 text-[26px] text-navy">112</strong>.</p></NoticeBox>
       </div>
     </ContentSection>
   </>;
 }
 
-function ContactCard({ label, value, href, breakText }: { label: string; value: string; href?: string; breakText?: boolean }) {
-  const content = <><span className="text-sm font-semibold tracking-widest text-green uppercase">{label}</span><span className={`mt-3 text-[18px] leading-relaxed font-semibold text-navy ${breakText ? "break-all" : ""}`}>{value}</span></>;
-  return href ? <a href={href} className="flex min-h-36 flex-col rounded-[20px] border border-[#dce2e9] bg-white p-6 transition hover:border-green hover:shadow-md">{content}</a> : <div className="flex min-h-36 flex-col rounded-[20px] border border-[#dce2e9] bg-white p-6">{content}</div>;
+function ContactCard({ icon, label, value, href, breakText }: { icon: string; label: string; value: string; href?: string; breakText?: boolean }) {
+  const content = <><span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#f0f7eb] text-lg font-bold text-green" aria-hidden="true">{icon}</span><span className="min-w-0"><span className="block text-[13px] font-semibold tracking-[0.12em] text-green uppercase">{label}</span><span className={`mt-1 block text-[17px] leading-[1.45] font-semibold text-navy md:mt-3 md:text-[18px] ${breakText ? "break-words [overflow-wrap:anywhere]" : ""}`}>{value}</span></span></>;
+  const classes = "flex min-h-[72px] items-center gap-4 rounded-2xl border border-[#dce2e9] bg-white p-4 transition md:min-h-36 md:flex-col md:items-start md:gap-0 md:rounded-[20px] md:p-6";
+  return href ? <a href={href} className={`${classes} hover:border-green hover:shadow-md`}>{content}</a> : <div className={classes}>{content}</div>;
 }
