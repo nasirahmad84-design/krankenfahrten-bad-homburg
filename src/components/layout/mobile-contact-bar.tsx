@@ -4,7 +4,7 @@ import { PhoneIcon } from "@/components/layout/header-icons";
 import { siteConfig } from "@/lib/site-config";
 
 const actionClass =
-  "flex min-h-12 flex-1 items-center justify-center gap-2 rounded-lg px-3 text-sm font-bold";
+  "flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-xl px-3 text-[15px] font-bold";
 
 export function MobileContactBar() {
   return (

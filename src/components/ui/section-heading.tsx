@@ -30,13 +30,13 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <p className="mb-3 text-sm font-semibold tracking-widest text-green-dark uppercase">
+        <p className="mb-3 text-[14px] font-semibold tracking-[0.12em] text-green-dark uppercase">
           {eyebrow}
         </p>
       )}
       <Heading id={titleId} className="text-section-title text-navy">{title}</Heading>
       {description && (
-        <p className="mt-5 text-lg leading-relaxed text-navy/70">{description}</p>
+        <p className="mt-5 text-[18px] leading-[1.7] text-[#5b697a]">{description}</p>
       )}
     </div>
   );

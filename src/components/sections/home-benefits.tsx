@@ -8,7 +8,7 @@ export function HomeBenefits() {
     <section className="home-section bg-white" aria-labelledby="benefits-title">
       <SiteContainer>
         <SectionHeading titleId="benefits-title" eyebrow="Warum wir" title="Verlässlich organisiert. Persönlich begleitet." description="Bei medizinischen Fahrten zählen Pünktlichkeit, Ruhe und ein klarer Ablauf." className="home-section-heading" />
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-9 grid gap-5 md:grid-cols-3 lg:gap-6">
           {benefits.map((benefit) => <BenefitCard key={benefit.title} {...benefit} />)}
         </div>
       </SiteContainer>

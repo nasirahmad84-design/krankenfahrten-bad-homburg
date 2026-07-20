@@ -27,7 +27,7 @@ export function NavigationLinks({ links }: NavigationLinksProps) {
             <Link
               href={link.href}
               className={classNames(
-                "relative inline-flex min-h-[51px] items-center rounded-lg px-1.5 py-2 text-[13px] font-medium whitespace-nowrap transition-colors xl:px-2 xl:text-[15px]",
+                "relative inline-flex min-h-[52px] items-center rounded-lg px-1.5 py-2 text-[14px] font-medium whitespace-nowrap transition-colors xl:px-2.5 xl:text-[15px]",
                 isActive
                   ? "font-semibold text-navy after:absolute after:right-1.5 after:bottom-0 after:left-1.5 after:h-[3px] after:rounded-full after:bg-green xl:after:right-2 xl:after:left-2"
                   : "text-[#121a29] hover:bg-[#f7fafc] hover:text-navy",
@@ -59,7 +59,7 @@ export function HeaderContactButton({
     <Button
       href={href}
       size="large"
-      className="min-h-[50px] shrink-0 rounded-xl px-3 text-[13px] whitespace-nowrap xl:px-5 xl:text-[15px]"
+      className="min-h-[52px] shrink-0 rounded-xl px-4 text-[14px] whitespace-nowrap xl:px-6 xl:text-[15px]"
       aria-current={isActive ? "page" : undefined}
     >
       {label}

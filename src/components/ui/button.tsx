@@ -54,7 +54,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = classNames(
-    "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-colors disabled:cursor-not-allowed",
+    "inline-flex items-center justify-center gap-2 rounded-lg text-[15px] font-semibold transition-colors disabled:cursor-not-allowed",
     variantClasses[variant],
     variant === "link" ? undefined : sizeClasses[size],
     className,

@@ -49,7 +49,7 @@ export function NoticeBox({
   return (
     <section
       className={classNames(
-        "rounded-card border p-5 sm:p-6",
+        "rounded-card border p-5 text-base leading-[1.65] sm:p-6",
         style.className,
         className,
       )}
@@ -61,7 +61,7 @@ export function NoticeBox({
           {style.icon}
         </span>
         <div className="min-w-0">
-          <h2 className="text-lg leading-snug font-bold">{title}</h2>
+          <h2 className="text-xl leading-snug font-bold">{title}</h2>
           <div className="mt-2 leading-relaxed">{children}</div>
         </div>
       </div>

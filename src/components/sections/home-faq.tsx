@@ -9,8 +9,8 @@ export function HomeFaq() {
     <section className="home-section bg-white" aria-labelledby="faq-title">
       <SiteContainer>
         <SectionHeading titleId="faq-title" eyebrow="Häufige Fragen" title="Was Patienten und Angehörige häufig wissen möchten" className="home-section-heading" />
-        <div className="mt-6"><FaqAccordion items={homeFaq} /></div>
-        <Button href="/faq" variant="link" className="mt-6">Alle Fragen ansehen →</Button>
+        <div className="mt-9"><FaqAccordion items={homeFaq} /></div>
+        <Button href="/faq" variant="link" className="mt-8 text-base">Alle Fragen ansehen →</Button>
       </SiteContainer>
     </section>
   );
