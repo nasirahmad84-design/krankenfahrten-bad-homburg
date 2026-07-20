@@ -8,11 +8,15 @@ import { NoticeBox } from "@/components/ui/notice-box";
 import { contactAvailability } from "@/content/contact";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "Fahrt anfragen | Krankenfahrten Bad Homburg", description: "Kontakt und technisch vorbereitete Anfrage für eine sitzende Krankenfahrt in Bad Homburg. Verbindlich erst nach ausdrücklicher Bestätigung." };
+export const metadata: Metadata = { title: "Fahrt anfragen | Krankenfahrten Bad Homburg", description: "Sitzende Krankenfahrt in Bad Homburg sicher und unverbindlich anfragen. Die Fahrt wird erst nach ausdrücklicher Bestätigung vereinbart." };
+export const dynamic = "force-dynamic";
 
 export default function ContactPage() {
+  // Request-specific value for the server-validated minimum form completion time.
+  // eslint-disable-next-line react-hooks/purity
+  const formStartedAt = Date.now();
   return <>
-    <PageHero eyebrow="Kontakt & Fahrt anfragen" title="Ihre Fahrt unverbindlich anfragen" description="Rufen Sie uns direkt an oder tragen Sie die Fahrtdaten in das technisch vorbereitete Formular ein. Es findet noch keine Übermittlung statt." />
+    <PageHero eyebrow="Kontakt & Fahrt anfragen" title="Ihre Fahrt unverbindlich anfragen" description="Rufen Sie uns direkt an oder übermitteln Sie Ihre Fahrtdaten sicher über das Formular. Eine Fahrt gilt erst nach unserer ausdrücklichen Bestätigung als vereinbart." />
     <ContentSection id="contact-options" title="Direkter Kontakt">
       <div className="grid gap-3 md:grid-cols-3 md:gap-5">
         <ContactCard icon="☎" label="Telefon" value={siteConfig.phone.display} href={siteConfig.phone.href} />
@@ -21,7 +25,7 @@ export default function ContactPage() {
       </div>
       <div className="mt-5 rounded-2xl border border-[#dce2e9] bg-[#f6f9fc] px-4 py-2 md:mt-6 md:bg-transparent md:p-0"><InfoList items={contactAvailability} columns={3} compactMobile /></div>
     </ContentSection>
-    <ContentSection id="request-form" title="Fahrtdaten eingeben" description="Pflichtfelder dienen ausschließlich der lokalen technischen Prüfung. Das Formular sendet und speichert keine Daten." muted><RideRequestForm /></ContentSection>
+    <ContentSection id="request-form" title="Fahrtdaten eingeben" description="Wir verwenden Ihre Angaben ausschließlich zur Bearbeitung der unverbindlichen Fahrtanfrage und speichern sie nicht in einer Datenbank." muted><RideRequestForm formStartedAt={formStartedAt} /></ContentSection>
     <ContentSection id="contact-notices" title="Wichtige Hinweise">
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
         <NoticeBox title="Datenschutz und Verbindlichkeit" variant="information" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>Bitte übermitteln Sie keine medizinischen Diagnosen oder Notfalldaten. Die Anfrage wird erst nach ausdrücklicher Bestätigung verbindlich. Hinweise zum Datenschutz finden Sie unter <a className="font-semibold underline" href="/datenschutz">Datenschutz</a>.</p></NoticeBox>

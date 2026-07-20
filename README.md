@@ -19,6 +19,7 @@ Die lokale Entwicklungsumgebung ist anschließend unter [http://localhost:3000](
 - `npm run build` – erstellt den Production-Build
 - `npm run start` – startet den Production-Server
 - `npm run lint` – prüft den Quellcode mit ESLint
+- `npm test` – prüft Validierung, Spam-Erkennung, Provider- und E-Mail-Logik mit dem eingebauten Node-Testläufer
 
 ## Projektstruktur
 
@@ -156,3 +157,27 @@ Startseiten- und Übersichtskarten verweisen direkt auf die passenden Detailrout
 Mobil stapeln Überblicks-, Prozess- und Beziehungskarten einspaltig. Ab `768px` werden geeignete Bereiche mehrspaltig; Textbreiten, Breadcrumb-Umbruch, Touchziele und das globale Bottom-Padding berücksichtigen Header und Mobile Contact Bar. Die Figma-Datei enthält keine eigenen Frames für die sieben Detailseiten, daher übertragen sie das vorhandene Komponenten-, Farb- und Abstandssystem konsistent statt neue unbelegte Layouts einzuführen.
 
 Für DEV-06 offen bleiben insbesondere die echte serverseitige Anfrageverarbeitung, finale Rechtstexte, die Produktionsdomain für Canonicals und absolute strukturierte Daten sowie eine fachliche Freigabe sämtlicher Leistungsformulierungen.
+
+## Sichere Anfrageübermittlung (DEV-06A)
+
+Das Kontaktformular sendet über die Server Action `src/app/kontakt/actions.ts`. Clientseitige Pflichtfeld- und E-Mail-Prüfungen geben unmittelbares Feedback; `src/lib/validation/ride-request.ts` validiert unabhängig davon sämtliche übermittelten Werte erneut, normalisiert Whitespace, begrenzt Feldlängen und plausibilisiert Datum, Uhrzeit, Anlass und Fahrtart. Die Kontaktseite wird dynamisch gerendert, damit jeder Formularaufruf einen eigenen serverseitig geprüften Startzeitpunkt erhält.
+
+Die Formularzustände umfassen Initialzustand, laufende Übermittlung, Validierungsfehler, Server-/Konfigurationsfehler und Erfolg. Der Submit-Button wird während der Übermittlung deaktiviert. Fehler fokussieren das erste betroffene Feld, Statusmeldungen werden über `aria-live` bekannt gegeben und nach erfolgreichem Versand wird das Formular zurückgesetzt sowie die Erfolgsüberschrift fokussiert. Ohne JavaScript kann die Server Action weiterhin über das native Formularziel verarbeitet werden; mit JavaScript ergänzt React den kontrollierten Pending-State.
+
+Der datenschutzfreundliche Basisschutz besteht aus einem Honeypot, einer Mindestdauer von 2,5 Sekunden, einem maximal zwei Stunden alten Formularzeitstempel und einem pro Node-Prozess geführten In-Memory-Limit. Dieses Rate Limit ist nur ein Basisschutz: Serverless-Instanzen teilen und erhalten den Speicher nicht zuverlässig. `RateLimitStore` ist deshalb als austauschbare Schnittstelle vorbereitet; ein verteilter Dienst bleibt für Produktion offen. Es werden keine IP-Adressen oder Formularinhalte im Limit gespeichert.
+
+`src/lib/email/send-ride-request.ts` trennt Formulardaten, Templates und Provider. Ohne gültige Konfiguration verweigert der Development-Provider den Versand, schreibt keine personenbezogenen Daten in die Konsole und erzeugt keinen falschen Erfolgszustand. Für Produktion ist `EMAIL_PROVIDER=resend` ohne zusätzliche SDK-Dependency über die serverseitige HTTPS-API vorbereitet. Die interne E-Mail besitzt Text- und einfache HTML-Versionen, escaped Nutzertexte und weist deutlich darauf hin, dass keine Buchung bestätigt ist. Eine reduzierte Eingangsbestätigung wird nur bei angegebener E-Mail-Adresse und nach erfolgreichem internen Versand versucht.
+
+Benötigte Variablen sind in `.env.example` dokumentiert:
+
+- `EMAIL_PROVIDER=resend`
+- `EMAIL_API_KEY`
+- `CONTACT_EMAIL_TO`
+- `CONTACT_EMAIL_FROM`
+- `SITE_URL` als vorbereitete zentrale Produktions-URL
+
+Für einen lokalen Konfigurationstest bleibt `EMAIL_PROVIDER` ungesetzt; das Formular zeigt dann ausdrücklich an, dass nichts versendet wurde. `mock-success` und `mock-error` stehen ausschließlich bei `NODE_ENV !== "production"` für Browserprüfungen zur Verfügung und versenden keine Daten. Mit `MOCK_EMAIL_DELAY_MS` kann lokal ein langsamer Versand bis maximal zwei Sekunden simuliert werden. Ein echter Versandtest benötigt einen gültigen Provider-Schlüssel sowie beim Provider freigegebene Absender- und Empfängeradressen. Secrets gehören ausschließlich in eine nicht versionierte `.env.local` beziehungsweise in die Produktionsumgebung.
+
+Die Datenerhebung bleibt auf Name, Kontaktmöglichkeit und notwendige Fahrtdaten beschränkt. Es gibt keine Diagnose-, Versicherungs-, Dokument- oder Uploadfelder und keine Datenbank. Der optionale Hinweis ist auf 1.000 Zeichen begrenzt und fordert ausdrücklich dazu auf, keine Diagnosen oder Notfalldaten einzugeben. Empfänger und Absender stammen ausschließlich aus der Serverkonfiguration; Formulardaten erscheinen weder in URLs noch in Logs.
+
+Bekannte Einschränkungen: Das lokale Rate Limit ist nicht verteilt, eine optionale Bestätigungs-E-Mail kann nach erfolgreichem internen Versand separat scheitern, und der Resend-Versand benötigt noch produktive Domain-/Absenderfreigabe. Für DEV-06B offen bleiben ein externer verteilter Rate-Limit-Dienst, Monitoring ohne personenbezogene Inhalte, finale Zustellkonfiguration, rechtliche Freigaben und gegebenenfalls serverseitig signierte Formularzeitstempel.
