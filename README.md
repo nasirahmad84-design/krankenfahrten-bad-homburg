@@ -47,7 +47,8 @@ src/
 ## Globales Layout
 
 - `SiteContainer` stellt eine responsive Inhaltsbreite mit konsistenten Seitenabständen bereit.
-- `SiteHeader` enthält Marke, Desktopnavigation, Telefonnummer, CTA und die mobile Navigation.
+- `SiteHeader` enthält die Figma-nahe Marke, Desktopnavigation, Telefonnummer, CTA und die mobile Navigation.
+- `HeaderScrollState` schaltet den sticky Desktop-Header ab `24px` Scrollposition von `92px` auf `76px` Höhe.
 - `MobileNavigation` verwaltet ausschließlich die interaktive mobile Menüfunktion.
 - `SiteFooter` bündelt Unternehmens-, Kontakt-, Navigations- und Rechtslinks.
 - `MobileContactBar` bietet auf kleinen Viewports feste Aktionen zum Anrufen und Anfragen.
@@ -65,6 +66,7 @@ Das Root-Layout enthält genau ein `main#main-content`. Seiten liefern nur den I
 
 - Aktive Navigationspunkte werden mit `aria-current="page"` gekennzeichnet.
 - Das mobile Menü unterstützt Escape, Fokusführung und Schließen beim Routenwechsel.
+- Bei geöffnetem Menü wird die Mobile Contact Bar über ein eng begrenztes Body-Datenattribut unsichtbar und nicht interaktiv; nach dem Schließen erscheint sie wieder.
 - Ein Skip-Link führt direkt zum Hauptinhalt.
 - Sichtbare `focus-visible`-Zustände, semantische Landmarks und mindestens 44 px große Touch-Ziele sind vorgesehen.
 - Warnungen und Fehler verwenden zusätzlich zur Farbe eindeutige Beschriftungen und Symbole.
@@ -74,13 +76,20 @@ Das Root-Layout enthält genau ein `main#main-content`. Seiten liefern nur den I
 
 - Der Inhaltscontainer nutzt eine maximale Breite von `1280px` innerhalb des 1440-px-Referenzlayouts.
 - Mobile Seitenabstände beginnen bei `20px` und steigen ab `768px` auf `32px`.
-- Unter `1280px` wird die kompakte Navigation verwendet, damit der Header nicht unkontrolliert umbricht.
+- Unter `1024px` wird die mobile Navigation verwendet; ab `1024px` erscheint die Desktopnavigation.
+- Der mobile Header ist `72px` hoch. Der Desktop-Header ist standardmäßig `92px` und gescrollt `76px` hoch.
 - Die mobile Kontaktleiste ist unter `768px` sichtbar. Globales Bottom-Padding und `safe-area-inset-bottom` verhindern überdeckte Inhalte.
 - Footer-Spalten wechseln responsiv von einer auf zwei und schließlich vier Spalten.
 
 ## Offen für DEV-03
 
 - Umsetzung der eigentlichen Seiten und Inhalte auf Basis des freigegebenen Figma-Designs
-- finales Logo beziehungsweise finale Wortmarke
+- mögliche spätere Ablösung der aus Figma-Logozeichen und HTML-Text aufgebauten Wortmarke durch eine finale kombinierte Logodatei
 - fachliche Ausgestaltung der Leistungs-, Ablauf-, FAQ- und Kontaktinhalte
 - rechtliche Seiten und Cookie-Einstellungsfunktion
+
+## Bekannte Abweichungen zu Figma
+
+- Das originale Figma-Logozeichen und Telefon-Icon liegen lokal unter `public/brand`; der Wortmarkentext bleibt für gute Skalierbarkeit und Austauschbarkeit HTML.
+- Der grüne CTA verwendet Navy-Schrift statt der weißen Figma-Schrift, um den Kontrast für normalen Text zu erhöhen.
+- Die Headerbreite bleibt fluid und wird nicht auf eine feste Figma-Canvasbreite gesetzt.

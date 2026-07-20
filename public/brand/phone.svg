@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon/Phone" clip-path="url(#clip0_0_28)">
+<path id="Vector" d="M2 0H6L8 5L5.5 7C7 10 9.5 12.5 12.5 14L15 11.5L20 14V18C20 19 19 20 18 20C8 19 1 12 0 2C0 1 1 0 2 0Z" fill="#021F58"/>
+</g>
+<defs>
+<clipPath id="clip0_0_28">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>

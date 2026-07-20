@@ -61,6 +61,15 @@ body {
 
 .mobile-contact-bar {
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  transition:
+    opacity 150ms ease,
+    visibility 150ms ease;
+}
+
+.site-body[data-mobile-menu-open="true"] .mobile-contact-bar {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .skip-link {

@@ -1,42 +1,38 @@
-import Link from "next/link";
-
+import { HeaderScrollState } from "@/components/layout/header-scroll-state";
+import { PhoneIcon } from "@/components/layout/header-icons";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
-import { NavigationLinks } from "@/components/layout/navigation-links";
+import {
+  HeaderContactButton,
+  NavigationLinks,
+} from "@/components/layout/navigation-links";
 import { SiteContainer } from "@/components/layout/site-container";
+import { SiteLogo } from "@/components/layout/site-logo";
 import { siteConfig } from "@/lib/site-config";
 
 export function SiteHeader() {
   return (
-    <header className="relative z-40 border-b border-navy/10 bg-white">
-      <SiteContainer className="flex min-h-20 items-center justify-between gap-5">
-        <Link
-          href="/"
-          className="max-w-52 text-base leading-tight font-bold text-navy sm:max-w-none sm:text-lg"
-          aria-label={`${siteConfig.name} – Startseite`}
-        >
-          {siteConfig.name}
-        </Link>
+    <HeaderScrollState>
+      <SiteContainer className="flex h-full items-center justify-between gap-3">
+        <SiteLogo compact className="lg:hidden" />
+        <SiteLogo className="hidden lg:flex" />
 
-        <div className="hidden min-w-0 flex-1 items-center justify-end gap-3 xl:flex">
+        <div className="hidden min-w-0 flex-1 items-center justify-end gap-2 lg:flex xl:gap-[18px]">
           <nav aria-label="Hauptnavigation">
             <NavigationLinks links={siteConfig.navigation} />
           </nav>
           <a
             href={siteConfig.phone.href}
-            className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold whitespace-nowrap text-navy hover:bg-navy/5"
+            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-[10px] px-2 text-[13px] font-semibold whitespace-nowrap text-navy transition-colors hover:bg-[#f7fafc] xl:px-3 xl:text-[15px]"
+            aria-label={`Anrufen: ${siteConfig.phone.display}`}
           >
+            <PhoneIcon />
             {siteConfig.phone.display}
           </a>
-          <Link
-            href={siteConfig.contactLink.href}
-            className="inline-flex min-h-11 items-center rounded-lg bg-green px-4 text-sm font-semibold whitespace-nowrap text-navy transition-colors hover:bg-green-light active:bg-green-light"
-          >
-            {siteConfig.contactLink.label}
-          </Link>
+          <HeaderContactButton {...siteConfig.contactLink} />
         </div>
 
         <MobileNavigation />
       </SiteContainer>
-    </header>
+    </HeaderScrollState>
   );
 }

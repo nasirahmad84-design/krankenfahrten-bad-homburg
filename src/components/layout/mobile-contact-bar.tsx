@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { PhoneIcon } from "@/components/layout/header-icons";
 import { siteConfig } from "@/lib/site-config";
 
 const actionClass =
@@ -16,7 +17,7 @@ export function MobileContactBar() {
           href={siteConfig.phone.href}
           className={`${actionClass} border border-white/40 text-white`}
         >
-          <PhoneIcon />
+          <PhoneIcon className="size-5 brightness-0 invert" />
           Anrufen
         </a>
         <Link
@@ -27,13 +28,5 @@ export function MobileContactBar() {
         </Link>
       </div>
     </aside>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none">
-      <path d="M7.1 3.5 9.3 7l-1.8 2a14 14 0 0 0 7.5 7.5l2-1.8 3.5 2.2-.7 3.2c-.2.8-.9 1.4-1.8 1.4A15.5 15.5 0 0 1 2.5 6c0-.9.6-1.6 1.4-1.8l3.2-.7Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-    </svg>
   );
 }

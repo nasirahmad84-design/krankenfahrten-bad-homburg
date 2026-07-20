@@ -4,8 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { ChevronIcon, PhoneIcon } from "@/components/layout/header-icons";
+import { Button } from "@/components/ui/button";
 import { classNames } from "@/lib/class-names";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, type SiteLink } from "@/lib/site-config";
 
 export function MobileNavigation() {
   const pathname = usePathname();
@@ -19,6 +21,10 @@ function MobileMenu({ pathname }: { pathname: string }) {
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    return () => setGlobalMenuState(false);
+  }, []);
+
+  useEffect(() => {
     if (!isOpen) return;
 
     const previousOverflow = document.body.style.overflow;
@@ -27,7 +33,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        closeMenu();
         buttonRef.current?.focus();
       }
     }
@@ -40,16 +46,41 @@ function MobileMenu({ pathname }: { pathname: string }) {
     };
   }, [isOpen]);
 
+  const mobileLinks: readonly SiteLink[] = [
+    ...siteConfig.navigation,
+    { label: "Kontakt", href: siteConfig.contactLink.href },
+  ];
+
+  function openMenu() {
+    setGlobalMenuState(true);
+    setIsOpen(true);
+  }
+
+  function closeMenu() {
+    setGlobalMenuState(false);
+    setIsOpen(false);
+  }
+
   return (
-    <div className="xl:hidden">
+    <div className="flex shrink-0 items-center gap-2 lg:hidden">
+      {!isOpen && (
+        <a
+          href={siteConfig.phone.href}
+          className="inline-flex size-11 items-center justify-center rounded-[10px] bg-[#f7fafc] text-navy transition-colors hover:bg-navy/10"
+          aria-label={`Anrufen: ${siteConfig.phone.display}`}
+        >
+          <PhoneIcon />
+        </a>
+      )}
+
       <button
         ref={buttonRef}
         type="button"
-        className="inline-flex size-11 items-center justify-center rounded-lg border border-navy/20 text-navy transition-colors hover:bg-navy/5 active:bg-navy/10"
+        className="inline-flex size-11 items-center justify-center rounded-[10px] text-navy transition-colors hover:bg-[#f7fafc] active:bg-navy/10"
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-panel"
         aria-label={isOpen ? "Navigation schließen" : "Navigation öffnen"}
-        onClick={() => setIsOpen((open) => !open)}
+        onClick={isOpen ? closeMenu : openMenu}
       >
         {isOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
@@ -57,16 +88,16 @@ function MobileMenu({ pathname }: { pathname: string }) {
       <div
         id="mobile-navigation-panel"
         className={classNames(
-          "absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-navy/10 bg-white shadow-xl",
+          "fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto bg-white lg:hidden",
           !isOpen && "hidden",
         )}
       >
         <nav
-          className="container-page py-5"
+          className="container-page flex min-h-full flex-col py-3"
           aria-label="Mobile Hauptnavigation"
         >
           <ul className="flex flex-col gap-1">
-            {siteConfig.navigation.map((link, index) => {
+            {mobileLinks.map((link, index) => {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
@@ -79,35 +110,29 @@ function MobileMenu({ pathname }: { pathname: string }) {
                     ref={index === 0 ? firstLinkRef : undefined}
                     href={link.href}
                     className={classNames(
-                      "flex min-h-12 items-center rounded-lg px-4 py-3 font-semibold",
-                      isActive
-                        ? "bg-navy text-white"
-                        : "text-navy hover:bg-navy/5",
+                      "flex min-h-12 items-center justify-between rounded-[10px] px-3 py-3 text-base font-medium text-[#121a29] transition-colors hover:bg-[#f7fafc]",
+                      isActive && "bg-[#f7fafc] font-semibold text-navy",
                     )}
                     aria-current={isActive ? "page" : undefined}
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeMenu}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
+                    <ChevronIcon />
                   </Link>
                 </li>
               );
             })}
           </ul>
 
-          <div className="mt-5 grid gap-3 border-t border-navy/10 pt-5 sm:grid-cols-2">
-            <a
-              href={siteConfig.phone.href}
-              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-navy/20 px-4 font-semibold text-navy"
-            >
-              {siteConfig.phone.display}
-            </a>
-            <Link
+          <div className="mt-auto border-t border-[#dbe0e8] pt-4 pb-1">
+            <Button
               href={siteConfig.contactLink.href}
-              className="inline-flex min-h-12 items-center justify-center rounded-lg bg-green px-4 font-semibold text-navy hover:bg-green-light"
-              onClick={() => setIsOpen(false)}
+              size="large"
+              className="min-h-[52px] w-full rounded-xl text-[15px]"
+              onClick={closeMenu}
             >
               {siteConfig.contactLink.label}
-            </Link>
+            </Button>
           </div>
         </nav>
       </div>
@@ -115,10 +140,23 @@ function MobileMenu({ pathname }: { pathname: string }) {
   );
 }
 
+function setGlobalMenuState(isOpen: boolean) {
+  if (isOpen) {
+    document.body.dataset.mobileMenuOpen = "true";
+  } else {
+    delete document.body.dataset.mobileMenuOpen;
+  }
+}
+
 function MenuIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6" fill="none">
-      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="M2 4h20M2 12h20M2 20h20"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -126,7 +164,12 @@ function MenuIcon() {
 function CloseIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6" fill="none">
-      <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="m5 5 14 14M19 5 5 19"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
