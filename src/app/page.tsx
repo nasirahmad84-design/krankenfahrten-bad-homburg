@@ -1,21 +1,30 @@
-import { SiteContainer } from "@/components/layout/site-container";
-import { siteConfig } from "@/lib/site-config";
+import type { Metadata } from "next";
+
+import { HomeBenefits } from "@/components/sections/home-benefits";
+import { HomeBilling } from "@/components/sections/home-billing";
+import { HomeCta } from "@/components/sections/home-cta";
+import { HomeFaq } from "@/components/sections/home-faq";
+import { HomeHero } from "@/components/sections/home-hero";
+import { HomeProcess } from "@/components/sections/home-process";
+import { HomeServices } from "@/components/sections/home-services";
+import { HomeSupport } from "@/components/sections/home-support";
+
+export const metadata: Metadata = {
+  title: "Krankenfahrten Bad Homburg | Persönlich und zuverlässig",
+  description: "Sitzende Krankenfahrten in Bad Homburg für Arzt-, Klinik-, Dialyse-, Therapie- und Entlassungstermine. Persönliche Unterstützung und Anfrage rund um die Uhr.",
+};
 
 export default function Home() {
   return (
-    <section className="flex flex-1 items-center bg-navy py-section text-white">
-      <SiteContainer>
-        <div className="max-w-3xl rounded-card border border-white/15 bg-white/5 p-8 sm:p-12">
-          <p className="mb-4 text-sm font-semibold tracking-widest text-green-light uppercase">
-            Technische Basis
-          </p>
-          <h1 className="text-heading">{siteConfig.name}</h1>
-          <p className="mt-6 max-w-2xl text-lead text-white/80">
-            Die technische Grundlage ist eingerichtet. Die Umsetzung der Website
-            folgt in den nächsten Entwicklungsschritten.
-          </p>
-        </div>
-      </SiteContainer>
-    </section>
+    <>
+      <HomeHero />
+      <HomeBenefits />
+      <HomeServices />
+      <HomeSupport />
+      <HomeProcess />
+      <HomeBilling />
+      <HomeFaq />
+      <HomeCta />
+    </>
   );
 }

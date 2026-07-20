@@ -81,11 +81,21 @@ Das Root-Layout enthält genau ein `main#main-content`. Seiten liefern nur den I
 - Die mobile Kontaktleiste ist unter `768px` sichtbar. Globales Bottom-Padding und `safe-area-inset-bottom` verhindern überdeckte Inhalte.
 - Footer-Spalten wechseln responsiv von einer auf zwei und schließlich vier Spalten.
 
-## Offen für DEV-03
+## Startseite (DEV-03)
 
-- Umsetzung der eigentlichen Seiten und Inhalte auf Basis des freigegebenen Figma-Designs
+Die Startseite folgt den Figma-Frames für 1440 px und 390 px. Hero, Vorteile, Leistungen, persönliche Unterstützung mit Leistungsgrenzen, Ablauf, Abrechnung, FAQ und Abschluss-CTA liegen als eigenständige Sections unter `src/components/sections`. Statische Inhalte sind in `src/content` zentralisiert.
+
+- Das Layout stapelt Inhalte mobil, nutzt ab Tablet zweispaltige Karten und auf Desktop bis zu drei Spalten.
+- Semantische Sections, eine H1, verknüpfte Überschriften, Skip-Link, Fokuszustände und das tastaturbedienbare FAQ-Accordion unterstützen die Zugänglichkeit.
+- Die Startseite besitzt eigene SEO-Metadaten. Canonical und Open-Graph-Bild bleiben bis zur finalen Produktionskonfiguration offen.
+- Vorhandene Marken-SVGs bleiben lokal. Die geometrische Hero-Grafik wird ohne externen Figma-Hotlink umgesetzt.
+- Die sechs Hauptziele besitzen minimale technische Platzhalter. Leistungskarten verweisen bis DEV-04 gesammelt auf `/leistungen`, um keine Wegwerf-Detailseiten anzulegen.
+
+## Offen für DEV-04
+
+- vollständige Folge- und Leistungsdetailseiten sowie finale Zuordnung der Leistungslinks
+- Kontaktformular und technische Übermittlung
 - mögliche spätere Ablösung der aus Figma-Logozeichen und HTML-Text aufgebauten Wortmarke durch eine finale kombinierte Logodatei
-- fachliche Ausgestaltung der Leistungs-, Ablauf-, FAQ- und Kontaktinhalte
 - rechtliche Seiten und Cookie-Einstellungsfunktion
 
 ## Bekannte Abweichungen zu Figma
@@ -93,3 +103,4 @@ Das Root-Layout enthält genau ein `main#main-content`. Seiten liefern nur den I
 - Das originale Figma-Logozeichen und Telefon-Icon liegen lokal unter `public/brand`; der Wortmarkentext bleibt für gute Skalierbarkeit und Austauschbarkeit HTML.
 - Der grüne CTA verwendet Navy-Schrift statt der weißen Figma-Schrift, um den Kontrast für normalen Text zu erhöhen.
 - Die Headerbreite bleibt fluid und wird nicht auf eine feste Figma-Canvasbreite gesetzt.
+- Leistungsgrenzen und Notfallhinweis sind aufgrund der fachlichen Vorgaben zusätzlich sichtbar hervorgehoben.

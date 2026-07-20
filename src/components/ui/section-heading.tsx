@@ -6,6 +6,7 @@ type SectionHeadingProps = {
   description?: string;
   align?: "left" | "center";
   headingLevel?: 2 | 3 | 4;
+  titleId?: string;
   className?: string;
 };
 
@@ -15,6 +16,7 @@ export function SectionHeading({
   description,
   align = "left",
   headingLevel = 2,
+  titleId,
   className,
 }: SectionHeadingProps) {
   const Heading = headingLevel === 3 ? "h3" : headingLevel === 4 ? "h4" : "h2";
@@ -32,7 +34,7 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <Heading className="text-section-title text-navy">{title}</Heading>
+      <Heading id={titleId} className="text-section-title text-navy">{title}</Heading>
       {description && (
         <p className="mt-5 text-lg leading-relaxed text-navy/70">{description}</p>
       )}

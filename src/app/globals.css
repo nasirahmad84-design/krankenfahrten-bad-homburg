@@ -114,6 +114,33 @@ body {
     font-size: clamp(1.125rem, 2vw, 1.375rem);
     line-height: 1.6;
   }
+
+  .home-section {
+    padding-block: 3.5rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .home-eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-green);
+  }
+
+  .home-section-heading > p:first-child {
+    margin-bottom: 0.625rem;
+    color: var(--color-green);
+    font-size: 0.8125rem;
+  }
+
+  .home-section-heading > p:last-child {
+    margin-top: 0.625rem;
+    color: #5b697a;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
 }
 
 @media (min-width: 48rem) {
@@ -123,6 +150,10 @@ body {
 
   .site-body {
     padding-bottom: 0;
+  }
+
+  .home-section {
+    padding-block: 4.5rem;
   }
 }
 
