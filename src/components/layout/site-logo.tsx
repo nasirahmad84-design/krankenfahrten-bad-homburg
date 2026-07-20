@@ -15,7 +15,7 @@ export function SiteLogo({ compact = false, className }: SiteLogoProps) {
       href="/"
       className={classNames(
         "flex shrink-0 items-center overflow-hidden whitespace-nowrap",
-        compact ? "h-11 w-[154px] gap-[5px]" : "h-[58px] w-[218px] gap-2",
+        compact ? "h-11 w-[166px] gap-[5px]" : "h-[58px] w-[218px] gap-2",
         className,
       )}
       aria-label={`${siteConfig.name} – Startseite`}

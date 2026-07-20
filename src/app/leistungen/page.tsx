@@ -17,7 +17,7 @@ export default function ServicesPage() {
   return <>
     <PageHero eyebrow="Unsere Leistungen" title="Sitzende Krankenfahrten passend zu Ihrem Termin" description="Wir organisieren Fahrten für Personen, die während der Beförderung sicher sitzen können. Jede Fahrt wird persönlich abgestimmt und erst nach ausdrücklicher Bestätigung verbindlich." />
     <ContentSection id="service-overview" title="Fahrten für unterschiedliche Behandlungssituationen" description="Die Durchführung erfolgt nach Verfügbarkeit und auf Grundlage der bestätigten Fahrtdaten.">
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{allServices.map((service, index) => <ServiceCard key={service.title} {...service} linkText="Details vormerken" icon={<Image src={service.icon} alt="" width={34} height={34} />} className={index === allServices.length - 1 ? "lg:col-span-2 lg:min-h-[260px]" : undefined} />)}</div>
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{allServices.map((service, index) => <ServiceCard key={service.slug} title={service.title} description={service.description} href={`/leistungen/${service.slug}`} linkText="Details ansehen" icon={<Image src={service.icon} alt="" width={34} height={34} />} className={index === allServices.length - 1 ? "lg:col-span-2 lg:min-h-[260px]" : undefined} />)}</div>
     </ContentSection>
     <ContentSection id="personal-support" eyebrow="Persönliche Unterstützung" title="Unterstützung rund um die Fahrt" muted><InfoList items={supportPoints} /></ContentSection>
     <ContentSection id="service-limits" title="Klare Leistungsgrenzen">

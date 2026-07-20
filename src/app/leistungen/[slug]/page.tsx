@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { PlannedPage } from "@/components/layout/planned-page";
-import { allServices } from "@/content/services";
+import { ServiceDetailPage } from "@/components/sections/service-detail-page";
+import { allServices, servicesBySlug } from "@/content/services";
 
-const routes = Object.fromEntries(allServices.map((service) => [service.href.split("/").at(-1), service.title]));
+type ServicePageProps = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() { return Object.keys(routes).map((slug) => ({ slug })); }
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const title = routes[slug];
-  return { title: title ? `${title} | Krankenfahrten Bad Homburg` : "Leistung nicht gefunden" };
+export function generateStaticParams() {
+  return allServices.map(({ slug }) => ({ slug }));
 }
 
-export default async function ServiceDetailPlaceholder({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const title = routes[slug];
-  if (!title) notFound();
-  return <PlannedPage title={title} />;
+  const service = servicesBySlug[slug];
+  if (!service) return { title: "Leistung nicht gefunden" };
+  return { title: service.metadataTitle, description: service.metadataDescription };
+}
+
+export default async function ServicePage({ params }: ServicePageProps) {
+  const { slug } = await params;
+  const service = servicesBySlug[slug];
+  if (!service) notFound();
+  return <ServiceDetailPage service={service} />;
 }

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { SiteContainer } from "@/components/layout/site-container";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -17,4 +19,3 @@ export function HomeServices() {
     </section>
   );
 }
-import Image from "next/image";

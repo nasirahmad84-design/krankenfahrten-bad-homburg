@@ -102,9 +102,8 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 - Alle Hauptseiten verwenden individuelle Metadaten, genau eine H1 und semantische Sections. Formulare stapeln mobil und wechseln ab Tablet in ein zweispaltiges Raster.
 - Die Figma-Datei enthält aktuell keine separaten Hauptseiten-Frames. Die Seiten übertragen deshalb das freigegebene Startseiten- und Komponentensystem konsistent; dies ist die zentrale verbleibende Figma-Abweichung.
 
-## Offen für DEV-05
+## Offen für DEV-06
 
-- vollständige Leistungsdetailseiten
 - echte Formularübermittlung, E-Mail-Versand und serverseitige Verarbeitung
 - vollständige rechtliche Seiten und Cookie-Einstellungsfunktion
 - mögliche spätere Ablösung der aus Figma-Logozeichen und HTML-Text aufgebauten Wortmarke durch eine finale kombinierte Logodatei
@@ -133,3 +132,27 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 - Die Serienfahrten-Karte belegt auf Desktop bewusst zwei Spalten. Leistungen- und Kostenprozess nutzen verbundene, horizontale Schritte und bleiben mobil vertikal geführt.
 - Inhaltsseiten-Heros verwenden die freie rechte Fläche für eine zurückhaltende geometrische Form und sind auf Desktop etwas kompakter.
 - Der in segmentierten Full-Page-Screenshots sichtbare navyfarbene „Balken“ ist die vom Browser-Compositor pro Aufnahmekachel erneut gerenderte feste Mobile Contact Bar; auch Sticky Header und Seitenanfang werden dabei wiederholt. Im echten DOM existiert genau eine Leiste, ohne Transform, Filter oder Backdrop-Filter. Die funktionierende Fixed-Logik wurde deshalb nicht für ein Werkzeug-Artefakt verändert.
+
+## Leistungsdetailseiten (DEV-05)
+
+Die dynamische Route `src/app/leistungen/[slug]/page.tsx` erzeugt sieben vollständig statisch vorgerenderte Leistungsseiten. `ServiceDetailPage` bildet das gemeinsame Seitensystem aus Breadcrumb, Hero, Überblick, Unterstützung, Ablauf, Leistungsgrenzen, optionalem Abrechnungshinweis, FAQ, verwandten Leistungen und Abschluss-CTA. Die Route selbst bleibt dadurch schlank und vollständig als Server Component ausführbar; nur das vorhandene FAQ-Accordion benötigt Client-State.
+
+Das typisierte Datenmodell in `src/content/services.ts` hält alle fachlichen Varianten zentral. Gemeinsame Leistungsgrenzen und Unterstützungstexte werden nur einmal gepflegt; individuelle Eignung, Anlässe, Prozessschritte, Hinweise, FAQ, Beziehungen, Metadaten und CTA-Texte liegen beim jeweiligen Service. Es gibt keine CMS-Simulation und keine Formularübermittlung.
+
+Detailrouten:
+
+- `/leistungen/sitzende-krankenfahrten`
+- `/leistungen/arzt-klinikfahrten`
+- `/leistungen/dialysefahrten`
+- `/leistungen/chemo-strahlentherapiefahrten`
+- `/leistungen/reha-therapiefahrten`
+- `/leistungen/entlassungsfahrten`
+- `/leistungen/serienfahrten`
+
+`Breadcrumbs` verwendet eine beschriftete Navigation, verlinkt Startseite und Leistungsübersicht und markiert die aktuelle Seite mit `aria-current="page"`. Jede Detailseite zeigt zwei bis drei datenbasiert ausgewählte verwandte Leistungen; die aktuelle Leistung wird nicht erneut angeboten. Die leistungsspezifischen FAQ bleiben im Service-Modell zentral und verwenden das bestehende zugängliche Accordion.
+
+Startseiten- und Übersichtskarten verweisen direkt auf die passenden Detailrouten. Abrechnungshinweise führen zentral zu `/kosten-abrechnung`, sämtliche Abschlussaktionen zu `/kontakt` beziehungsweise zum zentral konfigurierten Telefon-Link. Alle Seiten besitzen individuelle Titel und Beschreibungen. Canonicals und absolute strukturierte Daten bleiben bis zur finalen Produktionsdomain bewusst offen; medizinische Schemas, Preise, Bewertungen oder unbelegte Unternehmensangaben werden nicht ausgegeben.
+
+Mobil stapeln Überblicks-, Prozess- und Beziehungskarten einspaltig. Ab `768px` werden geeignete Bereiche mehrspaltig; Textbreiten, Breadcrumb-Umbruch, Touchziele und das globale Bottom-Padding berücksichtigen Header und Mobile Contact Bar. Die Figma-Datei enthält keine eigenen Frames für die sieben Detailseiten, daher übertragen sie das vorhandene Komponenten-, Farb- und Abstandssystem konsistent statt neue unbelegte Layouts einzuführen.
+
+Für DEV-06 offen bleiben insbesondere die echte serverseitige Anfrageverarbeitung, finale Rechtstexte, die Produktionsdomain für Canonicals und absolute strukturierte Daten sowie eine fachliche Freigabe sämtlicher Leistungsformulierungen.
