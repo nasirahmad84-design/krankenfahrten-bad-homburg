@@ -2,9 +2,12 @@
 
 :root {
   --color-navy: #021f58;
+  --color-navy-light: #123b78;
   --color-green: #5fa538;
+  --color-green-dark: #44772a;
+  --color-green-light: #a8d88a;
   --color-white: #fefefe;
-  --container-max: 75rem;
+  --container-max: 80rem;
   --container-gutter: 1.25rem;
   --spacing-section: clamp(4rem, 8vw, 7.5rem);
   --radius-card: 1.5rem;
@@ -16,7 +19,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-navy: var(--color-navy);
+  --color-navy-light: var(--color-navy-light);
   --color-green: var(--color-green);
+  --color-green-dark: var(--color-green-dark);
+  --color-green-light: var(--color-green-light);
   --color-white: var(--color-white);
   --font-sans: var(--font-inter);
   --spacing-section: var(--spacing-section);
@@ -33,11 +39,46 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-green-light);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--color-navy);
+}
+
+.site-body {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+
+.mobile-contact-bar {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(calc(-100% - 1rem));
+  border-radius: 0.5rem;
+  background: var(--color-white);
+  padding: 0.75rem 1rem;
+  color: var(--color-navy);
+  font-weight: 700;
+  transition: transform 150ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 @layer components {
@@ -53,6 +94,13 @@ body {
     letter-spacing: -0.03em;
   }
 
+  .text-section-title {
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
   .text-lead {
     font-size: clamp(1.125rem, 2vw, 1.375rem);
     line-height: 1.6;
@@ -62,5 +110,24 @@ body {
 @media (min-width: 48rem) {
   :root {
     --container-gutter: 2rem;
+  }
+
+  .site-body {
+    padding-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
