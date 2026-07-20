@@ -12,7 +12,7 @@ export type RideRequest = Readonly<{
   pickup: string;
   destination: string;
   reason: string;
-  journey: "Nur Hinfahrt" | "Hin- und Rückfahrt";
+  journey?: "Nur Hinfahrt" | "Hin- und Rückfahrt";
   notes?: string;
 }>;
 
@@ -29,7 +29,7 @@ const allowedReasons = new Set([
   "Serienfahrt",
   "Sonstiger Fahrtanlass",
 ]);
-const allowedJourneys = new Set<RideRequest["journey"]>(["Nur Hinfahrt", "Hin- und Rückfahrt"]);
+const allowedJourneys = new Set(["Nur Hinfahrt", "Hin- und Rückfahrt"] as const);
 const emailPattern = /^[^\s@\r\n]+@[^\s@\r\n]+\.[^\s@\r\n]+$/;
 const phonePattern = /^[+()0-9\s./-]{5,40}$/;
 const timePattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
@@ -57,14 +57,13 @@ export function validateRideRequest(formData: FormData, now = new Date()): RideR
   requireWithinLimit(values.pickup, "pickup", limits.pickup, fieldErrors);
   requireWithinLimit(values.destination, "destination", limits.destination, fieldErrors);
   requireWithinLimit(values.reason, "reason", limits.reason, fieldErrors);
-  requireWithinLimit(values.journey, "journey", limits.journey, fieldErrors);
 
   if (values.email.length > limits.email) fieldErrors.email = `Bitte verwenden Sie höchstens ${limits.email} Zeichen.`;
   else if (values.email && !emailPattern.test(values.email)) fieldErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
 
   if (values.phone && !phonePattern.test(values.phone)) fieldErrors.phone = "Bitte geben Sie eine gültige Telefonnummer ein.";
   if (!allowedReasons.has(values.reason)) fieldErrors.reason = "Bitte wählen Sie einen gültigen Anlass aus.";
-  if (!allowedJourneys.has(values.journey as RideRequest["journey"])) fieldErrors.journey = "Bitte wählen Sie eine gültige Fahrt aus.";
+  if (values.journey && !allowedJourneys.has(values.journey as "Nur Hinfahrt" | "Hin- und Rückfahrt")) fieldErrors.journey = "Bitte wählen Sie eine gültige Fahrt aus.";
   if (!isPlausibleDate(values.date, now)) fieldErrors.date = "Bitte wählen Sie ein gültiges zukünftiges Fahrtdatum.";
   if (!timePattern.test(values.time)) fieldErrors.time = "Bitte wählen Sie eine gültige Uhrzeit.";
   if (values.notes.length > limits.notes) fieldErrors.notes = `Bitte verwenden Sie höchstens ${limits.notes} Zeichen.`;
@@ -83,16 +82,10 @@ export function validateRideRequest(formData: FormData, now = new Date()): RideR
       pickup: values.pickup,
       destination: values.destination,
       reason: values.reason,
-      journey: values.journey as RideRequest["journey"],
+      journey: values.journey ? values.journey as "Nur Hinfahrt" | "Hin- und Rückfahrt" : undefined,
       notes: values.notes || undefined,
     },
   };
-}
-
-export function isSpamSubmission(formData: FormData, now = Date.now()) {
-  if (normalizeSingleLine(formData.get("website"))) return true;
-  const startedAt = Number(formData.get("formStartedAt"));
-  return !Number.isFinite(startedAt) || startedAt > now || now - startedAt < 2_500 || now - startedAt > 7_200_000;
 }
 
 function normalizeSingleLine(value: FormDataEntryValue | null) {

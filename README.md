@@ -16,10 +16,9 @@ Die lokale Entwicklungsumgebung ist anschließend unter [http://localhost:3000](
 ## Scripts
 
 - `npm run dev` – startet den Entwicklungsserver
-- `npm run build` – erstellt den Production-Build
-- `npm run start` – startet den Production-Server
+- `npm run build` – erzeugt den statischen Production-Export unter `out/`
 - `npm run lint` – prüft den Quellcode mit ESLint
-- `npm test` – prüft Validierung, Spam-Erkennung, Provider- und E-Mail-Logik mit dem eingebauten Node-Testläufer
+- `npm test` – prüft Clientvalidierung, JSON-Transport, Fehlerantworten und Timeout mit dem eingebauten Node-Testläufer
 
 ## Projektstruktur
 
@@ -158,26 +157,30 @@ Mobil stapeln Überblicks-, Prozess- und Beziehungskarten einspaltig. Ab `768px`
 
 Für DEV-06 offen bleiben insbesondere die echte serverseitige Anfrageverarbeitung, finale Rechtstexte, die Produktionsdomain für Canonicals und absolute strukturierte Daten sowie eine fachliche Freigabe sämtlicher Leistungsformulierungen.
 
-## Sichere Anfrageübermittlung (DEV-06A)
+## Statischer Export und PHP-Anfrageübermittlung (DEV-06A.1)
 
-Das Kontaktformular sendet über die Server Action `src/app/kontakt/actions.ts`. Clientseitige Pflichtfeld- und E-Mail-Prüfungen geben unmittelbares Feedback; `src/lib/validation/ride-request.ts` validiert unabhängig davon sämtliche übermittelten Werte erneut, normalisiert Whitespace, begrenzt Feldlängen und plausibilisiert Datum, Uhrzeit, Anlass und Fahrtart. Die Kontaktseite wird dynamisch gerendert, damit jeder Formularaufruf einen eigenen serverseitig geprüften Startzeitpunkt erhält.
+`next.config.ts` verwendet `output: "export"`, Verzeichnis-URLs mit abschließendem Slash und unoptimierte lokale Next-Bilder. `npm run build` erzeugt das vollständig per FTP auslieferbare Paket unter `out/`. Alle Seiten einschließlich `/kontakt/` sind statisch. **Die Anwendung benötigt auf dem Zielserver keinen Node.js-Prozess.**
 
-Die Formularzustände umfassen Initialzustand, laufende Übermittlung, Validierungsfehler, Server-/Konfigurationsfehler und Erfolg. Der Submit-Button wird während der Übermittlung deaktiviert. Fehler fokussieren das erste betroffene Feld, Statusmeldungen werden über `aria-live` bekannt gegeben und nach erfolgreichem Versand wird das Formular zurückgesetzt sowie die Erfolgsüberschrift fokussiert. Ohne JavaScript kann die Server Action weiterhin über das native Formularziel verarbeitet werden; mit JavaScript ergänzt React den kontrollierten Pending-State.
+Das Kontaktformular validiert Pflichtfelder, optionale E-Mail, Datum, Uhrzeit, erlaubte Anlässe und Maximallängen im Browser. Anschließend sendet es ausschließlich per `POST` und JSON an `/api/fahrtanfrage.php`. Pending-, Validierungs-, Serverfehler- und Erfolgszustand, Doppelklickschutz, Timeout, Werterhalt, Formularreset, Fehlerfokus, Erfolgsfokus und `aria-live` bleiben erhalten. Die Clientprüfung dient nur dem Komfort; PHP prüft sämtliche Werte erneut.
 
-Der datenschutzfreundliche Basisschutz besteht aus einem Honeypot, einer Mindestdauer von 2,5 Sekunden, einem maximal zwei Stunden alten Formularzeitstempel und einem pro Node-Prozess geführten In-Memory-Limit. Dieses Rate Limit ist nur ein Basisschutz: Serverless-Instanzen teilen und erhalten den Speicher nicht zuverlässig. `RateLimitStore` ist deshalb als austauschbare Schnittstelle vorbereitet; ein verteilter Dienst bleibt für Produktion offen. Es werden keine IP-Adressen oder Formularinhalte im Limit gespeichert.
+`public/api/fahrtanfrage.php` wird beim Export nach `out/api/` kopiert. Die Module unter `public/api/lib/` übernehmen Validierung, Herkunftsprüfung, Formularzeitprüfung, dateibasiertes Rate Limit und UTF-8-Textmail. Der Empfänger und der technische Absender kommen ausschließlich aus `config.php`; eine Nutzeradresse wird höchstens als validiertes `Reply-To` verwendet. Es wird keine automatische Bestätigung an Nutzer versendet.
 
-`src/lib/email/send-ride-request.ts` trennt Formulardaten, Templates und Provider. Ohne gültige Konfiguration verweigert der Development-Provider den Versand, schreibt keine personenbezogenen Daten in die Konsole und erzeugt keinen falschen Erfolgszustand. Für Produktion ist `EMAIL_PROVIDER=resend` ohne zusätzliche SDK-Dependency über die serverseitige HTTPS-API vorbereitet. Die interne E-Mail besitzt Text- und einfache HTML-Versionen, escaped Nutzertexte und weist deutlich darauf hin, dass keine Buchung bestätigt ist. Eine reduzierte Eingangsbestätigung wird nur bei angegebener E-Mail-Adresse und nach erfolgreichem internen Versand versucht.
+Der Spam-Basisschutz kombiniert Honeypot, einen plausibilisierten Browserzeitstempel und ein kurzlebiges, dateibasiertes Limit mit HMAC-gehashter IP-Kennung. Vollständige IP-Adressen und Formulardaten werden nicht gespeichert. Der Browserzeitstempel ist ohne Session oder serverseitige Signatur manipulierbar und daher nur ein zusätzliches Signal, keine Sicherheitsgarantie. `Origin` wird, sofern vorhanden, gegen die konfigurierte Domain geprüft; fehlende Header werden aus Kompatibilitätsgründen nicht pauschal blockiert.
 
-Benötigte Variablen sind in `.env.example` dokumentiert:
+Für den statischen Build sind derzeit keine Environment Variables erforderlich. Die produktive PHP-Konfiguration entsteht manuell als `public/api/config.php` beziehungsweise direkt auf dem Server nach Vorlage von `config.example.php`; sie ist durch `.gitignore` ausgeschlossen. Der Webserver muss PHP ausführen und den Zugriff auf Konfigurationsdateien per `.htaccess` blockieren. Details stehen in `deployment/ALL-INKL.md` und `deployment/checklist.md`.
 
-- `EMAIL_PROVIDER=resend`
-- `EMAIL_API_KEY`
-- `CONTACT_EMAIL_TO`
-- `CONTACT_EMAIL_FROM`
-- `SITE_URL` als vorbereitete zentrale Produktions-URL
+Lokale Prüfung:
 
-Für einen lokalen Konfigurationstest bleibt `EMAIL_PROVIDER` ungesetzt; das Formular zeigt dann ausdrücklich an, dass nichts versendet wurde. `mock-success` und `mock-error` stehen ausschließlich bei `NODE_ENV !== "production"` für Browserprüfungen zur Verfügung und versenden keine Daten. Mit `MOCK_EMAIL_DELAY_MS` kann lokal ein langsamer Versand bis maximal zwei Sekunden simuliert werden. Ein echter Versandtest benötigt einen gültigen Provider-Schlüssel sowie beim Provider freigegebene Absender- und Empfängeradressen. Secrets gehören ausschließlich in eine nicht versionierte `.env.local` beziehungsweise in die Produktionsumgebung.
+```bash
+npm install
+npm test
+npm run lint
+npm run build
+find out -maxdepth 3 -type f | sort
+```
 
-Die Datenerhebung bleibt auf Name, Kontaktmöglichkeit und notwendige Fahrtdaten beschränkt. Es gibt keine Diagnose-, Versicherungs-, Dokument- oder Uploadfelder und keine Datenbank. Der optionale Hinweis ist auf 1.000 Zeichen begrenzt und fordert ausdrücklich dazu auf, keine Diagnosen oder Notfalldaten einzugeben. Empfänger und Absender stammen ausschließlich aus der Serverkonfiguration; Formulardaten erscheinen weder in URLs noch in Logs.
+Wenn PHP installiert ist, zusätzlich alle PHP-Dateien mit `php -l` prüfen, `tests/php/ride-request-test.php` ausführen, eine lokale `out/api/config.php` mit `environment=development` und `mail_transport=mock-success` erstellen und `php -S 127.0.0.1:8080 -t out` starten. In der aktuellen Entwicklungsumgebung ist PHP nicht installiert; deshalb bleibt die echte `mail()`-Ausführung ein verpflichtender ALL-INKL-Abnahmepunkt.
 
-Bekannte Einschränkungen: Das lokale Rate Limit ist nicht verteilt, eine optionale Bestätigungs-E-Mail kann nach erfolgreichem internen Versand separat scheitern, und der Resend-Versand benötigt noch produktive Domain-/Absenderfreigabe. Für DEV-06B offen bleiben ein externer verteilter Rate-Limit-Dienst, Monitoring ohne personenbezogene Inhalte, finale Zustellkonfiguration, rechtliche Freigaben und gegebenenfalls serverseitig signierte Formularzeitstempel.
+Ohne lokales PHP kann `node tests/static-export-server.mjs` ausschließlich die exportierten HTML-/Assetdateien und die Frontend-Zustände gegen definierte JSON-Mockantworten prüfen. Dieser Helfer führt kein PHP aus und ersetzt weder `php -l` noch die Hosting-Abnahme.
+
+Die zuvor in Commit `9a6fe3d` eingeführte Server-Action-/Resend-Architektur wurde vollständig verworfen: keine Server Actions, Route Handler, Node-Mail-Provider, Node-Secrets oder dynamische Kontaktseite bleiben bestehen.
