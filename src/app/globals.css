@@ -142,6 +142,29 @@ body {
     font-size: 1.125rem;
     line-height: 1.65;
   }
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-navy);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .form-control {
+    min-height: 3.25rem;
+    width: 100%;
+    border: 1px solid #cfd7e3;
+    border-radius: 0.75rem;
+    background: var(--color-white);
+    padding: 0.75rem 0.875rem;
+    color: var(--color-navy);
+    font: inherit;
+  }
+
+  .form-control[aria-invalid="true"] {
+    border-color: #b91c1c;
+  }
 }
 
 @media (min-width: 48rem) {

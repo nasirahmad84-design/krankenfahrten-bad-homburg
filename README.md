@@ -91,12 +91,23 @@ Die Startseite folgt den Figma-Frames für 1440 px und 390 px. Hero, Vorteile, L
 - Vorhandene Marken-SVGs bleiben lokal. Die geometrische Hero-Grafik wird ohne externen Figma-Hotlink umgesetzt.
 - Die sechs Hauptziele besitzen minimale technische Platzhalter. Leistungskarten verweisen bis DEV-04 gesammelt auf `/leistungen`, um keine Wegwerf-Detailseiten anzulegen.
 
-## Offen für DEV-04
+## Hauptseiten (DEV-04)
 
-- vollständige Folge- und Leistungsdetailseiten sowie finale Zuordnung der Leistungslinks
-- Kontaktformular und technische Übermittlung
+Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` und `/kontakt` sind vollständig als statische Hauptseiten umgesetzt. `PageHero`, `ContentSection`, `PageCta`, `InfoList` und `ProcessStep` bilden ein gemeinsames, responsives Seitensystem.
+
+- Inhalte sind in `services.ts`, `process.ts`, `faq.ts`, `about.ts`, `billing.ts` und `contact.ts` zentral abgelegt.
+- Sieben geplante Leistungsdetailrouten liefern bis DEV-05 bewusst nur technische Platzhalter; alle Leistungslinks funktionieren bereits.
+- `/datenschutz` ist ausschließlich als technisches Ziel für den Formularhinweis vorhanden. Impressum und Cookie-Einstellungen sind bis zur rechtlichen Umsetzung nicht als Links ausgebildet.
+- Das Anfrageformular validiert Pflichtfelder und optionale E-Mail-Adresse lokal, setzt `aria-invalid`/`aria-describedby`, fokussiert den ersten Fehler und zeigt anschließend nur einen Entwicklungszustand. Es sendet oder speichert keine Daten.
+- Alle Hauptseiten verwenden individuelle Metadaten, genau eine H1 und semantische Sections. Formulare stapeln mobil und wechseln ab Tablet in ein zweispaltiges Raster.
+- Die Figma-Datei enthält aktuell keine separaten Hauptseiten-Frames. Die Seiten übertragen deshalb das freigegebene Startseiten- und Komponentensystem konsistent; dies ist die zentrale verbleibende Figma-Abweichung.
+
+## Offen für DEV-05
+
+- vollständige Leistungsdetailseiten
+- echte Formularübermittlung, E-Mail-Versand und serverseitige Verarbeitung
+- vollständige rechtliche Seiten und Cookie-Einstellungsfunktion
 - mögliche spätere Ablösung der aus Figma-Logozeichen und HTML-Text aufgebauten Wortmarke durch eine finale kombinierte Logodatei
-- rechtliche Seiten und Cookie-Einstellungsfunktion
 
 ## Bekannte Abweichungen zu Figma
 
