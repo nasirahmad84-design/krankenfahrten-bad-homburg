@@ -223,4 +223,6 @@ Die PHP-Beispielkonfiguration verwendet die primäre Origin und enthält konfigu
 
 Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren die PHP-Abnahmematrix, Rollback-Anleitung sowie Deployment-, Go-live- und Legal-Review-Checklisten. Das vollständige Upload-Paket liegt nach `npm run build` unter `out/`. **Auf dem Zielserver ist kein Node.js-Prozess erforderlich.** Es findet kein automatisches Deployment statt.
 
+Der öffentliche Standardordnername `icons` wird wegen eines möglichen reservierten Apache-Alias auf dem ALL-INKL-Hosting nicht verwendet. Leistungsicons liegen im Quellcode unter `public/service-icons/` und im Upload-Paket unter `out/service-icons/`; Markenassets bleiben unverändert unter `public/brand/`.
+
 Verbleibende Einschränkungen: PHP und Apache/ALL-INKL-Header können in der lokalen Umgebung nicht vollständig geprüft werden. Mailzustellung, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. Ein finales Social-Sharing-Bild ist nicht vorhanden und wird deshalb nicht referenziert.

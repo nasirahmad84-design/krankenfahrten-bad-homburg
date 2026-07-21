@@ -8,6 +8,7 @@
 - [ ] `npm run test:export` erfolgreich
 - [ ] `npm run verify:deployment` erfolgreich
 - [ ] Inhalt von `out/` lokal kontrolliert
+- [ ] `out/service-icons/` enthält alle sechs Leistungsicons; der reservierte Altordner `icons` existiert nicht
 - [ ] vorheriges Domain-Zielverzeichnis gesichert
 - [ ] Domain-Zielverzeichnis im KAS geprüft
 - [ ] PHP 8.1 oder neuer aktiviert

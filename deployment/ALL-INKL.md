@@ -24,7 +24,9 @@ npm run test:export
 npm run verify:deployment
 ```
 
-Anschließend `out/` lokal prüfen. Es muss unter anderem HTML-Seiten, `_next/`, lokale Assets, `robots.txt`, `sitemap.xml`, `.htaccess` und `api/fahrtanfrage.php` enthalten. `api/config.php` darf nicht enthalten sein.
+Anschließend `out/` lokal prüfen. Es muss unter anderem HTML-Seiten, `_next/`, lokale Assets, `service-icons/`, `robots.txt`, `sitemap.xml`, `.htaccess` und `api/fahrtanfrage.php` enthalten. `api/config.php` darf nicht enthalten sein.
+
+Der öffentliche Standardordnername `icons` wird nicht verwendet, weil er auf dem ALL-INKL-Zielhosting durch einen Apache-Alias reserviert sein kann. Sämtliche Leistungsicons werden deshalb ausschließlich unter `/service-icons/` ausgeliefert. Vor dem Upload darf im Export kein gleichnamiger Altordner und keine darauf zeigende URL vorhanden sein.
 
 ## 2. Bestehenden Stand sichern
 
@@ -83,7 +85,7 @@ Keine gemischten `_next`-Buildstände betreiben. Beim kontrollierten Ersetzen zu
 - `robots.txt` und `sitemap.xml` direkt aufrufen
 - Canonicals auf die primäre HTTPS-Domain prüfen
 - HTTP- und `www`-Weiterleitungen ohne Schleife prüfen
-- `_next`-Assets, Icons und lokale Fonts prüfen
+- `_next`-Assets, `/service-icons/`, Markenassets und lokale Fonts prüfen
 - direkten Zugriff auf `api/config.php` prüfen; erwartet wird 403
 - Directory Listing und Zugriff auf Backup-/Logdateien prüfen
 - Sicherheits- und Cache-Header mit Browserwerkzeugen oder `curl -I` kontrollieren

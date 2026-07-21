@@ -21,10 +21,17 @@ const requiredFiles = [
   "api/lib/mail.php",
   "icon.png",
   "apple-icon.png",
+  "service-icons/arztfahrt.svg",
+  "service-icons/dialysefahrt.svg",
+  "service-icons/entlassungsfahrt.svg",
+  "service-icons/krankenhausfahrt.svg",
+  "service-icons/reha-fahrt.svg",
+  "service-icons/therapiefahrt.svg",
 ];
 for (const file of requiredFiles) assert.ok(existsSync(join(out, file)), `Erforderliche Datei fehlt: out/${file}`);
 
 assert.ok(!existsSync(join(out, "api/config.php")), "api/config.php darf nicht im Build-Paket liegen.");
+assert.ok(!existsSync(join(out, "icons")), "Der auf ALL-INKL reservierte Icon-Ordner darf nicht verwendet werden.");
 
 const files = collectFiles(out);
 const relativeFiles = files.map((file) => relative(out, file).split(sep).join("/"));
@@ -75,6 +82,7 @@ const publicText = files
   .map((file) => readFileSync(file, "utf8"))
   .join("\n");
 assert.doesNotMatch(publicText, /localhost|example\.com/i, "Lokale oder Beispieldomain im öffentlichen Paket.");
+assert.doesNotMatch(publicText, new RegExp("/" + "icons/"), "Die auf ALL-INKL reservierte Icon-URL ist noch im Seitenpaket enthalten.");
 assert.doesNotMatch(publicText, /use server|resend\.com|EMAIL_API_KEY|RESEND_API_KEY/i, "Server-Action-, Resend- oder Secret-Hinweis im Seitenpaket.");
 assert.doesNotMatch(publicText, /sk-[A-Za-z0-9]{16,}|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY/);
 
