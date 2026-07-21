@@ -5,6 +5,7 @@ import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/lib/site-config";
+import { productionOrigin } from "@/lib/site-url";
 
 import "./globals.css";
 
@@ -14,8 +15,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: `Website von ${siteConfig.name}`,
+  metadataBase: new URL(productionOrigin),
+  applicationName: siteConfig.name,
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: "Sitzende Krankenfahrten in Bad Homburg für Arzt-, Klinik-, Dialyse-, Therapie- und Entlassungstermine.",
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+  },
 };
 
 export default function RootLayout({

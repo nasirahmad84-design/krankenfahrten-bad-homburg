@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
-
 import { ContentSection } from "@/components/sections/content-section";
 import { PageCta } from "@/components/sections/page-cta";
 import { PageHero } from "@/components/sections/page-hero";
 import { InfoList } from "@/components/ui/info-list";
 import { NoticeBox } from "@/components/ui/notice-box";
 import { aboutLimits, workingPrinciples } from "@/content/about";
+import { createPageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "Über uns | Krankenfahrten Bad Homburg", description: "Krankenfahrten Bad Homburg: lokaler Fahrdienst von Mubasher Ahmad für persönlich abgestimmte sitzende Krankenfahrten." };
+export const metadata = createPageMetadata("Über uns | Krankenfahrten Bad Homburg", "Krankenfahrten Bad Homburg: lokaler Fahrdienst von Mubasher Ahmad für persönlich abgestimmte sitzende Krankenfahrten.", "/ueber-uns/");
 
 export default function AboutPage() {
   return <>

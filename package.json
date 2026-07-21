@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-static-seo.mjs",
     "build": "next build",
     "lint": "eslint",
     "test": "node --test --experimental-strip-types tests/*.test.mts",
-    "test:export": "node tests/legal-export-check.mjs"
+    "test:export": "node tests/legal-export-check.mjs",
+    "verify:deployment": "node scripts/verify-deployment.mjs"
   },
   "dependencies": {
     "next": "16.2.10",

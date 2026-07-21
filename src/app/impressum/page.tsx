@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
-
 import { LegalPage } from "@/components/legal/legal-page";
 import { imprintContent } from "@/content/legal/imprint";
+import { createPageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: "Impressum | Krankenfahrten Bad Homburg",
-  description: "Sachliche Anbieterkennzeichnung der Website Krankenfahrten Bad Homburg.",
-};
+export const metadata = createPageMetadata("Impressum | Krankenfahrten Bad Homburg", "Sachliche Anbieterkennzeichnung der Website Krankenfahrten Bad Homburg.", "/impressum/");
 
 export default function ImprintPage() {
   return (

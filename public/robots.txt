@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://krankenfahrten-bad-homburg.de/sitemap.xml

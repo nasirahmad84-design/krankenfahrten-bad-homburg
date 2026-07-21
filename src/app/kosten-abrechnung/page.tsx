@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import { ContentSection } from "@/components/sections/content-section";
 import { PageCta } from "@/components/sections/page-cta";
 import { PageHero } from "@/components/sections/page-hero";
@@ -7,8 +5,9 @@ import { InfoList } from "@/components/ui/info-list";
 import { NoticeBox } from "@/components/ui/notice-box";
 import { ProcessStep } from "@/components/ui/process-step";
 import { billingFaq, billingRequirements, billingSteps } from "@/content/billing";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = { title: "Kosten & Abrechnung | Krankenfahrten Bad Homburg", description: "Sachliche Hinweise zu Verordnung, Genehmigung, möglicher Krankenkassenabrechnung und Selbstzahlung bei Krankenfahrten in Bad Homburg." };
+export const metadata = createPageMetadata("Kosten & Abrechnung | Krankenfahrten Bad Homburg", "Sachliche Hinweise zu Verordnung, Genehmigung, möglicher Krankenkassenabrechnung und Selbstzahlung bei Krankenfahrten in Bad Homburg.", "/kosten-abrechnung/");
 
 export default function BillingPage() {
   return <>

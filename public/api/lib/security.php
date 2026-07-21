@@ -8,14 +8,14 @@ function valid_same_origin(array $server, string $allowedOrigin): bool
     return hash_equals(rtrim($allowedOrigin, '/'), rtrim($origin, '/'));
 }
 
-function valid_submission_time(mixed $startedAt, ?int $nowMilliseconds = null): bool
+function valid_submission_time(mixed $startedAt, ?int $nowMilliseconds = null, int $minimumAge = 2500, int $maximumAge = 7200000): bool
 {
     if (!is_int($startedAt) && !is_float($startedAt) && !is_string($startedAt)) return false;
     if (!is_numeric($startedAt)) return false;
     $started = (int) $startedAt;
     $now = $nowMilliseconds ?? (int) floor(microtime(true) * 1000);
     $age = $now - $started;
-    return $started > 0 && $age >= 2500 && $age <= 7200000;
+    return $started > 0 && $minimumAge >= 0 && $maximumAge > $minimumAge && $age >= $minimumAge && $age <= $maximumAge;
 }
 
 function check_rate_limit(array $server, array $config, ?int $now = null): array

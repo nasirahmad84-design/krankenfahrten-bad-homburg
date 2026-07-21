@@ -4,6 +4,7 @@ declare(strict_types=1);
 ini_set('display_errors', '0');
 header('Content-Type: application/json; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-store, max-age=0');
 
 require_once __DIR__ . '/lib/validation.php';
 require_once __DIR__ . '/lib/security.php';
@@ -29,13 +30,12 @@ if ($contentType === 'application/json') {
 if (normalize_line($input['website'] ?? '') !== '') respond(200, ['success' => true, 'message' => 'Anfrage wurde übermittelt.']);
 $validation = validate_ride_request($input);
 if ($validation['errors'] !== []) respond(400, ['success' => false, 'type' => 'validation', 'errors' => $validation['errors']]);
-if (!valid_submission_time($input['formStartedAt'] ?? null)) respond(400, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);
-
 $configPath = __DIR__ . '/config.php';
 if (!is_file($configPath)) respond(500, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);
 $config = require $configPath;
 if (!is_array($config)) respond(500, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);
 if (!valid_same_origin($_SERVER, (string) ($config['allowed_origin'] ?? ''))) respond(403, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);
+if (!valid_submission_time($input['formStartedAt'] ?? null, null, (int) ($config['minimum_form_age_ms'] ?? 2500), (int) ($config['maximum_form_age_ms'] ?? 7200000))) respond(400, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);
 $rateLimit = check_rate_limit($_SERVER, $config);
 if ($rateLimit['error']) respond(500, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);
 if (!$rateLimit['allowed']) respond(429, ['success' => false, 'type' => 'server', 'message' => 'Die Anfrage konnte momentan nicht übermittelt werden.']);

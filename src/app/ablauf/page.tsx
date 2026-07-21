@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import { ContentSection } from "@/components/sections/content-section";
 import { PageCta } from "@/components/sections/page-cta";
 import { PageHero } from "@/components/sections/page-hero";
@@ -7,8 +5,9 @@ import { InfoList } from "@/components/ui/info-list";
 import { NoticeBox } from "@/components/ui/notice-box";
 import { ProcessStep } from "@/components/ui/process-step";
 import { fullProcessSteps } from "@/content/process";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = { title: "Ablauf einer Krankenfahrt | Krankenfahrten Bad Homburg", description: "Vom unverbindlichen Fahrtwunsch über Abstimmung und Bestätigung bis zur sitzenden Hin- und möglichen Rückfahrt." };
+export const metadata = createPageMetadata("Ablauf einer Krankenfahrt | Krankenfahrten Bad Homburg", "Vom unverbindlichen Fahrtwunsch über Abstimmung und Bestätigung bis zur sitzenden Hin- und möglichen Rückfahrt.", "/ablauf/");
 
 export default function ProcessPage() {
   return <>

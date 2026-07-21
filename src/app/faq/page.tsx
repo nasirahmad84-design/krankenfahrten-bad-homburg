@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
-
 import { ContentSection } from "@/components/sections/content-section";
 import { PageCta } from "@/components/sections/page-cta";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { fullFaq } from "@/content/faq";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = { title: "Häufige Fragen | Krankenfahrten Bad Homburg", description: "Antworten zu sitzenden Krankenfahrten, Anfrage, Verfügbarkeit, Hin- und Rückfahrt, Kostenklärung und Leistungsgrenzen." };
+export const metadata = createPageMetadata("Häufige Fragen | Krankenfahrten Bad Homburg", "Antworten zu sitzenden Krankenfahrten, Anfrage, Verfügbarkeit, Hin- und Rückfahrt, Kostenklärung und Leistungsgrenzen.", "/faq/");
 
 export default function FaqPage() {
   return <>

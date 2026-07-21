@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { LegalPage } from "@/components/legal/legal-page";
 import { cookieContent } from "@/content/legal/cookies";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Cookie-Einstellungen | Krankenfahrten Bad Homburg",
-  description: "Informationen zu Cookies und ähnlichen Technologien auf dieser Website.",
-};
+export const metadata = createPageMetadata("Cookie-Einstellungen | Krankenfahrten Bad Homburg", "Informationen zu Cookies und ähnlichen Technologien auf dieser Website.", "/cookie-einstellungen/");
 
 export default function CookieSettingsPage() {
   return (

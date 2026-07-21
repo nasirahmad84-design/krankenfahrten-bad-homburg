@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { RideRequestForm } from "@/components/forms/ride-request-form";
@@ -7,9 +6,10 @@ import { PageHero } from "@/components/sections/page-hero";
 import { InfoList } from "@/components/ui/info-list";
 import { NoticeBox } from "@/components/ui/notice-box";
 import { contactAvailability } from "@/content/contact";
+import { createPageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "Fahrt anfragen | Krankenfahrten Bad Homburg", description: "Sitzende Krankenfahrt in Bad Homburg sicher und unverbindlich anfragen. Die Fahrt wird erst nach ausdrücklicher Bestätigung vereinbart." };
+export const metadata = createPageMetadata("Fahrt anfragen | Krankenfahrten Bad Homburg", "Sitzende Krankenfahrt in Bad Homburg sicher und unverbindlich anfragen. Die Fahrt wird erst nach ausdrücklicher Bestätigung vereinbart.", "/kontakt/");
 
 export default function ContactPage() {
   return <>

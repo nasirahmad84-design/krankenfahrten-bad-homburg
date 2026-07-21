@@ -1,39 +1,104 @@
 # Deployment auf ALL-INKL
 
+Die Anwendung wird lokal als statisches Paket gebaut. Auf dem Zielserver ist kein Node.js-Prozess erforderlich. Nur der Formularendpunkt benötigt PHP 8.1 oder neuer.
+
 ## Voraussetzungen
 
-- Node.js nur lokal beziehungsweise im Build-System
-- FTP-/SFTP-Zugang zum ALL-INKL-Webspace
-- PHP 8.1 oder neuer auf dem Zielhosting
-- aktive Domain mit SSL-Zertifikat
-- eingerichtete technische Absenderadresse, zum Beispiel `formular@krankenfahrten-bad-homburg.de`
+- lokales Node.js mit npm
+- FTP- oder SFTP-Zugang zum ALL-INKL-Webspace
+- Zugang zum ALL-INKL-KAS
+- Domain `krankenfahrten-bad-homburg.de`; `www` wird auf die primäre Domain ohne `www` weitergeleitet
+- aktives SSL-Zertifikat
+- PHP 8.1 oder neuer
+- Postfach `anfrage@krankenfahrten-bad-homburg.de`
+- technische Absenderadresse, beispielsweise `formular@krankenfahrten-bad-homburg.de`
 
-## Build und Upload
+## 1. Lokal bauen und prüfen
 
-1. `npm install` und `npm run build` lokal ausführen.
-2. Kontrollieren, dass `out/` HTML-Seiten, `_next/`, Assets, `.htaccess` und `api/fahrtanfrage.php` enthält.
-3. Das bisherige Domain-Zielverzeichnis im KAS sichern.
-4. Den vollständigen Inhalt von `out/` per FTP/SFTP in das im KAS konfigurierte Domain-Zielverzeichnis hochladen.
-5. Im KAS SSL aktivieren und HTTPS-Weiterleitung konfigurieren.
-6. Prüfen, dass PHP 8.1 oder neuer aktiv ist und `.php` ausgeführt statt als Klartext ausgeliefert wird.
+```bash
+npm install
+npm test
+npm run lint
+npm run build
+npm run test:export
+npm run verify:deployment
+```
 
-## PHP-Konfiguration
+Anschließend `out/` lokal prüfen. Es muss unter anderem HTML-Seiten, `_next/`, lokale Assets, `robots.txt`, `sitemap.xml`, `.htaccess` und `api/fahrtanfrage.php` enthalten. `api/config.php` darf nicht enthalten sein.
 
-`api/config.example.php` als Vorlage verwenden und auf dem Server `api/config.php` anlegen. Mindestens `mail_to`, `mail_from`, `allowed_origin`, ein langes zufälliges `rate_limit_salt`, ein beschreibbares Rate-Limit-Verzeichnis außerhalb des öffentlichen Webroots, `environment=production` und `mail_transport=mail` setzen. Keine Passwörter oder SMTP-Zugänge im Repository speichern.
+## 2. Bestehenden Stand sichern
 
-Die Zieladresse und der Absender dürfen nicht aus Request-Daten stammen. `config.php` muss durch die mitgelieferte `.htaccess` gesperrt sein. Vor dem Produktivstart den direkten HTTP-Zugriff auf `api/config.php` testen; erwartet wird 403. Falls PHP oder `.htaccess` nicht korrekt verarbeitet werden, nicht live schalten.
+1. Repository und aktuellen Commit dokumentieren.
+2. Das bisherige Domain-Zielverzeichnis vollständig sichern.
+3. Wenn möglich, die neue Version zunächst in ein separates Verzeichnis hochladen.
+4. Die produktive `api/config.php` separat sichern und nicht durch die Beispielkonfiguration überschreiben.
 
-## Abnahme
+Das genaue Domain-Zielverzeichnis wird im KAS angezeigt und darf nicht aus einer allgemeinen Anleitung abgeleitet werden.
 
-- `/`, `/kontakt/`, `/leistungen/`, `/leistungen/dialysefahrten/` und `/_next/` aufrufen.
-- `POST /api/fahrtanfrage.php` mit einer Testanfrage prüfen.
-- Falsche Methode, ungültige Daten, Mailfehler und Rate Limit kontrollieren.
-- Eingang im Postfach `anfrage@krankenfahrten-bad-homburg.de` verifizieren.
-- Prüfen, dass keine Formulardaten oder vollständigen IP-Adressen protokolliert werden.
-- PHP-/Webserver-Logs nur auf technische Statuscodes prüfen und Aufbewahrung begrenzen.
+## 3. Domain, PHP, SSL und Postfächer vorbereiten
 
-Da die Entwicklungsumgebung kein PHP enthält, muss auf dem Hosting folgende Endpunktmatrix geprüft werden: GET ergibt 405; falscher Content-Type 415; Request über 16 KiB 413; fehlende Felder, ungültige E-Mail, Überlänge und ungültige Zeitangaben 400; gefüllter Honeypot eine neutrale 200-Antwort ohne Mail; überschrittenes Limit 429; Mailfehler 500; gültige Anfrage 200 und genau eine interne E-Mail. Zusätzlich CRLF in E-Mail-Werten, HTML in Hinweisen, abweichenden Origin und fehlende Konfiguration prüfen. Antworten dürfen keine Warnungen oder Stacktraces enthalten.
+1. Primärdomain im KAS dem vorgesehenen Zielverzeichnis zuweisen.
+2. PHP 8.1 oder neuer aktivieren und mit einer kontrollierten PHP-Versionsprüfung bestätigen.
+3. SSL für die Domain und gegebenenfalls `www` aktivieren.
+4. HTTPS-Weiterleitung im KAS verwenden, wenn sie dort zuverlässig angeboten wird.
+5. Postfach und technische Absenderadresse einrichten.
 
-## Rollback
+Die mitgelieferte `.htaccess` enthält hostgebundene Weiterleitungen von HTTP auf HTTPS und von `www` auf non-`www`. Wenn die Weiterleitungen bereits im KAS eingerichtet sind, vor Go-live prüfen, dass keine doppelte oder widersprüchliche Regel besteht. Die Regeln greifen nur auf den Produktionshosts und nicht auf fremden Abnahmehosts.
 
-Vor jedem Upload das bisherige Zielverzeichnis sichern. Bei Fehlern die neue Version vollständig entfernen und die gesicherte Version zurückspielen; keine gemischten `_next`-Buildstände betreiben.
+## 4. Rate-Limit-Verzeichnis und PHP-Konfiguration
+
+Ein nicht öffentlich erreichbares Verzeichnis außerhalb des Webroots anlegen. Der PHP-Prozess benötigt dort Schreibrechte. Den konkreten absoluten Pfad im Hosting ermitteln; keine geratenen Pfade verwenden.
+
+Auf dem Server `api/config.php` anhand von `api/config.example.php` erstellen:
+
+- `mail_to`: festes Anfragepostfach
+- `mail_from`: technische Adresse derselben Domain
+- `allowed_origin`: `https://krankenfahrten-bad-homburg.de`
+- `rate_limit_salt`: mindestens 32 zufällige Bytes, nur serverseitig
+- `rate_limit_dir`: absolutes, beschreibbares Verzeichnis außerhalb des Webroots
+- `rate_limit_count` und `rate_limit_window`: freigegebene Grenzwerte
+- `minimum_form_age_ms` und `maximum_form_age_ms`: freigegebene Zeitgrenzen
+- `environment`: `production`
+- `mail_transport`: `mail`
+
+Einen Salt lokal oder auf einem geeigneten sicheren System erzeugen:
+
+```bash
+openssl rand -hex 32
+```
+
+Den Wert niemals committen, per Chat weitergeben oder in öffentlich erreichbare Dateien schreiben.
+
+## 5. Upload
+
+Den vollständigen Inhalt von `out/` per SFTP beziehungsweise FTP in das Zielverzeichnis hochladen. Versteckte Dateien müssen einbezogen werden, insbesondere `.htaccess`. Danach die produktive `api/config.php` serverseitig anlegen beziehungsweise aus der gesicherten, geprüften Konfiguration übernehmen.
+
+Keine gemischten `_next`-Buildstände betreiben. Beim kontrollierten Ersetzen zuerst die neue vollständige Version bereitstellen und erst anschließend das Ziel umschalten beziehungsweise die alte Version austauschen.
+
+## 6. Technische Abnahme
+
+- Startseite, Hauptseiten, sieben Leistungsdetailseiten und rechtliche Seiten aufrufen
+- unbekannte URL aufrufen und `404.html` prüfen
+- mobile Navigation, Footer und Mobile Contact Bar prüfen
+- `robots.txt` und `sitemap.xml` direkt aufrufen
+- Canonicals auf die primäre HTTPS-Domain prüfen
+- HTTP- und `www`-Weiterleitungen ohne Schleife prüfen
+- `_next`-Assets, Icons und lokale Fonts prüfen
+- direkten Zugriff auf `api/config.php` prüfen; erwartet wird 403
+- Directory Listing und Zugriff auf Backup-/Logdateien prüfen
+- Sicherheits- und Cache-Header mit Browserwerkzeugen oder `curl -I` kontrollieren
+- Cookie-, Storage- und Netzwerk-Scan durchführen
+
+Die vorbereitete CSP und HSTS sind aus Sicherheitsgründen nicht aktiv. CSP erst auf dem Abnahmehost aktivieren und danach alle Seiten, Navigation, Accordion und Formular ohne Browserfehler prüfen. HSTS erst einschalten, wenn HTTPS für alle betroffenen Hosts stabil funktioniert.
+
+## 7. Formularabnahme
+
+Die vollständige Matrix steht in `php-production-check.md`. Mindestens erfolgreiche Anfrage, serverseitige Validierung, Mailfehler, Reply-To, Origin-Prüfung, Zeitgrenzen und Rate Limit testen. Formulardaten dürfen nicht in Webserver- oder Anwendungslogs geschrieben werden.
+
+## 8. Freigabe und Go-live
+
+Vor Go-live `go-live-checklist.md`, `checklist.md` und `legal-review-checklist.md` vollständig bearbeiten. Die rechtlichen Inhalte müssen fachlich beziehungsweise rechtlich geprüft und freigegeben sein. Erst danach Domainziel beziehungsweise Upload freigeben.
+
+## 9. Rollback
+
+Bei Fehlern nach `rollback.md` zur gesicherten Version zurückkehren. `api/config.php` nicht überschreiben und keine gemischten Assetstände hinterlassen. Nach dem Rollback Startseite, Formular, HTTPS, Redirects und rechtliche Seiten erneut prüfen.

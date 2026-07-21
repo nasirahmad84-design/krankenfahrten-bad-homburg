@@ -20,6 +20,7 @@ Die lokale Entwicklungsumgebung ist anschließend unter [http://localhost:3000](
 - `npm run lint` – prüft den Quellcode mit ESLint
 - `npm test` – prüft Clientvalidierung, JSON-Transport, Fehlerantworten, Timeout und die technischen Legal-/Privacy-Invarianten mit dem eingebauten Node-Testläufer
 - `npm run test:export` – prüft nach dem Build die drei Rechtsseiten, H1-Struktur und externe Laufzeit-URLs im statischen Export
+- `npm run verify:deployment` – auditiert das vollständige Upload-Paket, Canonicals, Sitemap, Links, Fragmente, Assets und ausgeschlossene Dateien
 
 ## Projektstruktur
 
@@ -88,7 +89,7 @@ Die Startseite folgt den Figma-Frames für 1440 px und 390 px. Hero, Vorteile, L
 
 - Das Layout stapelt Inhalte mobil, nutzt ab Tablet zweispaltige Karten und auf Desktop bis zu drei Spalten.
 - Semantische Sections, eine H1, verknüpfte Überschriften, Skip-Link, Fokuszustände und das tastaturbedienbare FAQ-Accordion unterstützen die Zugänglichkeit.
-- Die Startseite besitzt eigene SEO-Metadaten. Canonical und Open-Graph-Bild bleiben bis zur finalen Produktionskonfiguration offen.
+- Die Startseite besitzt eigene SEO-Metadaten und einen Canonical für die festgelegte Produktionsdomain. Ein finales Open-Graph-Bild bleibt bewusst offen.
 - Vorhandene Marken-SVGs bleiben lokal. Die geometrische Hero-Grafik wird ohne externen Figma-Hotlink umgesetzt.
 - Die sechs Hauptziele besitzen minimale technische Platzhalter. Leistungskarten verweisen bis DEV-04 gesammelt auf `/leistungen`, um keine Wegwerf-Detailseiten anzulegen.
 
@@ -103,7 +104,7 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 - Alle Hauptseiten verwenden individuelle Metadaten, genau eine H1 und semantische Sections. Formulare stapeln mobil und wechseln ab Tablet in ein zweispaltiges Raster.
 - Die Figma-Datei enthält aktuell keine separaten Hauptseiten-Frames. Die Seiten übertragen deshalb das freigegebene Startseiten- und Komponentensystem konsistent; dies ist die zentrale verbleibende Figma-Abweichung.
 
-## Offen für DEV-06C
+## Offen vor Go-live
 
 - fachliche beziehungsweise rechtliche Freigabe der Inhalte und der Rechtsgrundlagenzuordnung
 - produktiver Cookie-, Storage- und Netzwerk-Scan nach dem ALL-INKL-Deployment
@@ -154,11 +155,11 @@ Detailrouten:
 
 `Breadcrumbs` verwendet eine beschriftete Navigation, verlinkt Startseite und Leistungsübersicht und markiert die aktuelle Seite mit `aria-current="page"`. Jede Detailseite zeigt zwei bis drei datenbasiert ausgewählte verwandte Leistungen; die aktuelle Leistung wird nicht erneut angeboten. Die leistungsspezifischen FAQ bleiben im Service-Modell zentral und verwenden das bestehende zugängliche Accordion.
 
-Startseiten- und Übersichtskarten verweisen direkt auf die passenden Detailrouten. Abrechnungshinweise führen zentral zu `/kosten-abrechnung`, sämtliche Abschlussaktionen zu `/kontakt` beziehungsweise zum zentral konfigurierten Telefon-Link. Alle Seiten besitzen individuelle Titel und Beschreibungen. Canonicals und absolute strukturierte Daten bleiben bis zur finalen Produktionsdomain bewusst offen; medizinische Schemas, Preise, Bewertungen oder unbelegte Unternehmensangaben werden nicht ausgegeben.
+Startseiten- und Übersichtskarten verweisen direkt auf die passenden Detailrouten. Abrechnungshinweise führen zentral zu `/kosten-abrechnung`, sämtliche Abschlussaktionen zu `/kontakt` beziehungsweise zum zentral konfigurierten Telefon-Link. Alle Seiten besitzen individuelle Titel, Beschreibungen, Canonicals und Open-Graph-Grunddaten. Medizinische Schemas, Preise, Bewertungen oder unbelegte Unternehmensangaben werden nicht ausgegeben.
 
 Mobil stapeln Überblicks-, Prozess- und Beziehungskarten einspaltig. Ab `768px` werden geeignete Bereiche mehrspaltig; Textbreiten, Breadcrumb-Umbruch, Touchziele und das globale Bottom-Padding berücksichtigen Header und Mobile Contact Bar. Die Figma-Datei enthält keine eigenen Frames für die sieben Detailseiten, daher übertragen sie das vorhandene Komponenten-, Farb- und Abstandssystem konsistent statt neue unbelegte Layouts einzuführen.
 
-Für DEV-06 offen bleiben insbesondere die echte serverseitige Anfrageverarbeitung, finale Rechtstexte, die Produktionsdomain für Canonicals und absolute strukturierte Daten sowie eine fachliche Freigabe sämtlicher Leistungsformulierungen.
+Vor Go-live offen bleiben insbesondere die Prüfung des echten PHP-Mailversands, die fachlich beziehungsweise rechtliche Freigabe und die Freigabe sämtlicher Leistungsformulierungen.
 
 ## Statischer Export und PHP-Anfrageübermittlung (DEV-06A.1)
 
@@ -205,3 +206,21 @@ Print-Styles blenden Headernavigation, Mobile Contact Bar, Footer und Sprungnavi
 Die noch erforderlichen Freigaben stehen in `deployment/legal-review-checklist.md` und zusätzlich zentral in `src/content/legal/open-items.ts`. Dazu gehören unter anderem Rechtsform, Register-, Steuer-, Aufsichts- und Genehmigungsangaben, die Rechtsgrundlagenzuordnung, Hosting-Logfristen, Auftragsverarbeitungsdetails, E-Mail-Löschfristen und die zuständige Datenschutzaufsicht.
 
 **Die rechtlichen Inhalte müssen vor Veröffentlichung fachlich beziehungsweise rechtlich geprüft und freigegeben werden.**
+
+## Produktions- und Deployment-Vorbereitung (DEV-06C)
+
+Die primäre Produktionsdomain ist zentral in `src/lib/site-url.ts` als `https://krankenfahrten-bad-homburg.de` hinterlegt. Die Variante mit `www` wird nicht als eigenständige Website behandelt, sondern soll dauerhaft auf die primäre Domain weiterleiten. Alle 17 indexierbaren Seiten verwenden daraus abgeleitete absolute Canonicals mit abschließendem Slash und seitenbezogene Open-Graph-Titel, -Beschreibungen und -URLs. `metadataBase`, Anwendungstitel, Standardsprache und lokale Icons werden im Root-Layout gesetzt.
+
+Vor jedem Build erzeugt `scripts/generate-static-seo.mjs` aus der zentralen Routen- und Servicedefinition die statischen Dateien `public/sitemap.xml` und `public/robots.txt`. Die Sitemap enthält nur die 17 öffentlichen Seiten, keine API- oder Entwicklungsziele. `robots.txt` erlaubt die öffentlichen Seiten, sperrt `/api/` für Crawler und verweist auf die Produktions-Sitemap. Es bestehen keine Next.js-Route-Handler.
+
+`src/app/not-found.tsx` liefert die statisch exportierte, deutschsprachige 404-Seite mit Startseiten-, Leistungs-, Kontakt- und Telefonaktion. Aus dem vorhandenen Logozeichen wurden PNG-Icons für Browser und Apple Touch erzeugt; das Standard-Next-Favicon und nicht verwendete Next-Startassets wurden entfernt. Ein Web-App-Manifest wird nicht erzeugt, weil keine PWA-Installierbarkeit vorgesehen ist.
+
+Die `.htaccess` bereitet hostgebundene HTTP-zu-HTTPS- und `www`-zu-non-`www`-Weiterleitungen, Zugriffsschutz, Fehlerseite, Sicherheitsheader und differenzierte Cache-Regeln vor. Statische Assets sind langfristig cachebar; HTML und SEO-Dateien werden revalidiert, PHP-Antworten nicht gespeichert. CSP und HSTS bleiben bis zur erfolgreichen Prüfung auf dem ALL-INKL-Abnahmehost deaktiviert. HTTPS- und Domainweiterleitungen sollen bevorzugt im KAS konfiguriert und anschließend gegen die `.htaccess` auf Widersprüche geprüft werden.
+
+Die PHP-Beispielkonfiguration verwendet die primäre Origin und enthält konfigurierbare Mindest- und Maximalzeiten für das Formular. `api/config.php` wird weiterhin ausschließlich auf dem Server erstellt. Ein sicherer Rate-Limit-Salt kann mit `openssl rand -hex 32` erzeugt werden. Der Endpunkt sendet zusätzlich `Cache-Control: no-store`.
+
+`scripts/verify-deployment.mjs` prüft nach dem Build die 17 Seiten, 404, Sitemap, robots.txt, `.htaccess`, PHP-Dateien, Icons, Canonicals, H1 und Skip-Links, interne Ziele, Assets und Fragmente. Außerdem schließt es `config.php`, `.env`, Source Maps, TypeScript-, Test- und Node-Serverdateien, lokale URLs, Beispieldomains, Server Actions, Resend-Hinweise und bekannte Secret-Muster aus.
+
+Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren die PHP-Abnahmematrix, Rollback-Anleitung sowie Deployment-, Go-live- und Legal-Review-Checklisten. Das vollständige Upload-Paket liegt nach `npm run build` unter `out/`. **Auf dem Zielserver ist kein Node.js-Prozess erforderlich.** Es findet kein automatisches Deployment statt.
+
+Verbleibende Einschränkungen: PHP und Apache/ALL-INKL-Header können in der lokalen Umgebung nicht vollständig geprüft werden. Mailzustellung, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. Ein finales Social-Sharing-Bild ist nicht vorhanden und wird deshalb nicht referenziert.

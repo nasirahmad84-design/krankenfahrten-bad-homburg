@@ -1,18 +1,33 @@
 # ALL-INKL Deployment-Checkliste
 
-- [ ] `npm test`, `npm run lint` und `npm run build` erfolgreich
-- [ ] `out/` vollständig und ohne echte Secrets
-- [ ] vorheriges Domain-Verzeichnis gesichert
-- [ ] Inhalt von `out/` per FTP/SFTP hochgeladen
-- [ ] Domain-Zielverzeichnis im KAS korrekt
-- [ ] SSL und HTTPS aktiv
-- [ ] PHP 8.1+ aktiv; PHP-Dateien werden ausgeführt
-- [ ] technisches Absenderpostfach eingerichtet
-- [ ] `api/config.php` manuell erstellt
-- [ ] Rate-Limit-Verzeichnis beschreibbar und außerhalb Webroot
-- [ ] direkter Zugriff auf `config.php` blockiert
-- [ ] statische Seiten und `_next`-Assets erreichbar
-- [ ] erfolgreiche Testanfrage zugestellt
-- [ ] Validierungs-, Rate-Limit- und Mailfehler neutral
+- [ ] Repository und Ausgangscommit dokumentiert
+- [ ] `npm install` erfolgreich
+- [ ] `npm test` erfolgreich
+- [ ] `npm run lint` erfolgreich
+- [ ] `npm run build` erfolgreich
+- [ ] `npm run test:export` erfolgreich
+- [ ] `npm run verify:deployment` erfolgreich
+- [ ] Inhalt von `out/` lokal kontrolliert
+- [ ] vorheriges Domain-Zielverzeichnis gesichert
+- [ ] Domain-Zielverzeichnis im KAS geprüft
+- [ ] PHP 8.1 oder neuer aktiviert
+- [ ] SSL für primäre Domain und `www` aktiviert
+- [ ] Anfragepostfach und technischer Absender eingerichtet
+- [ ] Rate-Limit-Verzeichnis außerhalb des Webroots angelegt und beschreibbar
+- [ ] sicherer Salt mit `openssl rand -hex 32` erzeugt
+- [ ] `api/config.php` ausschließlich auf dem Server erstellt
+- [ ] vollständiger Inhalt von `out/`, einschließlich `.htaccess`, hochgeladen
+- [ ] Dateirechte geprüft
+- [ ] direkter Zugriff auf `api/config.php` ergibt 403
+- [ ] Directory Listing deaktiviert
+- [ ] Startseite, Hauptseiten, Leistungsseiten und Rechtsseiten erreichbar
+- [ ] individuelle 404-Seite geprüft
+- [ ] Formular und E-Mail-Eingang geprüft
+- [ ] Reply-To, Validierungs-, Origin-, Rate-Limit- und Mailfehler geprüft
+- [ ] HTTP- und `www`-Weiterleitungen ohne Schleife geprüft
+- [ ] `robots.txt`, `sitemap.xml` und Canonicals geprüft
 - [ ] keine personenbezogenen Daten in Logs
-- [ ] Rollback-Sicherung dokumentiert
+- [ ] Cookie-, Storage- und Netzwerk-Scan durchgeführt
+- [ ] rechtliche Freigabe dokumentiert und offene Punkte geschlossen
+- [ ] Go-live-Checkliste vollständig
+- [ ] Rollback-Sicherung und Rückkehrweg getestet

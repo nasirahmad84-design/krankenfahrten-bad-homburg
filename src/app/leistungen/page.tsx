@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 
 import { ContentSection } from "@/components/sections/content-section";
@@ -10,8 +9,9 @@ import { ProcessStep } from "@/components/ui/process-step";
 import { ServiceCard } from "@/components/ui/service-card";
 import { supportPoints } from "@/content/home";
 import { allServices } from "@/content/services";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = { title: "Leistungen | Krankenfahrten Bad Homburg", description: "Übersicht der sitzenden Krankenfahrten in Bad Homburg für Arzt, Klinik, Dialyse, Therapie, Entlassung und wiederkehrende Termine." };
+export const metadata = createPageMetadata("Leistungen | Krankenfahrten Bad Homburg", "Übersicht der sitzenden Krankenfahrten in Bad Homburg für Arzt, Klinik, Dialyse, Therapie, Entlassung und wiederkehrende Termine.", "/leistungen/");
 
 export default function ServicesPage() {
   return <>

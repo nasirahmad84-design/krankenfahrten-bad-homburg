@@ -1,14 +1,59 @@
 Options -Indexes
 DirectoryIndex index.html
 AddDefaultCharset UTF-8
+ErrorDocument 404 /404.html
 
-<FilesMatch "^(?:\.env.*|config(?:\.example)?\.php|.*\.log)$">
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Die Regeln greifen ausschließlich auf den beiden Produktionshosts. Dadurch
+  # bleiben lokale und separate Abnahmeverzeichnisse auf anderen Hosts nutzbar.
+  RewriteCond %{HTTP_HOST} ^www\.krankenfahrten-bad-homburg\.de$ [NC]
+  RewriteRule ^ https://krankenfahrten-bad-homburg.de%{REQUEST_URI} [R=301,L,NE]
+
+  RewriteCond %{HTTP_HOST} ^krankenfahrten-bad-homburg\.de$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://krankenfahrten-bad-homburg.de%{REQUEST_URI} [R=301,L,NE]
+</IfModule>
+
+<FilesMatch "^(?:\..*|\.env.*|config(?:\.example)?\.php|.*\.(?:bak|backup|conf|ini|log|old|orig|sql|swp|tmp))$">
   Require all denied
 </FilesMatch>
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
-  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Frame-Options "DENY"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+  <FilesMatch "\.html$">
+    Header always set Cache-Control "no-cache, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.php$">
+    Header always set Cache-Control "no-store, max-age=0"
+  </FilesMatch>
+  <FilesMatch "^(?:robots\.txt|sitemap\.xml)$">
+    Header always set Cache-Control "no-cache, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(?:avif|css|gif|ico|jpe?g|js|png|svg|webp|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+
+  # CSP erst nach erfolgreicher Prüfung auf dem ALL-INKL-Abnahmehost aktivieren.
+  # Die statische Next.js-Ausgabe benötigt derzeit Inline-Skripte und Inline-Styles.
+  # Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+  # HSTS erst im KAS beziehungsweise hier aktivieren, wenn HTTPS und Subdomains stabil geprüft sind.
+  # Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>

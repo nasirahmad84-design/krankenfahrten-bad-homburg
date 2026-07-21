@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { LegalPage } from "@/components/legal/legal-page";
 import { privacyContent } from "@/content/legal/privacy";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Datenschutz | Krankenfahrten Bad Homburg",
-  description: "Informationen zur Verarbeitung personenbezogener Daten auf dieser Website und bei Fahrtanfragen.",
-};
+export const metadata = createPageMetadata("Datenschutz | Krankenfahrten Bad Homburg", "Informationen zur Verarbeitung personenbezogener Daten auf dieser Website und bei Fahrtanfragen.", "/datenschutz/");
 
 export default function PrivacyPage() {
   return (
