@@ -29,6 +29,8 @@ export const siteConfig = {
   ] satisfies readonly SiteLink[],
   contactLink: { label: "Fahrt anfragen", href: "/kontakt" },
   legalLinks: [
-    { label: "Datenschutz", href: "/datenschutz" },
+    { label: "Impressum", href: "/impressum/" },
+    { label: "Datenschutz", href: "/datenschutz/" },
+    { label: "Cookie-Einstellungen", href: "/cookie-einstellungen/" },
   ] satisfies readonly SiteLink[],
 } as const;

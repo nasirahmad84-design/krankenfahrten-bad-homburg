@@ -212,11 +212,52 @@ body {
 }
 
 @media print {
-  .mobile-contact-bar {
+  header,
+  footer,
+  .mobile-contact-bar,
+  .legal-jump-nav,
+  .skip-link {
     display: none !important;
+  }
+
+  html,
+  body {
+    overflow: visible;
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
   }
 
   .site-body {
     padding-bottom: 0;
+  }
+
+  .legal-page section:first-child {
+    padding-block: 1.5rem;
+    background: #fff !important;
+  }
+
+  .legal-page section:first-child > div > div {
+    max-width: none;
+  }
+
+  .legal-page section:first-child div[aria-hidden="true"] {
+    display: none;
+  }
+
+  .legal-page .container-page {
+    width: 100%;
+    max-width: none;
+    padding-block: 1.5rem;
+  }
+
+  .legal-section {
+    break-inside: avoid;
+    border-color: #aaa;
+  }
+
+  .legal-page a {
+    color: #000 !important;
+    text-decoration: underline;
   }
 }

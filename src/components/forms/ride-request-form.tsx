@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { rideReasons } from "@/content/contact";
@@ -91,6 +92,7 @@ export function RideRequestForm() {
           <span>Ich bin damit einverstanden, zur Bearbeitung meiner Anfrage telefonisch oder per E-Mail kontaktiert zu werden. <span aria-hidden="true">*</span></span>
         </label>
         {errors.consent && <FieldError id="request-consent-error" message={errors.consent} />}
+        <p className="mt-2 pl-2 text-[14px] leading-relaxed text-[#5b697a]">Informationen zur Verarbeitung Ihrer Angaben finden Sie in der <Link className="font-semibold text-navy underline decoration-green decoration-2 underline-offset-4" href="/datenschutz/">Datenschutzerklärung</Link>.</p>
       </div>
 
       <button type="submit" disabled={isSubmitting} aria-disabled={isSubmitting} className="mt-7 inline-flex min-h-[58px] w-full items-center justify-center rounded-xl bg-green px-8 text-[17px] font-semibold text-navy shadow-sm transition-[background-color,box-shadow] hover:bg-green-light hover:shadow-md disabled:cursor-not-allowed disabled:bg-navy/20 sm:w-auto sm:min-w-72">{isSubmitting ? "Anfrage wird übermittelt …" : "Anfrage übermitteln"}</button>

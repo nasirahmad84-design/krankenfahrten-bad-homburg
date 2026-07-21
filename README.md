@@ -18,7 +18,8 @@ Die lokale Entwicklungsumgebung ist anschließend unter [http://localhost:3000](
 - `npm run dev` – startet den Entwicklungsserver
 - `npm run build` – erzeugt den statischen Production-Export unter `out/`
 - `npm run lint` – prüft den Quellcode mit ESLint
-- `npm test` – prüft Clientvalidierung, JSON-Transport, Fehlerantworten und Timeout mit dem eingebauten Node-Testläufer
+- `npm test` – prüft Clientvalidierung, JSON-Transport, Fehlerantworten, Timeout und die technischen Legal-/Privacy-Invarianten mit dem eingebauten Node-Testläufer
+- `npm run test:export` – prüft nach dem Build die drei Rechtsseiten, H1-Struktur und externe Laufzeit-URLs im statischen Export
 
 ## Projektstruktur
 
@@ -97,15 +98,17 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 
 - Inhalte sind in `services.ts`, `process.ts`, `faq.ts`, `about.ts`, `billing.ts` und `contact.ts` zentral abgelegt.
 - Sieben geplante Leistungsdetailrouten liefern bis DEV-05 bewusst nur technische Platzhalter; alle Leistungslinks funktionieren bereits.
-- `/datenschutz` ist ausschließlich als technisches Ziel für den Formularhinweis vorhanden. Impressum und Cookie-Einstellungen sind bis zur rechtlichen Umsetzung nicht als Links ausgebildet.
-- Das Anfrageformular validiert Pflichtfelder und optionale E-Mail-Adresse lokal, setzt `aria-invalid`/`aria-describedby`, fokussiert den ersten Fehler und zeigt anschließend nur einen Entwicklungszustand. Es sendet oder speichert keine Daten.
+- `/impressum/`, `/datenschutz/` und `/cookie-einstellungen/` bilden die rechtliche Seitenstruktur und sind im Footer verlinkt.
+- Das Anfrageformular validiert Pflichtfelder und optionale E-Mail-Adresse lokal, setzt `aria-invalid`/`aria-describedby`, fokussiert den ersten Fehler und übermittelt gültige Anfragen an den PHP-Endpunkt.
 - Alle Hauptseiten verwenden individuelle Metadaten, genau eine H1 und semantische Sections. Formulare stapeln mobil und wechseln ab Tablet in ein zweispaltiges Raster.
 - Die Figma-Datei enthält aktuell keine separaten Hauptseiten-Frames. Die Seiten übertragen deshalb das freigegebene Startseiten- und Komponentensystem konsistent; dies ist die zentrale verbleibende Figma-Abweichung.
 
-## Offen für DEV-06
+## Offen für DEV-06C
 
-- echte Formularübermittlung, E-Mail-Versand und serverseitige Verarbeitung
-- vollständige rechtliche Seiten und Cookie-Einstellungsfunktion
+- fachliche beziehungsweise rechtliche Freigabe der Inhalte und der Rechtsgrundlagenzuordnung
+- produktiver Cookie-, Storage- und Netzwerk-Scan nach dem ALL-INKL-Deployment
+- Verifikation der Hosting-Logfristen, E-Mail-Löschfristen und des betrieblichen Löschkonzepts
+- Prüfung noch unbekannter anbieter- und branchenspezifischer Pflichtangaben
 - mögliche spätere Ablösung der aus Figma-Logozeichen und HTML-Text aufgebauten Wortmarke durch eine finale kombinierte Logodatei
 
 ## Bekannte Abweichungen zu Figma
@@ -184,3 +187,21 @@ Wenn PHP installiert ist, zusätzlich alle PHP-Dateien mit `php -l` prüfen, `te
 Ohne lokales PHP kann `node tests/static-export-server.mjs` ausschließlich die exportierten HTML-/Assetdateien und die Frontend-Zustände gegen definierte JSON-Mockantworten prüfen. Dieser Helfer führt kein PHP aus und ersetzt weder `php -l` noch die Hosting-Abnahme.
 
 Die zuvor in Commit `9a6fe3d` eingeführte Server-Action-/Resend-Architektur wurde vollständig verworfen: keine Server Actions, Route Handler, Node-Mail-Provider, Node-Secrets oder dynamische Kontaktseite bleiben bestehen.
+
+## Rechtliche Seiten und technische Datenschutzgrundlagen (DEV-06B)
+
+Die vollständig statischen Routen `/impressum/`, `/datenschutz/` und `/cookie-einstellungen/` verwenden gemeinsame Legal-Komponenten mit klarer Überschriftenhierarchie, begrenzter Textbreite, Fragmentnavigation und angepasster Druckdarstellung. Die Inhalte liegen strukturiert unter `src/content/legal/`; interne offene Prüfpunkte werden nicht in öffentliche Seiten importiert.
+
+`src/content/legal/privacy-inventory.ts` bildet den technisch geprüften Datenfluss ab: statische Seitenauslieferung bei ALL-INKL, mögliche Hosting-Logdaten, Kontakt- und Fahrtanfragedaten, PHP-Mailversand sowie das kurzlebige dateibasierte Rate Limiting mit HMAC-gehashter IP-Kennung. Es bestehen keine Datenbank, keine automatische Nutzerbestätigung und keine dauerhafte Speicherung vollständiger IP-Adressen durch die Anwendung. Die E-Mail kann entsprechend der betrieblichen und hosterseitigen Konfiguration im Postfach gespeichert bleiben.
+
+Die Website setzt nach aktuellem Quellcode- und Exportstand keine Cookies und greift weder auf `localStorage` noch auf `sessionStorage` zu. Das PHP-Formular verwendet keine Session. Analyse, Marketing, Tracking, externe Medien und eine gespeicherte Consent-Entscheidung sind nicht vorhanden. Deshalb wird kein Consent-Banner und keine funktionslose Einstellungsoberfläche eingebaut. Die Cookie-Seite informiert transparent über diesen Status. Nach dem Produktivdeployment muss diese Entscheidung mit einem erneuten Browser- und Netzwerk-Scan bestätigt werden.
+
+Inter wird während des Next-Builds lokal eingebettet. Bilder, SVGs, Skripte und Styles werden von derselben Domain ausgeliefert; es bestehen keine externen Font-CDNs, Karten, Videos, Social-Media-Widgets oder Trackingrequests. Telefon- und E-Mail-Links lösen erst durch eine bewusste Nutzeraktion eine externe Anwendung aus.
+
+Das Kontaktformular verlinkt unmittelbar an der Einwilligung und im Hinweisbereich auf die Datenschutzerklärung. Es verlangt keine Diagnosen oder Notfalldaten und weist auf die fehlende Verbindlichkeit bis zur ausdrücklichen Bestätigung hin. Der PHP-Abgleich umfasst die fest konfigurierte Empfänger- und Absenderadresse, optionales validiertes `Reply-To`, keine Nutzerbestätigung, keine Datenbank, keine Formulardaten-Logs, Origin-Prüfung, technische Formularzeit und das konfigurierbare Rate-Limit.
+
+Print-Styles blenden Headernavigation, Mobile Contact Bar, Footer und Sprungnavigation aus, verwenden helle Hintergründe und verhindern soweit möglich das Trennen einzelner Rechtsabschnitte. Die normale responsive Darstellung bleibt unverändert.
+
+Die noch erforderlichen Freigaben stehen in `deployment/legal-review-checklist.md` und zusätzlich zentral in `src/content/legal/open-items.ts`. Dazu gehören unter anderem Rechtsform, Register-, Steuer-, Aufsichts- und Genehmigungsangaben, die Rechtsgrundlagenzuordnung, Hosting-Logfristen, Auftragsverarbeitungsdetails, E-Mail-Löschfristen und die zuständige Datenschutzaufsicht.
+
+**Die rechtlichen Inhalte müssen vor Veröffentlichung fachlich beziehungsweise rechtlich geprüft und freigegeben werden.**

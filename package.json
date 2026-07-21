@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint",
-    "test": "node --test --experimental-strip-types tests/*.test.mts"
+    "test": "node --test --experimental-strip-types tests/*.test.mts",
+    "test:export": "node tests/legal-export-check.mjs"
   },
   "dependencies": {
     "next": "16.2.10",

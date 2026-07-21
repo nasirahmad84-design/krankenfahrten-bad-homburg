@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { RideRequestForm } from "@/components/forms/ride-request-form";
 import { ContentSection } from "@/components/sections/content-section";
@@ -24,7 +25,7 @@ export default function ContactPage() {
     <ContentSection id="request-form" title="Fahrtdaten eingeben" description="Wir verwenden Ihre Angaben ausschließlich zur Bearbeitung der unverbindlichen Fahrtanfrage und speichern sie nicht in einer Datenbank." muted><RideRequestForm /></ContentSection>
     <ContentSection id="contact-notices" title="Wichtige Hinweise">
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
-        <NoticeBox title="Datenschutz und Verbindlichkeit" variant="information" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>Bitte übermitteln Sie keine medizinischen Diagnosen oder Notfalldaten. Die Anfrage wird erst nach ausdrücklicher Bestätigung verbindlich. Hinweise zum Datenschutz finden Sie unter <a className="font-semibold underline" href="/datenschutz">Datenschutz</a>.</p></NoticeBox>
+        <NoticeBox title="Datenschutz und Verbindlichkeit" variant="information" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>Bitte übermitteln Sie keine medizinischen Diagnosen oder Notfalldaten. Die Anfrage wird erst nach ausdrücklicher Bestätigung verbindlich. Hinweise finden Sie in der <Link className="font-semibold underline" href="/datenschutz/">Datenschutzerklärung</Link>.</p></NoticeBox>
         <NoticeBox title="Kein medizinischer Notfalldienst" variant="warning" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>In akuten Notfällen wählen Sie <strong className="ml-1 text-[26px] text-navy">112</strong>.</p></NoticeBox>
       </div>
     </ContentSection>
