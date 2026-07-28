@@ -33,7 +33,7 @@ test("Sitemap enthält jede öffentliche Route genau einmal", () => {
   assert.deepEqual(urls, publicRoutePaths.map(absoluteUrl));
 });
 
-test("pflegt konservative LocalBusiness-Daten ohne unbestätigte Eigenschaften", () => {
+test("pflegt verifizierte LocalBusiness-Daten einschließlich Facebook und 24/7", () => {
   assert.equal(localBusinessStructuredData["@type"], "LocalBusiness");
   assert.equal(localBusinessStructuredData.name, "Krankenfahrten Bad Homburg");
   assert.equal(localBusinessStructuredData.url, "https://krankenfahrten-bad-homburg.de/");
@@ -45,13 +45,22 @@ test("pflegt konservative LocalBusiness-Daten ohne unbestätigte Eigenschaften",
     addressLocality: "Bad Homburg",
     addressCountry: "DE",
   });
+  assert.deepEqual(localBusinessStructuredData.sameAs, [
+    "https://www.facebook.com/krankenfahrtenbadhomburg",
+  ]);
+  assert.deepEqual(localBusinessStructuredData.openingHoursSpecification, [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+  ]);
 
   const serialized = JSON.stringify(localBusinessStructuredData);
   for (const forbidden of [
-    "sameAs",
     "aggregateRating",
     "review",
-    "openingHoursSpecification",
     "geo",
     "priceRange",
     "30 km",
@@ -61,4 +70,5 @@ test("pflegt konservative LocalBusiness-Daten ohne unbestätigte Eigenschaften",
   ]) {
     assert.ok(!serialized.includes(forbidden), `Unbestätigte strukturierte Angabe: ${forbidden}`);
   }
+  assert.doesNotMatch(serialized, /instagram|linkedin|tiktok|youtube|twitter|x\.com/i);
 });

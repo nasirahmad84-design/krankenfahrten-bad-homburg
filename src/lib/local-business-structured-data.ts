@@ -30,6 +30,23 @@ type LocalBusinessData = Readonly<{
   email: string;
   address: PostalAddressData;
   areaServed: "Bad Homburg und Umgebung";
+  sameAs: readonly ["https://www.facebook.com/krankenfahrtenbadhomburg"];
+  openingHoursSpecification: readonly [
+    Readonly<{
+      "@type": "OpeningHoursSpecification";
+      dayOfWeek: readonly [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ];
+      opens: "00:00";
+      closes: "23:59";
+    }>,
+  ];
   hasOfferCatalog: Readonly<{
     "@type": "OfferCatalog";
     name: "Sitzende Krankenfahrten";
@@ -64,6 +81,15 @@ export const localBusinessStructuredData: LocalBusinessData = {
     addressCountry: "DE",
   },
   areaServed: "Bad Homburg und Umgebung",
+  sameAs: ["https://www.facebook.com/krankenfahrtenbadhomburg"],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Sitzende Krankenfahrten",

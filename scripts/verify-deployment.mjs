@@ -6,6 +6,22 @@ const root = process.cwd();
 const out = join(root, "out");
 const productionOrigin = "https://krankenfahrten-bad-homburg.de";
 const testOrigin = "https://test.krankenfahrten-bad-homburg.de";
+const facebookUrl = "https://www.facebook.com/krankenfahrtenbadhomburg";
+const socialImageUrl = `${productionOrigin}/images/social/og-default-1200x630.webp`;
+const websiteImages = [
+  ["images/home/hero-krankenfahrt.webp", 1800, 1100, 400 * 1024],
+  ["images/home/persoenliche-unterstuetzung.webp", 1400, 900, 300 * 1024],
+  ["images/services/leistungen-hero.webp", 1400, 900, 300 * 1024],
+  ["images/about/betreiber-mit-fahrzeug.webp", 1200, 900, 300 * 1024],
+  ["images/social/og-default-1200x630.webp", 1200, 630, 500 * 1024],
+];
+const informativeImageAlts = new Map([
+  ["/images/home/hero-krankenfahrt.webp", "Fahrer öffnet einem älteren Fahrgast die hintere Fahrzeugtür."],
+  ["/images/home/persoenliche-unterstuetzung.webp", "Fahrer begleitet einen älteren Fahrgast zum Eingang einer Praxis."],
+  ["/images/services/leistungen-hero.webp", "Fahrer und älterer Fahrgast stehen neben einem Fahrzeug vor einer Praxis."],
+  ["/images/about/betreiber-mit-fahrzeug.webp", "Fahrer steht neben einem dunklen Fahrzeug des Fahrdienstes."],
+]);
+const foundInformativeImages = new Set();
 
 assert.ok(existsSync(out) && statSync(out).isDirectory(), "out/ fehlt. Zuerst npm run build ausführen.");
 
@@ -35,8 +51,16 @@ const requiredFiles = [
   "service-icons/krankenhausfahrt.svg",
   "service-icons/reha-fahrt.svg",
   "service-icons/therapiefahrt.svg",
+  "service-icons/facebook.svg",
+  ...websiteImages.map(([file]) => file),
 ];
 for (const file of requiredFiles) assert.ok(existsSync(join(out, file)), `Erforderliche Datei fehlt: out/${file}`);
+for (const [file, width, height, maxBytes] of websiteImages) {
+  const imagePath = join(out, file);
+  assert.ok(statSync(imagePath).size > 0, `Leere Bilddatei: out/${file}`);
+  assert.ok(statSync(imagePath).size <= maxBytes, `Bilddatei überschreitet Warnschwelle: out/${file}`);
+  assert.deepEqual(readWebpDimensions(imagePath), { width, height }, `Falsche Bildabmessungen: out/${file}`);
+}
 
 assert.ok(!existsSync(join(out, "api/config.php")), "api/config.php darf nicht im Build-Paket liegen.");
 assert.ok(!existsSync(join(out, "icons")), "Der auf ALL-INKL reservierte Icon-Ordner darf nicht verwendet werden.");
@@ -132,6 +156,14 @@ for (const path of publicPaths) {
   assert.match(html, /href="#main-content"/, `Skip-Link fehlt in ${path}`);
   assert.doesNotMatch(html, /localhost|example\.com|test\.krankenfahrten-bad-homburg\.de|TODO|placeholder|development|test mode|technical|mock/i, `Öffentlicher Entwicklungs- oder Testtext in ${path}`);
   assert.doesNotMatch(html, /<meta[^>]+name="robots"[^>]+content="[^"]*noindex/i, `Produktive noindex-Seite: ${path}`);
+  const preloadedContentImages = [...html.matchAll(/<link[^>]+rel="preload"[^>]+as="image"[^>]+href="([^"]+)"/g)]
+    .map((match) => match[1])
+    .filter((src) => src.startsWith("/images/"));
+  assert.deepEqual(
+    preloadedContentImages,
+    path === "/" ? ["/images/home/hero-krankenfahrt.webp"] : [],
+    `Falsche Bild-Preloads in ${path}`,
+  );
 
   const title = decodeHtmlText(matchSingle(html, /<title>(.*?)<\/title>/, `Title fehlt in ${path}`));
   const description = decodeHtmlText(matchSingle(html, /<meta name="description" content="([^"]+)"/, `Description fehlt in ${path}`));
@@ -145,9 +177,14 @@ for (const path of publicPaths) {
   assert.equal((html.match(/<meta property="og:url"/g) ?? []).length, 1, `Open-Graph-URL fehlt in ${path}`);
   assert.equal((html.match(/<meta property="og:site_name"/g) ?? []).length, 1, `Open-Graph-Site-Name fehlt in ${path}`);
   assert.equal((html.match(/<meta property="og:locale" content="de_DE"/g) ?? []).length, 1, `Open-Graph-Locale fehlt in ${path}`);
-  assert.doesNotMatch(html, /<meta property="og:image"/, `Nicht freigegebenes Open-Graph-Bild in ${path}`);
-  assert.match(html, /<meta name="twitter:card" content="summary"/, `Konsistente Twitter-Summary-Card fehlt in ${path}`);
-  assert.doesNotMatch(html, /<meta name="twitter:image"/, `Nicht freigegebenes Twitter-Bild in ${path}`);
+  assert.equal((html.match(/<meta property="og:image"/g) ?? []).length, 1, `Open-Graph-Bild fehlt oder ist doppelt in ${path}`);
+  assert.match(html, new RegExp(`<meta property="og:image" content="${escapeRegExp(socialImageUrl)}"`), `Falsche Open-Graph-Bild-URL in ${path}`);
+  assert.match(html, /<meta property="og:image:width" content="1200"/, `Open-Graph-Bildbreite fehlt in ${path}`);
+  assert.match(html, /<meta property="og:image:height" content="630"/, `Open-Graph-Bildhöhe fehlt in ${path}`);
+  assert.match(html, /<meta property="og:image:alt" content="Krankenfahrten Bad Homburg – sicher, persönlich und regional\."/);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image"/, `Twitter-Large-Image-Card fehlt in ${path}`);
+  assert.equal((html.match(/<meta name="twitter:image"/g) ?? []).length, 1, `Twitter-Bild fehlt oder ist doppelt in ${path}`);
+  assert.match(html, new RegExp(`<meta name="twitter:image" content="${escapeRegExp(socialImageUrl)}"`));
 
   const jsonLdScripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
   structuredDataCount += jsonLdScripts.length;
@@ -164,6 +201,9 @@ for (const path of publicPaths) {
 assert.equal(new Set(renderedTitles).size, renderedTitles.length, "Doppelte Seitentitel im Export.");
 assert.equal(new Set(renderedDescriptions).size, renderedDescriptions.length, "Doppelte Meta-Descriptions im Export.");
 assert.equal(structuredDataCount, 1, "Im Export darf genau ein Unternehmensobjekt vorhanden sein.");
+assert.deepEqual(foundInformativeImages, new Set(informativeImageAlts.keys()), "Nicht alle informativen Bilder wurden im Export gefunden.");
+const homeHtml = readFileSync(join(out, "index.html"), "utf8");
+assert.match(homeHtml, new RegExp(`href="${escapeRegExp(facebookUrl)}"[^>]*target="_blank"[^>]*rel="noopener noreferrer"`), "Facebook-Link im Footer fehlt.");
 
 const notFoundHtml = readFileSync(join(out, "404.html"), "utf8");
 assert.equal((notFoundHtml.match(/<h1\b/g) ?? []).length, 1, "404.html muss genau eine H1 enthalten.");
@@ -201,6 +241,7 @@ function auditHtmlLinks(html, sourceFile, routePath) {
     if (/^(?:mailto:|tel:|data:)/.test(value)) continue;
 
     const parsed = new URL(value, new URL(routePath, productionOrigin));
+    if (parsed.toString() === facebookUrl) continue;
     assert.equal(parsed.origin, productionOrigin, `Unerwartete externe Ressource in ${relative(out, sourceFile)}: ${value}`);
 
     if (parsed.hash && parsed.pathname === routePath) {
@@ -251,10 +292,17 @@ function auditLocalBusinessJsonLd(data) {
     addressCountry: "DE",
   });
   assert.ok(existsSync(join(out, new URL(data.logo).pathname.slice(1))), "JSON-LD-Logo fehlt im Export.");
+  assert.deepEqual(data.sameAs, [facebookUrl], "JSON-LD darf nur das verifizierte Facebook-Profil enthalten.");
+  assert.deepEqual(data.openingHoursSpecification, [{
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "00:00",
+    closes: "23:59",
+  }]);
 
   const serialized = JSON.stringify(data);
-  assert.doesNotMatch(serialized, /sameAs|aggregateRating|review|openingHours|priceRange|MedicalClinic|Hospital|EmergencyService|TaxiService|Rollstuhl|Liegendtransport|Rettungsdienst|30[\s-]?km/i);
-  assert.doesNotMatch(serialized, /facebook|instagram|linkedin|tiktok|twitter|x\.com/i);
+  assert.doesNotMatch(serialized, /aggregateRating|review|priceRange|MedicalClinic|Hospital|EmergencyService|TaxiService|Rollstuhl|Liegendtransport|Rettungsdienst|30[\s-]?km/i);
+  assert.doesNotMatch(serialized, /instagram|linkedin|tiktok|youtube|twitter|x\.com/i);
 }
 
 function auditImageAlternatives(html, routePath) {
@@ -263,6 +311,11 @@ function auditImageAlternatives(html, routePath) {
     const alt = tag.match(/\salt="([^"]*)"/);
     assert.ok(alt, `img ohne alt-Attribut in ${routePath}: ${tag}`);
     const src = tag.match(/\ssrc="([^"]+)"/)?.[1] ?? "";
+    assert.doesNotMatch(alt[1], /Rollstuhl|Tragestuhl|Liegendtransport|Patient|Mubasher Ahmad/i, `Unzulässige Aussage im Alt-Text in ${routePath}: ${alt[1]}`);
+    if (informativeImageAlts.has(src)) {
+      assert.equal(alt[1], informativeImageAlts.get(src), `Unerwarteter Alt-Text für ${src}`);
+      foundInformativeImages.add(src);
+    }
     if (/\.(?:avif|jpe?g|png|webp)(?:\?|$)/i.test(src)) {
       assert.notEqual(alt[1].trim(), "", `Informatives Rasterbild mit leerem alt in ${routePath}: ${src}`);
     }
@@ -291,4 +344,32 @@ function largestFiles(allFiles, pattern, count) {
     .sort((a, b) => b.size - a.size)
     .slice(0, count)
     .map(({ file, size }) => `${relative(out, file).split(sep).join("/")} (${formatBytes(size)})`);
+}
+
+function readWebpDimensions(file) {
+  const bytes = readFileSync(file);
+  assert.equal(bytes.subarray(0, 4).toString(), "RIFF", `Keine RIFF-Datei: ${file}`);
+  assert.equal(bytes.subarray(8, 12).toString(), "WEBP", `Keine WebP-Datei: ${file}`);
+  const format = bytes.subarray(12, 16).toString();
+
+  if (format === "VP8 ") {
+    return {
+      width: bytes.readUInt16LE(26) & 0x3fff,
+      height: bytes.readUInt16LE(28) & 0x3fff,
+    };
+  }
+  if (format === "VP8L") {
+    const bits = bytes.readUInt32LE(21);
+    return {
+      width: (bits & 0x3fff) + 1,
+      height: ((bits >> 14) & 0x3fff) + 1,
+    };
+  }
+  if (format === "VP8X") {
+    return {
+      width: bytes.readUIntLE(24, 3) + 1,
+      height: bytes.readUIntLE(27, 3) + 1,
+    };
+  }
+  assert.fail(`Unbekanntes WebP-Format in ${file}: ${format}`);
 }

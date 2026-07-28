@@ -89,7 +89,7 @@ Die Startseite folgt den Figma-Frames für 1440 px und 390 px. Hero, Vorteile, L
 
 - Das Layout stapelt Inhalte mobil, nutzt ab Tablet zweispaltige Karten und auf Desktop bis zu drei Spalten.
 - Semantische Sections, eine H1, verknüpfte Überschriften, Skip-Link, Fokuszustände und das tastaturbedienbare FAQ-Accordion unterstützen die Zugänglichkeit.
-- Die Startseite besitzt eigene SEO-Metadaten und einen Canonical für die festgelegte Produktionsdomain. Ein finales Open-Graph-Bild bleibt bewusst offen.
+- Die Startseite besitzt eigene SEO-Metadaten und einen Canonical für die festgelegte Produktionsdomain. Ein lokales 1200×630-Open-Graph-Bild dient als globale Sharing-Vorschau.
 - Vorhandene Marken-SVGs bleiben lokal. Die geometrische Hero-Grafik wird ohne externen Figma-Hotlink umgesetzt.
 - Die sechs Hauptziele besitzen minimale technische Platzhalter. Leistungskarten verweisen bis DEV-04 gesammelt auf `/leistungen`, um keine Wegwerf-Detailseiten anzulegen.
 
@@ -234,13 +234,13 @@ Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren 
 
 Der öffentliche Standardordnername `icons` wird wegen eines möglichen reservierten Apache-Alias auf dem ALL-INKL-Hosting nicht verwendet. Leistungsicons liegen im Quellcode unter `public/service-icons/` und im Upload-Paket unter `out/service-icons/`; Markenassets bleiben unverändert unter `public/brand/`.
 
-Verbleibende Einschränkungen: Die lokale Testsuite stellt bewusst keine echte Verbindung zum ALL-INKL-SMTP-Server her. SMTP-Anmeldung und -Zustellung, Apache-Header, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. SPF, DKIM und DMARC müssen anschließend geprüft werden. Ein finales Social-Sharing-Bild ist nicht vorhanden und wird deshalb nicht referenziert.
+Verbleibende Einschränkungen: Die lokale Testsuite stellt bewusst keine echte Verbindung zum ALL-INKL-SMTP-Server her. SMTP-Anmeldung und -Zustellung, Apache-Header, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. SPF, DKIM und DMARC müssen anschließend geprüft werden.
 
 ## SEO-Grundlagen vor Go-live (SEO-01A, SEO-03, SEO-05, SEO-06A)
 
-Der Produktions-Export enthält 17 individuelle indexierbare Seiten mit genau einer H1, einem Canonical zur primären Domain sowie individuellen Titles und Descriptions. Die Leistungsseitentitel wurden anhand ihrer Suchintention verkürzt. Open-Graph-Titel, Beschreibung, URL, Site Name und `de_DE` bleiben erhalten. Next.js erzeugt ohne Bild eine konsistente textbasierte Twitter-Card vom Typ `summary`; ein `twitter:image` oder `og:image` wird erst nach Freigabe eines echten 1200×630-Motivs ergänzt.
+Der Produktions-Export enthält 17 individuelle indexierbare Seiten mit genau einer H1, einem Canonical zur primären Domain sowie individuellen Titles und Descriptions. Die Leistungsseitentitel wurden anhand ihrer Suchintention verkürzt. Open-Graph-Titel, Beschreibung, URL, Site Name und `de_DE` bleiben erhalten. Alle Seiten verwenden das lokale 1200×630-Open-Graph-Motiv und eine `summary_large_image`-Twitter-Card.
 
-Die Startseite enthält genau ein serverseitig vorgerendertes `LocalBusiness`-JSON-LD aus `src/lib/local-business-structured-data.ts`. Es verwendet nur bestätigte Unternehmens-, Kontakt-, Adress-, Einsatzgebiets- und Leistungsangaben. Bewertungen, Profile, Koordinaten, Preisbereich, Öffnungszeiten und nicht angebotene Beförderungsarten fehlen bewusst. Das vorhandene Logozeichen wird über seine absolute Produktions-URL referenziert; ein Unternehmensbild wird mangels geeignetem Bildbestand nicht ausgezeichnet.
+Die Startseite enthält genau ein serverseitig vorgerendertes `LocalBusiness`-JSON-LD aus `src/lib/local-business-structured-data.ts`. Es verwendet nur bestätigte Unternehmens-, Kontakt-, Adress-, Einsatzgebiets- und Leistungsangaben. Das verifizierte Facebook-Profil ist der einzige `sameAs`-Eintrag; Erreichbarkeit und Fahrbetrieb sind für Montag bis Sonntag von `00:00` bis `23:59` ausgezeichnet. Bewertungen, Koordinaten, Preisbereich und nicht angebotene Beförderungsarten fehlen bewusst.
 
 `public/.htaccess` verwendet `ErrorDocument 404 /404.html`, enthält keinen SPA-Fallback und schützt den internen 404-Unteraufruf vor erneuter Rewrite-Verarbeitung. Der Live-Audit-Status 500 kann lokal nicht mit Apache/ALL-INKL reproduziert werden. Deshalb muss der tatsächliche Status nach Upload anhand von `deployment/seo-audit-checklist.md` geprüft werden; mögliche Ursachen außerhalb des Repositorys sind ein falsches Domain-Webroot, eine fehlende `404.html`, Dateirechte oder eine abweichende Server-Fehlerkonfiguration.
 
@@ -254,12 +254,20 @@ Erwartet wird `X-Robots-Tag: noindex, nofollow, noarchive`. Vor dem Go-live muss
 
 Die statische Verifikation prüft außerdem interne Links, Fragmente, Trailing Slashes, Bildziele, Alt-Attribute, Sitemap, robots.txt, 404-noindex, fehlende produktive noindex-Metadaten, externe Laufzeitressourcen und das strukturierte Datenobjekt. Lighthouse ist lokal nicht verfügbar und wurde nicht als zusätzliche Abhängigkeit installiert; es werden daher keine lokalen Lighthouse-Werte behauptet.
 
-Für ein späteres freigegebenes Bildpaket werden folgende Dateien erwartet, aber derzeit weder erzeugt noch als vorhanden behandelt:
+## Bildintegration und Social Sharing (SEO-04)
 
-- `public/images/home/hero-krankenfahrt.webp`
-- `public/images/home/persoenliche-unterstuetzung.webp`
-- `public/images/services/leistungen-hero.webp`
-- `public/images/about/betreiber-mit-fahrzeug.webp`
-- `public/images/social/og-default-1200x630.webp`
+Die vier fotografischen Motive wurden mit der integrierten Bildgenerierung eigens für das Projekt erzeugt und lokal zu WebP ohne EXIF- oder GPS-Metadaten konvertiert. Sie sind illustrative Darstellungen mit fiktiven Personen, keine echten Kunden. Das Motiv auf `/ueber-uns/` ist kein Porträt von Mubasher Ahmad und wird neutral beschrieben; ein echtes Betreiberfoto bleibt ein späterer Austauschpunkt.
 
-Echte Unternehmensfotos, das Open-Graph-Motiv, verifizierte Social-Media-URLs, Öffnungszeiten sowie spätere Orts- und Ratgeberinhalte bleiben separate Freigabe- beziehungsweise Folgepakete.
+| Datei | Abmessungen | Größe | Einsatz und Alt-Text | Zuschnitt |
+| --- | ---: | ---: | --- | --- |
+| `images/home/hero-krankenfahrt.webp` | 1800×1100 | 169 KiB | Startseiten-Hero: „Fahrer öffnet einem älteren Fahrgast die hintere Fahrzeugtür.“ | mobil 58 %, Desktop 55 % |
+| `images/home/persoenliche-unterstuetzung.webp` | 1400×900 | 118 KiB | Unterstützung: „Fahrer begleitet einen älteren Fahrgast zum Eingang einer Praxis.“ | 52 % horizontal |
+| `images/services/leistungen-hero.webp` | 1400×900 | 99 KiB | Leistungen: „Fahrer und älterer Fahrgast stehen neben einem Fahrzeug vor einer Praxis.“ | 40 % horizontal |
+| `images/about/betreiber-mit-fahrzeug.webp` | 1200×900 | 121 KiB | Über uns: „Fahrer steht neben einem dunklen Fahrzeug des Fahrdienstes.“ | 48 % horizontal |
+| `images/social/og-default-1200x630.webp` | 1200×630 | 21 KiB | rein grafische Sharing-Vorschau | ohne Zuschnitt |
+
+`SectionImage` reserviert die intrinsischen Abmessungen, setzt responsive `sizes` und lädt Abschnittsbilder verzögert. Nur das Startseiten-Hero wird als wahrscheinliches LCP-Bild über das in Next.js 16 aktuelle `preload`-Prop vorab geladen; das im Ticket genannte `priority` ist in dieser Version veraltet. Es gibt keine externen Bildrequests, Base64-Bilder, Slider oder informative CSS-Hintergrundbilder.
+
+Das grafische Open-Graph-Motiv verwendet Logo, Navy, Grün und Weiß und liegt unter `https://krankenfahrten-bad-homburg.de/images/social/og-default-1200x630.webp`. Der Footer verlinkt ausschließlich das verifizierte Facebook-Profil als normalen zugänglichen Link ohne Pixel, Widget, Feed, Tracking oder externes JavaScript. Instagram und LinkedIn werden mangels verifizierter Profile nicht verlinkt.
+
+Nach Upload sind die Bildausschnitte auf 390, 768, 1024, 1280 und 1440 Pixel Breite, die WhatsApp-/Facebook-Vorschau, Netzwerkrequests und das serverseitige Caching erneut zu prüfen.

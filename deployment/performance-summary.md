@@ -2,13 +2,15 @@
 
 ## Automatisierter statischer Bestand
 
-- Der vollständige Export umfasst aktuell rund 4,38 MiB und 280 Dateien. Darin sind neben der Website auch der PHP-Endpunkt und die für FTP eingebettete PHPMailer-Laufzeit enthalten.
+- Der vollständige Export umfasst nach SEO-04 4,98 MiB und 286 Dateien. Die exakte Zahl und Dateianzahl gibt `npm run verify:deployment` nach jedem Build erneut aus.
 - Die größten JavaScript-Dateien sind aktuell ungefähr 222 KiB, 146 KiB und 110 KiB groß und stammen aus der Next.js-/React-Laufzeit.
-- Die größten Bilddateien sind das lokale 512×512-App-Icon mit ungefähr 31 KiB sowie das Apple-Touch-Icon mit ungefähr 13 KiB.
+- Neue WebP-Bilder: Hero 169 KiB (1800×1100), Über uns 121 KiB (1200×900), Unterstützung 118 KiB (1400×900), Leistungen 99 KiB (1400×900), Open Graph 21 KiB (1200×630).
 - Die größten lokalen Schriftdateien liegen bei ungefähr 83 KiB, 47 KiB und 25 KiB.
-- Inter wird lokal über `next/font` ausgeliefert; Marken- und Leistungsicons liegen lokal als SVG beziehungsweise PNG vor.
+- Inter wird lokal über `next/font` ausgeliefert; Fotos und Sharing-Vorschau liegen lokal als optimierte WebP-Dateien, Marken- und Leistungsicons als SVG beziehungsweise PNG vor.
 - Der Export enthält keine Analytics-, Tracking-, Karten-, Video-, Social-Media- oder sonstigen externen Laufzeitressourcen.
-- Es wurden keine neue JavaScript- oder SEO-Laufzeitbibliothek und kein externes Bild eingebunden.
+- Es wurden keine neue JavaScript-, Bild- oder SEO-Laufzeitbibliothek und kein externes Bild eingebunden. Die einmalige Konvertierung nutzte das bereits lokal verfügbare Sharp.
+
+Nur das Startseiten-Hero wird vorab geladen. Alle übrigen Rasterbilder werden standardmäßig lazy geladen; feste intrinsische Abmessungen, Seitenverhältnisse und `sizes` vermeiden Layoutverschiebung und unnötig große Darstellungen. Die WebP-Dateien enthalten keine EXIF-, GPS- oder personenbezogenen Metadaten.
 
 `npm run verify:deployment` ermittelt Gesamtgröße und jeweils die drei größten JavaScript-, Bild- und Schriftdateien nach jedem Build erneut. Build-Hashes und Dateigrößen können sich bei späteren Änderungen geringfügig verschieben.
 

@@ -4,6 +4,7 @@ import { join } from "node:path";
 
 const outDir = join(process.cwd(), "out");
 const legalFiles = ["impressum/index.html", "datenschutz/index.html", "cookie-einstellungen/index.html"];
+const facebookUrl = "https://www.facebook.com/krankenfahrtenbadhomburg";
 
 for (const file of legalFiles) assert.ok(existsSync(join(outDir, file)), `Fehlender Export: out/${file}`);
 
@@ -13,7 +14,7 @@ for (const file of htmlFiles) {
   const h1Count = (html.match(/<h1\b/g) ?? []).length;
   assert.equal(h1Count, 1, `${file} muss genau eine H1 enthalten`);
   for (const [, url] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const allowed = url.startsWith("/") || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:") || url.startsWith("data:") || url.startsWith("https://krankenfahrten-bad-homburg.de/");
+    const allowed = url.startsWith("/") || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:") || url.startsWith("data:") || url.startsWith("https://krankenfahrten-bad-homburg.de/") || url === facebookUrl;
     assert.ok(allowed, `Unerwartete externe URL in ${file}: ${url}`);
   }
 }

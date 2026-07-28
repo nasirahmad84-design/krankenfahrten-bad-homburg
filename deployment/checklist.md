@@ -11,6 +11,7 @@
 - [ ] `npm run verify:deployment` erfolgreich
 - [ ] Inhalt von `out/` lokal kontrolliert
 - [ ] `out/service-icons/` enthält alle sechs Leistungsicons; der reservierte Altordner `icons` existiert nicht
+- [ ] `out/images/` enthält alle fünf dokumentierten WebP-Dateien
 - [ ] `out/404.html` vorhanden und `ErrorDocument 404 /404.html` in `out/.htaccess`
 - [ ] keine SPA-Fallback-Regel auf `index.html`
 - [ ] `deployment/staging.htaccess.example` ist nicht Teil von `out/`
@@ -49,7 +50,10 @@
 - [ ] genau ein valides `LocalBusiness`-JSON-LD auf der Startseite geprüft
 - [ ] keine produktive Seite enthält `noindex`; 404-Seite enthält `noindex`
 - [ ] Titles, Descriptions, H1, interne Links, Fragmente, Bildpfade und Alt-Attribute geprüft
-- [ ] kein `og:image` oder `twitter:image` ohne freigegebenes Motiv
+- [ ] Open-Graph-Bild liefert 200, misst 1200×630 und erscheint in Facebook-/WhatsApp-Vorschau
+- [ ] Facebook-Link im Footer funktioniert; kein Social-Widget oder externer Laufzeitrequest
+- [ ] Bildausschnitte auf 390, 768, 1024, 1280 und 1440 Pixel geprüft
+- [ ] illustratives Über-uns-Motiv wird nicht als Betreiberfoto bezeichnet
 - [ ] `seo-audit-checklist.md` vollständig bearbeitet
 - [ ] keine personenbezogenen Daten in Logs
 - [ ] Cookie-, Storage- und Netzwerk-Scan durchgeführt

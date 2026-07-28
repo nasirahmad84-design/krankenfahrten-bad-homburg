@@ -62,7 +62,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
   }
 
   return (
-    <div className="flex shrink-0 items-center gap-2 lg:hidden">
+    <div className="flex shrink-0 items-center gap-2 xl:hidden">
       {!isOpen && (
         <a
           href={siteConfig.phone.href}
@@ -88,7 +88,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
       <div
         id="mobile-navigation-panel"
         className={classNames(
-          "fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto bg-white lg:hidden",
+          "fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto bg-white xl:hidden",
           !isOpen && "hidden",
         )}
       >

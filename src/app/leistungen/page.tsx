@@ -15,7 +15,18 @@ export const metadata = createPageMetadata("Leistungen | Krankenfahrten Bad Homb
 
 export default function ServicesPage() {
   return <>
-    <PageHero eyebrow="Unsere Leistungen" title="Sitzende Krankenfahrten passend zu Ihrem Termin" description="Wir organisieren Fahrten für Personen, die während der Beförderung sicher sitzen können. Jede Fahrt wird persönlich abgestimmt und erst nach ausdrücklicher Bestätigung verbindlich." />
+    <PageHero
+      eyebrow="Unsere Leistungen"
+      title="Sitzende Krankenfahrten passend zu Ihrem Termin"
+      description="Wir organisieren Fahrten für Personen, die während der Beförderung sicher sitzen können. Jede Fahrt wird persönlich abgestimmt und erst nach ausdrücklicher Bestätigung verbindlich."
+      image={{
+        src: "/images/services/leistungen-hero.webp",
+        alt: "Fahrer und älterer Fahrgast stehen neben einem Fahrzeug vor einer Praxis.",
+        width: 1400,
+        height: 900,
+        position: "object-[40%_center]",
+      }}
+    />
     <ContentSection id="service-overview" title="Fahrten für unterschiedliche Behandlungssituationen" description="Die Durchführung erfolgt nach Verfügbarkeit und auf Grundlage der bestätigten Fahrtdaten.">
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{allServices.map((service, index) => <ServiceCard key={service.slug} title={service.title} description={service.description} href={`/leistungen/${service.slug}`} linkText="Details ansehen" icon={<Image src={service.icon} alt="" width={34} height={34} />} className={index === allServices.length - 1 ? "lg:col-span-2 lg:min-h-[260px]" : undefined} />)}</div>
     </ContentSection>

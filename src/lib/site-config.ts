@@ -19,6 +19,9 @@ export const siteConfig = {
     postalCode: "61352",
     city: "Bad Homburg",
   },
+  social: {
+    facebook: "https://www.facebook.com/krankenfahrtenbadhomburg",
+  },
   navigation: [
     { label: "Startseite", href: "/" },
     { label: "Leistungen", href: "/leistungen" },

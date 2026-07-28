@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { SiteContainer } from "@/components/layout/site-container";
 import { siteConfig } from "@/lib/site-config";
@@ -71,6 +72,15 @@ export function SiteFooter() {
                 ))}
               </ul>
             </nav>
+            <a
+              className={`${footerLinkClass} mt-3 gap-2`}
+              href={siteConfig.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image src="/service-icons/facebook.svg" alt="" width={22} height={22} />
+              Facebook
+            </a>
           </FooterSection>
         </div>
       </SiteContainer>

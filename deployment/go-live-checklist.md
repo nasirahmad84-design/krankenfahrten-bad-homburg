@@ -19,6 +19,8 @@
 - [ ] unbekannte Test-URL liefert wirklich HTTP 404 statt 500
 - [ ] mobile Navigation und Accordion per Tastatur
 - [ ] Footer und Mobile Contact Bar
+- [ ] Hero-, Unterstützungs-, Leistungs- und Über-uns-Bilder bei 390, 768, 1024, 1280 und 1440 Pixeln
+- [ ] keine abgeschnittenen Gesichter, Verzerrung, horizontale Überbreite oder Layoutverschiebung
 - [ ] Druckansicht der rechtlichen Seiten
 
 ## Formular
@@ -47,13 +49,14 @@
 - [ ] `sitemap.xml` mit 17 URLs
 - [ ] `robots.txt` erlaubt Seiten und sperrt `/api/`
 - [ ] Open-Graph-Titel, -Beschreibung, -URL, Locale und Site Name
-- [ ] kein defektes Social-Sharing-Bild referenziert
+- [ ] Open-Graph-Bild unter der absoluten Produktions-URL erreichbar und 1200×630
 - [ ] Markenfavicon und Apple-Touch-Icon
 - [ ] genau ein valides `LocalBusiness`-JSON-LD auf der Startseite
 - [ ] keine produktive Seite mit `noindex`
 - [ ] Staging-`X-Robots-Tag` vor Produktionsfreigabe entfernt
 - [ ] Produktionsantwort enthält keinen noindex-Header
-- [ ] Open-Graph-Bild bleibt bis zur Motivfreigabe unreferenziert
+- [ ] Facebook-Link im Footer und `sameAs` geprüft
+- [ ] Facebook-/WhatsApp-Linkvorschau geprüft
 - [ ] Lighthouse beziehungsweise gleichwertige Live-Prüfung dokumentiert
 
 ## Datenschutz
