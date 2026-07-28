@@ -132,7 +132,7 @@ for (const file of relativeFiles) {
 
 const sitemap = readFileSync(join(out, "sitemap.xml"), "utf8");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.equal(sitemapUrls.length, 17, "Die Sitemap muss genau 17 öffentliche URLs enthalten.");
+assert.equal(sitemapUrls.length, 26, "Die Sitemap muss genau 26 öffentliche URLs enthalten.");
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, "Die Sitemap enthält doppelte URLs.");
 
 const publicPaths = sitemapUrls.map((url) => {

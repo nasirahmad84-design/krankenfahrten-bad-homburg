@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site-config";
 
 const footerNavigation = [
   ...siteConfig.navigation.filter((link) => link.href !== "/"),
+  { href: "/orte", label: "Einsatzgebiet" },
   siteConfig.contactLink,
 ];
 

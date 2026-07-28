@@ -4,6 +4,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const siteUrlSource = readFileSync(join(root, "src/lib/site-url.ts"), "utf8");
 const servicesSource = readFileSync(join(root, "src/content/services.ts"), "utf8");
+const locationsSource = readFileSync(join(root, "src/content/locations.ts"), "utf8");
 const origin = siteUrlSource.match(/productionOrigin\s*=\s*"([^"]+)"/)?.[1];
 const topLevelBlock = siteUrlSource.match(/const topLevelRoutes\s*=\s*\[([\s\S]*?)\]\s*as const/)?.[1];
 
@@ -11,7 +12,8 @@ if (!origin || !topLevelBlock) throw new Error("Produktionsdomain oder öffentli
 
 const topLevelRoutes = [...topLevelBlock.matchAll(/"(\/[^\"]*)"/g)].map((match) => match[1]);
 const serviceRoutes = [...servicesSource.matchAll(/slug:\s*"([^"]+)"/g)].map((match) => `/leistungen/${match[1]}/`);
-const routes = [...new Set([...topLevelRoutes, ...serviceRoutes])];
+const locationRoutes = [...locationsSource.matchAll(/slug:\s*"([^"]+)"/g)].map((match) => `/orte/${match[1]}/`);
+const routes = [...new Set([...topLevelRoutes, ...serviceRoutes, ...locationRoutes])];
 
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',

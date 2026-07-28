@@ -4,6 +4,7 @@ import { HomeCta } from "@/components/sections/home-cta";
 import { HomeFaq } from "@/components/sections/home-faq";
 import { HomeHero } from "@/components/sections/home-hero";
 import { HomeProcess } from "@/components/sections/home-process";
+import { HomeLocations } from "@/components/sections/home-locations";
 import { HomeServices } from "@/components/sections/home-services";
 import { HomeSupport } from "@/components/sections/home-support";
 import { serializedLocalBusinessStructuredData } from "@/lib/local-business-structured-data";
@@ -26,6 +27,7 @@ export default function Home() {
       <HomeBenefits />
       <HomeServices />
       <HomeSupport />
+      <HomeLocations />
       <HomeProcess />
       <HomeBilling />
       <HomeFaq />

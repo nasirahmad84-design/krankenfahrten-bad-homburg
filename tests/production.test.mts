@@ -5,12 +5,43 @@ import test from "node:test";
 
 import { localBusinessStructuredData } from "../src/lib/local-business-structured-data.ts";
 import { absoluteUrl, productionOrigin, publicRoutePaths } from "../src/lib/site-url.ts";
+import { regionalLocations } from "../src/content/locations.ts";
 
-test("zentralisiert Produktionsdomain und 17 öffentliche Routen", () => {
+test("zentralisiert Produktionsdomain und 26 öffentliche Routen", () => {
   assert.equal(productionOrigin, "https://krankenfahrten-bad-homburg.de");
-  assert.equal(publicRoutePaths.length, 17);
+  assert.equal(publicRoutePaths.length, 26);
   assert.equal(new Set(publicRoutePaths).size, publicRoutePaths.length);
   for (const route of publicRoutePaths) assert.ok(route === "/" || route.endsWith("/"));
+});
+
+test("führt den bestätigten regionalen SEO-Cluster mit individuellen Inhalten", () => {
+  assert.deepEqual(
+    regionalLocations.map(({ name }) => name),
+    [
+      "Burgholzhausen",
+      "Köppern",
+      "Friedrichsdorf",
+      "Oberursel",
+      "Frankfurt-Riedberg",
+      "Frankfurt-Bonames",
+      "Nieder-Eschbach",
+      "Kalbach",
+    ],
+  );
+  assert.equal(new Set(regionalLocations.map(({ slug }) => slug)).size, 8);
+  assert.equal(new Set(regionalLocations.map(({ metadataTitle }) => metadataTitle)).size, 8);
+  assert.equal(new Set(regionalLocations.map(({ metadataDescription }) => metadataDescription)).size, 8);
+
+  const slugs = new Set(regionalLocations.map(({ slug }) => slug));
+  for (const location of regionalLocations) {
+    assert.ok(location.metadataTitle.length >= 35 && location.metadataTitle.length <= 60);
+    assert.ok(location.metadataDescription.length >= 110 && location.metadataDescription.length <= 160);
+    assert.equal(location.sources.length, 2);
+    for (const source of location.sources) {
+      assert.match(source, /^https:\/\/(?:m\.)?(?:www\.)?(?:friedrichsdorf\.de|oberursel\.de|frankfurt\.de)\//);
+    }
+    for (const relatedSlug of location.relatedSlugs) assert.ok(slugs.has(relatedSlug));
+  }
 });
 
 test("erzeugt normalisierte absolute Produktions-URLs", () => {

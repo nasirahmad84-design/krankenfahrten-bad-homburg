@@ -2,7 +2,7 @@
 
 ## 1. Automatisiert bestanden
 
-- [x] statischer Export mit exakt 17 öffentlichen Produktionsrouten
+- [x] statischer Export mit exakt 26 öffentlichen Produktionsrouten
 - [x] genau eine H1 und ein Produktions-Canonical je öffentlicher Route
 - [x] individuelle Titles und Meta-Descriptions ohne Duplikate
 - [x] keine Canonicals oder Links zur Testdomain, zu localhost oder example.com
@@ -10,7 +10,9 @@
 - [x] `404.html` vorhanden und mit `noindex`
 - [x] `ErrorDocument 404 /404.html`, keine SPA-Fallback-Regel
 - [x] `api/config.php` und `api/vendor/` geschützt
-- [x] Sitemap und robots.txt konsistent mit den 17 Routen
+- [x] Sitemap und robots.txt konsistent mit den 26 Routen
+- [x] acht regionale Ortsseiten mit individuellen Titles, Descriptions und lokalen Hinweisen
+- [x] Bad Homburg bleibt zentrale Hauptseite und wird nicht als konkurrierende Ortsseite dupliziert
 - [x] interne Links, Fragmentziele, Trailing Slashes und Bildpfade vorhanden
 - [x] jedes `img` mit Alt-Attribut; bestehende Leistungs- und Markensymbole dekorativ
 - [x] genau ein valides `LocalBusiness`-JSON-LD auf der Startseite
@@ -35,6 +37,7 @@
 - [ ] Sicherheits-, Cache- und Kompressionsheader geprüft
 - [ ] mobile Lighthouse-Prüfung für Performance, Accessibility, Best Practices und SEO dokumentiert
 - [ ] strukturierte Daten mit Schema Markup Validator beziehungsweise Rich Results Test geprüft
+- [ ] `/orte/` und alle acht Ortsseiten auf Desktop und Mobil geprüft
 - [ ] Cookie-, Storage- und Netzwerk-Scan ohne unerwartete Drittanbieter
 - [ ] rechtliche Inhalte fachlich beziehungsweise rechtlich freigegeben
 

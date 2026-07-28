@@ -217,9 +217,9 @@ Die noch erforderlichen Freigaben stehen in `deployment/legal-review-checklist.m
 
 ## Produktions- und Deployment-Vorbereitung (DEV-06C)
 
-Die primäre Produktionsdomain ist zentral in `src/lib/site-url.ts` als `https://krankenfahrten-bad-homburg.de` hinterlegt. Die Variante mit `www` wird nicht als eigenständige Website behandelt, sondern soll dauerhaft auf die primäre Domain weiterleiten. Alle 17 indexierbaren Seiten verwenden daraus abgeleitete absolute Canonicals mit abschließendem Slash und seitenbezogene Open-Graph-Titel, -Beschreibungen und -URLs. `metadataBase`, Anwendungstitel, Standardsprache und lokale Icons werden im Root-Layout gesetzt.
+Die primäre Produktionsdomain ist zentral in `src/lib/site-url.ts` als `https://krankenfahrten-bad-homburg.de` hinterlegt. Die Variante mit `www` wird nicht als eigenständige Website behandelt, sondern soll dauerhaft auf die primäre Domain weiterleiten. Alle 26 indexierbaren Seiten verwenden daraus abgeleitete absolute Canonicals mit abschließendem Slash und seitenbezogene Open-Graph-Titel, -Beschreibungen und -URLs. `metadataBase`, Anwendungstitel, Standardsprache und lokale Icons werden im Root-Layout gesetzt.
 
-Vor jedem Build erzeugt `scripts/generate-static-seo.mjs` aus der zentralen Routen- und Servicedefinition die statischen Dateien `public/sitemap.xml` und `public/robots.txt`. Die Sitemap enthält nur die 17 öffentlichen Seiten, keine API- oder Entwicklungsziele. `robots.txt` erlaubt die öffentlichen Seiten, sperrt `/api/` für Crawler und verweist auf die Produktions-Sitemap. Es bestehen keine Next.js-Route-Handler.
+Vor jedem Build erzeugt `scripts/generate-static-seo.mjs` aus der zentralen Routen-, Service- und Ortsdefinition die statischen Dateien `public/sitemap.xml` und `public/robots.txt`. Die Sitemap enthält nur die 26 öffentlichen Seiten, keine API- oder Entwicklungsziele. `robots.txt` erlaubt die öffentlichen Seiten, sperrt `/api/` für Crawler und verweist auf die Produktions-Sitemap. Es bestehen keine Next.js-Route-Handler.
 
 `src/app/not-found.tsx` liefert die statisch exportierte, deutschsprachige 404-Seite mit Startseiten-, Leistungs-, Kontakt- und Telefonaktion. Aus dem finalen Logozeichen wurden transparente PNG-Icons für Browser und Apple Touch erzeugt; das Standard-Next-Favicon und nicht verwendete Next-Startassets wurden entfernt. Ein Web-App-Manifest wird nicht erzeugt, weil keine PWA-Installierbarkeit vorgesehen ist.
 
@@ -227,7 +227,7 @@ Die `.htaccess` bereitet hostgebundene HTTP-zu-HTTPS- und `www`-zu-non-`www`-Wei
 
 Die PHP-Beispielkonfiguration verwendet die primäre Origin, den ALL-INKL-SMTP-Host und STARTTLS auf Port 587 sowie konfigurierbare Mindest- und Maximalzeiten für Formular, Kalenderdauer und Erinnerung. `api/config.php` wird weiterhin ausschließlich auf dem Server erstellt. Rate-Limit- und Kalender-UID-Salt müssen getrennt mit `openssl rand -hex 32` erzeugt werden. Der Endpunkt sendet zusätzlich `Cache-Control: no-store`.
 
-`scripts/verify-deployment.mjs` prüft nach dem Build die 17 Seiten, 404, Sitemap, robots.txt, `.htaccess`, PHP- und Kalenderdateien, PHPMailer-Autoloader und -Klassen, ICS-Speicheranhang, Icons, Canonicals, H1 und Skip-Links, interne Ziele, Assets und Fragmente. Außerdem schließt es `config.php`, dauerhaft erzeugte `.ics`-Dateien, Kalender-Secrets und externe Kalenderintegrationen, unnötige Composer-Entwicklungsabhängigkeiten, `.env`, Source Maps, TypeScript-, Test- und Node-Serverdateien, lokale URLs, Beispieldomains, Server Actions, Resend-Hinweise und bekannte Secret-Muster aus.
+`scripts/verify-deployment.mjs` prüft nach dem Build die 26 Seiten, 404, Sitemap, robots.txt, `.htaccess`, PHP- und Kalenderdateien, PHPMailer-Autoloader und -Klassen, ICS-Speicheranhang, Icons, Canonicals, H1 und Skip-Links, interne Ziele, Assets und Fragmente. Außerdem schließt es `config.php`, dauerhaft erzeugte `.ics`-Dateien, Kalender-Secrets und externe Kalenderintegrationen, unnötige Composer-Entwicklungsabhängigkeiten, `.env`, Source Maps, TypeScript-, Test- und Node-Serverdateien, lokale URLs, Beispieldomains, Server Actions, Resend-Hinweise und bekannte Secret-Muster aus.
 
 Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren die PHP-Abnahmematrix, Rollback-Anleitung sowie Deployment-, Go-live- und Legal-Review-Checklisten. Das vollständige Upload-Paket liegt nach `npm run build` unter `out/`. **Auf dem Zielserver ist kein Node.js-Prozess erforderlich.** Es findet kein automatisches Deployment statt.
 
@@ -237,7 +237,15 @@ Verbleibende Einschränkungen: Die lokale Testsuite stellt bewusst keine echte V
 
 ## SEO-Grundlagen vor Go-live (SEO-01A, SEO-03, SEO-05, SEO-06A)
 
-Der Produktions-Export enthält 17 individuelle indexierbare Seiten mit genau einer H1, einem Canonical zur primären Domain sowie individuellen Titles und Descriptions. Die Leistungsseitentitel wurden anhand ihrer Suchintention verkürzt. Open-Graph-Titel, Beschreibung, URL, Site Name und `de_DE` bleiben erhalten. Alle Seiten verwenden das lokale 1200×630-Open-Graph-Motiv und eine `summary_large_image`-Twitter-Card.
+Der Produktions-Export enthält 26 individuelle indexierbare Seiten mit genau einer H1, einem Canonical zur primären Domain sowie individuellen Titles und Descriptions. Die Leistungsseitentitel wurden anhand ihrer Suchintention verkürzt. Open-Graph-Titel, Beschreibung, URL, Site Name und `de_DE` bleiben erhalten. Alle Seiten verwenden das lokale 1200×630-Open-Graph-Motiv und eine `summary_large_image`-Twitter-Card.
+
+## Regionale Landingpages (SEO-08)
+
+Die regionale Struktur folgt dem bestätigten Zwiebelprinzip ab Bad Homburg. `/orte/` bündelt die acht individuellen Ortsseiten für Burgholzhausen, Köppern, Friedrichsdorf, Oberursel, Frankfurt-Riedberg, Frankfurt-Bonames, Nieder-Eschbach und Kalbach. Bad Homburg bleibt als zentraler Standort auf der Startseite verankert und wird nicht durch eine zweite, konkurrierende Ortsseite dupliziert.
+
+Jede Ortsseite enthält eigenständige Angaben zur Ortsstruktur, zur eindeutigen Abholung und zu typischen regionalen Fahrtanlässen. Die sachlichen Ortsangaben beruhen auf offiziellen Quellen der Städte Friedrichsdorf, Oberursel und Frankfurt, die in `src/content/locations.ts` dokumentiert sind. Die Seiten nennen bewusst keine festen Fahrzeiten, keine garantierte Verfügbarkeit, keine Partnerbeziehungen und keinen öffentlichen Maximalradius. Eine Fahrt wird immer anhand der konkreten Adressen, Uhrzeit und Kapazität geprüft und erst durch ausdrückliche Bestätigung verbindlich.
+
+Weitere Orte sollen erst ergänzt werden, wenn ein eigener regionaler Informationswert und eine verlässlich prüfbare Nachfrage bestehen. Das verhindert austauschbare Ortsseiten ohne echten Mehrwert.
 
 Die Startseite enthält genau ein serverseitig vorgerendertes `LocalBusiness`-JSON-LD aus `src/lib/local-business-structured-data.ts`. Es verwendet nur bestätigte Unternehmens-, Kontakt-, Adress-, Einsatzgebiets- und Leistungsangaben. Das verifizierte Facebook-Profil ist der einzige `sameAs`-Eintrag; Erreichbarkeit und Fahrbetrieb sind für Montag bis Sonntag von `00:00` bis `23:59` ausgezeichnet. Bewertungen, Koordinaten, Preisbereich und nicht angebotene Beförderungsarten fehlen bewusst.
 

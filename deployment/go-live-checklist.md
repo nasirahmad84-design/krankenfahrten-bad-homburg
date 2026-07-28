@@ -47,7 +47,8 @@
 
 - [ ] individuelle Title und Description
 - [ ] genau ein korrekter Canonical je öffentlicher Seite
-- [ ] `sitemap.xml` mit 17 URLs
+- [ ] `sitemap.xml` mit 26 URLs
+- [ ] `/orte/` und alle acht regionalen Ortsseiten erreichbar
 - [ ] `robots.txt` erlaubt Seiten und sperrt `/api/`
 - [ ] Open-Graph-Titel, -Beschreibung, -URL, Locale und Site Name
 - [ ] Open-Graph-Bild unter der absoluten Produktions-URL erreichbar und 1200×630
