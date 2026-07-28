@@ -8,6 +8,7 @@ const productionOrigin = "https://krankenfahrten-bad-homburg.de";
 const testOrigin = "https://test.krankenfahrten-bad-homburg.de";
 const facebookUrl = "https://www.facebook.com/krankenfahrtenbadhomburg";
 const googleReviewUrl = "https://g.page/r/CaFwfvm2AJWzEBM/review";
+const whatsappUrl = "https://wa.me/491754142222";
 const socialImageUrl = `${productionOrigin}/images/social/og-default-1200x630.webp`;
 const websiteImages = [
   ["images/home/hero-krankenfahrt.webp", 1800, 1100, 400 * 1024],
@@ -208,6 +209,7 @@ assert.deepEqual(foundInformativeImages, new Set(informativeImageAlts.keys()), "
 const homeHtml = readFileSync(join(out, "index.html"), "utf8");
 assert.match(homeHtml, new RegExp(`href="${escapeRegExp(facebookUrl)}"[^>]*target="_blank"[^>]*rel="noopener noreferrer"`), "Facebook-Link im Footer fehlt.");
 assert.match(homeHtml, new RegExp(`href="${escapeRegExp(googleReviewUrl)}"[^>]*target="_blank"[^>]*rel="noopener noreferrer"`), "Google-Rezensions-CTA fehlt oder ist unsicher konfiguriert.");
+assert.match(homeHtml, new RegExp(`href="${escapeRegExp(whatsappUrl)}"[^>]*target="_blank"[^>]*rel="noopener noreferrer"`), "WhatsApp-CTA fehlt oder ist unsicher konfiguriert.");
 assert.doesNotMatch(homeHtml, /AggregateRating|aggregateRating|ratingValue|reviewCount|[★⭐]/, "Erfundene Bewertungsdarstellung im Export.");
 
 const notFoundHtml = readFileSync(join(out, "404.html"), "utf8");
@@ -246,7 +248,7 @@ function auditHtmlLinks(html, sourceFile, routePath) {
     if (/^(?:mailto:|tel:|data:)/.test(value)) continue;
 
     const parsed = new URL(value, new URL(routePath, productionOrigin));
-    if (parsed.toString() === facebookUrl || parsed.toString() === googleReviewUrl) continue;
+    if (parsed.toString() === facebookUrl || parsed.toString() === googleReviewUrl || parsed.toString() === whatsappUrl) continue;
     assert.equal(parsed.origin, productionOrigin, `Unerwartete externe Ressource in ${relative(out, sourceFile)}: ${value}`);
 
     if (parsed.hash && parsed.pathname === routePath) {

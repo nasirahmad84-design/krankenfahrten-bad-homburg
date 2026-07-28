@@ -10,6 +10,9 @@ export const siteConfig = {
     display: "0175 4142222",
     href: "tel:+491754142222",
   },
+  whatsapp: {
+    href: "https://wa.me/491754142222",
+  },
   email: {
     address: "anfrage@krankenfahrten-bad-homburg.de",
     href: "mailto:anfrage@krankenfahrten-bad-homburg.de",
