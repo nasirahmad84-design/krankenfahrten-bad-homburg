@@ -45,6 +45,8 @@ const requiredFiles = [
   "api/vendor/phpmailer/phpmailer/src/SMTP.php",
   "icon.png",
   "apple-icon.png",
+  "brand/logo.svg",
+  "brand/logo-mark.svg",
   "service-icons/arztfahrt.svg",
   "service-icons/dialysefahrt.svg",
   "service-icons/entlassungsfahrt.svg",

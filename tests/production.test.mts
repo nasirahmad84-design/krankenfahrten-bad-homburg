@@ -38,6 +38,10 @@ test("pflegt verifizierte LocalBusiness-Daten einschließlich Facebook und 24/7"
   assert.equal(localBusinessStructuredData.name, "Krankenfahrten Bad Homburg");
   assert.equal(localBusinessStructuredData.url, "https://krankenfahrten-bad-homburg.de/");
   assert.equal(localBusinessStructuredData.telephone, "+49 175 4142222");
+  assert.equal(
+    localBusinessStructuredData.logo,
+    "https://krankenfahrten-bad-homburg.de/brand/logo.svg",
+  );
   assert.deepEqual(localBusinessStructuredData.address, {
     "@type": "PostalAddress",
     streetAddress: "Basler Str. 3",

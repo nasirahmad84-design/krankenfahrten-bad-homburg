@@ -15,37 +15,20 @@ export function SiteLogo({ compact = false, className }: SiteLogoProps) {
       href="/"
       className={classNames(
         "flex shrink-0 items-center overflow-hidden whitespace-nowrap",
-        compact ? "h-11 w-[166px] gap-[5px]" : "h-[58px] w-[218px] gap-2",
+        compact ? "h-[52px] w-[161px]" : "h-[66px] w-[204px]",
         className,
       )}
       aria-label={`${siteConfig.name} – Startseite`}
     >
       <Image
-        src="/brand/logo-mark.svg"
+        src="/brand/logo.svg"
         alt=""
-        width={compact ? 44 : 58}
-        height={compact ? 44 : 58}
-        className={classNames("shrink-0", compact ? "size-11" : "size-[58px]")}
-        priority
+        width={2040}
+        height={660}
+        sizes={compact ? "161px" : "204px"}
+        className="h-auto w-full shrink-0"
+        preload
       />
-      <span className="flex min-w-0 flex-col leading-none">
-        <span
-          className={classNames(
-            "font-bold text-navy",
-            compact ? "text-[15px]" : "text-[20px]",
-          )}
-        >
-          Krankenfahrten
-        </span>
-        <span
-          className={classNames(
-            "mt-0.5 font-normal text-green",
-            compact ? "text-xs" : "text-[15px]",
-          )}
-        >
-          Bad Homburg
-        </span>
-      </span>
     </Link>
   );
 }

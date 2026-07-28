@@ -110,11 +110,10 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 - produktiver Cookie-, Storage- und Netzwerk-Scan nach dem ALL-INKL-Deployment
 - Verifikation der Hosting-Logfristen, E-Mail-Löschfristen und des betrieblichen Löschkonzepts
 - Prüfung noch unbekannter anbieter- und branchenspezifischer Pflichtangaben
-- mögliche spätere Ablösung der aus Figma-Logozeichen und HTML-Text aufgebauten Wortmarke durch eine finale kombinierte Logodatei
 
 ## Bekannte Abweichungen zu Figma
 
-- Das originale Figma-Logozeichen und Telefon-Icon liegen lokal unter `public/brand`; der Wortmarkentext bleibt für gute Skalierbarkeit und Austauschbarkeit HTML.
+- Das finale korrigierte Wortlogo liegt als lokales SVG unter `public/brand/logo.svg`. Das daraus abgeleitete Zeichen unter `public/brand/logo-mark.svg` dient Browser- und Apple-Icons.
 - Der grüne CTA verwendet Navy-Schrift statt der weißen Figma-Schrift, um den Kontrast für normalen Text zu erhöhen.
 - Die Headerbreite bleibt fluid und wird nicht auf eine feste Figma-Canvasbreite gesetzt.
 - Leistungsgrenzen und Notfallhinweis sind aufgrund der fachlichen Vorgaben zusätzlich sichtbar hervorgehoben.
@@ -222,7 +221,7 @@ Die primäre Produktionsdomain ist zentral in `src/lib/site-url.ts` als `https:/
 
 Vor jedem Build erzeugt `scripts/generate-static-seo.mjs` aus der zentralen Routen- und Servicedefinition die statischen Dateien `public/sitemap.xml` und `public/robots.txt`. Die Sitemap enthält nur die 17 öffentlichen Seiten, keine API- oder Entwicklungsziele. `robots.txt` erlaubt die öffentlichen Seiten, sperrt `/api/` für Crawler und verweist auf die Produktions-Sitemap. Es bestehen keine Next.js-Route-Handler.
 
-`src/app/not-found.tsx` liefert die statisch exportierte, deutschsprachige 404-Seite mit Startseiten-, Leistungs-, Kontakt- und Telefonaktion. Aus dem vorhandenen Logozeichen wurden PNG-Icons für Browser und Apple Touch erzeugt; das Standard-Next-Favicon und nicht verwendete Next-Startassets wurden entfernt. Ein Web-App-Manifest wird nicht erzeugt, weil keine PWA-Installierbarkeit vorgesehen ist.
+`src/app/not-found.tsx` liefert die statisch exportierte, deutschsprachige 404-Seite mit Startseiten-, Leistungs-, Kontakt- und Telefonaktion. Aus dem finalen Logozeichen wurden transparente PNG-Icons für Browser und Apple Touch erzeugt; das Standard-Next-Favicon und nicht verwendete Next-Startassets wurden entfernt. Ein Web-App-Manifest wird nicht erzeugt, weil keine PWA-Installierbarkeit vorgesehen ist.
 
 Die `.htaccess` bereitet hostgebundene HTTP-zu-HTTPS- und `www`-zu-non-`www`-Weiterleitungen, Zugriffsschutz, Fehlerseite, Sicherheitsheader und differenzierte Cache-Regeln vor. Statische Assets sind langfristig cachebar; HTML und SEO-Dateien werden revalidiert, PHP-Antworten nicht gespeichert. CSP und HSTS bleiben bis zur erfolgreichen Prüfung auf dem ALL-INKL-Abnahmehost deaktiviert. HTTPS- und Domainweiterleitungen sollen bevorzugt im KAS konfiguriert und anschließend gegen die `.htaccess` auf Widersprüche geprüft werden.
 
@@ -232,7 +231,7 @@ Die PHP-Beispielkonfiguration verwendet die primäre Origin, den ALL-INKL-SMTP-H
 
 Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren die PHP-Abnahmematrix, Rollback-Anleitung sowie Deployment-, Go-live- und Legal-Review-Checklisten. Das vollständige Upload-Paket liegt nach `npm run build` unter `out/`. **Auf dem Zielserver ist kein Node.js-Prozess erforderlich.** Es findet kein automatisches Deployment statt.
 
-Der öffentliche Standardordnername `icons` wird wegen eines möglichen reservierten Apache-Alias auf dem ALL-INKL-Hosting nicht verwendet. Leistungsicons liegen im Quellcode unter `public/service-icons/` und im Upload-Paket unter `out/service-icons/`; Markenassets bleiben unverändert unter `public/brand/`.
+Der öffentliche Standardordnername `icons` wird wegen eines möglichen reservierten Apache-Alias auf dem ALL-INKL-Hosting nicht verwendet. Leistungsicons liegen im Quellcode unter `public/service-icons/` und im Upload-Paket unter `out/service-icons/`; das finale Wortlogo und sein abgeleitetes Zeichen liegen unter `public/brand/`.
 
 Verbleibende Einschränkungen: Die lokale Testsuite stellt bewusst keine echte Verbindung zum ALL-INKL-SMTP-Server her. SMTP-Anmeldung und -Zustellung, Apache-Header, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. SPF, DKIM und DMARC müssen anschließend geprüft werden.
 
@@ -264,10 +263,22 @@ Die vier fotografischen Motive wurden mit der integrierten Bildgenerierung eigen
 | `images/home/persoenliche-unterstuetzung.webp` | 1400×900 | 118 KiB | Unterstützung: „Fahrer begleitet einen älteren Fahrgast zum Eingang einer Praxis.“ | 52 % horizontal |
 | `images/services/leistungen-hero.webp` | 1400×900 | 99 KiB | Leistungen: „Fahrer und älterer Fahrgast stehen neben einem Fahrzeug vor einer Praxis.“ | 40 % horizontal |
 | `images/about/betreiber-mit-fahrzeug.webp` | 1200×900 | 121 KiB | Über uns: „Fahrer steht neben einem dunklen Fahrzeug des Fahrdienstes.“ | 48 % horizontal |
-| `images/social/og-default-1200x630.webp` | 1200×630 | 21 KiB | rein grafische Sharing-Vorschau | ohne Zuschnitt |
+| `images/social/og-default-1200x630.webp` | 1200×630 | 32 KiB | rein grafische Sharing-Vorschau mit finalem Wortlogo | ohne Zuschnitt |
 
 `SectionImage` reserviert die intrinsischen Abmessungen, setzt responsive `sizes` und lädt Abschnittsbilder verzögert. Nur das Startseiten-Hero wird als wahrscheinliches LCP-Bild über das in Next.js 16 aktuelle `preload`-Prop vorab geladen; das im Ticket genannte `priority` ist in dieser Version veraltet. Es gibt keine externen Bildrequests, Base64-Bilder, Slider oder informative CSS-Hintergrundbilder.
 
 Das grafische Open-Graph-Motiv verwendet Logo, Navy, Grün und Weiß und liegt unter `https://krankenfahrten-bad-homburg.de/images/social/og-default-1200x630.webp`. Der Footer verlinkt ausschließlich das verifizierte Facebook-Profil als normalen zugänglichen Link ohne Pixel, Widget, Feed, Tracking oder externes JavaScript. Instagram und LinkedIn werden mangels verifizierter Profile nicht verlinkt.
+
+## Finale Markenassets
+
+Das vom Betreiber bereitgestellte korrigierte SVG ist die verbindliche Quelle. Für das Webpaket werden daraus folgende lokale Formate verwendet:
+
+- `public/brand/logo.svg`: beschnittenes, transparentes Wortlogo für den Header und `LocalBusiness.logo`
+- `public/brand/logo-mark.svg`: quadratischer Vektorausschnitt des finalen Zeichens
+- `src/app/icon.png`: transparentes 512×512-Browsericon
+- `src/app/apple-icon.png`: transparentes 180×180-Apple-Touch-Icon
+- `public/images/social/og-default-1200x630.webp`: Sharing-Motiv mit finalem Wortlogo
+
+Entfernt wurde ausschließlich die vollflächige weiße Hintergrundfläche der gelieferten Datei, damit das Logo auf Weboberflächen transparent funktioniert. Formen, Wortmarke und Markenfarben wurden nicht verändert. Die gelieferte große PNG-Datei dient nur als visuelle Referenz; die Website lädt für das Logo die verlustfreie skalierbare SVG-Variante.
 
 Nach Upload sind die Bildausschnitte auf 390, 768, 1024, 1280 und 1440 Pixel Breite, die WhatsApp-/Facebook-Vorschau, Netzwerkrequests und das serverseitige Caching erneut zu prüfen.

@@ -70,7 +70,7 @@ export const localBusinessStructuredData: LocalBusinessData = {
   name: "Krankenfahrten Bad Homburg",
   legalName: "Mubasher Ahmad",
   url: absoluteUrl("/"),
-  logo: new URL("/brand/logo-mark.svg", productionOrigin).toString(),
+  logo: new URL("/brand/logo.svg", productionOrigin).toString(),
   telephone: "+49 175 4142222",
   email: "anfrage@krankenfahrten-bad-homburg.de",
   address: {

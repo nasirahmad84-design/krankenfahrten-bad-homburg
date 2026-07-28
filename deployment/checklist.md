@@ -11,6 +11,8 @@
 - [ ] `npm run verify:deployment` erfolgreich
 - [ ] Inhalt von `out/` lokal kontrolliert
 - [ ] `out/service-icons/` enthält alle sechs Leistungsicons; der reservierte Altordner `icons` existiert nicht
+- [ ] `out/brand/logo.svg` und `out/brand/logo-mark.svg` entsprechen dem final freigegebenen Logo
+- [ ] Browsericon und Apple-Touch-Icon zeigen das finale Zeichen
 - [ ] `out/images/` enthält alle fünf dokumentierten WebP-Dateien
 - [ ] `out/404.html` vorhanden und `ErrorDocument 404 /404.html` in `out/.htaccess`
 - [ ] keine SPA-Fallback-Regel auf `index.html`

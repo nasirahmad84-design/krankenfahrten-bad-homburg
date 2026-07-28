@@ -2,9 +2,9 @@
 
 ## Automatisierter statischer Bestand
 
-- Der vollständige Export umfasst nach SEO-04 4,98 MiB und 286 Dateien. Die exakte Zahl und Dateianzahl gibt `npm run verify:deployment` nach jedem Build erneut aus.
+- Der vollständige Export umfasst mit den finalen Markenassets 4,94 MiB und 287 Dateien. Die exakte Zahl und Dateianzahl gibt `npm run verify:deployment` nach jedem Build erneut aus.
 - Die größten JavaScript-Dateien sind aktuell ungefähr 222 KiB, 146 KiB und 110 KiB groß und stammen aus der Next.js-/React-Laufzeit.
-- Neue WebP-Bilder: Hero 169 KiB (1800×1100), Über uns 121 KiB (1200×900), Unterstützung 118 KiB (1400×900), Leistungen 99 KiB (1400×900), Open Graph 21 KiB (1200×630).
+- Neue WebP-Bilder: Hero 169 KiB (1800×1100), Über uns 121 KiB (1200×900), Unterstützung 118 KiB (1400×900), Leistungen 99 KiB (1400×900), Open Graph mit finalem Logo 32 KiB (1200×630).
 - Die größten lokalen Schriftdateien liegen bei ungefähr 83 KiB, 47 KiB und 25 KiB.
 - Inter wird lokal über `next/font` ausgeliefert; Fotos und Sharing-Vorschau liegen lokal als optimierte WebP-Dateien, Marken- und Leistungsicons als SVG beziehungsweise PNG vor.
 - Der Export enthält keine Analytics-, Tracking-, Karten-, Video-, Social-Media- oder sonstigen externen Laufzeitressourcen.
