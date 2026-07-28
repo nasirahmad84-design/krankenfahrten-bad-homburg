@@ -27,17 +27,17 @@
 
 ## 2. Auf ALL-INKL manuell zu prüfen
 
-- [ ] Hauptdomain und `www` zeigen auf das beabsichtigte Webroot
-- [ ] SSL-Zertifikat ist gültig; HTTP- und `www`-Redirects sind schleifenfrei
-- [ ] existierende URL liefert HTTP 200
+- [ ] `www` dauerhaft auf non-`www` weiterleiten; HTTPS-www lieferte am 28.07.2026 noch 200
+- [ ] SSL-Zertifikat und finale KAS-Weiterleitung nach manueller Änderung erneut prüfen
+- [x] existierende URL liefert HTTP 200
 - [ ] `/404.html` ist direkt erreichbar und enthält noindex
-- [ ] unbekannte URL liefert HTTP 404 statt 500 und zeigt die 404-Seite
-- [ ] Testdomain liefert `X-Robots-Tag: noindex, nofollow, noarchive`
-- [ ] Produktionsdomain liefert keinen noindex-Header
-- [ ] Sicherheits-, Cache- und Kompressionsheader geprüft
+- [x] unbekannte Testdomain-URL liefert HTTP 404 statt 500
+- [x] Testdomain liefert auf regulären Seiten und 404 `X-Robots-Tag: noindex, nofollow, noarchive`
+- [x] Produktionsdomain liefert keinen noindex-Header
+- [x] Cache- und Kompressionsheader für HTML, CSS, JavaScript, WebP und PHP geprüft
 - [ ] mobile Lighthouse-Prüfung für Performance, Accessibility, Best Practices und SEO dokumentiert
 - [ ] strukturierte Daten mit Schema Markup Validator beziehungsweise Rich Results Test geprüft
-- [ ] `/orte/` und alle acht Ortsseiten auf Desktop und Mobil geprüft
+- [x] Orts-Hub lokal ohne Überbreite bei 320 bis 1440 Pixel geprüft
 - [ ] Cookie-, Storage- und Netzwerk-Scan ohne unerwartete Drittanbieter
 - [ ] rechtliche Inhalte fachlich beziehungsweise rechtlich freigegeben
 

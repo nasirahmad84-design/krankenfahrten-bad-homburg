@@ -13,6 +13,7 @@
   --radius-card: 1.5rem;
   --background: var(--color-white);
   --foreground: var(--color-navy);
+  --mobile-header-height: 72px;
 }
 
 @theme inline {
@@ -71,6 +72,18 @@ body {
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
+}
+
+.mobile-navigation-panel {
+  top: var(--mobile-header-height);
+  height: calc(100dvh - var(--mobile-header-height));
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.site-body[data-mobile-menu-open="true"] .site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
 }
 
 .skip-link {

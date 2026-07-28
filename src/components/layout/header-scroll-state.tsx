@@ -29,7 +29,7 @@ export function HeaderScrollState({ children }: { children: React.ReactNode }) {
   return (
     <header
       className={classNames(
-        "sticky top-0 z-40 border-b border-[#dbe0e8] bg-white transition-[height,box-shadow] duration-200",
+        "site-header sticky top-0 z-40 border-b border-[#dbe0e8] bg-white transition-[height,box-shadow] duration-200",
         "h-[72px]",
         isScrolled ? "xl:h-[76px] xl:shadow-md" : "xl:h-[92px]",
       )}

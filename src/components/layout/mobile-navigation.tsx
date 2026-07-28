@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { ChevronIcon, PhoneIcon } from "@/components/layout/header-icons";
 import { Button } from "@/components/ui/button";
@@ -19,32 +19,104 @@ function MobileMenu({ pathname }: { pathname: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const scrollPositionRef = useRef(0);
+  const bodyStylesRef = useRef<Record<string, string> | null>(null);
 
   useEffect(() => {
     return () => setGlobalMenuState(false);
   }, []);
 
+  const closeMenu = useCallback((restoreFocus = false) => {
+    setGlobalMenuState(false);
+    setIsOpen(false);
+    if (restoreFocus) requestAnimationFrame(() => buttonRef.current?.focus());
+  }, []);
+
   useEffect(() => {
     if (!isOpen) return;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    firstLinkRef.current?.focus();
-
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        closeMenu();
-        buttonRef.current?.focus();
+        event.preventDefault();
+        closeMenu(true);
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const panel = panelRef.current;
+        if (!panel) return;
+        const focusable = [
+          buttonRef.current,
+          ...panel.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ),
+        ].filter((element): element is HTMLElement => Boolean(element));
+        const first = focusable[0];
+        const last = focusable.at(-1);
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       }
     }
 
+    const header = buttonRef.current?.closest("header");
+    const updateHeaderHeight = () => {
+      if (header) {
+        document.documentElement.style.setProperty(
+          "--mobile-header-height",
+          `${header.getBoundingClientRect().height}px`,
+        );
+      }
+    };
+    const resizeObserver = header ? new ResizeObserver(updateHeaderHeight) : null;
+    updateHeaderHeight();
+    if (header) resizeObserver?.observe(header);
+
+    scrollPositionRef.current = window.scrollY;
+    bodyStylesRef.current = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width,
+      overflow: document.body.style.overflow,
+    };
+    Object.assign(document.body.style, {
+      position: "fixed",
+      top: `-${scrollPositionRef.current}px`,
+      left: "0",
+      right: "0",
+      width: "100%",
+      overflow: "hidden",
+    });
+
+    const backgroundElements = [
+      document.querySelector<HTMLElement>(".skip-link"),
+      document.querySelector<HTMLElement>("main"),
+      document.querySelector<HTMLElement>("footer"),
+      document.querySelector<HTMLElement>(".mobile-contact-bar"),
+    ].filter((element): element is HTMLElement => Boolean(element));
+    for (const element of backgroundElements) element.inert = true;
+
     document.addEventListener("keydown", handleKeyDown);
+    requestAnimationFrame(() => firstLinkRef.current?.focus());
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      resizeObserver?.disconnect();
       document.removeEventListener("keydown", handleKeyDown);
+      for (const element of backgroundElements) element.inert = false;
+      const previousStyles = bodyStylesRef.current;
+      if (previousStyles) Object.assign(document.body.style, previousStyles);
+      document.documentElement.style.removeProperty("--mobile-header-height");
+      window.scrollTo({ top: scrollPositionRef.current, behavior: "instant" });
     };
-  }, [isOpen]);
+  }, [closeMenu, isOpen]);
 
   const mobileLinks: readonly SiteLink[] = [
     ...siteConfig.navigation,
@@ -54,11 +126,6 @@ function MobileMenu({ pathname }: { pathname: string }) {
   function openMenu() {
     setGlobalMenuState(true);
     setIsOpen(true);
-  }
-
-  function closeMenu() {
-    setGlobalMenuState(false);
-    setIsOpen(false);
   }
 
   return (
@@ -80,15 +147,19 @@ function MobileMenu({ pathname }: { pathname: string }) {
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-panel"
         aria-label={isOpen ? "Navigation schließen" : "Navigation öffnen"}
-        onClick={isOpen ? closeMenu : openMenu}
+        onClick={isOpen ? () => closeMenu(true) : openMenu}
       >
         {isOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
 
       <div
         id="mobile-navigation-panel"
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation"
         className={classNames(
-          "fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto bg-white xl:hidden",
+          "mobile-navigation-panel fixed inset-x-0 z-50 overflow-y-auto overscroll-contain bg-white xl:hidden",
           !isOpen && "hidden",
         )}
       >
@@ -114,7 +185,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
                       isActive && "bg-[#f7fafc] font-semibold text-navy",
                     )}
                     aria-current={isActive ? "page" : undefined}
-                    onClick={closeMenu}
+                    onClick={() => closeMenu()}
                   >
                     <span>{link.label}</span>
                     <ChevronIcon />
@@ -129,7 +200,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
               href={siteConfig.contactLink.href}
               size="large"
               className="min-h-[52px] w-full rounded-xl text-[15px]"
-              onClick={closeMenu}
+              onClick={() => closeMenu()}
             >
               {siteConfig.contactLink.label}
             </Button>

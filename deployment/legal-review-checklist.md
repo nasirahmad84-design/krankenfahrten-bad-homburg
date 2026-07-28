@@ -15,6 +15,8 @@ Diese Checkliste ist eine technische Freigabe- und Prüfgrundlage, keine Rechtsb
 ## Datenschutz
 
 - [ ] dokumentierte Rechtsgrundlagen und ausdrückliche Formulareinwilligung fachlich beziehungsweise rechtlich freigeben
+- [x] technische Vollständigkeit von Art. 6 Abs. 1 Buchst. b, c und f sowie Art. 9 Abs. 2 Buchst. a DSGVO geprüft
+- [x] Widerrufshinweis, Kontaktaufnahme, Datenschutzerklärung und Unverbindlichkeit im Formular technisch geprüft
 - [ ] Speicherdauer der E-Mail-Anfragen verbindlich festlegen
 - [ ] Umfang und Speicherdauer der Server-Logfiles bei ALL-INKL prüfen
 - [ ] Auftragsverarbeitungsvertrag und weitere Vertragsdetails mit ALL-INKL prüfen
@@ -36,6 +38,7 @@ Diese Checkliste ist eine technische Freigabe- und Prüfgrundlage, keine Rechtsb
 ## Veröffentlichung
 
 - [ ] Impressum fachlich beziehungsweise rechtlich freigeben
+- [x] Betreiber, Geschäftsbezeichnung, Anschrift, Kontakt, Genehmigungsbehörde, PBefG und BOKraft technisch vorhanden
 - [ ] Datenschutzerklärung fachlich beziehungsweise rechtlich freigeben
 - [ ] Cookie-Information fachlich beziehungsweise rechtlich freigeben
 - [ ] alle Footerlinks und Fragmentlinks auf der Produktionsdomain prüfen

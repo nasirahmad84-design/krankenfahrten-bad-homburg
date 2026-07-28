@@ -44,7 +44,7 @@ src/
 
 ## SiteConfig
 
-`src/lib/site-config.ts` ist die zentrale Quelle für Markenname, Betreiber, Adresse, Telefon, E-Mail sowie Haupt- und Rechtsnavigation. Komponenten greifen auf diese Konfiguration zu, statt Kontaktdaten mehrfach zu hinterlegen.
+`src/lib/site-config.ts` ist die zentrale Quelle für Markenname, Betreiber, Adresse, Telefon, E-Mail, den Google-Rezensionslink sowie Haupt- und Rechtsnavigation. Komponenten greifen auf diese Konfiguration zu, statt Kontaktdaten oder externe Ziel-URLs mehrfach zu hinterlegen.
 
 ## Globales Layout
 
@@ -67,8 +67,10 @@ Das Root-Layout enthält genau ein `main#main-content`. Seiten liefern nur den I
 ## Navigation und Accessibility
 
 - Aktive Navigationspunkte werden mit `aria-current="page"` gekennzeichnet.
-- Das mobile Menü unterstützt Escape, Fokusführung und Schließen beim Routenwechsel.
-- Bei geöffnetem Menü wird die Mobile Contact Bar über ein eng begrenztes Body-Datenattribut unsichtbar und nicht interaktiv; nach dem Schließen erscheint sie wieder.
+- Das mobile Menü unterstützt Escape, eine zyklische Fokusbegrenzung, Fokus-Rückgabe und Schließen über X, Navigationslink oder Routenwechsel.
+- Beim Öffnen wird die aktuelle Scrollposition gesichert und der Body kontrolliert mit `position: fixed` gesperrt. Beim Schließen werden alle vorherigen Inline-Styles wiederhergestellt und die exakte Scrollposition zurückgesetzt.
+- Während das Menü geöffnet ist, wird der Header am Viewport fixiert. Ein `ResizeObserver` überträgt seine tatsächliche Höhe in `--mobile-header-height`; das Panel nutzt `100dvh` abzüglich dieser Höhe und scrollt bei niedrigen Displays ausschließlich intern.
+- Hauptinhalt, Footer, Skip-Link und Mobile Contact Bar werden währenddessen über `inert` aus der Interaktion genommen. Die Contact Bar ist zusätzlich unsichtbar und nicht bedienbar.
 - Ein Skip-Link führt direkt zum Hauptinhalt.
 - Sichtbare `focus-visible`-Zustände, semantische Landmarks und mindestens 44 px große Touch-Ziele sind vorgesehen.
 - Warnungen und Fehler verwenden zusätzlich zur Farbe eindeutige Beschriftungen und Symbole.
@@ -78,9 +80,10 @@ Das Root-Layout enthält genau ein `main#main-content`. Seiten liefern nur den I
 
 - Der Inhaltscontainer nutzt eine maximale Breite von `1280px` innerhalb des 1440-px-Referenzlayouts.
 - Mobile Seitenabstände beginnen bei `20px` und steigen ab `768px` auf `32px`.
-- Unter `1024px` wird die mobile Navigation verwendet; ab `1024px` erscheint die Desktopnavigation.
+- Unter `1280px` wird die mobile Navigation verwendet; ab `1280px` erscheint die Desktopnavigation.
 - Der mobile Header ist `72px` hoch. Der Desktop-Header ist standardmäßig `92px` und gescrollt `76px` hoch.
 - Die mobile Kontaktleiste ist unter `768px` sichtbar. Globales Bottom-Padding und `safe-area-inset-bottom` verhindern überdeckte Inhalte.
+- Das geöffnete Menü berücksichtigt `safe-area-inset-bottom`; bei Querformat oder niedriger Browserhöhe bleibt der CTA im allein scrollenden Menübereich erreichbar.
 - Footer-Spalten wechseln responsiv von einer auf zwei und schließlich vier Spalten.
 
 ## Startseite (DEV-03)
@@ -90,6 +93,7 @@ Die Startseite folgt den Figma-Frames für 1440 px und 390 px. Hero, Vorteile, L
 - Das Layout stapelt Inhalte mobil, nutzt ab Tablet zweispaltige Karten und auf Desktop bis zu drei Spalten.
 - Semantische Sections, eine H1, verknüpfte Überschriften, Skip-Link, Fokuszustände und das tastaturbedienbare FAQ-Accordion unterstützen die Zugänglichkeit.
 - Die Startseite besitzt eigene SEO-Metadaten und einen Canonical für die festgelegte Produktionsdomain. Ein lokales 1200×630-Open-Graph-Bild dient als globale Sharing-Vorschau.
+- Der sekundäre CTA „Google-Rezension schreiben“ steht nach dem FAQ im Vertrauensbereich. Er öffnet den zentral hinterlegten Link in einem neuen Tab und fordert ausdrücklich eine ehrliche Rückmeldung ohne Gegenleistung. Es werden weder Sterne noch Bewertungszahlen oder `AggregateRating`-Daten ausgegeben.
 - Vorhandene Marken-SVGs bleiben lokal. Die geometrische Hero-Grafik wird ohne externen Figma-Hotlink umgesetzt.
 - Die sechs Hauptziele besitzen minimale technische Platzhalter. Leistungskarten verweisen bis DEV-04 gesammelt auf `/leistungen`, um keine Wegwerf-Detailseiten anzulegen.
 
@@ -290,3 +294,17 @@ Das vom Betreiber bereitgestellte korrigierte SVG ist die verbindliche Quelle. F
 Entfernt wurde ausschließlich die vollflächige weiße Hintergrundfläche der gelieferten Datei, damit das Logo auf Weboberflächen transparent funktioniert. Formen, Wortmarke und Markenfarben wurden nicht verändert. Die gelieferte große PNG-Datei dient nur als visuelle Referenz; die Website lädt für das Logo die verlustfreie skalierbare SVG-Variante.
 
 Nach Upload sind die Bildausschnitte auf 390, 768, 1024, 1280 und 1440 Pixel Breite, die WhatsApp-/Facebook-Vorschau, Netzwerkrequests und das serverseitige Caching erneut zu prüfen.
+
+## Abnahme vom 28. Juli 2026
+
+Der lokale Export wurde bei 320, 375, 390, 430, 768, 1024, 1280 und 1440 Pixel Breite geprüft. Startseite, Kontakt, Über uns, Leistungen und Orts-Hub zeigten keine horizontale Überbreite oder Konsolenfehler. Das Menü wurde zusätzlich bei 393×852 Pixeln sowie nach dem Wechsel auf 852×393 geprüft; im niedrigen Querformat wird ausschließlich das Panel scrollbar. Öffnen am Seitenanfang, Öffnen nach vorherigem Scrollen, Schließen über X, Escape und Navigationslink, Fokus-Rückgabe, Scrollpositions-Erhalt und die ausgeblendete Mobile Contact Bar wurden nachvollzogen.
+
+Die Testdomain lieferte für `/`, `/leistungen/` und `/orte/` HTTP 200 sowie für eine unbekannte URL HTTP 404. Alle vier Antworten enthielten `X-Robots-Tag: noindex, nofollow, noarchive`. Die Produktionsdomain lieferte keinen `noindex`-Header. Der Header wird ausschließlich serverseitig auf der Testdomain gesetzt und ist nicht in den statischen Produktionsmetadaten eingebaut.
+
+Die Testdomain entspricht dem lokalen Stand vor diesem Batch: 26 Sitemap-URLs, Ortsseiten, finales Logo, Hero-, Open-Graph-Bild, Facebook-Link und zentrale Laufzeit-Chunks stimmen; der CSS-Hash und ein Seitenskript unterscheiden sich, und der neue Google-Rezensions-CTA fehlt dort noch. Ein neuer lokaler Build erscheint nicht automatisch auf dem Webspace. Für diesen Batch ist ein erneuter manueller FTP-/SFTP-Upload von `out/` erforderlich.
+
+Live geprüft wurden langfristiges Caching für CSS, JavaScript und WebP, Revalidierung für HTML, `no-store` für PHP sowie Brotli-Kompression für HTML, CSS und JavaScript. Das Open-Graph-Bild liefert HTTP 200 und misst 1200×630 Pixel. Facebook- und Google-Rezensionslink sind erreichbar. WebP wird erwartungsgemäß nicht zusätzlich komprimiert. Lighthouse bleibt ein manueller Go-live-Test; es werden keine Werte behauptet.
+
+Nach Betreiberangabe ist DKIM für die Hauptdomain eingerichtet. Für die Test-Subdomain ist keine separate DKIM-Konfiguration erforderlich. DNS-Einträge wurden nicht verändert; SPF und DMARC bleiben manuelle Prüfpositionen.
+
+Die vorhandene `.htaccess` enthält bereits eine hostgebundene 301-Regel von `www` auf non-`www`. Live liefert `https://www.krankenfahrten-bad-homburg.de/` dennoch HTTP 200. Im ALL-INKL-KAS muss deshalb für `www` manuell eine permanente Domainweiterleitung auf `https://krankenfahrten-bad-homburg.de/` eingerichtet und danach auf genau einen 301-Schritt ohne Schleife geprüft werden.

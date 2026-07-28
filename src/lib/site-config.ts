@@ -22,6 +22,7 @@ export const siteConfig = {
   social: {
     facebook: "https://www.facebook.com/krankenfahrtenbadhomburg",
   },
+  googleReviewUrl: "https://g.page/r/CaFwfvm2AJWzEBM/review",
   navigation: [
     { label: "Startseite", href: "/" },
     { label: "Leistungen", href: "/leistungen" },

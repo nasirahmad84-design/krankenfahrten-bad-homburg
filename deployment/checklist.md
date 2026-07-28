@@ -45,15 +45,17 @@
 - [ ] genau ein ICS-Anhang vorhanden; keine dauerhafte `.ics`-Datei im Webroot
 - [ ] `calendar-integration-check.md` auf den tatsächlich eingesetzten Kalenderclients durchgeführt
 - [ ] SMTP-Anmeldung, Umlaute, Spamordner sowie bewusst falsches Passwort mit kontrolliertem Fehler geprüft
-- [ ] SPF, DKIM und DMARC geprüft beziehungsweise als Nacharbeit dokumentiert
+- [ ] SPF und DMARC manuell geprüft
+- [x] DKIM laut Betreiberangabe für die Hauptdomain eingerichtet
 - [ ] Reply-To, Validierungs-, Origin-, Rate-Limit- und Mailfehler geprüft
-- [ ] HTTP- und `www`-Weiterleitungen ohne Schleife geprüft
+- [ ] HTTPS-www im ALL-INKL-KAS per 301 auf non-`www` umstellen und ohne Schleife prüfen
 - [ ] `robots.txt`, `sitemap.xml` und Canonicals geprüft
 - [ ] genau ein valides `LocalBusiness`-JSON-LD auf der Startseite geprüft
 - [ ] keine produktive Seite enthält `noindex`; 404-Seite enthält `noindex`
 - [ ] Titles, Descriptions, H1, interne Links, Fragmente, Bildpfade und Alt-Attribute geprüft
 - [ ] Open-Graph-Bild liefert 200, misst 1200×630 und erscheint in Facebook-/WhatsApp-Vorschau
 - [ ] Facebook-Link im Footer funktioniert; kein Social-Widget oder externer Laufzeitrequest
+- [ ] Google-Rezensions-CTA nach erneutem Upload auf Testdomain prüfen
 - [ ] Bildausschnitte auf 390, 768, 1024, 1280 und 1440 Pixel geprüft
 - [ ] illustratives Über-uns-Motiv wird nicht als Betreiberfoto bezeichnet
 - [ ] `seo-audit-checklist.md` vollständig bearbeitet

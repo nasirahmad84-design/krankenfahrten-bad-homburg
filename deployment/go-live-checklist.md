@@ -3,8 +3,8 @@
 ## Domain und HTTPS
 
 - [ ] `krankenfahrten-bad-homburg.de` zeigt auf den geprüften Webroot
-- [ ] `www` leitet dauerhaft auf die Domain ohne `www` weiter
-- [ ] HTTP leitet dauerhaft auf HTTPS weiter
+- [ ] `www` leitet dauerhaft auf die Domain ohne `www` weiter – am 28.07.2026 liefert HTTPS-www noch 200; KAS-Weiterleitung erforderlich
+- [x] HTTP leitet dauerhaft auf HTTPS weiter
 - [ ] Zertifikat ist gültig
 - [ ] keine Redirect-Schleife
 - [ ] keine Mixed-Content-Fehler
@@ -17,7 +17,8 @@
 - [ ] Impressum, Datenschutz und Cookie-Einstellungen
 - [ ] individuelle 404-Seite
 - [ ] unbekannte Test-URL liefert wirklich HTTP 404 statt 500
-- [ ] mobile Navigation und Accordion per Tastatur
+- [x] mobile Navigation mit Escape, Fokusbegrenzung und Fokus-Rückgabe lokal geprüft
+- [x] Scroll-Lock, vorherige Scrollposition, interne Panel-Höhe und ausgeblendete Mobile Contact Bar lokal geprüft
 - [ ] Footer und Mobile Contact Bar
 - [ ] finales Wortlogo im mobilen und Desktop-Header vollständig und scharf
 - [ ] Hero-, Unterstützungs-, Leistungs- und Über-uns-Bilder bei 390, 768, 1024, 1280 und 1440 Pixeln
@@ -60,6 +61,8 @@
 - [ ] Produktionsantwort enthält keinen noindex-Header
 - [ ] Facebook-Link im Footer und `sameAs` geprüft
 - [ ] Facebook-/WhatsApp-Linkvorschau geprüft
+- [x] Google-Rezensions-CTA verwendet zentral konfigurierte URL, neuen Tab und `noopener noreferrer`
+- [x] keine Bewertungsanreize, Sterne, Bewertungszahlen oder Bewertungsschema
 - [ ] Lighthouse beziehungsweise gleichwertige Live-Prüfung dokumentiert
 
 ## Datenschutz
@@ -79,8 +82,9 @@
 - [ ] keine Secrets oder Backups öffentlich erreichbar
 - [ ] `api/vendor/` und Konfigurationsdateien ergeben 403
 - [ ] SMTP-Passwort liegt ausschließlich in der serverseitigen Konfiguration
-- [ ] SPF, DKIM und DMARC geprüft beziehungsweise Nacharbeit dokumentiert
-- [ ] Sicherheits- und Cache-Header geprüft
+- [ ] SPF und DMARC geprüft
+- [x] DKIM laut Betreiberangabe für die Hauptdomain eingerichtet; keine separate Test-Subdomain-Konfiguration erforderlich
+- [x] Cache- und Kompressionsheader auf der Testdomain geprüft
 - [ ] CSP auf Abnahmehost getestet oder bewusst weiterhin deaktiviert
 - [ ] HSTS erst nach stabiler HTTPS-Prüfung aktiviert
 - [ ] PHP-Version und Dateirechte geprüft

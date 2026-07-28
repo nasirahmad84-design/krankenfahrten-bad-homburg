@@ -5,6 +5,7 @@ import { HomeFaq } from "@/components/sections/home-faq";
 import { HomeHero } from "@/components/sections/home-hero";
 import { HomeProcess } from "@/components/sections/home-process";
 import { HomeLocations } from "@/components/sections/home-locations";
+import { HomeReviews } from "@/components/sections/home-reviews";
 import { HomeServices } from "@/components/sections/home-services";
 import { HomeSupport } from "@/components/sections/home-support";
 import { serializedLocalBusinessStructuredData } from "@/lib/local-business-structured-data";
@@ -31,6 +32,7 @@ export default function Home() {
       <HomeProcess />
       <HomeBilling />
       <HomeFaq />
+      <HomeReviews />
       <HomeCta />
     </>
   );
