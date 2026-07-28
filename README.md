@@ -235,3 +235,31 @@ Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren 
 Der öffentliche Standardordnername `icons` wird wegen eines möglichen reservierten Apache-Alias auf dem ALL-INKL-Hosting nicht verwendet. Leistungsicons liegen im Quellcode unter `public/service-icons/` und im Upload-Paket unter `out/service-icons/`; Markenassets bleiben unverändert unter `public/brand/`.
 
 Verbleibende Einschränkungen: Die lokale Testsuite stellt bewusst keine echte Verbindung zum ALL-INKL-SMTP-Server her. SMTP-Anmeldung und -Zustellung, Apache-Header, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. SPF, DKIM und DMARC müssen anschließend geprüft werden. Ein finales Social-Sharing-Bild ist nicht vorhanden und wird deshalb nicht referenziert.
+
+## SEO-Grundlagen vor Go-live (SEO-01A, SEO-03, SEO-05, SEO-06A)
+
+Der Produktions-Export enthält 17 individuelle indexierbare Seiten mit genau einer H1, einem Canonical zur primären Domain sowie individuellen Titles und Descriptions. Die Leistungsseitentitel wurden anhand ihrer Suchintention verkürzt. Open-Graph-Titel, Beschreibung, URL, Site Name und `de_DE` bleiben erhalten. Next.js erzeugt ohne Bild eine konsistente textbasierte Twitter-Card vom Typ `summary`; ein `twitter:image` oder `og:image` wird erst nach Freigabe eines echten 1200×630-Motivs ergänzt.
+
+Die Startseite enthält genau ein serverseitig vorgerendertes `LocalBusiness`-JSON-LD aus `src/lib/local-business-structured-data.ts`. Es verwendet nur bestätigte Unternehmens-, Kontakt-, Adress-, Einsatzgebiets- und Leistungsangaben. Bewertungen, Profile, Koordinaten, Preisbereich, Öffnungszeiten und nicht angebotene Beförderungsarten fehlen bewusst. Das vorhandene Logozeichen wird über seine absolute Produktions-URL referenziert; ein Unternehmensbild wird mangels geeignetem Bildbestand nicht ausgezeichnet.
+
+`public/.htaccess` verwendet `ErrorDocument 404 /404.html`, enthält keinen SPA-Fallback und schützt den internen 404-Unteraufruf vor erneuter Rewrite-Verarbeitung. Der Live-Audit-Status 500 kann lokal nicht mit Apache/ALL-INKL reproduziert werden. Deshalb muss der tatsächliche Status nach Upload anhand von `deployment/seo-audit-checklist.md` geprüft werden; mögliche Ursachen außerhalb des Repositorys sind ein falsches Domain-Webroot, eine fehlende `404.html`, Dateirechte oder eine abweichende Server-Fehlerkonfiguration.
+
+Die Testdomain wird nicht über produktive Metadata oder `robots.txt` auf `noindex` gesetzt, weil dasselbe Exportpaket später produktiv eingesetzt wird. Nach jedem Upload in das Test-Webroot muss der Block aus `deployment/staging.htaccess.example` manuell an die dort aktive `.htaccess` angefügt werden. Danach:
+
+```bash
+curl -I https://test.krankenfahrten-bad-homburg.de/
+```
+
+Erwartet wird `X-Robots-Tag: noindex, nofollow, noarchive`. Vor dem Go-live muss dieser Testdomain-Block aus der produktiv verwendeten `.htaccess` entfernt werden. Auf `https://krankenfahrten-bad-homburg.de/` darf der Header nicht erscheinen. `robots.txt` ist kein Ersatz für diesen Header. Ein optionaler Passwortschutz kann zusätzlich im ALL-INKL-KAS eingerichtet werden; Zugangsdaten werden nicht im Repository vorgegeben.
+
+Die statische Verifikation prüft außerdem interne Links, Fragmente, Trailing Slashes, Bildziele, Alt-Attribute, Sitemap, robots.txt, 404-noindex, fehlende produktive noindex-Metadaten, externe Laufzeitressourcen und das strukturierte Datenobjekt. Lighthouse ist lokal nicht verfügbar und wurde nicht als zusätzliche Abhängigkeit installiert; es werden daher keine lokalen Lighthouse-Werte behauptet.
+
+Für ein späteres freigegebenes Bildpaket werden folgende Dateien erwartet, aber derzeit weder erzeugt noch als vorhanden behandelt:
+
+- `public/images/home/hero-krankenfahrt.webp`
+- `public/images/home/persoenliche-unterstuetzung.webp`
+- `public/images/services/leistungen-hero.webp`
+- `public/images/about/betreiber-mit-fahrzeug.webp`
+- `public/images/social/og-default-1200x630.webp`
+
+Echte Unternehmensfotos, das Open-Graph-Motiv, verifizierte Social-Media-URLs, Öffnungszeiten sowie spätere Orts- und Ratgeberinhalte bleiben separate Freigabe- beziehungsweise Folgepakete.

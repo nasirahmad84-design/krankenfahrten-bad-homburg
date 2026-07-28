@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 
+import { localBusinessStructuredData } from "../src/lib/local-business-structured-data.ts";
 import { absoluteUrl, productionOrigin, publicRoutePaths } from "../src/lib/site-url.ts";
 
 test("zentralisiert Produktionsdomain und 17 öffentliche Routen", () => {
@@ -30,4 +31,34 @@ test("Sitemap enthält jede öffentliche Route genau einmal", () => {
   const sitemap = readFileSync(join(process.cwd(), "public/sitemap.xml"), "utf8");
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   assert.deepEqual(urls, publicRoutePaths.map(absoluteUrl));
+});
+
+test("pflegt konservative LocalBusiness-Daten ohne unbestätigte Eigenschaften", () => {
+  assert.equal(localBusinessStructuredData["@type"], "LocalBusiness");
+  assert.equal(localBusinessStructuredData.name, "Krankenfahrten Bad Homburg");
+  assert.equal(localBusinessStructuredData.url, "https://krankenfahrten-bad-homburg.de/");
+  assert.equal(localBusinessStructuredData.telephone, "+49 175 4142222");
+  assert.deepEqual(localBusinessStructuredData.address, {
+    "@type": "PostalAddress",
+    streetAddress: "Basler Str. 3",
+    postalCode: "61352",
+    addressLocality: "Bad Homburg",
+    addressCountry: "DE",
+  });
+
+  const serialized = JSON.stringify(localBusinessStructuredData);
+  for (const forbidden of [
+    "sameAs",
+    "aggregateRating",
+    "review",
+    "openingHoursSpecification",
+    "geo",
+    "priceRange",
+    "30 km",
+    "Rettungsdienst",
+    "Rollstuhltransport",
+    "Liegendtransport",
+  ]) {
+    assert.ok(!serialized.includes(forbidden), `Unbestätigte strukturierte Angabe: ${forbidden}`);
+  }
 });

@@ -5,6 +5,7 @@ import { extname, join, relative, sep } from "node:path";
 const root = process.cwd();
 const out = join(root, "out");
 const productionOrigin = "https://krankenfahrten-bad-homburg.de";
+const testOrigin = "https://test.krankenfahrten-bad-homburg.de";
 
 assert.ok(existsSync(out) && statSync(out).isDirectory(), "out/ fehlt. Zuerst npm run build ausführen.");
 
@@ -39,6 +40,7 @@ for (const file of requiredFiles) assert.ok(existsSync(join(out, file)), `Erford
 
 assert.ok(!existsSync(join(out, "api/config.php")), "api/config.php darf nicht im Build-Paket liegen.");
 assert.ok(!existsSync(join(out, "icons")), "Der auf ALL-INKL reservierte Icon-Ordner darf nicht verwendet werden.");
+assert.ok(!existsSync(join(out, "staging.htaccess.example")), "Staging-Regeln dürfen nicht im Produktionspaket liegen.");
 assert.ok(!existsSync(join(out, "api/vendor/phpunit")), "Composer-Entwicklungsabhängigkeit im Upload-Paket.");
 assert.ok(!existsSync(join(out, "api/vendor/bin")), "Ausführbare Composer-Entwicklungswerkzeuge im Upload-Paket.");
 
@@ -77,12 +79,23 @@ assert.doesNotMatch(calendarImplementation, /file_put_contents|fopen|tempnam|tmp
 assert.doesNotMatch(calendarImplementation, /https?:\/\/|webcal:|calendar\.google|outlook\.live/i, "Externe Kalenderintegration im ICS-Generator.");
 
 const htaccess = readFileSync(join(out, ".htaccess"), "utf8");
+const sourceHtaccess = readFileSync(join(root, "public/.htaccess"), "utf8");
+assert.equal(htaccess, sourceHtaccess, "public/.htaccess wurde nicht unverändert nach out/ kopiert.");
+assert.match(htaccess, /^ErrorDocument 404 \/404\.html$/m, "Apache-404-Fehlerdokument fehlt.");
+assert.match(htaccess, /REDIRECT_STATUS\} \^404\$/);
+assert.doesNotMatch(htaccess, /^RewriteRule[^\n]*index\.html/im, "Unzulässiger SPA-Fallback in .htaccess.");
 assert.match(htaccess, /RewriteRule \^api\/vendor/, "Direkter Zugriff auf Composer-Vendor ist nicht blockiert.");
+assert.match(htaccess, /config\(\?:\\\.example\)\?\\\.php/, "Zugriffsschutz für api/config.php fehlt.");
 assert.match(readFileSync(join(out, "api/vendor/.htaccess"), "utf8"), /Require all denied/);
+
+const stagingHtaccess = readFileSync(join(root, "deployment/staging.htaccess.example"), "utf8");
+assert.match(stagingHtaccess, /X-Robots-Tag "noindex, nofollow, noarchive"/);
+assert.doesNotMatch(htaccess, /X-Robots-Tag/, "Staging-noindex wurde in die Produktionskonfiguration übernommen.");
 
 const files = collectFiles(out);
 const relativeFiles = files.map((file) => relative(out, file).split(sep).join("/"));
 for (const file of relativeFiles) {
+  assert.ok(!/(^|\/)\.DS_Store$/i.test(file), `macOS-Metadatendatei im Export: ${file}`);
   assert.ok(!/(^|\/)\.env(?:\.|$)/i.test(file), `Environment-Datei im Export: ${file}`);
   assert.ok(!/\.map$/i.test(file), `Source Map im Export: ${file}`);
   assert.ok(!/\.(?:ts|tsx)$/i.test(file), `TypeScript-Quelle im Export: ${file}`);
@@ -103,6 +116,10 @@ const publicPaths = sitemapUrls.map((url) => {
   return parsed.pathname;
 });
 
+const renderedTitles = [];
+const renderedDescriptions = [];
+let structuredDataCount = 0;
+
 for (const path of publicPaths) {
   const htmlFile = routeToHtml(path);
   assert.ok(existsSync(htmlFile), `Sitemap-Ziel fehlt: ${path}`);
@@ -110,15 +127,48 @@ for (const path of publicPaths) {
   const expectedCanonical = new URL(path, productionOrigin).toString();
   const canonicals = [...html.matchAll(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(canonicals, [expectedCanonical], `Canonical stimmt nicht für ${path}`);
+  assert.ok(!canonicals.some((canonical) => canonical.startsWith(testOrigin)), `Testdomain-Canonical in ${path}`);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${path} muss genau eine H1 enthalten.`);
   assert.match(html, /href="#main-content"/, `Skip-Link fehlt in ${path}`);
-  assert.doesNotMatch(html, /localhost|example\.com|TODO|placeholder|development|test mode|technical|mock/i, `Öffentlicher Entwicklungstext in ${path}`);
+  assert.doesNotMatch(html, /localhost|example\.com|test\.krankenfahrten-bad-homburg\.de|TODO|placeholder|development|test mode|technical|mock/i, `Öffentlicher Entwicklungs- oder Testtext in ${path}`);
+  assert.doesNotMatch(html, /<meta[^>]+name="robots"[^>]+content="[^"]*noindex/i, `Produktive noindex-Seite: ${path}`);
+
+  const title = decodeHtmlText(matchSingle(html, /<title>(.*?)<\/title>/, `Title fehlt in ${path}`));
+  const description = decodeHtmlText(matchSingle(html, /<meta name="description" content="([^"]+)"/, `Description fehlt in ${path}`));
+  assert.ok([...title].length >= 25 && [...title].length <= 60, `Title-Länge außerhalb des geprüften Bereichs in ${path}: ${[...title].length}`);
+  assert.ok([...description].length >= 110 && [...description].length <= 160, `Description-Länge außerhalb des geprüften Bereichs in ${path}: ${[...description].length}`);
+  renderedTitles.push(title);
+  renderedDescriptions.push(description);
+
+  assert.equal((html.match(/<meta property="og:title"/g) ?? []).length, 1, `Open-Graph-Titel fehlt in ${path}`);
+  assert.equal((html.match(/<meta property="og:description"/g) ?? []).length, 1, `Open-Graph-Description fehlt in ${path}`);
+  assert.equal((html.match(/<meta property="og:url"/g) ?? []).length, 1, `Open-Graph-URL fehlt in ${path}`);
+  assert.equal((html.match(/<meta property="og:site_name"/g) ?? []).length, 1, `Open-Graph-Site-Name fehlt in ${path}`);
+  assert.equal((html.match(/<meta property="og:locale" content="de_DE"/g) ?? []).length, 1, `Open-Graph-Locale fehlt in ${path}`);
+  assert.doesNotMatch(html, /<meta property="og:image"/, `Nicht freigegebenes Open-Graph-Bild in ${path}`);
+  assert.match(html, /<meta name="twitter:card" content="summary"/, `Konsistente Twitter-Summary-Card fehlt in ${path}`);
+  assert.doesNotMatch(html, /<meta name="twitter:image"/, `Nicht freigegebenes Twitter-Bild in ${path}`);
+
+  const jsonLdScripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  structuredDataCount += jsonLdScripts.length;
+  if (path === "/") {
+    assert.equal(jsonLdScripts.length, 1, "Startseite muss genau ein JSON-LD-Skript enthalten.");
+    auditLocalBusinessJsonLd(JSON.parse(jsonLdScripts[0][1]));
+  } else {
+    assert.equal(jsonLdScripts.length, 0, `Unerwartetes zusätzliches JSON-LD in ${path}`);
+  }
+
+  auditImageAlternatives(html, path);
   auditHtmlLinks(html, htmlFile, path);
 }
+assert.equal(new Set(renderedTitles).size, renderedTitles.length, "Doppelte Seitentitel im Export.");
+assert.equal(new Set(renderedDescriptions).size, renderedDescriptions.length, "Doppelte Meta-Descriptions im Export.");
+assert.equal(structuredDataCount, 1, "Im Export darf genau ein Unternehmensobjekt vorhanden sein.");
 
 const notFoundHtml = readFileSync(join(out, "404.html"), "utf8");
 assert.equal((notFoundHtml.match(/<h1\b/g) ?? []).length, 1, "404.html muss genau eine H1 enthalten.");
 assert.match(notFoundHtml, /Seite nicht gefunden/);
+assert.match(notFoundHtml, /<meta name="robots" content="noindex"/, "404.html muss noindex enthalten.");
 auditHtmlLinks(notFoundHtml, join(out, "404.html"), "/404.html");
 
 const robots = readFileSync(join(out, "robots.txt"), "utf8");
@@ -129,7 +179,7 @@ const publicText = files
   .filter((file) => [".html", ".txt", ".xml"].includes(extname(file)))
   .map((file) => readFileSync(file, "utf8"))
   .join("\n");
-assert.doesNotMatch(publicText, /localhost|example\.com/i, "Lokale oder Beispieldomain im öffentlichen Paket.");
+assert.doesNotMatch(publicText, /localhost|example\.com|test\.krankenfahrten-bad-homburg\.de/i, "Lokale, Test- oder Beispieldomain im öffentlichen Paket.");
 assert.doesNotMatch(publicText, new RegExp("/" + "icons/"), "Die auf ALL-INKL reservierte Icon-URL ist noch im Seitenpaket enthalten.");
 assert.doesNotMatch(publicText, /use server|resend\.com|EMAIL_API_KEY|RESEND_API_KEY/i, "Server-Action-, Resend- oder Secret-Hinweis im Seitenpaket.");
 assert.doesNotMatch(publicText, /w01267fe\.kasserver\.com|smtp_password|SMTPDebug/i, "SMTP-Konfiguration ist im Browserpaket sichtbar.");
@@ -138,6 +188,9 @@ assert.doesNotMatch(publicText, /sk-[A-Za-z0-9]{16,}|BEGIN (?:RSA |EC |OPENSSH )
 
 const totalBytes = files.reduce((sum, file) => sum + statSync(file).size, 0);
 console.log(`Deployment-Paket geprüft: ${publicPaths.length} öffentliche Routen, ${files.length} Dateien, ${formatBytes(totalBytes)}.`);
+console.log(`Größte JavaScript-Dateien: ${largestFiles(files, /\.(?:js|mjs)$/i, 3).join(", ") || "keine"}.`);
+console.log(`Größte Bilddateien: ${largestFiles(files, /\.(?:avif|gif|jpe?g|png|svg|webp)$/i, 3).join(", ") || "keine"}.`);
+console.log(`Größte Schriftdateien: ${largestFiles(files, /\.(?:woff2?|ttf|otf)$/i, 3).join(", ") || "keine"}.`);
 
 function auditHtmlLinks(html, sourceFile, routePath) {
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]));
@@ -169,6 +222,53 @@ function routeToHtml(path) {
   return path === "/" ? join(out, "index.html") : join(out, path.slice(1), "index.html");
 }
 
+function matchSingle(value, pattern, message) {
+  const matches = [...value.matchAll(new RegExp(pattern.source, pattern.flags.includes("g") ? pattern.flags : pattern.flags + "g"))];
+  assert.equal(matches.length, 1, message);
+  return matches[0][1];
+}
+
+function decodeHtmlText(value) {
+  return value
+    .replaceAll("&amp;", "&")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#x27;", "'")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">");
+}
+
+function auditLocalBusinessJsonLd(data) {
+  assert.equal(data["@context"], "https://schema.org");
+  assert.equal(data["@type"], "LocalBusiness");
+  assert.equal(data.name, "Krankenfahrten Bad Homburg");
+  assert.equal(data.url, `${productionOrigin}/`);
+  assert.equal(data.telephone, "+49 175 4142222");
+  assert.deepEqual(data.address, {
+    "@type": "PostalAddress",
+    streetAddress: "Basler Str. 3",
+    postalCode: "61352",
+    addressLocality: "Bad Homburg",
+    addressCountry: "DE",
+  });
+  assert.ok(existsSync(join(out, new URL(data.logo).pathname.slice(1))), "JSON-LD-Logo fehlt im Export.");
+
+  const serialized = JSON.stringify(data);
+  assert.doesNotMatch(serialized, /sameAs|aggregateRating|review|openingHours|priceRange|MedicalClinic|Hospital|EmergencyService|TaxiService|Rollstuhl|Liegendtransport|Rettungsdienst|30[\s-]?km/i);
+  assert.doesNotMatch(serialized, /facebook|instagram|linkedin|tiktok|twitter|x\.com/i);
+}
+
+function auditImageAlternatives(html, routePath) {
+  for (const match of html.matchAll(/<img\b[^>]*>/g)) {
+    const tag = match[0];
+    const alt = tag.match(/\salt="([^"]*)"/);
+    assert.ok(alt, `img ohne alt-Attribut in ${routePath}: ${tag}`);
+    const src = tag.match(/\ssrc="([^"]+)"/)?.[1] ?? "";
+    if (/\.(?:avif|jpe?g|png|webp)(?:\?|$)/i.test(src)) {
+      assert.notEqual(alt[1].trim(), "", `Informatives Rasterbild mit leerem alt in ${routePath}: ${src}`);
+    }
+  }
+}
+
 function collectFiles(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const path = join(directory, entry.name);
@@ -182,4 +282,13 @@ function escapeRegExp(value) {
 
 function formatBytes(bytes) {
   return bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KiB` : `${(bytes / 1024 / 1024).toFixed(2)} MiB`;
+}
+
+function largestFiles(allFiles, pattern, count) {
+  return allFiles
+    .filter((file) => pattern.test(file))
+    .map((file) => ({ file, size: statSync(file).size }))
+    .sort((a, b) => b.size - a.size)
+    .slice(0, count)
+    .map(({ file, size }) => `${relative(out, file).split(sep).join("/")} (${formatBytes(size)})`);
 }

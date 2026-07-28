@@ -16,6 +16,7 @@
 - [ ] alle sieben Leistungsdetailseiten
 - [ ] Impressum, Datenschutz und Cookie-Einstellungen
 - [ ] individuelle 404-Seite
+- [ ] unbekannte Test-URL liefert wirklich HTTP 404 statt 500
 - [ ] mobile Navigation und Accordion per Tastatur
 - [ ] Footer und Mobile Contact Bar
 - [ ] Druckansicht der rechtlichen Seiten
@@ -48,6 +49,12 @@
 - [ ] Open-Graph-Titel, -Beschreibung, -URL, Locale und Site Name
 - [ ] kein defektes Social-Sharing-Bild referenziert
 - [ ] Markenfavicon und Apple-Touch-Icon
+- [ ] genau ein valides `LocalBusiness`-JSON-LD auf der Startseite
+- [ ] keine produktive Seite mit `noindex`
+- [ ] Staging-`X-Robots-Tag` vor Produktionsfreigabe entfernt
+- [ ] Produktionsantwort enthält keinen noindex-Header
+- [ ] Open-Graph-Bild bleibt bis zur Motivfreigabe unreferenziert
+- [ ] Lighthouse beziehungsweise gleichwertige Live-Prüfung dokumentiert
 
 ## Datenschutz
 

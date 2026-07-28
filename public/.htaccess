@@ -6,6 +6,11 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Interne 404-Unteranfragen dürfen nicht erneut durch spätere Redirects laufen.
+  # Direkte Aufrufe von /404.html bleiben davon unberührt.
+  RewriteCond %{ENV:REDIRECT_STATUS} ^404$
+  RewriteRule ^404\.html$ - [L]
+
   # Composer-Abhängigkeiten werden ausschließlich serverseitig geladen.
   RewriteRule ^api/vendor(?:/|$) - [F,L,NC]
 

@@ -11,6 +11,9 @@
 - [ ] `npm run verify:deployment` erfolgreich
 - [ ] Inhalt von `out/` lokal kontrolliert
 - [ ] `out/service-icons/` enthält alle sechs Leistungsicons; der reservierte Altordner `icons` existiert nicht
+- [ ] `out/404.html` vorhanden und `ErrorDocument 404 /404.html` in `out/.htaccess`
+- [ ] keine SPA-Fallback-Regel auf `index.html`
+- [ ] `deployment/staging.htaccess.example` ist nicht Teil von `out/`
 - [ ] vorheriges Domain-Zielverzeichnis gesichert
 - [ ] Domain-Zielverzeichnis im KAS geprüft
 - [ ] PHP 8.1 oder neuer aktiviert
@@ -32,6 +35,9 @@
 - [ ] Directory Listing deaktiviert
 - [ ] Startseite, Hauptseiten, Leistungsseiten und Rechtsseiten erreichbar
 - [ ] individuelle 404-Seite geprüft
+- [ ] existierende URL ergibt 200, direkte `/404.html` ergibt 200, unbekannte URL ergibt 404
+- [ ] Testdomain liefert `X-Robots-Tag: noindex, nofollow, noarchive`
+- [ ] Produktionsdomain liefert keinen noindex-Header
 - [ ] Formular und E-Mail-Eingang geprüft
 - [ ] genau ein ICS-Anhang vorhanden; keine dauerhafte `.ics`-Datei im Webroot
 - [ ] `calendar-integration-check.md` auf den tatsächlich eingesetzten Kalenderclients durchgeführt
@@ -40,6 +46,11 @@
 - [ ] Reply-To, Validierungs-, Origin-, Rate-Limit- und Mailfehler geprüft
 - [ ] HTTP- und `www`-Weiterleitungen ohne Schleife geprüft
 - [ ] `robots.txt`, `sitemap.xml` und Canonicals geprüft
+- [ ] genau ein valides `LocalBusiness`-JSON-LD auf der Startseite geprüft
+- [ ] keine produktive Seite enthält `noindex`; 404-Seite enthält `noindex`
+- [ ] Titles, Descriptions, H1, interne Links, Fragmente, Bildpfade und Alt-Attribute geprüft
+- [ ] kein `og:image` oder `twitter:image` ohne freigegebenes Motiv
+- [ ] `seo-audit-checklist.md` vollständig bearbeitet
 - [ ] keine personenbezogenen Daten in Logs
 - [ ] Cookie-, Storage- und Netzwerk-Scan durchgeführt
 - [ ] rechtliche Freigabe dokumentiert und offene Punkte geschlossen

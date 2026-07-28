@@ -76,7 +76,6 @@ Auf dem Server `api/config.php` anhand von `api/config.example.php` erstellen:
 - `rate_limit_count` und `rate_limit_window`: freigegebene Grenzwerte
 - `minimum_form_age_ms` und `maximum_form_age_ms`: freigegebene Zeitgrenzen
 - `environment`: `production`
-- `mail_transport`: `mail`
 
 Einen Salt lokal oder auf einem geeigneten sicheren System erzeugen:
 
@@ -99,7 +98,10 @@ Keine gemischten `_next`-Buildstände betreiben. Beim kontrollierten Ersetzen zu
 ## 6. Technische Abnahme
 
 - Startseite, Hauptseiten, sieben Leistungsdetailseiten und rechtliche Seiten aufrufen
-- unbekannte URL aufrufen und `404.html` prüfen
+- vorhandene Seite aufrufen; erwartet wird HTTP 200
+- `/404.html` direkt aufrufen; die Datei muss erreichbar sein und `noindex` enthalten
+- eine sicher nicht existierende URL aufrufen; erwartet wird HTTP 404 mit dem Inhalt der 404-Seite, nicht 500 und keine Weiterleitung zur Startseite
+- bei HTTP 500 Domain-Webroot, Upload von `404.html`, Dateirechte, aktive `.htaccess` und Apache-Fehlerprotokoll im KAS prüfen
 - mobile Navigation, Footer und Mobile Contact Bar prüfen
 - `robots.txt` und `sitemap.xml` direkt aufrufen
 - Canonicals auf die primäre HTTPS-Domain prüfen
@@ -111,16 +113,48 @@ Keine gemischten `_next`-Buildstände betreiben. Beim kontrollierten Ersetzen zu
 - Sicherheits- und Cache-Header mit Browserwerkzeugen oder `curl -I` kontrollieren
 - Cookie-, Storage- und Netzwerk-Scan durchführen
 
+Die lokale statische Prüfung kann Apache nicht vollständig nachbilden. Die HTTP-Statusprüfung muss deshalb auf Test- und Produktionshost erfolgen:
+
+```bash
+curl -sS -o /dev/null -w "%{http_code}\n" https://test.krankenfahrten-bad-homburg.de/
+curl -sS -o /dev/null -w "%{http_code}\n" https://test.krankenfahrten-bad-homburg.de/404.html
+curl -sS -o /dev/null -w "%{http_code}\n" https://test.krankenfahrten-bad-homburg.de/seo-404-test-nicht-vorhanden
+```
+
+Erwartet werden 200, 200 und 404. PHP-Endpunkte behalten ihre eigenen Statuscodes; es gibt keine globale Rewrite-Regel auf `index.html`.
+
+## 7. Testdomain vor Indexierung schützen
+
+Nach dem Upload auf die Testdomain den Block aus `staging.htaccess.example` an die dort bereits aktive `.htaccess` anhängen. Die Beispieldatei nicht als alleinige `.htaccess` hochladen, weil sonst Fehlerseite, Zugriffsschutz, Redirects und Cache-Regeln verloren gingen.
+
+```bash
+curl -I https://test.krankenfahrten-bad-homburg.de/
+```
+
+Erwartet wird auf allen Testdomain-Antworten:
+
+```text
+X-Robots-Tag: noindex, nofollow, noarchive
+```
+
+Vor Produktionsfreigabe den Block aus der produktiv verwendeten `.htaccess` entfernen und anschließend prüfen:
+
+```bash
+curl -I https://krankenfahrten-bad-homburg.de/
+```
+
+Auf der Produktionsdomain darf kein `X-Robots-Tag` mit `noindex` erscheinen. `robots.txt` bleibt auf beiden Hosts kein Ersatz für den Header. Ein zusätzlicher Passwortschutz kann im KAS eingerichtet werden, wird aber nicht mit erfundenen Zugangsdaten vorkonfiguriert.
+
 Die vorbereitete CSP und HSTS sind aus Sicherheitsgründen nicht aktiv. CSP erst auf dem Abnahmehost aktivieren und danach alle Seiten, Navigation, Accordion und Formular ohne Browserfehler prüfen. HSTS erst einschalten, wenn HTTPS für alle betroffenen Hosts stabil funktioniert.
 
-## 7. Formularabnahme
+## 8. Formularabnahme
 
 Die vollständige Endpunktmatrix steht in `php-production-check.md`; der ICS-Anhang wird zusätzlich nach `calendar-integration-check.md` auf iPhone, Android/Google Calendar und Outlook geprüft. Mindestens erfolgreiche Anfrage, serverseitige Validierung, SMTP-Anmeldung, kontrollierten Fehler mit bewusst falschem Passwort, Reply-To, Origin-Prüfung, Zeitgrenzen und Rate Limit testen. Umlaute und Spamordner prüfen. Formulardaten, Passwort und SMTP-Transkript dürfen nicht in Webserver- oder Anwendungslogs geschrieben werden. Nach erfolgreicher Zustellung SPF, DKIM und DMARC separat prüfen.
 
-## 8. Freigabe und Go-live
+## 9. Freigabe und Go-live
 
 Vor Go-live `go-live-checklist.md`, `checklist.md` und `legal-review-checklist.md` vollständig bearbeiten. Die rechtlichen Inhalte müssen fachlich beziehungsweise rechtlich geprüft und freigegeben sein. Erst danach Domainziel beziehungsweise Upload freigeben.
 
-## 9. Rollback
+## 10. Rollback
 
 Bei Fehlern nach `rollback.md` zur gesicherten Version zurückkehren. `api/config.php` nicht überschreiben und keine gemischten Assetstände hinterlassen. Nach dem Rollback Startseite, Formular, HTTPS, Redirects und rechtliche Seiten erneut prüfen.

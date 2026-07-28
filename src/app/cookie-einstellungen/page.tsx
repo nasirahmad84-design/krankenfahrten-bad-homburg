@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/legal/legal-page";
 import { cookieContent } from "@/content/legal/cookies";
 import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = createPageMetadata("Cookie-Einstellungen | Krankenfahrten Bad Homburg", "Informationen zu Cookies und ähnlichen Technologien auf dieser Website.", "/cookie-einstellungen/");
+export const metadata = createPageMetadata("Cookie-Einstellungen | Krankenfahrten Bad Homburg", "Informationen zum aktuellen Einsatz von Cookies und ähnlichen Speichertechnologien auf der Website Krankenfahrten Bad Homburg.", "/cookie-einstellungen/");
 
 export default function CookieSettingsPage() {
   return (

@@ -3,7 +3,7 @@ import { imprintContent } from "@/content/legal/imprint";
 import { createPageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata = createPageMetadata("Impressum | Krankenfahrten Bad Homburg", "Sachliche Anbieterkennzeichnung der Website Krankenfahrten Bad Homburg.", "/impressum/");
+export const metadata = createPageMetadata("Impressum | Krankenfahrten Bad Homburg", "Anbieterkennzeichnung und Kontaktdaten für die Website Krankenfahrten Bad Homburg sowie Angaben zum verantwortlichen Betreiber.", "/impressum/");
 
 export default function ImprintPage() {
   return (

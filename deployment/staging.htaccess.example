@@ -1,0 +1,5 @@
+# Diesen Block ausschließlich in die aktive .htaccess der Testdomain übernehmen.
+# Er gehört nicht in public/.htaccess und nicht in das produktive out/-Paket.
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>

@@ -6,6 +6,7 @@ import { HomeHero } from "@/components/sections/home-hero";
 import { HomeProcess } from "@/components/sections/home-process";
 import { HomeServices } from "@/components/sections/home-services";
 import { HomeSupport } from "@/components/sections/home-support";
+import { serializedLocalBusinessStructuredData } from "@/lib/local-business-structured-data";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
@@ -17,6 +18,10 @@ export const metadata = createPageMetadata(
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializedLocalBusinessStructuredData }}
+      />
       <HomeHero />
       <HomeBenefits />
       <HomeServices />
