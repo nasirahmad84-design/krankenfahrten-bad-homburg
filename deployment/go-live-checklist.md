@@ -25,6 +25,9 @@
 - [ ] Pflichtfelder und clientseitige Feldfehler
 - [ ] serverseitige Validierung
 - [ ] erfolgreicher Mailversand
+- [ ] authentifizierter und TLS-verschlüsselter SMTP-Versand
+- [ ] SMTP-Fehler erzeugt HTTP 500 und keine Erfolgsmeldung
+- [ ] Umlaute, Spamordner und Zustellbarkeit geprüft
 - [ ] optionales Reply-To
 - [ ] Rate Limit und technische Zeitgrenzen
 - [ ] neutrale Fehlermeldungen
@@ -57,6 +60,9 @@
 - [ ] `api/config.php` ergibt 403
 - [ ] Directory Listing deaktiviert
 - [ ] keine Secrets oder Backups öffentlich erreichbar
+- [ ] `api/vendor/` und Konfigurationsdateien ergeben 403
+- [ ] SMTP-Passwort liegt ausschließlich in der serverseitigen Konfiguration
+- [ ] SPF, DKIM und DMARC geprüft beziehungsweise Nacharbeit dokumentiert
 - [ ] Sicherheits- und Cache-Header geprüft
 - [ ] CSP auf Abnahmehost getestet oder bewusst weiterhin deaktiviert
 - [ ] HSTS erst nach stabiler HTTPS-Prüfung aktiviert

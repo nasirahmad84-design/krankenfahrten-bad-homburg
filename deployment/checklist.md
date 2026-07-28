@@ -2,6 +2,8 @@
 
 - [ ] Repository und Ausgangscommit dokumentiert
 - [ ] `npm install` erfolgreich
+- [ ] `composer validate` erfolgreich
+- [ ] `composer install --no-dev --classmap-authoritative` erfolgreich
 - [ ] `npm test` erfolgreich
 - [ ] `npm run lint` erfolgreich
 - [ ] `npm run build` erfolgreich
@@ -12,18 +14,25 @@
 - [ ] vorheriges Domain-Zielverzeichnis gesichert
 - [ ] Domain-Zielverzeichnis im KAS geprüft
 - [ ] PHP 8.1 oder neuer aktiviert
+- [ ] PHP-Erweiterung OpenSSL aktiviert
 - [ ] SSL für primäre Domain und `www` aktiviert
-- [ ] Anfragepostfach und technischer Absender eingerichtet
+- [ ] Anfragepostfach und authentifizierter SMTP-Zugang eingerichtet
+- [ ] Port 587 mit STARTTLS geprüft; alternativ Port 465 mit SMTPS bewusst konfiguriert
 - [ ] Rate-Limit-Verzeichnis außerhalb des Webroots angelegt und beschreibbar
 - [ ] sicherer Salt mit `openssl rand -hex 32` erzeugt
 - [ ] `api/config.php` ausschließlich auf dem Server erstellt
+- [ ] SMTP-Passwort ausschließlich in der serverseitigen `api/config.php` beziehungsweise einer eingebundenen Datei außerhalb des Webroots eingetragen
+- [ ] `out/api/vendor/autoload.php` und PHPMailer-Klassen vorhanden; keine Composer-Entwicklungsabhängigkeiten enthalten
 - [ ] vollständiger Inhalt von `out/`, einschließlich `.htaccess`, hochgeladen
 - [ ] Dateirechte geprüft
 - [ ] direkter Zugriff auf `api/config.php` ergibt 403
+- [ ] direkter Zugriff auf `api/vendor/` ergibt 403
 - [ ] Directory Listing deaktiviert
 - [ ] Startseite, Hauptseiten, Leistungsseiten und Rechtsseiten erreichbar
 - [ ] individuelle 404-Seite geprüft
 - [ ] Formular und E-Mail-Eingang geprüft
+- [ ] SMTP-Anmeldung, Umlaute, Spamordner sowie bewusst falsches Passwort mit kontrolliertem Fehler geprüft
+- [ ] SPF, DKIM und DMARC geprüft beziehungsweise als Nacharbeit dokumentiert
 - [ ] Reply-To, Validierungs-, Origin-, Rate-Limit- und Mailfehler geprüft
 - [ ] HTTP- und `www`-Weiterleitungen ohne Schleife geprüft
 - [ ] `robots.txt`, `sitemap.xml` und Canonicals geprüft

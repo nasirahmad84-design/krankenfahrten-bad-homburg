@@ -167,23 +167,28 @@ Vor Go-live offen bleiben insbesondere die Prüfung des echten PHP-Mailversands,
 
 Das Kontaktformular validiert Pflichtfelder, optionale E-Mail, Datum, Uhrzeit, erlaubte Anlässe und Maximallängen im Browser. Anschließend sendet es ausschließlich per `POST` und JSON an `/api/fahrtanfrage.php`. Pending-, Validierungs-, Serverfehler- und Erfolgszustand, Doppelklickschutz, Timeout, Werterhalt, Formularreset, Fehlerfokus, Erfolgsfokus und `aria-live` bleiben erhalten. Die Clientprüfung dient nur dem Komfort; PHP prüft sämtliche Werte erneut.
 
-`public/api/fahrtanfrage.php` wird beim Export nach `out/api/` kopiert. Die Module unter `public/api/lib/` übernehmen Validierung, Herkunftsprüfung, Formularzeitprüfung, dateibasiertes Rate Limit und UTF-8-Textmail. Der Empfänger und der technische Absender kommen ausschließlich aus `config.php`; eine Nutzeradresse wird höchstens als validiertes `Reply-To` verwendet. Es wird keine automatische Bestätigung an Nutzer versendet.
+`public/api/fahrtanfrage.php` wird beim Export nach `out/api/` kopiert. Die Module unter `public/api/lib/` übernehmen Validierung, Herkunftsprüfung, Formularzeitprüfung, dateibasiertes Rate Limit und UTF-8-Textmail. PHPMailer wird per Composer verwaltet und liegt vollständig unter `public/api/vendor/`, sodass es beim Export nach `out/api/vendor/` kopiert wird. Der Versand nutzt ausschließlich authentifiziertes und verschlüsseltes SMTP: primär Port 587 mit STARTTLS, alternativ Port 465 mit SMTPS. Es gibt keinen stillen Rückfall auf die native PHP-Funktion `mail()`.
+
+Der Empfänger und der technische Absender kommen ausschließlich aus `config.php`; eine Nutzeradresse wird höchstens als validiertes `Reply-To` verwendet. SMTP-Debugging ist deaktiviert, Transportfehler ergeben nur die neutrale bestehende Serverfehlermeldung, und es wird keine automatische Bestätigung an Nutzer versendet.
 
 Der Spam-Basisschutz kombiniert Honeypot, einen plausibilisierten Browserzeitstempel und ein kurzlebiges, dateibasiertes Limit mit HMAC-gehashter IP-Kennung. Vollständige IP-Adressen und Formulardaten werden nicht gespeichert. Der Browserzeitstempel ist ohne Session oder serverseitige Signatur manipulierbar und daher nur ein zusätzliches Signal, keine Sicherheitsgarantie. `Origin` wird, sofern vorhanden, gegen die konfigurierte Domain geprüft; fehlende Header werden aus Kompatibilitätsgründen nicht pauschal blockiert.
 
-Für den statischen Build sind derzeit keine Environment Variables erforderlich. Die produktive PHP-Konfiguration entsteht manuell als `public/api/config.php` beziehungsweise direkt auf dem Server nach Vorlage von `config.example.php`; sie ist durch `.gitignore` ausgeschlossen. Der Webserver muss PHP ausführen und den Zugriff auf Konfigurationsdateien per `.htaccess` blockieren. Details stehen in `deployment/ALL-INKL.md` und `deployment/checklist.md`.
+Für den statischen Build sind derzeit keine Environment Variables erforderlich. Die produktive PHP-Konfiguration entsteht manuell als `public/api/config.php` beziehungsweise direkt auf dem Server nach Vorlage von `config.example.php`; sie ist durch `.gitignore` ausgeschlossen. Nur dort wird das echte SMTP-Passwort eingetragen. Der Webserver muss PHP 8.1 oder neuer mit OpenSSL ausführen und den Zugriff auf Konfigurations- und Vendor-Dateien per `.htaccess` blockieren. Details stehen in `deployment/ALL-INKL.md` und `deployment/checklist.md`.
 
 Lokale Prüfung:
 
 ```bash
 npm install
+composer install --no-dev --classmap-authoritative
 npm test
 npm run lint
 npm run build
+npm run test:export
+npm run verify:deployment
 find out -maxdepth 3 -type f | sort
 ```
 
-Wenn PHP installiert ist, zusätzlich alle PHP-Dateien mit `php -l` prüfen, `tests/php/ride-request-test.php` ausführen, eine lokale `out/api/config.php` mit `environment=development` und `mail_transport=mock-success` erstellen und `php -S 127.0.0.1:8080 -t out` starten. In der aktuellen Entwicklungsumgebung ist PHP nicht installiert; deshalb bleibt die echte `mail()`-Ausführung ein verpflichtender ALL-INKL-Abnahmepunkt.
+Wenn PHP installiert ist, zusätzlich alle PHP-Dateien mit `php -l` prüfen und `php tests/php/ride-request-test.php` ausführen. Der PHP-Test lädt den Composer-Autoloader und verwendet ausschließlich einen injizierten Testtransport; er verschickt keine E-Mail. Die echte SMTP-Verbindung und Zustellung bleiben verpflichtende ALL-INKL-Abnahmepunkte.
 
 Ohne lokales PHP kann `node tests/static-export-server.mjs` ausschließlich die exportierten HTML-/Assetdateien und die Frontend-Zustände gegen definierte JSON-Mockantworten prüfen. Dieser Helfer führt kein PHP aus und ersetzt weder `php -l` noch die Hosting-Abnahme.
 
@@ -193,7 +198,7 @@ Die zuvor in Commit `9a6fe3d` eingeführte Server-Action-/Resend-Architektur wur
 
 Die vollständig statischen Routen `/impressum/`, `/datenschutz/` und `/cookie-einstellungen/` verwenden gemeinsame Legal-Komponenten mit klarer Überschriftenhierarchie, begrenzter Textbreite, Fragmentnavigation und angepasster Druckdarstellung. Die Inhalte liegen strukturiert unter `src/content/legal/`; interne offene Prüfpunkte werden nicht in öffentliche Seiten importiert.
 
-`src/content/legal/privacy-inventory.ts` bildet den technisch geprüften Datenfluss ab: statische Seitenauslieferung bei ALL-INKL, mögliche Hosting-Logdaten, Kontakt- und Fahrtanfragedaten, PHP-Mailversand sowie das kurzlebige dateibasierte Rate Limiting mit HMAC-gehashter IP-Kennung. Es bestehen keine Datenbank, keine automatische Nutzerbestätigung und keine dauerhafte Speicherung vollständiger IP-Adressen durch die Anwendung. Die E-Mail kann entsprechend der betrieblichen und hosterseitigen Konfiguration im Postfach gespeichert bleiben.
+`src/content/legal/privacy-inventory.ts` bildet den technisch geprüften Datenfluss ab: statische Seitenauslieferung bei ALL-INKL, mögliche Hosting-Logdaten, Kontakt- und Fahrtanfragedaten, authentifizierten PHP-SMTP-Versand sowie das kurzlebige dateibasierte Rate Limiting mit HMAC-gehashter IP-Kennung. Es bestehen keine Datenbank, keine automatische Nutzerbestätigung und keine dauerhafte Speicherung vollständiger IP-Adressen durch die Anwendung. Die E-Mail kann entsprechend der betrieblichen und hosterseitigen Konfiguration im Postfach gespeichert bleiben.
 
 Die Website setzt nach aktuellem Quellcode- und Exportstand keine Cookies und greift weder auf `localStorage` noch auf `sessionStorage` zu. Das PHP-Formular verwendet keine Session. Analyse, Marketing, Tracking, externe Medien und eine gespeicherte Consent-Entscheidung sind nicht vorhanden. Deshalb wird kein Consent-Banner und keine funktionslose Einstellungsoberfläche eingebaut. Die Cookie-Seite informiert transparent über diesen Status. Nach dem Produktivdeployment muss diese Entscheidung mit einem erneuten Browser- und Netzwerk-Scan bestätigt werden.
 
@@ -217,12 +222,12 @@ Vor jedem Build erzeugt `scripts/generate-static-seo.mjs` aus der zentralen Rout
 
 Die `.htaccess` bereitet hostgebundene HTTP-zu-HTTPS- und `www`-zu-non-`www`-Weiterleitungen, Zugriffsschutz, Fehlerseite, Sicherheitsheader und differenzierte Cache-Regeln vor. Statische Assets sind langfristig cachebar; HTML und SEO-Dateien werden revalidiert, PHP-Antworten nicht gespeichert. CSP und HSTS bleiben bis zur erfolgreichen Prüfung auf dem ALL-INKL-Abnahmehost deaktiviert. HTTPS- und Domainweiterleitungen sollen bevorzugt im KAS konfiguriert und anschließend gegen die `.htaccess` auf Widersprüche geprüft werden.
 
-Die PHP-Beispielkonfiguration verwendet die primäre Origin und enthält konfigurierbare Mindest- und Maximalzeiten für das Formular. `api/config.php` wird weiterhin ausschließlich auf dem Server erstellt. Ein sicherer Rate-Limit-Salt kann mit `openssl rand -hex 32` erzeugt werden. Der Endpunkt sendet zusätzlich `Cache-Control: no-store`.
+Die PHP-Beispielkonfiguration verwendet die primäre Origin, den ALL-INKL-SMTP-Host und STARTTLS auf Port 587 sowie konfigurierbare Mindest- und Maximalzeiten für das Formular. `api/config.php` wird weiterhin ausschließlich auf dem Server erstellt. Ein sicherer Rate-Limit-Salt kann mit `openssl rand -hex 32` erzeugt werden. Der Endpunkt sendet zusätzlich `Cache-Control: no-store`.
 
-`scripts/verify-deployment.mjs` prüft nach dem Build die 17 Seiten, 404, Sitemap, robots.txt, `.htaccess`, PHP-Dateien, Icons, Canonicals, H1 und Skip-Links, interne Ziele, Assets und Fragmente. Außerdem schließt es `config.php`, `.env`, Source Maps, TypeScript-, Test- und Node-Serverdateien, lokale URLs, Beispieldomains, Server Actions, Resend-Hinweise und bekannte Secret-Muster aus.
+`scripts/verify-deployment.mjs` prüft nach dem Build die 17 Seiten, 404, Sitemap, robots.txt, `.htaccess`, PHP-Dateien, PHPMailer-Autoloader und -Klassen, Icons, Canonicals, H1 und Skip-Links, interne Ziele, Assets und Fragmente. Außerdem schließt es `config.php`, unnötige Composer-Entwicklungsabhängigkeiten, `.env`, Source Maps, TypeScript-, Test- und Node-Serverdateien, lokale URLs, Beispieldomains, Server Actions, Resend-Hinweise und bekannte Secret-Muster aus.
 
 Die ALL-INKL-Schritte stehen in `deployment/ALL-INKL.md`; ergänzend existieren die PHP-Abnahmematrix, Rollback-Anleitung sowie Deployment-, Go-live- und Legal-Review-Checklisten. Das vollständige Upload-Paket liegt nach `npm run build` unter `out/`. **Auf dem Zielserver ist kein Node.js-Prozess erforderlich.** Es findet kein automatisches Deployment statt.
 
 Der öffentliche Standardordnername `icons` wird wegen eines möglichen reservierten Apache-Alias auf dem ALL-INKL-Hosting nicht verwendet. Leistungsicons liegen im Quellcode unter `public/service-icons/` und im Upload-Paket unter `out/service-icons/`; Markenassets bleiben unverändert unter `public/brand/`.
 
-Verbleibende Einschränkungen: PHP und Apache/ALL-INKL-Header können in der lokalen Umgebung nicht vollständig geprüft werden. Mailzustellung, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. Ein finales Social-Sharing-Bild ist nicht vorhanden und wird deshalb nicht referenziert.
+Verbleibende Einschränkungen: Die lokale Testsuite stellt bewusst keine echte Verbindung zum ALL-INKL-SMTP-Server her. SMTP-Anmeldung und -Zustellung, Apache-Header, Weiterleitungen, CSP, HSTS, Dateirechte, Cookie-/Storage-/Netzwerk-Scan und rechtliche Freigabe sind zwingende Abnahmepunkte auf dem Zielhosting. SPF, DKIM und DMARC müssen anschließend geprüft werden. Ein finales Social-Sharing-Bild ist nicht vorhanden und wird deshalb nicht referenziert.

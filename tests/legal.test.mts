@@ -35,7 +35,8 @@ test("bildet den geprüften Cookie- und Storage-Bestand ab", () => {
 test("Produktivcode greift nicht auf Cookies oder Browser-Storage zu", () => {
   const files = collectFiles(join(projectRoot, "src"), [".ts", ".tsx"])
     .filter((file) => !file.includes("/content/legal/"));
-  const phpFiles = collectFiles(join(projectRoot, "public/api"), [".php"]);
+  const phpFiles = collectFiles(join(projectRoot, "public/api"), [".php"])
+    .filter((file) => !file.includes("/vendor/"));
   const source = [...files, ...phpFiles].map((file) => readFileSync(file, "utf8")).join("\n");
   assert.doesNotMatch(source, /document\.cookie|localStorage|sessionStorage|setcookie\s*\(|session_start\s*\(/);
 });

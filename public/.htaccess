@@ -6,6 +6,9 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Composer-Abhängigkeiten werden ausschließlich serverseitig geladen.
+  RewriteRule ^api/vendor(?:/|$) - [F,L,NC]
+
   # Die Regeln greifen ausschließlich auf den beiden Produktionshosts. Dadurch
   # bleiben lokale und separate Abnahmeverzeichnisse auf anderen Hosts nutzbar.
   RewriteCond %{HTTP_HOST} ^www\.krankenfahrten-bad-homburg\.de$ [NC]

@@ -19,6 +19,12 @@ const requiredFiles = [
   "api/lib/validation.php",
   "api/lib/security.php",
   "api/lib/mail.php",
+  "api/vendor/autoload.php",
+  "api/vendor/.htaccess",
+  "api/vendor/composer/installed.json",
+  "api/vendor/phpmailer/phpmailer/src/Exception.php",
+  "api/vendor/phpmailer/phpmailer/src/PHPMailer.php",
+  "api/vendor/phpmailer/phpmailer/src/SMTP.php",
   "icon.png",
   "apple-icon.png",
   "service-icons/arztfahrt.svg",
@@ -32,6 +38,31 @@ for (const file of requiredFiles) assert.ok(existsSync(join(out, file)), `Erford
 
 assert.ok(!existsSync(join(out, "api/config.php")), "api/config.php darf nicht im Build-Paket liegen.");
 assert.ok(!existsSync(join(out, "icons")), "Der auf ALL-INKL reservierte Icon-Ordner darf nicht verwendet werden.");
+assert.ok(!existsSync(join(out, "api/vendor/phpunit")), "Composer-Entwicklungsabhängigkeit im Upload-Paket.");
+assert.ok(!existsSync(join(out, "api/vendor/bin")), "Ausführbare Composer-Entwicklungswerkzeuge im Upload-Paket.");
+
+const installedPackages = JSON.parse(readFileSync(join(out, "api/vendor/composer/installed.json"), "utf8")).packages;
+assert.deepEqual(
+  installedPackages.map(({ name }) => name),
+  ["phpmailer/phpmailer"],
+  "Das Upload-Paket darf nur die benötigte PHP-Laufzeitabhängigkeit enthalten.",
+);
+
+const configExample = readFileSync(join(out, "api/config.example.php"), "utf8");
+assert.match(configExample, /'mail_transport'\s*=>\s*'smtp'/);
+assert.match(configExample, /'smtp_secure'\s*=>\s*'tls'/);
+assert.match(configExample, /'smtp_port'\s*=>\s*587/);
+assert.match(configExample, /'smtp_password'\s*=>\s*'HIER-NUR-AUF-DEM-SERVER-EINTRAGEN'/);
+
+const mailImplementation = readFileSync(join(out, "api/lib/mail.php"), "utf8");
+assert.doesNotMatch(mailImplementation, /\bmail\s*\(/, "Native mail()-Fallback ist noch vorhanden.");
+assert.match(mailImplementation, /SMTPAutoTLS\s*=\s*false/, "Automatische TLS-Aushandlung muss deaktiviert sein.");
+assert.match(mailImplementation, /ENCRYPTION_STARTTLS/);
+assert.match(mailImplementation, /ENCRYPTION_SMTPS/);
+
+const htaccess = readFileSync(join(out, ".htaccess"), "utf8");
+assert.match(htaccess, /RewriteRule \^api\/vendor/, "Direkter Zugriff auf Composer-Vendor ist nicht blockiert.");
+assert.match(readFileSync(join(out, "api/vendor/.htaccess"), "utf8"), /Require all denied/);
 
 const files = collectFiles(out);
 const relativeFiles = files.map((file) => relative(out, file).split(sep).join("/"));
@@ -84,6 +115,7 @@ const publicText = files
 assert.doesNotMatch(publicText, /localhost|example\.com/i, "Lokale oder Beispieldomain im öffentlichen Paket.");
 assert.doesNotMatch(publicText, new RegExp("/" + "icons/"), "Die auf ALL-INKL reservierte Icon-URL ist noch im Seitenpaket enthalten.");
 assert.doesNotMatch(publicText, /use server|resend\.com|EMAIL_API_KEY|RESEND_API_KEY/i, "Server-Action-, Resend- oder Secret-Hinweis im Seitenpaket.");
+assert.doesNotMatch(publicText, /w01267fe\.kasserver\.com|smtp_password|SMTPDebug/i, "SMTP-Konfiguration ist im Browserpaket sichtbar.");
 assert.doesNotMatch(publicText, /sk-[A-Za-z0-9]{16,}|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY/);
 
 const totalBytes = files.reduce((sum, file) => sum + statSync(file).size, 0);

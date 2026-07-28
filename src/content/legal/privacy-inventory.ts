@@ -54,7 +54,7 @@ export const privacyInventory = {
     recipient: "anfrage@krankenfahrten-bad-homburg.de",
     sender: "technische Adresse derselben Domain aus der serverseitigen PHP-Konfiguration",
     replyTo: "nur eine serverseitig validierte, optional angegebene Nutzeradresse",
-    transport: "PHP mail() über die Hostinginfrastruktur",
+    transport: "authentifizierter, TLS-verschlüsselter SMTP-Versand über die Hostinginfrastruktur",
     mailboxStorage: true,
   },
   openVerificationItems: [

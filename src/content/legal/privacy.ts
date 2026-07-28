@@ -75,7 +75,7 @@ export const privacyContent = {
       id: "email-versand",
       title: "9. E-Mail-Versand",
       paragraphs: [
-        "Der PHP-Endpunkt versendet die Anfrage über die Mailfunktion der Hostinginfrastruktur an den Betreiber. Als Absender dient eine serverseitig konfigurierte technische Adresse derselben Domain. Eine optionale, gültige Nutzeradresse wird ausschließlich als Reply-To verwendet.",
+        "Der PHP-Endpunkt versendet die Anfrage über eine authentifizierte, TLS-verschlüsselte SMTP-Verbindung der Hostinginfrastruktur an den Betreiber. Als Absender dient eine serverseitig konfigurierte Adresse derselben Domain. Eine optionale, gültige Nutzeradresse wird ausschließlich als Reply-To verwendet.",
         "Es wird keine automatische Bestätigungs-E-Mail an die anfragende Person gesendet und kein externer Newsletter- oder Marketingdienst eingesetzt.",
       ],
     },

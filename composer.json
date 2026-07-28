@@ -1,0 +1,16 @@
+{
+  "name": "krankenfahrten-bad-homburg/form-handler",
+  "description": "PHP dependencies for the static ride-request endpoint",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.1",
+    "phpmailer/phpmailer": "^7.0"
+  },
+  "config": {
+    "vendor-dir": "public/api/vendor",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "prefer-stable": true
+}
