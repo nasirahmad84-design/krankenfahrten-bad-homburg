@@ -11,6 +11,7 @@ const socialImage = {
 
 export function createPageMetadata(title: string, description: string, path: string): Metadata {
   const url = absoluteUrl(path);
+  const socialDescription = shortenSocialDescription(description);
 
   return {
     title: { absolute: title },
@@ -18,7 +19,7 @@ export function createPageMetadata(title: string, description: string, path: str
     alternates: { canonical: url },
     openGraph: {
       title,
-      description,
+      description: socialDescription,
       url,
       siteName: "Krankenfahrten Bad Homburg",
       locale: "de_DE",
@@ -28,8 +29,16 @@ export function createPageMetadata(title: string, description: string, path: str
     twitter: {
       card: "summary_large_image",
       title,
-      description,
+      description: socialDescription,
       images: [socialImage.url],
     },
   };
+}
+
+function shortenSocialDescription(description: string): string {
+  if (description.length <= 125) return description;
+
+  const shortened = description.slice(0, 124);
+  const lastSpace = shortened.lastIndexOf(" ");
+  return `${shortened.slice(0, lastSpace > 95 ? lastSpace : 124).trimEnd()}…`;
 }
