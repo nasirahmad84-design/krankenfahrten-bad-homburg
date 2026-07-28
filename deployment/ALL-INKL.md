@@ -28,7 +28,7 @@ npm run test:export
 npm run verify:deployment
 ```
 
-Anschließend `out/` lokal prüfen. Es muss unter anderem HTML-Seiten, `_next/`, lokale Assets, `service-icons/`, `robots.txt`, `sitemap.xml`, `.htaccess`, `api/fahrtanfrage.php`, `api/vendor/autoload.php` und die PHPMailer-Klassen enthalten. `api/config.php` darf nicht enthalten sein. Auf dem Server ist weder ein Composer-Lauf noch ein Node.js-Prozess erforderlich.
+Anschließend `out/` lokal prüfen. Es muss unter anderem HTML-Seiten, `_next/`, lokale Assets, `service-icons/`, `robots.txt`, `sitemap.xml`, `.htaccess`, `api/fahrtanfrage.php`, `api/lib/calendar.php`, `api/vendor/autoload.php` und die PHPMailer-Klassen enthalten. `api/config.php` und dauerhaft erzeugte `.ics`-Dateien dürfen nicht enthalten sein. Auf dem Server ist weder ein Composer-Lauf noch ein Node.js-Prozess erforderlich.
 
 Der öffentliche Standardordnername `icons` wird nicht verwendet, weil er auf dem ALL-INKL-Zielhosting durch einen Apache-Alias reserviert sein kann. Sämtliche Leistungsicons werden deshalb ausschließlich unter `/service-icons/` ausgeliefert. Vor dem Upload darf im Export kein gleichnamiger Altordner und keine darauf zeigende URL vorhanden sein.
 
@@ -67,6 +67,9 @@ Auf dem Server `api/config.php` anhand von `api/config.example.php` erstellen:
 - `smtp_username`: `anfrage@krankenfahrten-bad-homburg.de`
 - `smtp_password`: ausschließlich das echte Postfachpasswort in der serverseitigen `config.php`
 - `smtp_timeout`: beispielsweise `15`
+- `calendar_event_duration_minutes`: Terminlänge zwischen 15 und 1.440 Minuten, standardmäßig `60`
+- `calendar_reminder_minutes`: Erinnerung zwischen 0 und 1.440 Minuten; `0` deaktiviert sie
+- `calendar_uid_salt`: eigener, zufälliger Salt ausschließlich in der Serverkonfiguration
 - `allowed_origin`: `https://krankenfahrten-bad-homburg.de`
 - `rate_limit_salt`: mindestens 32 zufällige Bytes, nur serverseitig
 - `rate_limit_dir`: absolutes, beschreibbares Verzeichnis außerhalb des Webroots
@@ -81,7 +84,7 @@ Einen Salt lokal oder auf einem geeigneten sicheren System erzeugen:
 openssl rand -hex 32
 ```
 
-Den Wert niemals committen, per Chat weitergeben oder in öffentlich erreichbare Dateien schreiben.
+Den Befehl zweimal ausführen und getrennte Werte für Rate Limit und Kalender-UID verwenden. Die Werte niemals committen, per Chat weitergeben oder in öffentlich erreichbare Dateien schreiben. Fehlt eine gültige Kalenderkonfiguration, wird die Anfrage-E-Mail bewusst nicht ohne Anhang versendet.
 
 Alternativ kann Port `465` mit `smtp_secure` = `smtps` für implizites TLS verwendet werden. Port und Verschlüsselungsmodus müssen zusammenpassen; ein unverschlüsselter Transport und eine automatische Herabstufung sind nicht vorgesehen. Das Passwort niemals in Git, Dokumentation, Tests, Browsercode oder Buildvariablen übernehmen.
 
@@ -112,7 +115,7 @@ Die vorbereitete CSP und HSTS sind aus Sicherheitsgründen nicht aktiv. CSP erst
 
 ## 7. Formularabnahme
 
-Die vollständige Matrix steht in `php-production-check.md`. Mindestens erfolgreiche Anfrage, serverseitige Validierung, SMTP-Anmeldung, kontrollierten Fehler mit bewusst falschem Passwort, Reply-To, Origin-Prüfung, Zeitgrenzen und Rate Limit testen. Umlaute und Spamordner prüfen. Formulardaten, Passwort und SMTP-Transkript dürfen nicht in Webserver- oder Anwendungslogs geschrieben werden. Nach erfolgreicher Zustellung SPF, DKIM und DMARC separat prüfen.
+Die vollständige Endpunktmatrix steht in `php-production-check.md`; der ICS-Anhang wird zusätzlich nach `calendar-integration-check.md` auf iPhone, Android/Google Calendar und Outlook geprüft. Mindestens erfolgreiche Anfrage, serverseitige Validierung, SMTP-Anmeldung, kontrollierten Fehler mit bewusst falschem Passwort, Reply-To, Origin-Prüfung, Zeitgrenzen und Rate Limit testen. Umlaute und Spamordner prüfen. Formulardaten, Passwort und SMTP-Transkript dürfen nicht in Webserver- oder Anwendungslogs geschrieben werden. Nach erfolgreicher Zustellung SPF, DKIM und DMARC separat prüfen.
 
 ## 8. Freigabe und Go-live
 

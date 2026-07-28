@@ -25,6 +25,9 @@ function test_smtp_config(): array
         'mail_to' => 'intern@example.test',
         'mail_from' => 'mailer@example.test',
         'mail_from_name' => 'Testversand',
+        'calendar_event_duration_minutes' => 60,
+        'calendar_reminder_minutes' => 30,
+        'calendar_uid_salt' => bin2hex(random_bytes(32)),
     ];
 }
 
@@ -67,6 +70,7 @@ test_assert(!check_rate_limit(['REMOTE_ADDR' => '127.0.0.1'], $rateConfig, 1002)
 
 $mailText = build_ride_request_mail_text($result['values'], $now);
 test_assert(str_contains($mailText, 'keine bestätigte Buchung'), 'Verbindlichkeitshinweis fehlt.');
+test_assert(str_starts_with($mailText, "Kalenderdatei:\nDie beigefügte ICS-Datei"), 'Kalenderhinweis fehlt.');
 test_assert(str_contains($mailText, '<script>Test</script>'), 'Textinhalt wurde unerwartet verändert.');
 test_assert(class_exists(\PHPMailer\PHPMailer\PHPMailer::class), 'PHPMailer-Autoloader funktioniert nicht.');
 
@@ -82,6 +86,17 @@ test_assert(send_ride_request_email($result['values'], $smtpConfig, $successfulS
 test_assert($capturedPayload['reply_to'] === 'erika@example.com', 'Gültiges Reply-To fehlt.');
 test_assert($capturedPayload['to'] === 'intern@example.test', 'Empfänger stammt nicht aus der Serverkonfiguration.');
 test_assert($capturedSmtp['smtp_secure'] === 'tls', 'STARTTLS-Konfiguration ging verloren.');
+test_assert(str_ends_with($capturedPayload['calendar_filename'], '.ics'), 'ICS-Dateiname fehlt.');
+test_assert(str_contains($capturedPayload['calendar_content'], 'BEGIN:VCALENDAR'), 'ICS-Inhalt fehlt.');
+
+$message = new \PHPMailer\PHPMailer\PHPMailer(true);
+configure_phpmailer_message($message, $capturedPayload);
+$attachments = $message->getAttachments();
+test_assert(count($attachments) === 1, 'PHPMailer erhielt nicht genau einen Anhang.');
+test_assert($attachments[0][3] === \PHPMailer\PHPMailer\PHPMailer::ENCODING_BASE64, 'ICS-Anhang verwendet nicht Base64.');
+test_assert($attachments[0][4] === 'text/calendar; charset=UTF-8; method=PUBLISH', 'ICS-MIME-Type ist falsch.');
+test_assert($attachments[0][5] === true, 'ICS-Anhang wurde nicht aus dem Arbeitsspeicher erzeugt.');
+test_assert(str_ends_with($attachments[0][2], '.ics'), 'PHPMailer-Anhang hat keine ICS-Endung.');
 test_assert(!send_ride_request_email($result['values'], $smtpConfig, static fn(): bool => false), 'SMTP-Fehler wurde als Erfolg behandelt.');
 test_assert(!send_ride_request_email($result['values'], $smtpConfig, static function (): bool {
     throw new RuntimeException('Interner Transportfehler');
@@ -123,6 +138,14 @@ $invalidTo['mail_to'] = 'kein-postfach';
 test_assert(!send_ride_request_email($result['values'], $invalidTo, $successfulSender), 'Ungültiger Empfänger wurde akzeptiert.');
 $missingConfig = ['mail_transport' => 'smtp'];
 test_assert(!send_ride_request_email($result['values'], $missingConfig, $successfulSender), 'Unvollständige SMTP-Konfiguration wurde akzeptiert.');
+$missingCalendarSalt = $smtpConfig;
+unset($missingCalendarSalt['calendar_uid_salt']);
+$senderCalled = false;
+test_assert(!send_ride_request_email($result['values'], $missingCalendarSalt, static function () use (&$senderCalled): bool {
+    $senderCalled = true;
+    return true;
+}), 'Versand ohne gültige ICS wurde akzeptiert.');
+test_assert(!$senderCalled, 'Mailer wurde trotz beschädigter ICS-Erstellung aufgerufen.');
 $legacyConfig = $smtpConfig;
 $legacyConfig['mail_transport'] = 'mail';
 test_assert(!send_ride_request_email($result['values'], $legacyConfig, $successfulSender), 'Legacy-mail()-Fallback ist noch aktiv.');

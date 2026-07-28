@@ -18,6 +18,7 @@ const requiredFiles = [
   "api/config.example.php",
   "api/lib/validation.php",
   "api/lib/security.php",
+  "api/lib/calendar.php",
   "api/lib/mail.php",
   "api/vendor/autoload.php",
   "api/vendor/.htaccess",
@@ -53,12 +54,27 @@ assert.match(configExample, /'mail_transport'\s*=>\s*'smtp'/);
 assert.match(configExample, /'smtp_secure'\s*=>\s*'tls'/);
 assert.match(configExample, /'smtp_port'\s*=>\s*587/);
 assert.match(configExample, /'smtp_password'\s*=>\s*'HIER-NUR-AUF-DEM-SERVER-EINTRAGEN'/);
+assert.match(configExample, /'calendar_event_duration_minutes'\s*=>\s*60/);
+assert.match(configExample, /'calendar_reminder_minutes'\s*=>\s*30/);
+assert.match(configExample, /'calendar_uid_salt'\s*=>\s*'NUR-AUF-DEM-SERVER-EINTRAGEN'/);
+assert.equal(
+  [...configExample.matchAll(/'calendar_uid_salt'\s*=>\s*'([^']+)'/g)].map((match) => match[1]).join(""),
+  "NUR-AUF-DEM-SERVER-EINTRAGEN",
+  "Die Kalenderkonfiguration darf nur den dokumentierten Salt-Platzhalter enthalten.",
+);
 
 const mailImplementation = readFileSync(join(out, "api/lib/mail.php"), "utf8");
 assert.doesNotMatch(mailImplementation, /\bmail\s*\(/, "Native mail()-Fallback ist noch vorhanden.");
 assert.match(mailImplementation, /SMTPAutoTLS\s*=\s*false/, "Automatische TLS-Aushandlung muss deaktiviert sein.");
 assert.match(mailImplementation, /ENCRYPTION_STARTTLS/);
 assert.match(mailImplementation, /ENCRYPTION_SMTPS/);
+assert.match(mailImplementation, /require_once __DIR__ \. '\/calendar\.php'/, "Mail-Implementierung lädt den ICS-Generator nicht.");
+assert.match(mailImplementation, /addStringAttachment/);
+assert.match(mailImplementation, /text\/calendar; charset=UTF-8; method=PUBLISH/);
+
+const calendarImplementation = readFileSync(join(out, "api/lib/calendar.php"), "utf8");
+assert.doesNotMatch(calendarImplementation, /file_put_contents|fopen|tempnam|tmpfile/, "ICS darf nicht ins Dateisystem geschrieben werden.");
+assert.doesNotMatch(calendarImplementation, /https?:\/\/|webcal:|calendar\.google|outlook\.live/i, "Externe Kalenderintegration im ICS-Generator.");
 
 const htaccess = readFileSync(join(out, ".htaccess"), "utf8");
 assert.match(htaccess, /RewriteRule \^api\/vendor/, "Direkter Zugriff auf Composer-Vendor ist nicht blockiert.");
@@ -72,6 +88,7 @@ for (const file of relativeFiles) {
   assert.ok(!/\.(?:ts|tsx)$/i.test(file), `TypeScript-Quelle im Export: ${file}`);
   assert.ok(!/(^|\/)(?:tests?|__tests__)(\/|$)/i.test(file), `Testdatei im Export: ${file}`);
   assert.ok(!/(^|\/)(?:server|middleware)\.(?:js|mjs|cjs)$/i.test(file), `Node-Serverdatei im Export: ${file}`);
+  assert.ok(!/\.ics$/i.test(file), `Dauerhaft erzeugte Kalenderdatei im Export: ${file}`);
 }
 
 const sitemap = readFileSync(join(out, "sitemap.xml"), "utf8");
@@ -116,6 +133,7 @@ assert.doesNotMatch(publicText, /localhost|example\.com/i, "Lokale oder Beispiel
 assert.doesNotMatch(publicText, new RegExp("/" + "icons/"), "Die auf ALL-INKL reservierte Icon-URL ist noch im Seitenpaket enthalten.");
 assert.doesNotMatch(publicText, /use server|resend\.com|EMAIL_API_KEY|RESEND_API_KEY/i, "Server-Action-, Resend- oder Secret-Hinweis im Seitenpaket.");
 assert.doesNotMatch(publicText, /w01267fe\.kasserver\.com|smtp_password|SMTPDebug/i, "SMTP-Konfiguration ist im Browserpaket sichtbar.");
+assert.doesNotMatch(publicText, /calendar_uid_salt|webcal:|calendar\.google|outlook\.live/i, "Kalender-Secret oder externe Kalenderintegration im Browserpaket.");
 assert.doesNotMatch(publicText, /sk-[A-Za-z0-9]{16,}|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY/);
 
 const totalBytes = files.reduce((sum, file) => sum + statSync(file).size, 0);

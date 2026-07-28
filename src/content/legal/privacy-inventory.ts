@@ -1,5 +1,5 @@
 export const privacyInventory = {
-  reviewedAt: "2026-07-21",
+  reviewedAt: "2026-07-28",
   website: {
     delivery: "Statisch exportierte HTML-, CSS-, JavaScript-, Schrift- und Bilddateien über HTTPS",
     hostingProvider: "ALL-INKL",
@@ -56,6 +56,14 @@ export const privacyInventory = {
     replyTo: "nur eine serverseitig validierte, optional angegebene Nutzeradresse",
     transport: "authentifizierter, TLS-verschlüsselter SMTP-Versand über die Hostinginfrastruktur",
     mailboxStorage: true,
+    calendarAttachment: {
+      format: "iCalendar-Datei mit den bereits für die Fahrtanfrage übermittelten Angaben",
+      generation: "ausschließlich im Arbeitsspeicher des PHP-Prozesses",
+      recipient: "ausschließlich das interne Anfragepostfach",
+      persistentWebStorage: false,
+      externalCalendarApi: false,
+      import: "bewusst und manuell durch den internen Empfänger",
+    },
   },
   openVerificationItems: [
     "Speicherdauer und genauer Umfang der Server-Logfiles bei ALL-INKL",

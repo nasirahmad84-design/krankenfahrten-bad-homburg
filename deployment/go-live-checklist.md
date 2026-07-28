@@ -28,6 +28,10 @@
 - [ ] authentifizierter und TLS-verschlüsselter SMTP-Versand
 - [ ] SMTP-Fehler erzeugt HTTP 500 und keine Erfolgsmeldung
 - [ ] Umlaute, Spamordner und Zustellbarkeit geprüft
+- [ ] genau ein ICS-Anhang mit korrektem Abholtermin vorhanden
+- [ ] Kalenderdauer, Erinnerung, Ort und Beschreibung geprüft
+- [ ] kein erfundener Rückfahrttermin
+- [ ] manuelle Kalender-Testmatrix dokumentiert
 - [ ] optionales Reply-To
 - [ ] Rate Limit und technische Zeitgrenzen
 - [ ] neutrale Fehlermeldungen

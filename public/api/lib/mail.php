@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/calendar.php';
+
 const SMTP_PASSWORD_PLACEHOLDER = 'HIER-NUR-AUF-DEM-SERVER-EINTRAGEN';
 
 /**
@@ -12,14 +14,20 @@ function send_ride_request_email(array $data, array $config, ?callable $sender =
     $smtp = validated_smtp_config($config);
     if ($smtp === null) return false;
 
-    $payload = [
-        'to' => $smtp['mail_to'],
-        'from' => $smtp['mail_from'],
-        'from_name' => $smtp['mail_from_name'],
-        'reply_to' => validated_config_email($data['email'] ?? null),
-        'subject' => 'Neue Fahrtanfrage über krankenfahrten-bad-homburg.de',
-        'body' => build_ride_request_mail_text($data),
-    ];
+    try {
+        $payload = [
+            'to' => $smtp['mail_to'],
+            'from' => $smtp['mail_from'],
+            'from_name' => $smtp['mail_from_name'],
+            'reply_to' => validated_config_email($data['email'] ?? null),
+            'subject' => 'Neue Fahrtanfrage über krankenfahrten-bad-homburg.de',
+            'body' => build_ride_request_mail_text($data),
+            'calendar_content' => build_ride_request_ics($data, $config),
+            'calendar_filename' => build_ride_request_ics_filename($data),
+        ];
+    } catch (Throwable) {
+        return false;
+    }
 
     if ($sender !== null) {
         try {
@@ -57,17 +65,28 @@ function send_with_phpmailer(array $payload, array $smtp): bool
 
         $mailer->CharSet = \PHPMailer\PHPMailer\PHPMailer::CHARSET_UTF8;
         $mailer->Encoding = \PHPMailer\PHPMailer\PHPMailer::ENCODING_QUOTED_PRINTABLE;
-        $mailer->setFrom($payload['from'], $payload['from_name']);
-        $mailer->addAddress($payload['to']);
-        if ($payload['reply_to'] !== null) $mailer->addReplyTo($payload['reply_to']);
-        $mailer->isHTML(false);
-        $mailer->Subject = $payload['subject'];
-        $mailer->Body = $payload['body'];
+        configure_phpmailer_message($mailer, $payload);
 
         return $mailer->send();
     } catch (Throwable) {
         return false;
     }
+}
+
+function configure_phpmailer_message(\PHPMailer\PHPMailer\PHPMailer $mailer, array $payload): void
+{
+    $mailer->setFrom($payload['from'], $payload['from_name']);
+    $mailer->addAddress($payload['to']);
+    if ($payload['reply_to'] !== null) $mailer->addReplyTo($payload['reply_to']);
+    $mailer->isHTML(false);
+    $mailer->Subject = $payload['subject'];
+    $mailer->Body = $payload['body'];
+    $mailer->addStringAttachment(
+        $payload['calendar_content'],
+        $payload['calendar_filename'],
+        \PHPMailer\PHPMailer\PHPMailer::ENCODING_BASE64,
+        'text/calendar; charset=UTF-8; method=PUBLISH',
+    );
 }
 
 function validated_smtp_config(array $config): ?array
@@ -135,7 +154,13 @@ function build_ride_request_mail_text(array $data, ?DateTimeImmutable $requested
         'Zusätzliche Hinweise' => $data['notes'] ?: 'Keine',
         'Zeitpunkt der Anfrage' => $requestedAt->format(DateTimeInterface::ATOM),
     ];
-    $lines = ['Diese Anfrage ist noch keine bestätigte Buchung.', ''];
+    $lines = [
+        'Kalenderdatei:',
+        'Die beigefügte ICS-Datei kann direkt in den Kalender übernommen werden.',
+        '',
+        'Diese Anfrage ist noch keine bestätigte Buchung.',
+        '',
+    ];
     foreach ($rows as $label => $value) $lines[] = $label . ': ' . (string) $value;
     return implode("\n", $lines);
 }

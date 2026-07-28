@@ -3,7 +3,7 @@
         'name' => 'krankenfahrten-bad-homburg/form-handler',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '344b3097288d1f8de7e6fad6641959021e2263cf',
+        'reference' => '1f404651a18f1672bb8de46cfa63bbb1e0e8e27e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'krankenfahrten-bad-homburg/form-handler' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '344b3097288d1f8de7e6fad6641959021e2263cf',
+            'reference' => '1f404651a18f1672bb8de46cfa63bbb1e0e8e27e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../../',
             'aliases' => array(),

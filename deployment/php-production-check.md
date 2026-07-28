@@ -9,6 +9,7 @@ php -v
 php -l api/fahrtanfrage.php
 php -l api/lib/validation.php
 php -l api/lib/security.php
+php -l api/lib/calendar.php
 php -l api/lib/mail.php
 php -r "require 'api/vendor/autoload.php'; exit(class_exists('PHPMailer\\\\PHPMailer\\\\PHPMailer') ? 0 : 1);"
 ```
@@ -26,6 +27,9 @@ Erwartet wird PHP 8.1 oder neuer mit OpenSSL, ohne Syntaxfehler und mit ladbarer
 - [ ] SMTP-Benutzer und festes Absenderpostfach passen zusammen
 - [ ] echtes Passwort steht ausschließlich in der serverseitigen Konfiguration
 - [ ] OpenSSL ist aktiv
+- [ ] Kalenderdauer liegt zwischen 15 und 1.440 Minuten
+- [ ] Erinnerung liegt zwischen 0 und 1.440 Minuten
+- [ ] eigener Kalender-UID-Salt wurde serverseitig eingetragen
 - [ ] `allowed_origin` ist die primäre Domain ohne `www`
 - [ ] Empfänger und technischer Absender sind fest konfiguriert
 - [ ] sicherer, nicht öffentlicher Salt eingetragen
@@ -63,6 +67,11 @@ Erwartet wird PHP 8.1 oder neuer mit OpenSSL, ohne Syntaxfehler und mit ladbarer
 - [ ] keine automatische Nutzerbestätigung
 - [ ] Hinweis „Diese Anfrage ist noch keine bestätigte Buchung.“ vorhanden
 - [ ] HTML-Eingaben werden nicht als ausführbarer HTML-Inhalt versendet
+- [ ] genau ein ICS-Anhang mit `text/calendar`, Base64-Encoding und sicherem Dateinamen vorhanden
+- [ ] ICS enthält genau ein Ereignis für die Abholung
+- [ ] „Hin- und Rückfahrt“ erzeugt keinen geschätzten Rückfahrttermin
+- [ ] fehlende oder ungültige Kalenderkonfiguration ergibt 500 und versendet keine unvollständige E-Mail
+- [ ] keine `.ics`-Datei wird dauerhaft im Webroot oder temporär durch die Anwendung gespeichert
 - [ ] SMTP-Debugging ist deaktiviert und kein SMTP-Transkript wird ausgegeben
 - [ ] kein Rückfall auf die native PHP-Funktion `mail()`
 - [ ] Spamordner geprüft

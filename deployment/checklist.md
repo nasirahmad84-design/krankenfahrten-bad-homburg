@@ -20,6 +20,8 @@
 - [ ] Port 587 mit STARTTLS geprüft; alternativ Port 465 mit SMTPS bewusst konfiguriert
 - [ ] Rate-Limit-Verzeichnis außerhalb des Webroots angelegt und beschreibbar
 - [ ] sicherer Salt mit `openssl rand -hex 32` erzeugt
+- [ ] separater Kalender-UID-Salt mit `openssl rand -hex 32` erzeugt
+- [ ] Kalenderdauer und Erinnerungszeit in `api/config.php` geprüft
 - [ ] `api/config.php` ausschließlich auf dem Server erstellt
 - [ ] SMTP-Passwort ausschließlich in der serverseitigen `api/config.php` beziehungsweise einer eingebundenen Datei außerhalb des Webroots eingetragen
 - [ ] `out/api/vendor/autoload.php` und PHPMailer-Klassen vorhanden; keine Composer-Entwicklungsabhängigkeiten enthalten
@@ -31,6 +33,8 @@
 - [ ] Startseite, Hauptseiten, Leistungsseiten und Rechtsseiten erreichbar
 - [ ] individuelle 404-Seite geprüft
 - [ ] Formular und E-Mail-Eingang geprüft
+- [ ] genau ein ICS-Anhang vorhanden; keine dauerhafte `.ics`-Datei im Webroot
+- [ ] `calendar-integration-check.md` auf den tatsächlich eingesetzten Kalenderclients durchgeführt
 - [ ] SMTP-Anmeldung, Umlaute, Spamordner sowie bewusst falsches Passwort mit kontrolliertem Fehler geprüft
 - [ ] SPF, DKIM und DMARC geprüft beziehungsweise als Nacharbeit dokumentiert
 - [ ] Reply-To, Validierungs-, Origin-, Rate-Limit- und Mailfehler geprüft
