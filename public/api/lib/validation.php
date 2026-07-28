@@ -33,7 +33,7 @@ function validate_ride_request(array $input, ?DateTimeImmutable $now = null): ar
     if ($values['notes'] !== '' && text_length($values['notes']) > $limits['notes']) $errors['notes'] = 'Bitte verwenden Sie höchstens 1000 Zeichen.';
     if (!valid_date($values['date'], $now)) $errors['date'] = 'Bitte wählen Sie ein gültiges zukünftiges Fahrtdatum.';
     if (!preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $values['time'])) $errors['time'] = 'Bitte wählen Sie eine gültige Uhrzeit.';
-    if (!isset($input['consent']) || !in_array($input['consent'], [true, 1, '1', 'on'], true)) $errors['consent'] = 'Bitte stimmen Sie der Kontaktaufnahme zu.';
+    if (!isset($input['consent']) || !in_array($input['consent'], [true, 1, '1', 'on'], true)) $errors['consent'] = 'Bitte erteilen Sie die ausdrückliche Einwilligung zur Bearbeitung Ihrer Anfrage.';
 
     return ['values' => $values, 'errors' => $errors];
 }

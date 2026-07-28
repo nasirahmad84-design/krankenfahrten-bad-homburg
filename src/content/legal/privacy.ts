@@ -4,7 +4,7 @@ export const privacyContent = {
   eyebrow: "Datenschutz",
   title: "Datenschutzerklärung",
   description: "Informationen zur Verarbeitung personenbezogener Daten beim Besuch dieser Website und bei einer Fahrtanfrage.",
-  updatedAt: "21. Juli 2026",
+  updatedAt: "28. Juli 2026",
   sections: [
     {
       id: "verantwortlicher",
@@ -51,7 +51,8 @@ export const privacyContent = {
       id: "anfrageformular",
       title: "6. Anfrageformular",
       paragraphs: [
-        "Das Formular dient der Bearbeitung einer unverbindlichen Fahrtanfrage und der anschließenden Kontaktaufnahme. Verarbeitet werden Vorname und Nachname, Telefonnummer, optional E-Mail-Adresse, Fahrtdatum, Uhrzeit, Abhol- und Zieladresse, Fahrtart beziehungsweise Anlass, die optionale Angabe zu Hin- und Rückfahrt, optionale zusätzliche Hinweise und die Zustimmung zur Kontaktaufnahme.",
+        "Das Formular dient der Bearbeitung einer unverbindlichen Fahrtanfrage und der anschließenden Kontaktaufnahme. Verarbeitet werden Vorname und Nachname, Telefonnummer, optional E-Mail-Adresse, Fahrtdatum, Uhrzeit, Abhol- und Zieladresse, Fahrtart beziehungsweise Anlass, die optionale Angabe zu Hin- und Rückfahrt, optionale zusätzliche Hinweise und die ausdrückliche Einwilligung zur Verarbeitung möglicherweise gesundheitsbezogener Angaben sowie zur Kontaktaufnahme.",
+        "Der gewählte Fahrtanlass kann Rückschlüsse auf eine Behandlung und damit auf die Gesundheit zulassen. Bitte geben Sie keine Diagnosen, Versicherungsnummern oder medizinischen Notfalldaten ein.",
         "Zusätzlich wird eine technische Formularzeit verarbeitet. Die Anfrage wird an eine fest konfigurierte E-Mail-Adresse des Betreibers übermittelt. Es erfolgt keine Speicherung in einer Datenbank und keine automatische Buchungs- oder Eingangsbestätigung. Eine Fahrt ist erst nach ausdrücklicher Bestätigung vereinbart.",
       ],
     },
@@ -76,6 +77,7 @@ export const privacyContent = {
       title: "9. E-Mail-Versand",
       paragraphs: [
         "Der PHP-Endpunkt versendet die Anfrage über eine authentifizierte, TLS-verschlüsselte SMTP-Verbindung der Hostinginfrastruktur an den Betreiber. Als Absender dient eine serverseitig konfigurierte Adresse derselben Domain. Eine optionale, gültige Nutzeradresse wird ausschließlich als Reply-To verwendet.",
+        "Der E-Mail wird eine im Arbeitsspeicher erzeugte iCalendar-Datei mit den bereits übermittelten Fahrtangaben beigefügt. Sie wird nicht dauerhaft im Websystem gespeichert und ausschließlich an das interne Anfragepostfach versandt. Der Import in einen Kalender erfolgt erst durch eine bewusste Aktion des Empfängers.",
         "Es wird keine automatische Bestätigungs-E-Mail an die anfragende Person gesendet und kein externer Newsletter- oder Marketingdienst eingesetzt.",
       ],
     },
@@ -98,8 +100,10 @@ export const privacyContent = {
       id: "rechtsgrundlagen",
       title: "12. Rechtsgrundlagen",
       paragraphs: [
-        "Die Bereitstellung und Absicherung der Website sowie der Schutz vor Missbrauch erfolgen auf Grundlage des berechtigten Interesses an einem sicheren und funktionsfähigen Internetangebot. Kontakt- und Fahrtanfragen werden verarbeitet, soweit dies zur Bearbeitung Ihrer Anfrage und zur Durchführung vorvertraglicher Maßnahmen erforderlich ist.",
-        "Soweit eine Verarbeitung auf Ihrer Einwilligung beruht, können Sie diese mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der Verarbeitung bis zum Widerruf bleibt unberührt. Gesetzliche Aufbewahrungspflichten können eine weitere Verarbeitung erfordern.",
+        "Die Bereitstellung der Website, Server-Logfiles und der technische Schutz vor Missbrauch erfolgen auf Grundlage von Art. 6 Abs. 1 Buchst. f DSGVO. Das berechtigte Interesse besteht im sicheren, stabilen und missbrauchsarmen Betrieb des Internetangebots.",
+        "Kontakt- und Fahrtanfragen werden nach Art. 6 Abs. 1 Buchst. b DSGVO verarbeitet, soweit dies zur Bearbeitung Ihrer Anfrage, zur Durchführung vorvertraglicher Maßnahmen oder zur Durchführung einer vereinbarten Fahrt erforderlich ist.",
+        "Soweit der ausgewählte Fahrtanlass oder freiwillige Hinweise Gesundheitsdaten erkennen lassen, erfolgt deren Verarbeitung auf Grundlage Ihrer ausdrücklichen Einwilligung nach Art. 9 Abs. 2 Buchst. a in Verbindung mit Art. 6 Abs. 1 Buchst. a DSGVO.",
+        "Soweit eine Verarbeitung zur Erfüllung gesetzlicher Aufbewahrungspflichten erforderlich ist, beruht sie auf Art. 6 Abs. 1 Buchst. c DSGVO. Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der Verarbeitung bis zum Widerruf bleibt unberührt.",
       ],
     },
     {
@@ -120,6 +124,12 @@ export const privacyContent = {
       title: "14. Beschwerderecht bei einer Aufsichtsbehörde",
       paragraphs: [
         "Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt. Dieses Recht besteht unbeschadet anderer verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.",
+      ],
+      definitions: [
+        { term: "Zuständige Aufsichtsbehörde", description: "Der Hessische Beauftragte für Datenschutz und Informationsfreiheit" },
+        { term: "Anschrift", description: "Gustav-Stresemann-Ring 1, 65189 Wiesbaden" },
+        { term: "Telefon", description: "0611 1408-0" },
+        { term: "E-Mail", description: "poststelle@datenschutz.hessen.de" },
       ],
     },
     {
@@ -161,7 +171,7 @@ export const privacyContent = {
     {
       id: "stand",
       title: "20. Stand der Datenschutzerklärung",
-      paragraphs: ["Stand: 21. Juli 2026"],
+      paragraphs: ["Stand: 28. Juli 2026"],
     },
   ] satisfies readonly LegalSectionContent[],
 } as const;

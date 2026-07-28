@@ -7,23 +7,21 @@ Diese Checkliste ist eine technische Freigabe- und Prüfgrundlage, keine Rechtsb
 - [ ] Rechtsform prüfen
 - [ ] Umsatzsteuer-ID und Wirtschafts-ID prüfen
 - [ ] Registerangaben prüfen
-- [ ] zuständige Aufsichtsbehörde prüfen
-- [ ] Genehmigungs- oder Konzessionsangaben prüfen
-- [ ] Berufsrecht beziehungsweise branchenspezifische Pflichtangaben prüfen
+- [x] zuständige Genehmigungsbehörde für Taxi-/Mietwagenverkehr anhand der amtlichen Stadtseite ermittelt
+- [ ] Nummer und genauer Umfang der vorhandenen Taxi- beziehungsweise Mietwagengenehmigung intern prüfen
 - [ ] Verantwortlichen für Inhalte prüfen
 - [ ] bekannte Anschrift, Telefon- und E-Mail-Daten bestätigen
 
 ## Datenschutz
 
-- [ ] Rechtsgrundlagen fachlich prüfen und freigeben
+- [ ] dokumentierte Rechtsgrundlagen und ausdrückliche Formulareinwilligung fachlich beziehungsweise rechtlich freigeben
 - [ ] Speicherdauer der E-Mail-Anfragen verbindlich festlegen
 - [ ] Umfang und Speicherdauer der Server-Logfiles bei ALL-INKL prüfen
 - [ ] Auftragsverarbeitungsvertrag und weitere Vertragsdetails mit ALL-INKL prüfen
-- [ ] zuständige Datenschutzaufsichtsbehörde prüfen
+- [x] zuständige Datenschutzaufsichtsbehörde anhand der amtlichen HBDI-Seite ermittelt
 - [ ] betriebliches Löschkonzept festlegen
 - [ ] technische und organisatorische Maßnahmen dokumentieren
 - [ ] Rate-Limit-Aufbewahrung und Bereinigung auf dem Produktivserver verifizieren
-- [ ] Kontaktformular-Einwilligung und Formulierung rechtlich prüfen
 - [ ] technischen Absender und Empfänger der Formular-E-Mail bestätigen
 - [ ] sicherstellen, dass keine personenbezogenen Formulardaten protokolliert werden
 

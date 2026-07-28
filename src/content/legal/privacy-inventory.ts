@@ -35,7 +35,7 @@ export const privacyInventory = {
       "Fahrtart beziehungsweise Anlass",
       "Angabe zu Hin- und Rückfahrt",
       "zusätzliche Hinweise",
-      "Einwilligung zur Kontaktaufnahme",
+      "ausdrückliche Einwilligung zur Verarbeitung möglicherweise gesundheitsbezogener Angaben und zur Kontaktaufnahme",
       "technische Formularzeit",
     ],
     excludedData: ["Diagnosen", "Versicherungsnummern", "Dokument-Uploads", "medizinische Notfalldaten"],
@@ -69,8 +69,6 @@ export const privacyInventory = {
     "Speicherdauer und genauer Umfang der Server-Logfiles bei ALL-INKL",
     "Vertrags- und Auftragsverarbeitungsdetails mit ALL-INKL",
     "betriebliche Löschfrist für Fahrtanfragen im E-Mail-Postfach",
-    "fachliche Zuordnung und Freigabe der Rechtsgrundlagen",
-    "zuständige Datenschutzaufsichtsbehörde",
     "branchenspezifische und anbieterrechtliche Pflichtangaben",
   ],
 } as const;

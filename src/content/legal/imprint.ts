@@ -23,6 +23,14 @@ export const imprintContent = {
       ],
     },
     {
+      id: "aufsichtsbehoerde",
+      title: "Zuständige Genehmigungsbehörde",
+      paragraphs: [
+        "Magistrat der Stadt Bad Homburg v. d. Höhe, Straßenverkehrsbehörde, Technisches Rathaus, Bahnhofstraße 16–18, 61352 Bad Homburg v. d. Höhe.",
+        "Die Tätigkeit im Taxi- und Mietwagenverkehr unterliegt insbesondere den Vorgaben des Personenbeförderungsgesetzes (PBefG) und der Verordnung über den Betrieb von Kraftfahrunternehmen im Personenverkehr (BOKraft).",
+      ],
+    },
+    {
       id: "inhalte",
       title: "Hinweise zu den Inhalten",
       paragraphs: [

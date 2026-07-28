@@ -89,7 +89,7 @@ export function RideRequestForm() {
       <div className="mt-6">
         <label className="flex min-h-12 cursor-pointer items-start gap-3 rounded-xl p-2 text-base leading-[1.6] text-[#5b697a] transition-colors hover:bg-[#f6f9fc]" htmlFor="request-consent">
           <input id="request-consent" name="consent" type="checkbox" className="mt-0.5 size-6 shrink-0 accent-green" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "request-consent-error" : undefined} />
-          <span>Ich bin damit einverstanden, zur Bearbeitung meiner Anfrage telefonisch oder per E-Mail kontaktiert zu werden. <span aria-hidden="true">*</span></span>
+          <span>Ich willige ausdrücklich ein, dass meine Angaben – einschließlich des gewählten Fahrtanlasses und möglicher gesundheitsbezogener Angaben – zur Bearbeitung der Fahrtanfrage verarbeitet werden und ich hierzu telefonisch oder per E-Mail kontaktiert werde. Die Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. <span aria-hidden="true">*</span></span>
         </label>
         {errors.consent && <FieldError id="request-consent-error" message={errors.consent} />}
         <p className="mt-2 pl-2 text-[14px] leading-relaxed text-[#5b697a]">Informationen zur Verarbeitung Ihrer Angaben finden Sie in der <Link className="font-semibold text-navy underline decoration-green decoration-2 underline-offset-4" href="/datenschutz/">Datenschutzerklärung</Link>.</p>

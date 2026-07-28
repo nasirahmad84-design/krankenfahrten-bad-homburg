@@ -121,11 +121,11 @@ Die Routen `/leistungen`, `/kosten-abrechnung`, `/ablauf`, `/ueber-uns`, `/faq` 
 ## Visueller Feinschliff (DEV-03.1)
 
 - Typografie und Bedienelemente wurden komponentenbezogen vergrößert: kräftigere Desktop-H1, größere Einleitungen, Karten-, FAQ-, Navigations-, Kontakt- und Footertexte sowie mindestens 15 px große Standardbuttons.
-- Der Hero nutzt eine lokale geometrische Komposition aus Navy-, Grün-, Kreuz-, Kreis- und Kartenformen. Sie orientiert sich an der Figma-Bildsprache, benötigt kein externes Bild und vermeidet Stockmaterial.
+- Der Hero nutzt inzwischen ein lokal ausgeliefertes WebP-Motiv mit Fahrer, Fahrgast und Fahrzeug. Text und Aktionen bleiben davon getrennt und lesbar; das Motiv enthält keine eingebetteten Texte und wird nicht von einem externen Bilddienst geladen.
 - Sechs eigenständige SVG-Icons unter `public/icons` unterscheiden Arzt-, Krankenhaus-, Dialyse-, Chemo-/Strahlentherapie-, Reha-/Therapie- und Entlassungsfahrten.
 - Vorteile und Leistungskarten erhielten größere Innenabstände, konsistente Mindesthöhen, klarere Schatten sowie stärkere Hover- und Fokuswirkung.
 - Der Ablauf besitzt auf Desktop eine verbindende Linie und mobil eine klar geführte vertikale Nummerierung. FAQ, Abrechnungsbox, Abschluss-CTA und Footer wurden in Lesbarkeit und Rhythmus gestärkt.
-- Verbleibende Figma-Abweichung: Der Hero bleibt bewusst eine responsive Vektorkomposition statt eines fotografischen Motivs, da im freigegebenen Frame kein finales Foto vorliegt.
+- Die frühere Vektorkomposition wurde im Rahmen von SEO-04 durch das freigegebene fotografische Motiv ersetzt.
 
 ## Hauptseiten-Feinschliff (DEV-04.1)
 

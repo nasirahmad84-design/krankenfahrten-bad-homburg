@@ -67,7 +67,7 @@ export function validateRideRequest(formData: FormData, now = new Date()): RideR
   if (!isPlausibleDate(values.date, now)) fieldErrors.date = "Bitte wählen Sie ein gültiges zukünftiges Fahrtdatum.";
   if (!timePattern.test(values.time)) fieldErrors.time = "Bitte wählen Sie eine gültige Uhrzeit.";
   if (values.notes.length > limits.notes) fieldErrors.notes = `Bitte verwenden Sie höchstens ${limits.notes} Zeichen.`;
-  if (formData.get("consent") !== "on") fieldErrors.consent = "Bitte stimmen Sie der Kontaktaufnahme zu.";
+  if (formData.get("consent") !== "on") fieldErrors.consent = "Bitte erteilen Sie die ausdrückliche Einwilligung zur Bearbeitung Ihrer Anfrage.";
 
   if (Object.keys(fieldErrors).length > 0) return { success: false, fieldErrors };
 

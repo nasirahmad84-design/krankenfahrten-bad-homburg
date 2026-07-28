@@ -4,6 +4,8 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { consentBannerRequired, privacyInventory } from "../src/content/legal/privacy-inventory.ts";
+import { imprintContent } from "../src/content/legal/imprint.ts";
+import { privacyContent } from "../src/content/legal/privacy.ts";
 
 const projectRoot = process.cwd();
 
@@ -46,6 +48,24 @@ test("verlinkt die Datenschutzerklärung am Anfrageformular", () => {
   const contact = readFileSync(join(projectRoot, "src/app/kontakt/page.tsx"), "utf8");
   assert.match(form, /href="\/datenschutz\/"/);
   assert.match(contact, /href="\/datenschutz\/"/);
+});
+
+test("weist Rechtsgrundlagen und zuständige Behörden transparent aus", () => {
+  const privacy = JSON.stringify(privacyContent);
+  const imprint = JSON.stringify(imprintContent);
+  assert.match(privacy, /Art\. 6 Abs\. 1 Buchst\. b DSGVO/);
+  assert.match(privacy, /Art\. 9 Abs\. 2 Buchst\. a/);
+  assert.match(privacy, /Hessische Beauftragte für Datenschutz und Informationsfreiheit/);
+  assert.match(privacy, /iCalendar-Datei/);
+  assert.match(imprint, /Straßenverkehrsbehörde/);
+  assert.match(imprint, /Personenbeförderungsgesetz/);
+});
+
+test("holt für mögliche Gesundheitsdaten eine ausdrückliche Einwilligung ein", () => {
+  const form = readFileSync(join(projectRoot, "src/components/forms/ride-request-form.tsx"), "utf8");
+  assert.match(form, /willige ausdrücklich ein/);
+  assert.match(form, /gesundheitsbezogener Angaben/);
+  assert.match(form, /jederzeit mit Wirkung für die Zukunft widerrufen/);
 });
 
 test("interne Prüfpunkte werden von öffentlichen Seiten nicht importiert", () => {
