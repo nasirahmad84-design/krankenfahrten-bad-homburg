@@ -1,0 +1,2 @@
+claim_id,article_slug,claim_text,claim_type,source_id,source_url,source_locator,status,checked_at,review_note
+EXAMPLE-001,example-slug,Beispielclaim nicht veröffentlichen,example,WEB-001,https://www.g-ba.de/richtlinien/25/,replace-before-use,blocked,2026-08-11,Vorlage muss je Artikel vollständig ersetzt werden

@@ -316,3 +316,7 @@ Die vorhandene `.htaccess` enthält bereits eine hostgebundene 301-Regel von `ww
 ## Search-Console-Baseline (SEO-09)
 
 Die erste Search-Console-Auswertung ist in `deployment/seo-search-console-baseline-2026-08-11.md` dokumentiert. Sie hält Datenquelle, Ausgangswerte, frühe Suchsignale, umgesetzte Reaktionen sowie verbindliche Reviews am 25. August und 8. September 2026 fest. Wegen der kleinen Ausgangsstichprobe werden weder einzelne Impressionen überbewertet noch künstliche Rankingziele behauptet.
+
+## Automatisierter Ratgeber (BLOG-00)
+
+Die geplante Recherche-, Entwurfs-, Review- und Veröffentlichungsstrecke ist unter `automation/blog/` dokumentiert. Sie verwendet getrennte Läufe, artikelbezogene Quellen- und Claim-Register sowie harte Freigabegates. Der MVP veröffentlicht zunächst ausschließlich auf die noindex-geschützte Testdomain; Live- und Facebook-Automatisierung bleiben bis BLOG-04 deaktiviert.

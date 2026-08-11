@@ -1,0 +1,2 @@
+run_id,scheduled_date,article_slug,draft_status,source_gate,claim_gate,service_gate,legal_sensitivity_gate,seo_gate,build_gate,test_deploy_status,live_status,facebook_status,reviewed_at,notes
+TEMPLATE,YYYY-MM-DD,replace-me,not_started,not_checked,not_checked,not_checked,not_checked,not_checked,not_checked,not_started,disabled,disabled,,Vorlage vor erstem Lauf kopieren

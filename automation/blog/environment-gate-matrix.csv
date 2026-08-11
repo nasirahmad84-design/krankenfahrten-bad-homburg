@@ -1,0 +1,12 @@
+action,draft_run,review_run,test_domain,live_domain,facebook
+Online-Recherche,allow,allow,n/a,n/a,n/a
+Entwurfsdatei schreiben,allow,allow,n/a,n/a,n/a
+Claim-Register ändern,allow,allow,n/a,n/a,n/a
+Öffentlichen Status setzen,deny,allow-after-all-gates,n/a,n/a,n/a
+Tests und Build,allow,required,n/a,n/a,n/a
+Git-Commit,deny,required-after-gates,n/a,n/a,n/a
+Deployment,deny,allow,allow,deny-until-BLOG-04,deny
+Indexierung,deny,deny,noindex,allow-after-BLOG-04,n/a
+Facebook-Entwurf,allow,allow,n/a,n/a,store-only
+Facebook-Veröffentlichung,deny,deny,n/a,requires-success,deny-until-BLOG-04
+Geheimnisse ausgeben,deny,deny,deny,deny,deny
