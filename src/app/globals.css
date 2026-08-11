@@ -80,6 +80,10 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+.analytics-consent-banner {
+  bottom: calc(5.75rem + env(safe-area-inset-bottom));
+}
+
 .site-body[data-mobile-menu-open="true"] .site-header {
   position: fixed;
   inset: 0 0 auto;
@@ -201,6 +205,10 @@ body {
   .home-section {
     padding-block: 5rem;
   }
+
+  .analytics-consent-banner {
+    bottom: 1.5rem;
+  }
 }
 
 @media (min-width: 64rem) {
@@ -228,6 +236,7 @@ body {
   header,
   footer,
   .mobile-contact-bar,
+  .analytics-consent-banner,
   .legal-jump-nav,
   .skip-link {
     display: none !important;

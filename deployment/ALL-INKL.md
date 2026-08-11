@@ -93,6 +93,8 @@ Wenn ALL-INKL eine praktikable Konfiguration außerhalb des Webroots erlaubt, do
 
 Den vollständigen Inhalt von `out/` per SFTP beziehungsweise FTP in das Zielverzeichnis hochladen. Versteckte Dateien müssen einbezogen werden, insbesondere `.htaccess`. Danach die produktive `api/config.php` serverseitig anlegen beziehungsweise aus der gesicherten, geprüften Konfiguration übernehmen.
 
+Bei Verwendung von `npm run deploy:test` oder `npm run deploy:live` muss `api/config.php` bereits vor dem Upload im jeweiligen Zielverzeichnis vorhanden sein. Das Deployment-Skript bricht andernfalls vor dem Build ab. Nach dem Upload kontrolliert es den HTTP-403-Schutz für `config.php` und `config.example.php` sowie die Domainbindung des Endpunkts durch einen Formular-Preflight, der bewusst vor Rate Limit und Mailversand endet. Dieser Check versendet keine E-Mail.
+
 Keine gemischten `_next`-Buildstände betreiben. Beim kontrollierten Ersetzen zuerst die neue vollständige Version bereitstellen und erst anschließend das Ziel umschalten beziehungsweise die alte Version austauschen.
 
 ## 6. Technische Abnahme

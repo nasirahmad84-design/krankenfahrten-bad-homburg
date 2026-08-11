@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { AnalyticsConsentManager } from "@/components/analytics/analytics-consent-manager";
 import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -45,6 +46,7 @@ export default function RootLayout({
         </main>
         <SiteFooter />
         <MobileContactBar />
+        <AnalyticsConsentManager />
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { rideReasons } from "@/content/contact";
+import { trackAnalyticsEvent } from "@/lib/analytics-consent";
 import { createRideRequestPayload, postRideRequest } from "@/lib/ride-request-client";
 import { validateRideRequest, type RideRequestFieldErrors } from "@/lib/validation/ride-request";
 
@@ -44,6 +45,7 @@ export function RideRequestForm() {
     const result = await postRideRequest(createRideRequestPayload(validation.data, formData));
 
     if (result.success) {
+      trackAnalyticsEvent("generate_lead");
       formRef.current?.reset();
       if (formStartedAtRef.current) formStartedAtRef.current.value = String(Date.now());
       setStatus({ kind: "success", message: successMessage });

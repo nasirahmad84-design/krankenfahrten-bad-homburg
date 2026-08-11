@@ -4,7 +4,7 @@ export const privacyContent = {
   eyebrow: "Datenschutz",
   title: "Datenschutzerklärung",
   description: "Informationen zur Verarbeitung personenbezogener Daten beim Besuch dieser Website und bei einer Fahrtanfrage.",
-  updatedAt: "28. Juli 2026",
+  updatedAt: "11. August 2026",
   sections: [
     {
       id: "verantwortlicher",
@@ -21,7 +21,7 @@ export const privacyContent = {
       title: "2. Allgemeine Hinweise zur Datenverarbeitung",
       paragraphs: [
         "Personenbezogene Daten werden nur verarbeitet, soweit dies für die Bereitstellung der Website, die Sicherheit des Betriebs, die Bearbeitung von Kontaktaufnahmen oder einer Fahrtanfrage erforderlich ist.",
-        "Die Website verwendet keine eigene Analytics-Lösung, keine Tracking-Pixel und keine Marketingdienste. Im Websystem besteht keine Datenbank für Fahrtanfragen.",
+        "Die Website verwendet Google Analytics 4 ausschließlich nach ausdrücklicher Einwilligung. Marketing- und Personalisierungsfunktionen sind nicht aktiviert. Im Websystem besteht keine Datenbank für Fahrtanfragen.",
       ],
     },
     {
@@ -150,28 +150,40 @@ export const privacyContent = {
       id: "cookies",
       title: "17. Cookies und ähnliche Technologien",
       paragraphs: [
-        "Die Website setzt derzeit keine Cookies und verwendet weder Local Storage noch Session Storage. Es gibt keine Analyse-, Marketing- oder Tracking-Cookies und keine gespeicherte Consent-Entscheidung. Das PHP-Formular verwendet keine Session.",
+        "Die Website speichert mit kfbh_analytics_consent für 180 Tage, ob die optionale Analyse erlaubt oder abgelehnt wurde. Diese notwendige Speicherung dient ausschließlich der Verwaltung Ihrer Auswahl. Local Storage, Session Storage und eine PHP-Session werden nicht verwendet.",
+        "Erst nach Ihrer Zustimmung kann Google Analytics die Cookies _ga und _ga_WD56RCXD03 mit einer von uns auf bis zu 180 Tage begrenzten Laufzeit setzen. Ohne Zustimmung wird das Google-Tag nicht geladen und es werden keine Analytics-Daten an Google übertragen.",
         "Weitere Einzelheiten stehen auf der Seite Cookie-Einstellungen.",
       ],
     },
     {
-      id: "externe-dienste",
-      title: "18. Externe Inhalte und Dienste",
+      id: "google-analytics",
+      title: "18. Google Analytics 4",
       paragraphs: [
-        "Es sind derzeit keine Karten, Videos, Social-Media-Widgets, externen Schrift-CDNs, Trackingdienste oder sonstigen extern geladenen Medien eingebunden. Die Website lädt ihre Laufzeitressourcen ausschließlich von der eigenen Domain.",
+        "Nach Ihrer ausdrücklichen Einwilligung nutzen wir Google Analytics 4, einen Analysedienst von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Die Verarbeitung dient der statistischen Auswertung von Seitenaufrufen und Kontaktaktionen sowie der Verbesserung der Website.",
+        "Erfasst werden können insbesondere aufgerufene Seite, Zeitpunkt, technische Browser- und Geräteinformationen, ungefähre Region sowie pseudonyme Kennungen. Google verwendet IP-Adressen bei der Erfassung zur Ableitung ungefährer Standortinformationen; nach Angaben von Google werden IP-Adressen von Nutzern aus der EU nicht protokolliert oder gespeichert.",
+        "Wir messen Seitenaufrufe, Klicks auf Telefon, WhatsApp und den Google-Rezensionslink sowie eine erfolgreich übermittelte Fahrtanfrage als Lead. Namen, Kontaktdaten, Abhol- oder Zieladressen, Fahrtanlässe, medizinische Angaben und Freitexte werden nicht als Analytics-Ereignisparameter übermittelt. Google Signals, Werbespeicherung und Anzeigenpersonalisierung bleiben deaktiviert.",
+        "Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 Buchst. a DSGVO sowie, soweit Informationen auf Ihrem Endgerät gespeichert oder ausgelesen werden, § 25 Abs. 1 TDDDG. Sie können die Einwilligung jederzeit über die Cookie-Einstellungen mit Wirkung für die Zukunft widerrufen.",
+        "Google kann Daten auch in Staaten außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums verarbeiten. Google ist vertraglich als Auftragsverarbeiter eingebunden; für Übermittlungen in Drittländer gelten die jeweils anwendbaren gesetzlichen Übermittlungsmechanismen und Garantien.",
+      ],
+    },
+    {
+      id: "externe-dienste",
+      title: "19. Weitere externe Inhalte und Dienste",
+      paragraphs: [
+        "Abgesehen von Google Analytics nach Ihrer Einwilligung sind keine Karten, Videos, Social-Media-Widgets, externen Schrift-CDNs oder sonstigen extern geladenen Medien eingebunden. Facebook, WhatsApp und Google-Rezensionen werden nur als normale Links aufgerufen, wenn Sie diese bewusst auswählen.",
       ],
     },
     {
       id: "datensicherheit",
-      title: "19. Datensicherheit",
+      title: "20. Datensicherheit",
       paragraphs: [
         "Die Website ist für die verschlüsselte Übertragung per HTTPS vorgesehen. Eingaben werden serverseitig validiert, Zieladresse und Absender der E-Mail sind nicht durch den Browser steuerbar, und Konfigurationsdateien werden gegen öffentlichen Abruf geschützt. Kein technisches Verfahren kann einen absoluten Schutz gewährleisten.",
       ],
     },
     {
       id: "stand",
-      title: "20. Stand der Datenschutzerklärung",
-      paragraphs: ["Stand: 28. Juli 2026"],
+      title: "21. Stand der Datenschutzerklärung",
+      paragraphs: ["Stand: 11. August 2026"],
     },
   ] satisfies readonly LegalSectionContent[],
 } as const;

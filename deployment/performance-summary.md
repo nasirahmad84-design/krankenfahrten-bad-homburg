@@ -7,7 +7,7 @@
 - Neue WebP-Bilder: Hero 169 KiB (1800×1100), Über uns 121 KiB (1200×900), Unterstützung 118 KiB (1400×900), Leistungen 99 KiB (1400×900), Open Graph mit finalem Logo 32 KiB (1200×630).
 - Die größten lokalen Schriftdateien liegen bei ungefähr 83 KiB, 47 KiB und 25 KiB.
 - Inter wird lokal über `next/font` ausgeliefert; Fotos und Sharing-Vorschau liegen lokal als optimierte WebP-Dateien, Marken- und Leistungsicons als SVG beziehungsweise PNG vor.
-- Der Export enthält keine Analytics-, Tracking-, Karten-, Video-, Social-Media- oder sonstigen externen Laufzeitressourcen.
+- Der Export enthält keine Karten-, Video-, Social-Media-Widget- oder externen Font-Ressourcen. Google Analytics 4 wird ausschließlich nach ausdrücklicher Einwilligung dynamisch geladen; vor der Zustimmung findet kein Google-Request statt.
 - Es wurden keine neue JavaScript-, Bild- oder SEO-Laufzeitbibliothek und kein externes Bild eingebunden. Die einmalige Konvertierung nutzte das bereits lokal verfügbare Sharp.
 
 Nur das Startseiten-Hero wird vorab geladen. Alle übrigen Rasterbilder werden standardmäßig lazy geladen; feste intrinsische Abmessungen, Seitenverhältnisse und `sizes` vermeiden Layoutverschiebung und unnötig große Darstellungen. Die WebP-Dateien enthalten keine EXIF-, GPS- oder personenbezogenen Metadaten.

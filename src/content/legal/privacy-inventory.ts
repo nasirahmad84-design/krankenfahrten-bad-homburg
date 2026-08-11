@@ -1,5 +1,5 @@
 export const privacyInventory = {
-  reviewedAt: "2026-07-28",
+  reviewedAt: "2026-08-11",
   website: {
     delivery: "Statisch exportierte HTML-, CSS-, JavaScript-, Schrift- und Bilddateien über HTTPS",
     hostingProvider: "ALL-INKL",
@@ -10,18 +10,34 @@ export const privacyInventory = {
       "Referrer, soweit übermittelt",
       "Browser- und Systeminformationen, soweit übermittelt",
     ],
-    analytics: false,
+    analytics: true,
     trackingPixels: false,
     marketingCookies: false,
   },
   browserStorage: {
-    cookies: [] as readonly string[],
+    cookies: [
+      "kfbh_analytics_consent: notwendige Speicherung der Analytics-Auswahl für 180 Tage",
+      "_ga: optional nach Einwilligung, konfigurierte Laufzeit bis zu 180 Tage",
+      "_ga_WD56RCXD03: optional nach Einwilligung, konfigurierte Laufzeit bis zu 180 Tage",
+    ] as readonly string[],
     localStorage: [] as readonly string[],
     sessionStorage: [] as readonly string[],
-    consentStorage: false,
+    consentStorage: true,
     phpSession: false,
   },
-  externalRuntimeResources: [] as readonly string[],
+  externalRuntimeResources: [
+    "www.googletagmanager.com: Google-Tag erst nach Analytics-Einwilligung",
+    "google-analytics.com und regionale Analytics-Endpunkte: Messdaten erst nach Analytics-Einwilligung",
+  ] as readonly string[],
+  analytics: {
+    provider: "Google Analytics 4 / Google Ireland Limited",
+    measurementId: "G-WD56RCXD03",
+    loadingMode: "Basic Consent Mode; kein Google-Tag und keine Datenübertragung vor Einwilligung",
+    measuredEvents: ["page_view", "generate_lead", "click_phone", "click_whatsapp", "click_google_review"],
+    excludedFormData: ["Name", "Telefon", "E-Mail", "Abholadresse", "Zieladresse", "Fahrtanlass", "Hinweise"],
+    advertisingConsent: false,
+    googleSignals: false,
+  },
   form: {
     endpoint: "/api/fahrtanfrage.php",
     fields: [
@@ -70,7 +86,9 @@ export const privacyInventory = {
     "Vertrags- und Auftragsverarbeitungsdetails mit ALL-INKL",
     "betriebliche Löschfrist für Fahrtanfragen im E-Mail-Postfach",
     "branchenspezifische und anbieterrechtliche Pflichtangaben",
+    "Google-Analytics-Kontoeinstellungen: Datenfreigabe, Google Signals und Aufbewahrungsdauer vor Live-Schaltung bestätigen",
+    "Consent- und Netzwerkprüfung auf Test- und Produktionsdomain nach Deployment",
   ],
 } as const;
 
-export const consentBannerRequired = false;
+export const consentBannerRequired = true;

@@ -74,6 +74,9 @@
 - [ ] Netzwerk-Scan ohne unerwartete Drittanbieter
 - [ ] Hostinginformationen und Auftragsverarbeitung geprüft
 - [ ] Log- und E-Mail-Löschfristen festgelegt
+- [ ] Google-Analytics-Property und Consent gemäß `google-analytics-checklist.md` geprüft
+- [ ] vor Zustimmung keine Google-Requests oder `_ga`-Cookies
+- [ ] Widerruf und Cookie-Löschung geprüft
 
 ## Sicherheit
 

@@ -6,6 +6,9 @@ export type SiteLink = Readonly<{
 export const siteConfig = {
   name: "Krankenfahrten Bad Homburg",
   operator: "Mubasher Ahmad",
+  analytics: {
+    measurementId: "G-WD56RCXD03",
+  },
   phone: {
     display: "0175 4142222",
     href: "tel:+491754142222",

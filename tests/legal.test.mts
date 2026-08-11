@@ -25,22 +25,30 @@ test("stellt alle Legal-Routen als statische App-Seiten bereit", () => {
 });
 
 test("bildet den geprüften Cookie- und Storage-Bestand ab", () => {
-  assert.deepEqual(privacyInventory.browserStorage.cookies, []);
+  assert.equal(privacyInventory.browserStorage.cookies.length, 3);
+  assert.match(privacyInventory.browserStorage.cookies.join("\n"), /kfbh_analytics_consent/);
+  assert.match(privacyInventory.browserStorage.cookies.join("\n"), /_ga_WD56RCXD03/);
   assert.deepEqual(privacyInventory.browserStorage.localStorage, []);
   assert.deepEqual(privacyInventory.browserStorage.sessionStorage, []);
   assert.equal(privacyInventory.browserStorage.phpSession, false);
-  assert.equal(privacyInventory.website.analytics, false);
+  assert.equal(privacyInventory.website.analytics, true);
   assert.equal(privacyInventory.website.trackingPixels, false);
-  assert.equal(consentBannerRequired, false);
+  assert.equal(privacyInventory.browserStorage.consentStorage, true);
+  assert.equal(privacyInventory.analytics.measurementId, "G-WD56RCXD03");
+  assert.equal(privacyInventory.analytics.advertisingConsent, false);
+  assert.equal(privacyInventory.analytics.googleSignals, false);
+  assert.equal(consentBannerRequired, true);
 });
 
-test("Produktivcode greift nicht auf Cookies oder Browser-Storage zu", () => {
+test("Produktivcode verwendet nur den dokumentierten Consent-Cookie und keinen Browser-Storage", () => {
   const files = collectFiles(join(projectRoot, "src"), [".ts", ".tsx"])
     .filter((file) => !file.includes("/content/legal/"));
   const phpFiles = collectFiles(join(projectRoot, "public/api"), [".php"])
     .filter((file) => !file.includes("/vendor/"));
   const source = [...files, ...phpFiles].map((file) => readFileSync(file, "utf8")).join("\n");
-  assert.doesNotMatch(source, /document\.cookie|localStorage|sessionStorage|setcookie\s*\(|session_start\s*\(/);
+  assert.match(source, /document\.cookie/);
+  assert.doesNotMatch(source, /localStorage|sessionStorage|setcookie\s*\(|session_start\s*\(/);
+  assert.equal((source.match(/kfbh_analytics_consent/g) ?? []).length, 1);
 });
 
 test("verlinkt die Datenschutzerklärung am Anfrageformular", () => {

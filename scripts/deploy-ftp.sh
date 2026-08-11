@@ -56,6 +56,35 @@ else
   fi
 fi
 
+remote_directory="/${remote_directory#/}"
+remote_directory="${remote_directory%/}/"
+ftp_base="ftp://${FTP_HOST}${remote_directory}"
+
+echo "Prüfe die serverseitige Formular-Konfiguration …"
+if ! remote_api_entries="$(
+  /usr/bin/curl \
+    --silent \
+    --show-error \
+    --fail \
+    --tls-max 1.2 \
+    --ssl-reqd \
+    --ftp-ssl-control \
+    --ftp-pasv \
+    --retry 2 \
+    --retry-delay 1 \
+    --user "${FTP_USER}:${FTP_PASSWORD}" \
+    --list-only \
+    "${ftp_base}api/"
+)"; then
+  echo "Abbruch: Das API-Verzeichnis auf $site_url konnte nicht sicher geprüft werden." >&2
+  exit 1
+fi
+
+if ! printf '%s\n' "$remote_api_entries" | /usr/bin/tr -d '\r' | /usr/bin/grep -Fxq 'config.php'; then
+  echo "Abbruch: Auf $site_url fehlt api/config.php. Die Datei muss vor dem Deployment serverseitig eingerichtet sein." >&2
+  exit 1
+fi
+
 cd "$root_dir"
 
 echo "Prüfe und baue das Deployment-Paket …"
@@ -75,10 +104,6 @@ if [[ -e out/api/config.php ]]; then
   echo "Abbruch: out/api/config.php darf niemals hochgeladen werden." >&2
   exit 1
 fi
-
-remote_directory="/${remote_directory#/}"
-remote_directory="${remote_directory%/}/"
-ftp_base="ftp://${FTP_HOST}${remote_directory}"
 
 upload_file() {
   local file="$1"
@@ -167,6 +192,54 @@ status_404="$(
 )"
 if [[ "$status_404" != "404" ]]; then
   echo "Warnung: Nicht vorhandene URL liefert HTTP $status_404 statt 404." >&2
+  exit 1
+fi
+
+for protected_path in "api/config.php" "api/config.example.php"; do
+  protected_status="$(
+    /usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+      --max-time 20 "${site_url}/${protected_path}"
+  )"
+  if [[ "$protected_status" != "403" ]]; then
+    echo "Abbruch: ${site_url}/${protected_path} liefert HTTP $protected_status statt 403." >&2
+    exit 1
+  fi
+done
+
+form_preflight_payload="$(
+  node <<'NODE'
+const date = new Date();
+date.setUTCDate(date.getUTCDate() + 1);
+process.stdout.write(JSON.stringify({
+  name: "Technischer Deployment-Test",
+  phone: "0175 4142222",
+  email: "",
+  date: date.toISOString().slice(0, 10),
+  time: "10:00",
+  pickup: "Technischer Test-Abholort",
+  destination: "Technisches Test-Ziel",
+  reason: "Sonstiger Fahrtanlass",
+  journey: "Nur Hinfahrt",
+  notes: "Automatischer Konfigurationscheck ohne E-Mail-Versand.",
+  consent: true,
+  website: "",
+  formStartedAt: 0,
+}));
+NODE
+)"
+
+form_preflight_status="$(
+  /usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+    --max-time 20 \
+    --request POST \
+    --header 'Content-Type: application/json' \
+    --header "Origin: ${site_url}" \
+    --data-binary "$form_preflight_payload" \
+    "${site_url}/api/fahrtanfrage.php"
+)"
+if [[ "$form_preflight_status" != "400" ]]; then
+  echo "Abbruch: Der Formular-Konfigurationscheck liefert HTTP $form_preflight_status statt 400." >&2
+  echo "Prüfe api/config.php, allowed_origin und den PHP-Endpunkt auf $site_url." >&2
   exit 1
 fi
 

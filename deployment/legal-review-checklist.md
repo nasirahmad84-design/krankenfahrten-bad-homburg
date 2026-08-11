@@ -33,7 +33,9 @@ Diese Checkliste ist eine technische Freigabe- und Prüfgrundlage, keine Rechtsb
 - [ ] Local Storage und Session Storage im Produktivsystem prüfen
 - [ ] Netzwerkaufrufe auf Drittanbieterrequests prüfen
 - [ ] lokale Auslieferung von Inter, Bildern, SVGs und Skripten bestätigen
-- [ ] Entscheidung gegen ein Consent-Banner nach der Produktionsprüfung bestätigen
+- [ ] Google-Analytics-Einwilligung, Anbieterinformationen und Drittlandübermittlung fachlich prüfen
+- [ ] Analytics-Aufbewahrung und optionale Datenfreigaben in der Property bestätigen
+- [ ] Consent-Banner, Ablehnung und Widerruf nach der Produktionsprüfung bestätigen
 
 ## Veröffentlichung
 
