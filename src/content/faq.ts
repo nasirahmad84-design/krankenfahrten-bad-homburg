@@ -28,6 +28,7 @@ export const fullFaq = [
   { question: "Ist medizinische Betreuung enthalten?", answer: "Nein. Während der Fahrt findet weder medizinische Betreuung noch medizinische Überwachung statt." },
   { question: "Ist eine Anfrage bereits verbindlich?", answer: "Nein. Eine Anfrage ist zunächst unverbindlich. Die Fahrt gilt erst nach unserer ausdrücklichen Bestätigung als vereinbart." },
   { question: "Sind kurzfristige Fahrten möglich?", answer: "Kurzfristige Fahrten sind abhängig von der Verfügbarkeit möglich. Für dringende Anfragen rufen Sie bitte direkt an." },
+  { question: "Sind Reha-Heimfahrten am Wochenende möglich?", answer: "Eine sitzende Heim- oder Rückfahrt am Wochenende kann angefragt werden. Sie ist nur nach Verfügbarkeit und unserer ausdrücklichen Bestätigung möglich." },
   { question: "Können Hin- und Rückfahrt geplant werden?", answer: "Ja. Hin- und Rückfahrt können vorab oder nach Absprache geplant werden. Beide Fahrten müssen bestätigt sein." },
   { question: "Ist eine Abrechnung mit der Krankenkasse möglich?", answer: "Je nach persönlicher Voraussetzung kann eine Abrechnung möglich sein. Ob und in welchem Umfang Kosten übernommen werden, muss im Einzelfall geklärt werden." },
   { question: "Welche Unterlagen können erforderlich sein?", answer: "Je nach Fahrt können eine ärztliche Verordnung, eine vorherige Genehmigung sowie Versicherten- und Kontaktdaten erforderlich sein." },

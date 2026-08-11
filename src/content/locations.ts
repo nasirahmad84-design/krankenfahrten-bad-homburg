@@ -95,11 +95,12 @@ export const regionalLocations = [
       "Geplante Abholung nach einer Entlassung mit Rückfahrt nach Friedrichsdorf",
     ],
     faqs: [
+      { question: "Welche Krankenfahrten können ab Friedrichsdorf angefragt werden?", answer: "Angefragt werden können planbare sitzende Fahrten zu Arzt, Klinik, Dialyse, Therapie, Reha oder einer bestätigten Entlassung. Die konkrete Fahrt bleibt von Strecke, Termin und verfügbarer Kapazität abhängig." },
       { question: "Gilt die Seite auch für Köppern und Burgholzhausen?", answer: "Ja, beide gehören zu Friedrichsdorf. Für die lokale Planung gibt es zusätzlich eigene Hinweise. Nennen Sie in der Anfrage immer den konkreten Stadtteil und die vollständige Adresse." },
       { question: "Sind Fahrten zwischen Friedrichsdorf und Bad Homburg möglich?", answer: "Solche Fahrten können angefragt werden. Die Durchführung hängt von der konkreten Strecke, dem Termin und unserer Verfügbarkeit ab und wird ausdrücklich bestätigt." },
     ],
     relatedSlugs: ["burgholzhausen", "koeppern", "oberursel"],
-    metadataTitle: "Krankenfahrten Friedrichsdorf | Persönlich geplant",
+    metadataTitle: "Krankenfahrten Friedrichsdorf | Sitzend & persönlich",
     metadataDescription: "Sitzende Krankenfahrten ab Friedrichsdorf und seinen Stadtteilen zu Arzt, Klinik, Dialyse oder Therapie – individuell geprüft und bestätigt.",
     sources: [
       "https://www.friedrichsdorf.de/leben/ueber-friedrichsdorf/stadtteile",
