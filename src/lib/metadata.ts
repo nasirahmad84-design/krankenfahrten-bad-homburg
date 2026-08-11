@@ -35,6 +35,28 @@ export function createPageMetadata(title: string, description: string, path: str
   };
 }
 
+export function createArticleMetadata(
+  title: string,
+  description: string,
+  path: string,
+  publishedTime: string,
+  modifiedTime: string,
+): Metadata {
+  const metadata = createPageMetadata(title, description, path);
+  const url = absoluteUrl(path);
+
+  return {
+    ...metadata,
+    openGraph: {
+      ...metadata.openGraph,
+      type: "article",
+      url,
+      publishedTime,
+      modifiedTime,
+    },
+  };
+}
+
 function shortenSocialDescription(description: string): string {
   if (description.length <= 125) return description;
 

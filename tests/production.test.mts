@@ -6,10 +6,11 @@ import test from "node:test";
 import { localBusinessStructuredData } from "../src/lib/local-business-structured-data.ts";
 import { absoluteUrl, productionOrigin, publicRoutePaths } from "../src/lib/site-url.ts";
 import { regionalLocations } from "../src/content/locations.ts";
+import { publishedBlogPosts } from "../src/content/blog-posts.ts";
 
-test("zentralisiert Produktionsdomain und 26 öffentliche Routen", () => {
+test("zentralisiert Produktionsdomain und alle öffentlichen Routen", () => {
   assert.equal(productionOrigin, "https://krankenfahrten-bad-homburg.de");
-  assert.equal(publicRoutePaths.length, 26);
+  assert.equal(publicRoutePaths.length, 27 + publishedBlogPosts.length);
   assert.equal(new Set(publicRoutePaths).size, publicRoutePaths.length);
   for (const route of publicRoutePaths) assert.ok(route === "/" || route.endsWith("/"));
 });

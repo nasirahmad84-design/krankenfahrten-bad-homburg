@@ -70,7 +70,7 @@ Themenrecherche
 | Paket | Ergebnis |
 | --- | --- |
 | BLOG-00 | Architektur, Evidenz-, Freigabe- und Sicherheitsregeln |
-| BLOG-01 | Ratgeber-Hub, Artikelseiten, Datenmodell, Sitemap und Tests |
+| BLOG-01 | Ratgeber-Hub, Artikelseiten, Datenmodell, Sitemap und Tests – umgesetzt |
 | BLOG-02 | lokale Recherche-, Entwurfs-, Review- und Social-Artefakte |
 | BLOG-03 | zwei geplante Aufgaben, Montag/Donnerstag, nur Testdomain |
 | BLOG-04 | kontrollierte Live- und Facebook-Veröffentlichung |
@@ -85,3 +85,9 @@ Themenrecherche
 - `environment-gate-matrix.csv`: erlaubte Aktionen nach Umgebung
 - `editorial-policy.md`: Quellen-, Themen- und Qualitätsregeln
 - `clarification-list.md`: verbleibende Betreiber- und Plattformpunkte
+
+## Öffentliche Inhaltsquelle
+
+Freigegebene Beiträge liegen ausschließlich in `src/content/blog-posts.ts`. Diese Datei enthält keine Draft- oder Blocked-Objekte. Nicht freigegebene Arbeitsstände und artikelbezogene Claim-Register bleiben unter `automation/blog/articles/` und werden nicht nach `out/` exportiert.
+
+Neue Beiträge werden erst in die öffentliche Inhaltsquelle übernommen, wenn ihr Claim-Register vollständig ist und der Reviewlauf alle Gates im `content-approval-register.csv` als bestanden dokumentiert hat. `npm test` erzeugt die statischen SEO-Dateien vor der Prüfung neu, damit Sitemap und Quellcode auch nach dem Hinzufügen eines Artikels synchron bleiben.

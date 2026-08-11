@@ -10,6 +10,9 @@ const facebookUrl = "https://www.facebook.com/krankenfahrtenbadhomburg";
 const googleReviewUrl = "https://g.page/r/CaFwfvm2AJWzEBM/review";
 const whatsappUrl = "https://wa.me/491754142222";
 const socialImageUrl = `${productionOrigin}/images/social/og-default-1200x630.webp`;
+const blogPostsSource = readFileSync(join(root, "src/content/blog-posts.ts"), "utf8");
+const expectedBlogRoutes = [...blogPostsSource.matchAll(/^\s{4}slug:\s*"([^"]+)"/gm)]
+  .map((match) => `/ratgeber/${match[1]}/`);
 const websiteImages = [
   ["images/home/hero-krankenfahrt.webp", 1800, 1100, 400 * 1024],
   ["images/home/persoenliche-unterstuetzung.webp", 1400, 900, 300 * 1024],
@@ -134,8 +137,11 @@ for (const file of relativeFiles) {
 
 const sitemap = readFileSync(join(out, "sitemap.xml"), "utf8");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.equal(sitemapUrls.length, 26, "Die Sitemap muss genau 26 öffentliche URLs enthalten.");
+assert.equal(sitemapUrls.length, 27 + expectedBlogRoutes.length, "Die Sitemap enthält nicht alle erwarteten öffentlichen URLs.");
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, "Die Sitemap enthält doppelte URLs.");
+for (const route of expectedBlogRoutes) {
+  assert.ok(sitemapUrls.includes(new URL(route, productionOrigin).toString()), `Ratgeber fehlt in der Sitemap: ${route}`);
+}
 
 const publicPaths = sitemapUrls.map((url) => {
   const parsed = new URL(url);
@@ -195,6 +201,9 @@ for (const path of publicPaths) {
   if (path === "/") {
     assert.equal(jsonLdScripts.length, 1, "Startseite muss genau ein JSON-LD-Skript enthalten.");
     auditLocalBusinessJsonLd(JSON.parse(jsonLdScripts[0][1]));
+  } else if (expectedBlogRoutes.includes(path)) {
+    assert.equal(jsonLdScripts.length, 1, `Ratgeber muss genau ein BlogPosting enthalten: ${path}`);
+    auditBlogPostingJsonLd(JSON.parse(jsonLdScripts[0][1]), path);
   } else {
     assert.equal(jsonLdScripts.length, 0, `Unerwartetes zusätzliches JSON-LD in ${path}`);
   }
@@ -204,7 +213,7 @@ for (const path of publicPaths) {
 }
 assert.equal(new Set(renderedTitles).size, renderedTitles.length, "Doppelte Seitentitel im Export.");
 assert.equal(new Set(renderedDescriptions).size, renderedDescriptions.length, "Doppelte Meta-Descriptions im Export.");
-assert.equal(structuredDataCount, 1, "Im Export darf genau ein Unternehmensobjekt vorhanden sein.");
+assert.equal(structuredDataCount, 1 + expectedBlogRoutes.length, "Unerwartete Anzahl strukturierter Datenobjekte im Export.");
 assert.deepEqual(foundInformativeImages, new Set(informativeImageAlts.keys()), "Nicht alle informativen Bilder wurden im Export gefunden.");
 const homeHtml = readFileSync(join(out, "index.html"), "utf8");
 assert.match(homeHtml, new RegExp(`href="${escapeRegExp(facebookUrl)}"[^>]*target="_blank"[^>]*rel="noopener noreferrer"`), "Facebook-Link im Footer fehlt.");
@@ -241,6 +250,18 @@ console.log(`Größte Schriftdateien: ${largestFiles(files, /\.(?:woff2?|ttf|otf
 
 function auditHtmlLinks(html, sourceFile, routePath) {
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]));
+  const editorialSourceUrls = new Set();
+  for (const anchorMatch of html.matchAll(/<a\b([^>]*)>/g)) {
+    const attributes = anchorMatch[1];
+    if (!/\bdata-editorial-source="true"/.test(attributes)) continue;
+    const href = attributes.match(/\bhref="([^"]+)"/)?.[1];
+    assert.ok(href, `Redaktioneller Quellenlink ohne Ziel in ${relative(out, sourceFile)}`);
+    assert.match(attributes, /\btarget="_blank"/, `Redaktioneller Quellenlink ohne neues Fenster in ${relative(out, sourceFile)}`);
+    assert.match(attributes, /\brel="[^"]*noopener[^"]*"/, `Redaktioneller Quellenlink ohne noopener in ${relative(out, sourceFile)}`);
+    assert.match(attributes, /\brel="[^"]*noreferrer[^"]*"/, `Redaktioneller Quellenlink ohne noreferrer in ${relative(out, sourceFile)}`);
+    editorialSourceUrls.add(new URL(href).toString());
+  }
+
   for (const match of html.matchAll(/\s(?:href|src|action)="([^"]*)"/g)) {
     const value = match[1];
     assert.notEqual(value, "", `Leerer Link in ${relative(out, sourceFile)}`);
@@ -249,7 +270,10 @@ function auditHtmlLinks(html, sourceFile, routePath) {
 
     const parsed = new URL(value, new URL(routePath, productionOrigin));
     if (parsed.toString() === facebookUrl || parsed.toString() === googleReviewUrl || parsed.toString() === whatsappUrl) continue;
-    assert.equal(parsed.origin, productionOrigin, `Unerwartete externe Ressource in ${relative(out, sourceFile)}: ${value}`);
+    if (parsed.origin !== productionOrigin) {
+      assert.ok(editorialSourceUrls.has(parsed.toString()), `Unerwartete externe Ressource in ${relative(out, sourceFile)}: ${value}`);
+      continue;
+    }
 
     if (parsed.hash && parsed.pathname === routePath) {
       assert.ok(ids.has(decodeURIComponent(parsed.hash.slice(1))), `Defektes Fragment ${value} in ${relative(out, sourceFile)}`);
@@ -264,6 +288,22 @@ function auditHtmlLinks(html, sourceFile, routePath) {
       assert.ok(existsSync(join(out, target.slice(1))), `Fehlendes Asset oder Dateiziel: ${target}`);
     }
   }
+}
+
+function auditBlogPostingJsonLd(data, path) {
+  assert.equal(data["@context"], "https://schema.org");
+  assert.equal(data["@type"], "BlogPosting");
+  assert.equal(data.mainEntityOfPage, new URL(path, productionOrigin).toString());
+  assert.equal(data.inLanguage, "de-DE");
+  assert.match(data.datePublished, /^\d{4}-\d{2}-\d{2}$/);
+  assert.match(data.dateModified, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(data.author?.["@type"], "Organization");
+  assert.equal(data.author?.name, "Krankenfahrten Bad Homburg");
+  assert.equal(data.publisher?.["@type"], "Organization");
+  assert.equal(data.publisher?.logo?.url, `${productionOrigin}/brand/logo.svg`);
+  assert.equal(data.image, socialImageUrl);
+  assert.ok(typeof data.headline === "string" && data.headline.length > 20);
+  assert.ok(typeof data.description === "string" && data.description.length >= 110);
 }
 
 function routeToHtml(path) {

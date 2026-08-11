@@ -35,6 +35,7 @@ export const siteConfig = {
     { label: "Kosten & Abrechnung", href: "/kosten-abrechnung" },
     { label: "Ablauf", href: "/ablauf" },
     { label: "Über uns", href: "/ueber-uns" },
+    { label: "Ratgeber", href: "/ratgeber" },
     { label: "FAQ", href: "/faq" },
   ] satisfies readonly SiteLink[],
   contactLink: { label: "Fahrt anfragen", href: "/kontakt" },

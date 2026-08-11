@@ -3,6 +3,7 @@ import { HomeBilling } from "@/components/sections/home-billing";
 import { HomeCta } from "@/components/sections/home-cta";
 import { HomeFaq } from "@/components/sections/home-faq";
 import { HomeHero } from "@/components/sections/home-hero";
+import { HomeGuide } from "@/components/sections/home-guide";
 import { HomeProcess } from "@/components/sections/home-process";
 import { HomeLocations } from "@/components/sections/home-locations";
 import { HomeReviews } from "@/components/sections/home-reviews";
@@ -31,6 +32,7 @@ export default function Home() {
       <HomeLocations />
       <HomeProcess />
       <HomeBilling />
+      <HomeGuide />
       <HomeFaq />
       <HomeReviews />
       <HomeCta />

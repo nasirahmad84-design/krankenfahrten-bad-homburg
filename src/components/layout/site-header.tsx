@@ -13,8 +13,8 @@ export function SiteHeader() {
   return (
     <HeaderScrollState>
       <SiteContainer className="flex h-full items-center justify-between gap-3">
-        <SiteLogo compact className="xl:hidden" />
-        <SiteLogo className="hidden xl:flex" />
+        <SiteLogo compact className="2xl:hidden" />
+        <SiteLogo className="hidden 2xl:flex" />
 
         <div className="hidden min-w-0 flex-1 items-center justify-end gap-5 xl:flex">
           <nav aria-label="Hauptnavigation">

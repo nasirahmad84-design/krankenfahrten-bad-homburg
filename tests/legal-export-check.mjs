@@ -13,10 +13,18 @@ for (const file of legalFiles) assert.ok(existsSync(join(outDir, file)), `Fehlen
 const htmlFiles = collectHtml(outDir);
 for (const file of htmlFiles) {
   const html = readFileSync(file, "utf8");
+  const editorialSourceUrls = new Set();
+  for (const anchorMatch of html.matchAll(/<a\b([^>]*)>/g)) {
+    const attributes = anchorMatch[1];
+    if (!/\bdata-editorial-source="true"/.test(attributes)) continue;
+    const href = attributes.match(/\bhref="([^"]+)"/)?.[1];
+    assert.ok(href, `Redaktioneller Quellenlink ohne Ziel in ${file}`);
+    editorialSourceUrls.add(href);
+  }
   const h1Count = (html.match(/<h1\b/g) ?? []).length;
   assert.equal(h1Count, 1, `${file} muss genau eine H1 enthalten`);
   for (const [, url] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const allowed = url.startsWith("/") || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:") || url.startsWith("data:") || url.startsWith("https://krankenfahrten-bad-homburg.de/") || url === facebookUrl || url === googleReviewUrl || url === whatsappUrl;
+    const allowed = url.startsWith("/") || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:") || url.startsWith("data:") || url.startsWith("https://krankenfahrten-bad-homburg.de/") || url === facebookUrl || url === googleReviewUrl || url === whatsappUrl || editorialSourceUrls.has(url);
     assert.ok(allowed, `Unerwartete externe URL in ${file}: ${url}`);
   }
 }
