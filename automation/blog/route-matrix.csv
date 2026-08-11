@@ -1,6 +1,6 @@
 route,purpose,indexable,source,status,notes
-/ratgeber/,Ratgeber-Hub,yes,freigegebene Blogdaten,planned,Nur veröffentlichte Beiträge listen
-/ratgeber/[slug]/,Artikeldetail,yes,ein freigegebener Beitrag,planned,Canonical und Metadaten pro Beitrag
+/ratgeber/,Ratgeber-Hub,yes,freigegebene Blogdaten,implemented,Nur veröffentlichte Beiträge listen
+/ratgeber/[slug]/,Artikeldetail,yes,ein freigegebener Beitrag,implemented,Canonical und Metadaten pro Beitrag
 /ratgeber/[slug]/quellen/,none,no,none,rejected,Quellen bleiben direkt im Beitrag statt auf dünner separater Seite
 /feed.xml,RSS-Feed,yes,freigegebene Blogdaten,deferred,Nicht Teil des ersten MVP
 /api/blog/,Runtime-Endpunkt,no,none,rejected,Kein Server oder öffentliches Schreib-API erforderlich

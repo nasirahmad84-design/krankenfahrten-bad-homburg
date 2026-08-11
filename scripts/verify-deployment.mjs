@@ -10,8 +10,8 @@ const facebookUrl = "https://www.facebook.com/krankenfahrtenbadhomburg";
 const googleReviewUrl = "https://g.page/r/CaFwfvm2AJWzEBM/review";
 const whatsappUrl = "https://wa.me/491754142222";
 const socialImageUrl = `${productionOrigin}/images/social/og-default-1200x630.webp`;
-const blogPostsSource = readFileSync(join(root, "src/content/blog-posts.ts"), "utf8");
-const expectedBlogRoutes = [...blogPostsSource.matchAll(/^\s{4}slug:\s*"([^"]+)"/gm)]
+const blogPostsSource = readFileSync(join(root, "src/content/generated-blog-posts.ts"), "utf8");
+const expectedBlogRoutes = [...blogPostsSource.matchAll(/^\s{4}"slug":\s*"([^"]+)"/gm)]
   .map((match) => `/ratgeber/${match[1]}/`);
 const websiteImages = [
   ["images/home/hero-krankenfahrt.webp", 1800, 1100, 400 * 1024],

@@ -319,6 +319,6 @@ Die erste Search-Console-Auswertung ist in `deployment/seo-search-console-baseli
 
 ## Automatisierter Ratgeber (BLOG-00)
 
-Die geplante Recherche-, Entwurfs-, Review- und Veröffentlichungsstrecke ist unter `automation/blog/` dokumentiert. Sie verwendet getrennte Läufe, artikelbezogene Quellen- und Claim-Register sowie harte Freigabegates. Der MVP veröffentlicht zunächst ausschließlich auf die noindex-geschützte Testdomain; Live- und Facebook-Automatisierung bleiben bis BLOG-04 deaktiviert.
+Die Recherche-, Entwurfs-, Review- und Veröffentlichungsstrecke ist unter `automation/blog/` dokumentiert. Sie verwendet getrennte Läufe, artikelbezogene Quellen- und Claim-Register sowie harte Freigabegates. Freigegebene JSON-Beiträge werden deterministisch in die statische Website übertragen; Entwürfe werden niemals direkt gerendert. Mit `blog:validate`, `blog:promote` und `blog:generate` bestehen dafür prüfbare Übergänge. Der MVP veröffentlicht zunächst ausschließlich auf die noindex-geschützte Testdomain; Live- und Facebook-Automatisierung bleiben bis BLOG-04 deaktiviert.
 
 BLOG-01 stellt den öffentlichen Bereich unter `/ratgeber/` und statisch generierte Detailseiten unter `/ratgeber/[slug]/` bereit. Nur Einträge aus `src/content/blog-posts.ts` werden gebaut, intern verlinkt und in die Sitemap aufgenommen. Der erste Pilotbeitrag unterscheidet Krankenfahrt und Krankentransport anhand geprüfter Quellen von G-BA, KBV und BMG.

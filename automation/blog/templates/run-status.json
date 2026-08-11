@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "RUN-YYYY-MM-DD-MON",
+  "scheduledDate": "YYYY-MM-DD",
+  "articleSlug": "beispiel-slug",
+  "topic": "Konkrete Nutzerfrage",
+  "status": "draft_ready",
+  "sourceGate": "not_checked",
+  "claimGate": "not_checked",
+  "serviceGate": "not_checked",
+  "legalSensitivityGate": "not_checked",
+  "seoGate": "not_checked",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "createdAt": "YYYY-MM-DDTHH:mm:ss+02:00",
+  "updatedAt": "YYYY-MM-DDTHH:mm:ss+02:00",
+  "notes": ""
+}

@@ -71,7 +71,7 @@ Themenrecherche
 | --- | --- |
 | BLOG-00 | Architektur, Evidenz-, Freigabe- und Sicherheitsregeln |
 | BLOG-01 | Ratgeber-Hub, Artikelseiten, Datenmodell, Sitemap und Tests – umgesetzt |
-| BLOG-02 | lokale Recherche-, Entwurfs-, Review- und Social-Artefakte |
+| BLOG-02 | lokale Recherche-, Entwurfs-, Review- und Social-Artefakte – umgesetzt |
 | BLOG-03 | zwei geplante Aufgaben, Montag/Donnerstag, nur Testdomain |
 | BLOG-04 | kontrollierte Live- und Facebook-Veröffentlichung |
 
@@ -88,6 +88,15 @@ Themenrecherche
 
 ## Öffentliche Inhaltsquelle
 
-Freigegebene Beiträge liegen ausschließlich in `src/content/blog-posts.ts`. Diese Datei enthält keine Draft- oder Blocked-Objekte. Nicht freigegebene Arbeitsstände und artikelbezogene Claim-Register bleiben unter `automation/blog/articles/` und werden nicht nach `out/` exportiert.
+Freigegebene Beiträge liegen als validierte JSON-Dateien unter `automation/blog/published/`. `scripts/generate-blog-content.mjs` erzeugt daraus deterministisch `src/content/generated-blog-posts.ts`; diese generierte Datei wird nicht manuell bearbeitet. `src/content/blog-posts.ts` enthält nur Typen, Laufzeitprüfungen und die öffentliche Auswahl. Draft- oder Blocked-Objekte gelangen nicht in die öffentliche Inhaltsquelle. Nicht freigegebene Arbeitsstände und artikelbezogene Claim-Register bleiben unter `automation/blog/articles/` und werden nicht nach `out/` exportiert.
 
-Neue Beiträge werden erst in die öffentliche Inhaltsquelle übernommen, wenn ihr Claim-Register vollständig ist und der Reviewlauf alle Gates im `content-approval-register.csv` als bestanden dokumentiert hat. `npm test` erzeugt die statischen SEO-Dateien vor der Prüfung neu, damit Sitemap und Quellcode auch nach dem Hinzufügen eines Artikels synchron bleiben.
+Neue Beiträge werden erst mit `npm run blog:promote -- automation/blog/articles/RUN-ID` übernommen, wenn `scripts/validate-blog-run.mjs` das Claim-Register, alle Quellenreferenzen, die Textstruktur und die Reviewgates bestätigt. `npm test` und `npm run build` erzeugen zunächst die Blogdaten und danach die statischen SEO-Dateien neu, damit Inhalt, Sitemap und Export synchron bleiben.
+
+## BLOG-02 – operative Befehle
+
+- `npm run blog:validate -- automation/blog/articles/RUN-ID`: prüft einen internen Lauf, ohne öffentliche Daten zu verändern.
+- `npm run blog:promote -- automation/blog/articles/RUN-ID -- --dry-run`: prüft die Freigabe zur Test-Veröffentlichung, ohne zu kopieren.
+- `npm run blog:promote -- automation/blog/articles/RUN-ID`: übernimmt ausschließlich einen vollständig freigegebenen Artikel nach `automation/blog/published/`.
+- `npm run blog:generate`: erzeugt die öffentliche TypeScript-Inhaltsquelle deterministisch neu.
+
+Die zwei vollständigen Arbeitsaufträge stehen unter `automation/blog/prompts/`. Der erste Lauf darf nur recherchieren und Entwürfe erzeugen. Der zweite Lauf muss jede Quelle erneut öffnen, darf blockieren und kann nach allen Gates ausschließlich auf die Testdomain deployen. Live- und Facebook-Veröffentlichung bleiben weiterhin bis BLOG-04 deaktiviert.
