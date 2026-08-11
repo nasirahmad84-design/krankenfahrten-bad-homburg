@@ -312,3 +312,7 @@ Live geprüft wurden langfristiges Caching für CSS, JavaScript und WebP, Revali
 Nach Betreiberangabe ist DKIM für die Hauptdomain eingerichtet. Für die Test-Subdomain ist keine separate DKIM-Konfiguration erforderlich. DNS-Einträge wurden nicht verändert; SPF und DMARC bleiben manuelle Prüfpositionen.
 
 Die vorhandene `.htaccess` enthält bereits eine hostgebundene 301-Regel von `www` auf non-`www`. Live liefert `https://www.krankenfahrten-bad-homburg.de/` dennoch HTTP 200. Im ALL-INKL-KAS muss deshalb für `www` manuell eine permanente Domainweiterleitung auf `https://krankenfahrten-bad-homburg.de/` eingerichtet und danach auf genau einen 301-Schritt ohne Schleife geprüft werden.
+
+## Search-Console-Baseline (SEO-09)
+
+Die erste Search-Console-Auswertung ist in `deployment/seo-search-console-baseline-2026-08-11.md` dokumentiert. Sie hält Datenquelle, Ausgangswerte, frühe Suchsignale, umgesetzte Reaktionen sowie verbindliche Reviews am 25. August und 8. September 2026 fest. Wegen der kleinen Ausgangsstichprobe werden weder einzelne Impressionen überbewertet noch künstliche Rankingziele behauptet.
