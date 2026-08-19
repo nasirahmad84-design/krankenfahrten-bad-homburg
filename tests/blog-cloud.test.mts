@@ -8,6 +8,7 @@ import {
   claimsToCsv,
   csvEscape,
   outputTextFromResponse,
+  parseJsonOutput,
   persistNoTopicRun,
   persistReviewedRun,
   requestJson,
@@ -71,6 +72,11 @@ test("liest strukturierten Text aus beiden Responses-API-Ausgabeformen", () => {
   assert.equal(outputTextFromResponse({ output: [{ content: [{ type: "output_text", text: '{"ok":true}' }] }] }), '{"ok":true}');
 });
 
+test("akzeptiert ein eng begrenztes JSON-Objekt auch nach einer Markdown-Einfassung", () => {
+  assert.deepEqual(parseJsonOutput({ output_text: "```json\n{\"ok\":true}\n```" }, "Test"), { ok: true });
+  assert.throws(() => parseJsonOutput({ output_text: "kein JSON" }, "Test"), /kein gültiges JSON-Objekt/);
+});
+
 test("maskiert Claim-CSV ohne Schemaänderung", () => {
   assert.equal(csvEscape('Text mit, Komma und "Zitat"'), '"Text mit, Komma und ""Zitat"""');
   const csv = claimsToCsv([{ claim_id: "C-1", claim_text: "Zeile 1\nZeile 2" }]);
@@ -122,5 +128,6 @@ test("sendet den Schlüssel nur als Authorization-Header und fordert Websuche an
   const body = JSON.parse(String(request.options?.body));
   assert.deepEqual(body.tools[0].type, "web_search");
   assert.equal(body.store, false);
+  assert.equal(body.text, undefined);
   assert.equal(JSON.stringify(body).includes("test-secret"), false);
 });
