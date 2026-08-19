@@ -21,11 +21,20 @@ export function outputTextFromResponse(response) {
 export function parseJsonOutput(response, label) {
   const output = outputTextFromResponse(response).trim();
   if (!output) throw new Error(`${label}: Die API lieferte keinen Textinhalt.`);
-  try {
-    return JSON.parse(output);
-  } catch {
-    throw new Error(`${label}: Die API-Antwort ist kein gültiges JSON.`);
+  const candidates = [output];
+  const fenced = output.match(/```(?:json)?\s*([\s\S]*?)```/i)?.[1]?.trim();
+  if (fenced) candidates.push(fenced);
+  const firstBrace = output.indexOf("{");
+  const lastBrace = output.lastIndexOf("}");
+  if (firstBrace >= 0 && lastBrace > firstBrace) candidates.push(output.slice(firstBrace, lastBrace + 1));
+  for (const candidate of [...new Set(candidates)]) {
+    try {
+      return JSON.parse(candidate);
+    } catch {
+      // Den nächsten eng begrenzten Kandidaten prüfen.
+    }
   }
+  throw new Error(`${label}: Die API-Antwort enthält kein gültiges JSON-Objekt.`);
 }
 
 export function csvEscape(value) {
@@ -181,7 +190,6 @@ export async function requestJson({ apiKey, model = DEFAULT_MODEL, instructions,
       { role: "system", content: [{ type: "input_text", text: instructions }] },
       { role: "user", content: [{ type: "input_text", text: input }] },
     ],
-    text: { format: { type: "json_object" } },
     max_output_tokens: 14000,
   };
 
