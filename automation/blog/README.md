@@ -1,15 +1,17 @@
-# Schlanker Prozess für automatisierte Ratgeberbeiträge
+# Kostenfreie Warteschlange für geplante Ratgeberbeiträge
 
 ## Ziel
 
-Montags und donnerstags wird ein fachlich belastbarer Ratgeberbeitrag recherchiert, unabhängig geprüft und veröffentlicht. Die Automatisierung bearbeitet ausschließlich Blogdaten und die für den neuen Beitrag erforderlichen Exportdateien. Sie führt keinen vollständigen Website-Release durch.
+Die Redaktion recherchiert mehrere Beiträge im Voraus mit Codex im bestehenden Plan. Freigegebene Beiträge werden versioniert in einer Warteschlange abgelegt. GitHub Actions veröffentlicht montags und donnerstags ausschließlich den für diesen Tag freigegebenen Beitrag. Zum Veröffentlichungszeitpunkt findet kein bezahlter KI- oder Rechercheaufruf statt.
 
 ## Prozess
 
 ```text
-Recherche und Entwurf
+Vorausschauende Recherche und Entwurf
   -> Claim- und Quellenprüfung
-  -> Status approved_for_publish
+  -> Betreiberprüfung und ausdrückliche Freigabe
+  -> Status approved_for_publish mit Freigabe- und Aktualitätsdatum
+  -> Auswahl genau eines Beitrags für den Kalendertag
   -> gezielte Blogtests
   -> technischer Next.js-Export
   -> Prüfung nur von Artikel, Hub und Sitemap
@@ -19,7 +21,7 @@ Recherche und Entwurf
   -> später: Facebook-Post nach erfolgreicher Live-URL
 ```
 
-Recherche und Review bleiben getrennt. Ein fehlender oder widersprüchlicher Beleg führt zu `blocked`; es wird kein Ersatz- oder Füllartikel veröffentlicht.
+Recherche und Review bleiben getrennt. Codex bereitet `draft_ready` vor, darf aber die Betreiberfreigabe nicht selbst setzen. Ein fehlender oder widersprüchlicher Beleg führt zu `blocked`; es wird kein Ersatz- oder Füllartikel veröffentlicht.
 
 ## Bewusst nicht Bestandteil eines Bloglaufs
 
@@ -56,6 +58,7 @@ Nach diesem Smoke-Test darf derselbe Blog-Delta ohne Warteperiode live veröffen
 ## Befehle
 
 - `npm run blog:validate -- automation/blog/articles/RUN-ID`
+- `BLOG_PUBLICATION_DATE=YYYY-MM-DD npm run blog:select-scheduled`
 - `npm run blog:prepare-release -- automation/blog/articles/RUN-ID`
 - `npm run deploy:blog:test -- artikel-slug`
 - `BLOG_DEPLOY_LIVE_CONFIRM=JA npm run deploy:blog:live -- artikel-slug`
@@ -70,15 +73,18 @@ Nach diesem Smoke-Test darf derselbe Blog-Delta ohne Warteperiode live veröffen
 - Git dokumentiert nur die tatsächlich veröffentlichten Inhaltsänderungen; ein zusätzliches Laufregister ist nicht erforderlich.
 - Zugangsdaten bleiben außerhalb des Repositorys in Secret- oder lokaler Deployment-Konfiguration.
 
-## Manueller Cloud-MVP
+## Geplanter Queue-Runner
 
-`.github/workflows/blog-manual.yml` stellt den ersten rechnerunabhängigen End-to-End-Lauf bereit. Er wird zunächst ausschließlich manuell in GitHub Actions gestartet:
+`.github/workflows/blog-manual.yml` ist der rechnerunabhängige Publisher:
 
-1. `scripts/run-blog-cloud.mjs` beauftragt eine recherchierende Redaktion über die OpenAI Responses API mit aktiviertem Web-Suchwerkzeug.
-2. Ein zweiter, vollständig neuer API-Aufruf prüft Quellen, Claims, Leistungsgrenzen, sensible Aussagen und SEO unabhängig und kann den Lauf blockieren.
-3. Nur `approved_for_publish` startet `blog:prepare-release`, den Testdomain-Smoke-Test und anschließend das Live-Deployment desselben Blog-Deltas.
-4. `blocked` und `no_publishable_topic` veröffentlichen nichts. Es gibt keinen automatisch erzeugten Ersatzartikel.
+1. Montag und Donnerstag um 07:00 UTC wählt er anhand des Berliner Kalendertags genau einen Lauf mit `approved_for_publish` aus.
+2. Entwürfe, abgelaufene Freigaben, doppelte Termine und bereits publizierte Slugs werden übersprungen oder blockiert.
+3. Der freigegebene Lauf durchläuft nur Blogvalidator, Blogtests, statischen Export und Blogexportprüfung.
+4. Das Blog-Delta wird zuerst auf die Testdomain übertragen. Live bleibt zusätzlich durch `BLOG_QUEUE_LIVE_ENABLED` gesperrt.
+5. Facebook bleibt deaktiviert, bis ein geprüfter Meta-Zugang ausdrücklich freigegeben wurde.
 
-Der Workflow besitzt noch keinen Zeitplan und keine Facebook-Veröffentlichung. Beides wird erst nach einem erfolgreichen manuellen Cloud-Lauf ergänzt. Das Modell ist für den MVP fest auf `gpt-5-mini` gesetzt; der API-Schlüssel und das FTP-Passwort liegen ausschließlich als GitHub-Secrets vor. Deployment-Werte ohne Geheimnis liegen als GitHub-Variablen vor. Die Responses werden mit `store: false` angefordert.
+Der Workflow benötigt keinen `OPENAI_API_KEY`. Das frühere API-Experiment bleibt nur als nachvollziehbare Historie im Repository und ist nicht Teil des geplanten Publikationslaufs. Bis zur Betreiberfreigabe des ersten Batches bleibt der GitHub-Workflow deaktiviert.
 
-Der Cloud-Lauf verwendet weder die globale Testsuite noch ein vollständiges Website-Deployment. Der statische Build bleibt nur die technisch unvermeidbare Erzeugungsstufe für die neuen Ratgeberdateien.
+## Vier-Wochen-Vorlauf
+
+Der aktuelle Redaktionsplan liegt in `automation/blog/editorial-calendar.csv`. Alle acht Beiträge sind als `draft_ready` vorbereitet. `automation/blog/content-approval-register.csv` dokumentiert, dass die ausdrückliche Betreiberfreigabe noch aussteht. Erst nach dieser Freigabe werden Status und `approvedAt` gesetzt; vor jeder Veröffentlichung schützt `revalidateAfter` zusätzlich vor veralteten Angaben.

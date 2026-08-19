@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-14-reha-therapiefahrten-kosten-vorab-klaeren",
+  "scheduledDate": "2026-09-14",
+  "articleSlug": "reha-therapiefahrten-kosten-vorab-klaeren",
+  "topic": "Reha- und Therapiefahrten: Kostenübernahme vorher klären",
+  "whyNow": "Räumt vor Beginn der zweiten Septemberhälfte mit einer häufigen pauschalen Annahme zur Kostenübernahme auf.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}

@@ -1,7 +1,8 @@
 action,draft_run,review_run,test_domain,live_domain,facebook
 Online-Recherche,allow,allow,n/a,n/a,n/a
 Entwurfsdatei und Claim-Register schreiben,allow,allow,n/a,n/a,n/a
-Blogfreigabe setzen,deny,allow-after-blog-gates,n/a,n/a,n/a
+Blogfreigabe setzen,deny,operator-only-after-blog-gates,n/a,n/a,n/a
+Datumsgebundenes Queue-Element auswählen,deny,allow-approved-only,n/a,n/a,n/a
 Gezielte Blogtests,allow,required,n/a,n/a,n/a
 Technischen Static Export erzeugen,deny,required,n/a,n/a,n/a
 Vollständige Websiteprüfungen,deny,deny,n/a,n/a,n/a

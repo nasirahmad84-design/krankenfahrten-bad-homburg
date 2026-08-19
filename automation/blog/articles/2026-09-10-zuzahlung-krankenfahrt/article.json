@@ -1,0 +1,99 @@
+{
+  "slug": "zuzahlung-krankenfahrt",
+  "title": "Zuzahlung bei Krankenfahrten: Die gesetzliche Regel verständlich erklärt",
+  "metadataTitle": "Zuzahlung bei Krankenfahrten einfach erklärt",
+  "description": "Bei übernommenen Fahrkosten gelten meist 10 Prozent, mindestens 5 und höchstens 10 Euro je Fahrt – nie mehr als die tatsächlichen Kosten.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-09-10",
+  "updatedAt": "2026-09-10",
+  "reviewedAt": "2026-08-19",
+  "readingTimeMinutes": 5,
+  "intro": "Auch wenn die gesetzliche Krankenkasse Fahrkosten übernimmt, kann eine Zuzahlung anfallen. Die allgemeine Regel lautet: zehn Prozent des Fahrpreises, mindestens fünf Euro und höchstens zehn Euro je Fahrt – jedoch nie mehr als die tatsächlichen Kosten.",
+  "summary": [
+    "Die gesetzliche Zuzahlung beträgt grundsätzlich zehn Prozent des Fahrpreises.",
+    "Je Fahrt gelten mindestens fünf Euro und höchstens zehn Euro, aber nie mehr als die tatsächlichen Kosten.",
+    "Fahrkosten sind eine Besonderheit: Die Zuzahlung kann auch für Kinder und Jugendliche gelten."
+  ],
+  "sections": [
+    {
+      "id": "regel",
+      "title": "Die gesetzliche Grundregel",
+      "paragraphs": [
+        "Das Bundesgesundheitsministerium nennt für übernommene Fahrkosten eine Zuzahlung von zehn Prozent des Fahrpreises. Der Mindestbetrag liegt bei fünf Euro, der Höchstbetrag bei zehn Euro pro Fahrt.",
+        "Die Zuzahlung darf nie höher sein als die tatsächlich entstandenen Kosten. Kostet eine Fahrt beispielsweise weniger als fünf Euro, kann daher nicht pauschal der Mindestbetrag von fünf Euro verlangt werden."
+      ],
+      "sourceIds": [
+        "BMG-FAHRKOSTEN",
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "pro-fahrt",
+      "title": "Hin- und Rückfahrt getrennt betrachten",
+      "paragraphs": [
+        "Das BMG formuliert die Zuzahlungsgrenzen je Fahrt. Bei einer Hin- und einer Rückfahrt können deshalb zwei getrennte Zuzahlungen relevant sein.",
+        "Wie die konkrete Abrechnung erfolgt und ob eine Befreiung berücksichtigt werden kann, sollte vorab mit der Krankenkasse beziehungsweise anhand der gültigen Befreiungsbescheinigung geklärt werden."
+      ],
+      "sourceIds": [
+        "BMG-FAHRKOSTEN"
+      ]
+    },
+    {
+      "id": "kinder",
+      "title": "Besonderheit bei Kindern und Jugendlichen",
+      "paragraphs": [
+        "Bei Fahrkosten gilt die Zuzahlung laut Bundesgesundheitsministerium auch für Kinder und Jugendliche. Das unterscheidet Fahrkosten von vielen anderen gesetzlichen Zuzahlungen.",
+        "Eine individuelle Befreiung oder Belastungsgrenze kann die konkrete Zahlung beeinflussen. Verbindliche Auskunft dazu erteilt die Krankenkasse."
+      ],
+      "sourceIds": [
+        "BMG-FAHRKOSTEN"
+      ]
+    },
+    {
+      "id": "kostenuebernahme",
+      "title": "Zuzahlung setzt eine übernommene Fahrt voraus",
+      "paragraphs": [
+        "Die Zuzahlungsregel beantwortet nicht, ob eine Fahrt überhaupt übernommen wird. Dafür müssen die Voraussetzungen für Fahrkosten, eine mögliche Verordnung und gegebenenfalls eine Genehmigung getrennt geprüft werden.",
+        "Krankenfahrten Bad Homburg kann bei vorliegenden Voraussetzungen direkt abrechnen, gibt aber keine pauschale Kostenübernahmezusage. Im Zweifel sollte die Krankenkasse vor der Fahrt schriftlich bestätigen, was sie übernimmt."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG",
+        "BMG-FAHRKOSTEN"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Wie hoch ist die Zuzahlung bei einer Krankenfahrt?",
+      "answer": "Grundsätzlich zehn Prozent des Fahrpreises, mindestens fünf und höchstens zehn Euro je Fahrt, aber nie mehr als die tatsächlichen Kosten."
+    },
+    {
+      "question": "Gilt die Zuzahlung für Hin- und Rückfahrt?",
+      "answer": "Die gesetzlichen Grenzen gelten je Fahrt. Bei Hin- und Rückfahrt können daher zwei Zuzahlungen anfallen."
+    },
+    {
+      "question": "Zahlen auch Kinder und Jugendliche zu?",
+      "answer": "Bei Fahrkosten gilt die Zuzahlung laut Bundesgesundheitsministerium auch für Kinder und Jugendliche. Eine mögliche Befreiung ist individuell zu prüfen."
+    }
+  ],
+  "sources": [
+    {
+      "id": "BMG-FAHRKOSTEN",
+      "title": "Fahrkosten",
+      "publisher": "Bundesministerium für Gesundheit",
+      "url": "https://www.bundesgesundheitsministerium.de/fahrkosten",
+      "checkedAt": "2026-08-19"
+    },
+    {
+      "id": "GBA-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Gemeinsamer Bundesausschuss",
+      "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+      "checkedAt": "2026-08-19"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "sitzende-krankenfahrten",
+    "arzt-klinikfahrten"
+  ]
+}

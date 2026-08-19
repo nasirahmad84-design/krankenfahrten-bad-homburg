@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-07-genehmigung-krankenfahrt-ambulante-behandlung",
+  "scheduledDate": "2026-09-07",
+  "articleSlug": "genehmigung-krankenfahrt-ambulante-behandlung",
+  "topic": "Krankenfahrt zur ambulanten Behandlung: Wann ist eine Genehmigung nötig?",
+  "whyNow": "Vertieft vor dem Kostenbeitrag die häufigste versicherungsrechtliche Rückfrage.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}

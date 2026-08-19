@@ -1,13 +1,14 @@
 # Verbleibende Punkte
 
-## Für den rechnerunabhängigen Blogbetrieb
+## Vor Aktivierung des Queue-Runners
 
-- privates Remote-Repository beziehungsweise anderer dauerhaft verfügbarer Cloud-Runner
-- sicher hinterlegter OpenAI-API-Schlüssel mit Kostenlimit
-- erneuerte und sicher hinterlegte FTPS-Zugangsdaten für Test- und Live-Verzeichnis
-- einmaliger manueller Cloud-Probelauf zur Prüfung der Zugangsdaten und Verzeichnisziele
+- ausdrückliche Betreiberfreigabe der acht vorbereiteten Beiträge im Content-Approval-Register
+- Aktualitätsprüfung der Primärquellen unmittelbar vor der jeweiligen Freigabe
+- Umstellung der freigegebenen Läufe von `draft_ready` auf `approved_for_publish` mit `approvedAt`
+- Entscheidung, ob `BLOG_QUEUE_LIVE_ENABLED` nach dem Testdomain-Smoke-Test aktiviert werden darf
+- erneute Prüfung, dass der GitHub-Workflow bis zu dieser Entscheidung deaktiviert bleibt
 
-Der Probelauf prüft die technische Konfiguration; er ist keine vierteilige redaktionelle Wartephase. Nach erfolgreicher Einrichtung kann jeder einzeln freigegebene Artikel im selben Lauf über Test nach Live gehen.
+Ein OpenAI-API-Schlüssel ist für den Queue-Betrieb nicht erforderlich. Das vorhandene Secret kann nach Abschluss des Experiments aus GitHub entfernt werden.
 
 ## Für Facebook
 
@@ -24,3 +25,5 @@ Der Probelauf prüft die technische Konfiguration; er ist keine vierteilige reda
 - keine globalen 49 Projektprüfungen pro Artikel
 - keine vier erfolgreichen Testveröffentlichungen vor Live
 - keine Google-Analytics- oder Search-Console-Zugangsdaten für die Artikelerstellung
+- kein dauerhaft eingeschalteter lokaler Rechner
+- kein bezahlter Modellaufruf zum Veröffentlichungszeitpunkt

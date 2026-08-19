@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-03-krankenfahrt-nach-krankenhausentlassung",
+  "scheduledDate": "2026-09-03",
+  "articleSlug": "krankenfahrt-nach-krankenhausentlassung",
+  "topic": "Krankenfahrt nach der Krankenhausentlassung organisieren",
+  "whyNow": "Konkreter Donnerstagsratgeber für planbare Entlassungen und Angehörige.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}

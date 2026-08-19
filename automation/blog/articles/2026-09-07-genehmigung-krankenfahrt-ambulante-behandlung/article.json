@@ -1,0 +1,100 @@
+{
+  "slug": "genehmigung-krankenfahrt-ambulante-behandlung",
+  "title": "Krankenfahrt zur ambulanten Behandlung: Wann ist eine Genehmigung nötig?",
+  "metadataTitle": "Genehmigung für ambulante Krankenfahrten",
+  "description": "Bei ambulanten Krankenfahrten gelten Genehmigungsvorbehalte und Ausnahmen. Dieser Überblick zeigt, was vor der Fahrt geklärt werden sollte.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-09-07",
+  "updatedAt": "2026-09-07",
+  "reviewedAt": "2026-08-19",
+  "readingTimeMinutes": 5,
+  "intro": "Bei ambulanten Behandlungen ist die Kostenübernahme für eine Krankenfahrt die Ausnahme, nicht die automatische Regel. Ob eine vorherige Genehmigung nötig ist, hängt von Behandlungsanlass, Beförderungsmittel und persönlichen Voraussetzungen ab.",
+  "summary": [
+    "Ambulante Krankenfahrten können nur in bestimmten Ausnahmefällen zulasten der gesetzlichen Krankenkasse verordnet werden.",
+    "Für Dialyse, bestimmte Krebstherapien und vergleichbare hochfrequente Behandlungen ist grundsätzlich eine Genehmigung vorgesehen.",
+    "Für bestimmte schwerbehinderte oder pflegebedürftige Personen bestehen bei Taxi- oder Mietwagenfahrten Ausnahmen von der vorherigen Genehmigung."
+  ],
+  "sections": [
+    {
+      "id": "grundsatz",
+      "title": "Der Grundsatz bei ambulanter Behandlung",
+      "paragraphs": [
+        "Nach den Informationen von G-BA und KBV werden Fahrkosten zu ambulanten Behandlungen nur in besonderen Ausnahmefällen übernommen. Die Fahrt muss medizinisch notwendig sein und ärztlich verordnet werden.",
+        "Eine Terminbestätigung oder der Wunsch nach Unterstützung allein begründet keine Kostenübernahme. Der Fahrdienst entscheidet weder über medizinische Notwendigkeit noch über den Leistungsanspruch."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG",
+        "KBV-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "genehmigungspflicht",
+      "title": "Typische Fälle mit vorheriger Genehmigung",
+      "paragraphs": [
+        "Für längerfristige hochfrequente Behandlungen nennt die KBV insbesondere Dialyse, onkologische Strahlentherapie und bestimmte ambulante Chemotherapien. Die entsprechende Verordnung ist vor der Fahrt der Krankenkasse zur Genehmigung vorzulegen.",
+        "Auch bei vergleichbar schwerer dauerhafter Mobilitätsbeeinträchtigung ohne die ausdrücklich genannten Merkzeichen oder Pflegegrade ist eine Einzelfallgenehmigung möglich, aber nicht automatisch gegeben."
+      ],
+      "sourceIds": [
+        "KBV-KRANKENBEFOERDERUNG",
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "ausnahmen",
+      "title": "Ausnahmen bei bestimmten Personengruppen",
+      "paragraphs": [
+        "Für Taxi- oder Mietwagenfahrten zur ambulanten Behandlung ist nach KBV-Angaben bei Pflegegrad 4 oder 5, bei Pflegegrad 3 mit dauerhafter Mobilitätsbeeinträchtigung sowie bei den Schwerbehindertenmerkzeichen aG, Bl oder H keine vorherige Genehmigung erforderlich. Die medizinische Notwendigkeit und Verordnung bleiben dennoch Voraussetzung.",
+        "Bei einem Krankentransportwagen gelten andere Regeln. Deshalb muss das verordnete Beförderungsmittel genau beachtet werden."
+      ],
+      "sourceIds": [
+        "KBV-KRANKENBEFOERDERUNG",
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "pruefen",
+      "title": "So vermeiden Sie ungeklärte Fahrten",
+      "paragraphs": [
+        "Fragen Sie die verordnende Praxis, ob die Verordnung vorab genehmigt werden muss, und reichen Sie sie rechtzeitig bei der Krankenkasse ein. Bewahren Sie die Rückmeldung der Kasse für die Abrechnung auf.",
+        "Erst danach sollten Fahrttermin, Abholung und Rückfahrt verbindlich mit dem Fahrdienst abgestimmt werden. Bei Unsicherheit ist eine schriftliche Auskunft der Krankenkasse verlässlicher als eine allgemeine Internetantwort."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Muss jede ambulante Krankenfahrt genehmigt werden?",
+      "answer": "Nein. Es gibt Ausnahmen, insbesondere für bestimmte schwerbehinderte oder pflegebedürftige Personen bei Taxi- oder Mietwagenfahrten. Die Voraussetzungen müssen im Einzelfall vorliegen."
+    },
+    {
+      "question": "Wer beantragt die Genehmigung?",
+      "answer": "Die Versicherten legen die Verordnung ihrer Krankenkasse zur Genehmigung vor, sofern der konkrete Fall genehmigungspflichtig ist."
+    },
+    {
+      "question": "Darf der Fahrdienst die Genehmigung beurteilen?",
+      "answer": "Nein. Der Fahrdienst kann organisatorisch unterstützen, ersetzt aber nicht die Entscheidung der behandelnden Stelle oder Krankenkasse."
+    }
+  ],
+  "sources": [
+    {
+      "id": "GBA-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Gemeinsamer Bundesausschuss",
+      "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+      "checkedAt": "2026-08-19"
+    },
+    {
+      "id": "KBV-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Kassenärztliche Bundesvereinigung",
+      "url": "https://www.kbv.de/praxis/verordnungen/krankenbefoerderung",
+      "checkedAt": "2026-08-19"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "sitzende-krankenfahrten",
+    "serienfahrten"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-08-27-muster-4-krankenbefoerderung",
+  "scheduledDate": "2026-08-27",
+  "articleSlug": "muster-4-krankenbefoerderung",
+  "topic": "Muster 4: Die Verordnung einer Krankenbeförderung verstehen",
+  "whyNow": "Baut unmittelbar auf dem Anfrage-Artikel auf und klärt die wichtigste Unterlage vor planbaren Fahrten.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}

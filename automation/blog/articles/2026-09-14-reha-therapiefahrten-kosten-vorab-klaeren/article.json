@@ -1,0 +1,99 @@
+{
+  "slug": "reha-therapiefahrten-kosten-vorab-klaeren",
+  "title": "Reha- und Therapiefahrten: Kostenübernahme vorher klären",
+  "metadataTitle": "Reha- und Therapiefahrten: Kosten klären",
+  "description": "Fahrten zu Reha oder Therapie folgen nicht automatisch denselben Regeln wie andere Krankenfahrten. Deshalb sollte die Kostenfrage vorher geklärt sein.",
+  "format": "Einordnung",
+  "publishedAt": "2026-09-14",
+  "updatedAt": "2026-09-14",
+  "reviewedAt": "2026-08-19",
+  "readingTimeMinutes": 5,
+  "intro": "Fahrten zu Rehabilitation, Physiotherapie oder anderen Therapien werden im Alltag oft gemeinsam als Krankenfahrten bezeichnet. Für die Kostenübernahme gelten jedoch nicht automatisch dieselben Regeln. Der G-BA weist ausdrücklich darauf hin, dass Fahrten zu Kuren oder Rehabilitationsmaßnahmen nicht Teil seiner Krankentransport-Richtlinie sind.",
+  "summary": [
+    "Fahrten zu Kuren oder Rehabilitationsmaßnahmen sind nicht Regelungsbestandteil der G-BA-Krankentransport-Richtlinie.",
+    "Fragen zur Kostenübernahme für Rehafahrten müssen direkt mit der zuständigen Krankenkasse geklärt werden.",
+    "Eine sitzende Reha- oder Therapiefahrt kann unabhängig davon als Selbstzahlerfahrt angefragt werden, bleibt aber bestätigungspflichtig."
+  ],
+  "sections": [
+    {
+      "id": "abgrenzung",
+      "title": "Warum eine gesonderte Klärung nötig ist",
+      "paragraphs": [
+        "Die Krankentransport-Richtlinie regelt bestimmte Krankenfahrten, Krankentransporte und Rettungsfahrten. Fahrten zu Kuren oder Rehabilitationsmaßnahmen sind nach Auskunft des G-BA ausdrücklich nicht Bestandteil dieser Richtlinie.",
+        "Daraus folgt keine pauschale Ablehnung. Es bedeutet, dass die Kostenfrage nicht allein mit den üblichen Regeln der Richtlinie beantwortet werden kann und direkt mit der zuständigen Krankenkasse geklärt werden sollte."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG",
+        "BMG-FAHRKOSTEN"
+      ]
+    },
+    {
+      "id": "therapie",
+      "title": "Therapietermin ist nicht automatisch Kassenfahrt",
+      "paragraphs": [
+        "Eine medizinische oder therapeutische Zieladresse macht eine Fahrt nicht automatisch zu einer erstattungsfähigen Krankenfahrt. Für ambulante Behandlungen gelten enge Voraussetzungen und definierte Ausnahmen.",
+        "Wer Kostenübernahme erwartet, sollte Behandlungsanlass, Verordnung und Genehmigungsbedarf vor der ersten Fahrt mit Praxis und Krankenkasse klären."
+      ],
+      "sourceIds": [
+        "BMG-FAHRKOSTEN",
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "anfrage",
+      "title": "Fahrt trotzdem organisatorisch vorbereiten",
+      "paragraphs": [
+        "Für eine Anfrage werden Termin, Abholadresse, Therapie- oder Rehaziel und der gewünschte Rückfahrtbedarf benötigt. Wiederkehrende Termine können als Serie angefragt werden.",
+        "Krankenfahrten Bad Homburg bietet sitzende Fahrten nach Verfügbarkeit und ausdrücklicher Bestätigung an. Eine Selbstzahlerfahrt kann organisatorisch unabhängig von einer späteren Erstattung vereinbart werden; Kosten und Konditionen müssen vorab geklärt sein."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "antwort",
+      "title": "Welche Antwort sollte vor Fahrtbeginn vorliegen?",
+      "paragraphs": [
+        "Fragen Sie die Krankenkasse konkret, ob sie die geplante Fahrt übernimmt, welche Unterlagen sie benötigt und ob eine Genehmigung vor Fahrtbeginn erteilt werden muss. Lassen Sie sich die Antwort möglichst nachvollziehbar dokumentieren.",
+        "Der Fahrdienst kann keine verbindliche Leistungsentscheidung der Krankenkasse vorwegnehmen. Eine offene Kostenfrage sollte daher nicht bis zum ersten Termin warten."
+      ],
+      "sourceIds": [
+        "BMG-FAHRKOSTEN"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Übernimmt die Krankenkasse jede Fahrt zur Reha?",
+      "answer": "Nein. Fahrten zu Kuren oder Rehabilitationsmaßnahmen sind nicht Teil der G-BA-Krankentransport-Richtlinie. Die Kostenübernahme muss direkt mit der Krankenkasse geklärt werden."
+    },
+    {
+      "question": "Kann ich eine Rehafahrt als Selbstzahler anfragen?",
+      "answer": "Ja. Eine sitzende Fahrt kann nach Verfügbarkeit und vorab geklärten Konditionen angefragt werden. Verbindlich wird sie erst nach Bestätigung."
+    },
+    {
+      "question": "Sind regelmäßige Therapiefahrten möglich?",
+      "answer": "Planbare Termine können als Serie angefragt werden. Jeder Termin bleibt von Verfügbarkeit und Bestätigung abhängig."
+    }
+  ],
+  "sources": [
+    {
+      "id": "GBA-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Gemeinsamer Bundesausschuss",
+      "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+      "checkedAt": "2026-08-19"
+    },
+    {
+      "id": "BMG-FAHRKOSTEN",
+      "title": "Fahrkosten",
+      "publisher": "Bundesministerium für Gesundheit",
+      "url": "https://www.bundesgesundheitsministerium.de/fahrkosten",
+      "checkedAt": "2026-08-19"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "reha-therapiefahrten",
+    "serienfahrten"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-08-31-dialysefahrten-als-serienfahrt-planen",
+  "scheduledDate": "2026-08-31",
+  "articleSlug": "dialysefahrten-als-serienfahrt-planen",
+  "topic": "Dialysefahrten als Terminserie vorausschauend planen",
+  "whyNow": "Erster Montagsbeitrag nach dem Grundlagenblock; passend für langfristige September-Terminserien.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}

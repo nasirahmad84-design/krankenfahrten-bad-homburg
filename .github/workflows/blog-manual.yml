@@ -1,13 +1,14 @@
-name: Manueller Cloud-Bloglauf
+name: Geplanter Blog-Queue-Release
 
 on:
+  schedule:
+    - cron: "0 7 * * 1,4"
   workflow_dispatch:
     inputs:
-      deploy_live:
-        description: "Freigegebenen Artikel nach der Testdomain auch live veröffentlichen"
-        required: true
-        default: false
-        type: boolean
+      publication_date:
+        description: "Optionales Veröffentlichungsdatum im Format YYYY-MM-DD"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -17,12 +18,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  research-review-publish:
+  publish-approved-queue-item:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      OPENAI_BLOG_MODEL: gpt-5-mini
+      BLOG_PUBLICATION_DATE: ${{ inputs.publication_date }}
       FTP_HOST: ${{ vars.FTP_HOST }}
       FTP_USER: ${{ vars.FTP_USER }}
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
@@ -46,46 +46,45 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Recherchieren und unabhängig prüfen
-        id: editorial
-        run: npm run blog:cloud-run
+      - name: Freigegebenen Warteschlangenartikel auswählen
+        id: queue
+        run: npm run blog:select-scheduled
 
-      - name: Freigegebenen Blogartikel vorbereiten
-        if: steps.editorial.outputs.status == 'approved_for_publish'
-        run: npm run blog:prepare-release -- "${{ steps.editorial.outputs.run_directory }}"
+      - name: Blog-Delta vorbereiten
+        if: steps.queue.outputs.status == 'ready'
+        run: npm run blog:prepare-release -- "${{ steps.queue.outputs.run_directory }}"
 
-      - name: Freigegebenen Inhalt dokumentieren
-        if: steps.editorial.outputs.status == 'approved_for_publish'
+      - name: Blog-Delta auf Testdomain veröffentlichen
+        if: steps.queue.outputs.status == 'ready'
+        run: npm run deploy:blog:test -- "${{ steps.queue.outputs.slug }}"
+
+      - name: Erfolgreich getesteten Inhalt dokumentieren
+        if: steps.queue.outputs.status == 'ready'
         run: |
           git config user.name "krankenfahrten-blog-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${{ steps.editorial.outputs.run_directory }}"
-          git add "automation/blog/published/${{ steps.editorial.outputs.slug }}.json"
+          git add "automation/blog/published/${{ steps.queue.outputs.slug }}.json"
           git add src/content/generated-blog-posts.ts public/sitemap.xml
           git diff --cached --check
-          git commit -m "feat: publish guide ${{ steps.editorial.outputs.slug }}"
+          git commit -m "feat: publish guide ${{ steps.queue.outputs.slug }}"
           git push origin HEAD:main
 
-      - name: Blog-Delta auf Testdomain veröffentlichen
-        if: steps.editorial.outputs.status == 'approved_for_publish'
-        run: npm run deploy:blog:test -- "${{ steps.editorial.outputs.slug }}"
-
       - name: Gleiches Blog-Delta live veröffentlichen
-        if: steps.editorial.outputs.status == 'approved_for_publish' && inputs.deploy_live
+        if: steps.queue.outputs.status == 'ready' && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
         env:
           BLOG_DEPLOY_LIVE_CONFIRM: JA
-        run: npm run deploy:blog:live -- "${{ steps.editorial.outputs.slug }}"
+        run: npm run deploy:blog:live -- "${{ steps.queue.outputs.slug }}"
 
       - name: Ergebnis zusammenfassen
         if: always()
         run: |
           {
-            echo "## Cloud-Bloglauf"
-            echo "- Status: ${{ steps.editorial.outputs.status || 'abgebrochen' }}"
-            echo "- Run-ID: ${{ steps.editorial.outputs.run_id || 'nicht erzeugt' }}"
-            if [[ "${{ steps.editorial.outputs.status }}" == "approved_for_publish" ]]; then
-              echo "- Test-URL: https://test.krankenfahrten-bad-homburg.de/ratgeber/${{ steps.editorial.outputs.slug }}/"
-              echo "- Live-Deployment: ${{ inputs.deploy_live }}"
+            echo "## Blog-Warteschlange"
+            echo "- Datum: ${{ steps.queue.outputs.publication_date || inputs.publication_date || 'Europe/Berlin heute' }}"
+            echo "- Status: ${{ steps.queue.outputs.status || 'abgebrochen' }}"
+            if [[ "${{ steps.queue.outputs.status }}" == "ready" ]]; then
+              echo "- Test-URL: https://test.krankenfahrten-bad-homburg.de/ratgeber/${{ steps.queue.outputs.slug }}/"
+              echo "- Live-Freigabe: ${{ vars.BLOG_QUEUE_LIVE_ENABLED == 'true' }}"
             else
               echo "- Es wurde nichts veröffentlicht."
             fi

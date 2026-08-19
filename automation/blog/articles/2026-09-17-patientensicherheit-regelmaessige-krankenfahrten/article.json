@@ -1,0 +1,99 @@
+{
+  "slug": "patientensicherheit-regelmaessige-krankenfahrten",
+  "title": "Welttag der Patientensicherheit 2026: Fahrten verlässlich abstimmen",
+  "metadataTitle": "Patientensicherheit bei regelmäßigen Krankenfahrten",
+  "description": "Zum Welttag der Patientensicherheit 2026: Wie klare Angaben, bestätigte Termine und saubere Leistungsgrenzen planbare Fahrten unterstützen.",
+  "format": "Aktuelle Information",
+  "publishedAt": "2026-09-17",
+  "updatedAt": "2026-09-17",
+  "reviewedAt": "2026-08-19",
+  "readingTimeMinutes": 5,
+  "intro": "Am 17. September 2026 stellt die Weltgesundheitsorganisation den Welttag der Patientensicherheit unter das Thema sichere Versorgung bei nichtübertragbaren Erkrankungen. Viele Betroffene benötigen langfristige und wiederkehrende Behandlung. Für planbare Krankenfahrten bedeutet das vor allem: Zuständigkeiten, Unterstützungsbedarf und Termine müssen eindeutig abgestimmt sein.",
+  "summary": [
+    "Der Welttag der Patientensicherheit findet jährlich am 17. September statt; 2026 stehen nichtübertragbare Erkrankungen im Mittelpunkt.",
+    "Langfristige Behandlung über verschiedene Versorgungsorte macht klare Übergaben und bestätigte Termine besonders wichtig.",
+    "Ein sitzender Fahrdienst ersetzt keine medizinische Betreuung und muss bei verändertem Unterstützungsbedarf neu eingeordnet werden."
+  ],
+  "sections": [
+    {
+      "id": "aktionstag",
+      "title": "Worum geht es am 17. September 2026?",
+      "paragraphs": [
+        "Die WHO widmet den Welttag der Patientensicherheit 2026 der sicheren Versorgung von Menschen mit nichtübertragbaren Erkrankungen. Sie betont, dass viele Betroffene kontinuierliche Versorgung über lange Zeiträume und verschiedene Versorgungsorte benötigen.",
+        "Der Aktionstag ist kein Anlass für medizinische Einzelfalltipps. Er bietet aber einen sinnvollen Rahmen, organisatorische Schnittstellen rund um wiederkehrende Behandlungen bewusst zu prüfen."
+      ],
+      "sourceIds": [
+        "WHO-PATIENT-SAFETY-2026",
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "uebergabe",
+      "title": "Klare Angaben vermeiden Missverständnisse",
+      "paragraphs": [
+        "Für eine planbare Fahrt sollten Abholadresse, Ziel, Termin, erreichbare Kontaktperson und gewünschte Unterstützung eindeutig feststehen. Änderungen müssen an alle beteiligten Personen weitergegeben werden.",
+        "Eine Fahrtanfrage ist erst nach ausdrücklicher Bestätigung verbindlich. Das ist besonders bei Terminserien wichtig, weil eine alte Zeitangabe nicht automatisch für einen geänderten Behandlungstermin gilt."
+      ],
+      "sourceIds": [
+        "WHO-PATIENT-SAFETY-2026"
+      ]
+    },
+    {
+      "id": "leistungsgrenzen",
+      "title": "Leistungsgrenzen offen benennen",
+      "paragraphs": [
+        "Krankenfahrten Bad Homburg bietet ausschließlich sitzende Fahrten ohne medizinische Betreuung oder Überwachung an. Hilfe beim Ein- und Aussteigen sowie Begleitung bis zur Anmeldung können vereinbart werden.",
+        "Wenn sich der Gesundheitszustand oder Unterstützungsbedarf verändert, sollte vor der nächsten Fahrt medizinisch geklärt werden, welches Beförderungsmittel geeignet ist. Ein Krankentransportwagen ist vorgesehen, wenn medizinisch-fachliche Betreuung oder besondere Ausstattung erforderlich ist."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "serien",
+      "title": "Terminserien regelmäßig überprüfen",
+      "paragraphs": [
+        "Bei wiederkehrenden Dialyse-, Therapie- oder anderen Behandlungsterminen sollten Kontaktdaten, Abholzeiten und Rückfahrtbedarf regelmäßig überprüft werden. Schon kleine Änderungen können die Disposition beeinflussen.",
+        "Eine einfache Routine hilft: Termin bestätigen, Änderungen früh melden, benötigte Unterlagen bereithalten und bei verändertem Unterstützungsbedarf vorab Rücksprache halten."
+      ],
+      "sourceIds": [
+        "WHO-PATIENT-SAFETY-2026",
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Was ist das Thema des Welttags der Patientensicherheit 2026?",
+      "answer": "Die WHO stellt 2026 die sichere Versorgung bei nichtübertragbaren Erkrankungen in den Mittelpunkt."
+    },
+    {
+      "question": "Warum sind bestätigte Termine bei Serienfahrten wichtig?",
+      "answer": "Weil Behandlungstage und Zeiten sich ändern können. Nur bestätigte Fahrten sind verbindlich und können zuverlässig eingeplant werden."
+    },
+    {
+      "question": "Was gilt, wenn plötzlich medizinische Betreuung während der Fahrt nötig ist?",
+      "answer": "Dann ist ein sitzender Fahrdienst möglicherweise nicht mehr geeignet. Der Beförderungsbedarf sollte medizinisch neu beurteilt und ein passendes Beförderungsmittel gewählt werden."
+    }
+  ],
+  "sources": [
+    {
+      "id": "WHO-PATIENT-SAFETY-2026",
+      "title": "World Patient Safety Day 2026",
+      "publisher": "World Health Organization",
+      "url": "https://www.who.int/campaigns/world-patient-safety-day/2026",
+      "checkedAt": "2026-08-19"
+    },
+    {
+      "id": "GBA-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Gemeinsamer Bundesausschuss",
+      "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+      "checkedAt": "2026-08-19"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "serienfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

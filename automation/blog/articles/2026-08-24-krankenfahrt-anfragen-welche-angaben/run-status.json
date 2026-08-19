@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-08-24-krankenfahrt-anfragen-welche-angaben",
+  "scheduledDate": "2026-08-24",
+  "articleSlug": "krankenfahrt-anfragen-welche-angaben",
+  "topic": "Krankenfahrt anfragen: Welche Angaben werden benötigt?",
+  "whyNow": "Grundlagenbeitrag zum Start des geplanten Vier-Wochen-Ratgeberfensters.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}

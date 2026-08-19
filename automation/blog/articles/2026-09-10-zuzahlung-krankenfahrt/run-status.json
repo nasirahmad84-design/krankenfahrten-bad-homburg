@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-10-zuzahlung-krankenfahrt",
+  "scheduledDate": "2026-09-10",
+  "articleSlug": "zuzahlung-krankenfahrt",
+  "topic": "Zuzahlung bei Krankenfahrten: Die gesetzliche Regel verständlich erklärt",
+  "whyNow": "Folgt logisch auf Genehmigung und beantwortet eine klar abgrenzbare, häufig gesuchte Kostenfrage.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "approvedAt": null,
+  "revalidateAfter": "2026-09-17",
+  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+}
