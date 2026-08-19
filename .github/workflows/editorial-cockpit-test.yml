@@ -1,0 +1,48 @@
+name: Redaktionscockpit auf Testdomain
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-cockpit-test
+  cancel-in-progress: false
+
+jobs:
+  deploy-editorial-cockpit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FTP_HOST: ${{ vars.FTP_HOST }}
+      FTP_USER: ${{ vars.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      FTP_TEST_DIRECTORY: ${{ vars.FTP_TEST_DIRECTORY }}
+      TEST_SITE_URL: ${{ vars.TEST_SITE_URL }}
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v5
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      - name: Geschütztes Redaktionscockpit übertragen
+        run: npm run deploy:editorial:test
+
+      - name: Ergebnis zusammenfassen
+        if: always()
+        run: |
+          {
+            echo "## Redaktionscockpit"
+            echo "- Ziel: ${TEST_SITE_URL%/}/redaktion/"
+            echo "- Enthalten: vorbereitete Artikel, Quellen, Claims und Facebook-Entwürfe"
+            echo "- Produktion: nicht verändert"
+          } >> "$GITHUB_STEP_SUMMARY"

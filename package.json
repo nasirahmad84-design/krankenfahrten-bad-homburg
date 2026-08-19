@@ -8,7 +8,7 @@
     "prebuild": "node scripts/verify-blog-sources.mjs && node scripts/generate-blog-content.mjs && node scripts/generate-static-seo.mjs",
     "build": "next build",
     "lint": "eslint",
-    "pretest": "node scripts/verify-blog-sources.mjs && node scripts/generate-blog-content.mjs && node scripts/generate-static-seo.mjs",
+    "pretest": "node scripts/verify-blog-sources.mjs && node scripts/generate-blog-content.mjs && node scripts/generate-static-seo.mjs && node scripts/generate-editorial-cockpit.mjs",
     "test": "node --test --experimental-strip-types tests/*.test.mts",
     "test:blog": "node --test --experimental-strip-types tests/blog-cloud.test.mts tests/blog-content.test.mts tests/blog-governance.test.mts tests/blog-pipeline.test.mts tests/blog-queue.test.mts",
     "test:export": "node tests/legal-export-check.mjs",
@@ -21,10 +21,13 @@
     "blog:prepare-release": "bash scripts/prepare-blog-release.sh",
     "blog:cloud-run": "node scripts/run-blog-cloud.mjs",
     "blog:select-scheduled": "node scripts/select-scheduled-blog-run.mjs",
+    "editorial:build": "node scripts/generate-editorial-cockpit.mjs",
+    "editorial:verify": "node scripts/verify-editorial-cockpit.mjs",
     "deploy:test": "bash scripts/deploy-ftp.sh test",
     "deploy:live": "bash scripts/deploy-ftp.sh live",
     "deploy:blog:test": "bash scripts/deploy-blog-ftp.sh test",
-    "deploy:blog:live": "bash scripts/deploy-blog-ftp.sh live"
+    "deploy:blog:live": "bash scripts/deploy-blog-ftp.sh live",
+    "deploy:editorial:test": "bash scripts/deploy-editorial-ftp.sh"
   },
   "dependencies": {
     "next": "16.2.10",
