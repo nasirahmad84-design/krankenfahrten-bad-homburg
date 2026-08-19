@@ -25,18 +25,20 @@ remote_root="${remote_root%/}/redaktion/"
 ftp_base="ftp://${FTP_HOST}${remote_root}"
 cockpit_url="${TEST_SITE_URL%/}/redaktion/"
 
-echo "Prüfe den Verzeichnisschutz vor dem Upload …"
-preflight_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "$cockpit_url")"
-if [[ "$preflight_status" != "401" ]]; then
-  echo "Abbruch: $cockpit_url liefert HTTP $preflight_status statt 401." >&2
-  echo "Richte zuerst im ALL-INKL-KAS einen Verzeichnisschutz für /redaktion/ ein." >&2
-  exit 1
-fi
-
 cd "$root_dir"
 npm run editorial:build
 npm run editorial:verify
+php -l out-editorial/index.php >/dev/null
+php -l out-editorial/lib/auth.php >/dev/null
+php -l out-editorial/content.php >/dev/null
+php tests/php/editorial-auth-test.php
 git diff --check
+
+config_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "${TEST_SITE_URL%/}/api/config.php")"
+if [[ "$config_status" != "403" ]]; then
+  echo "Abbruch: Die serverseitige API-Konfiguration liefert HTTP $config_status statt 403." >&2
+  exit 1
+fi
 
 upload_file() {
   local file="$1"
@@ -54,16 +56,43 @@ upload_file() {
 }
 
 echo "Übertrage ausschließlich das interne Redaktionscockpit …"
-while IFS= read -r -d '' file; do upload_file "$file"; done < <(find out-editorial -type f -print0)
+while IFS= read -r -d '' file; do upload_file "$file"; done < <(find out-editorial -type f ! -name '.htaccess' -print0)
+upload_file "out-editorial/.htaccess"
 
-postflight_headers="$(/usr/bin/curl --silent --show-error --dump-header - --output /dev/null --max-time 20 "$cockpit_url")"
-if ! printf '%s' "$postflight_headers" | /usr/bin/grep -Eiq '^HTTP/[^ ]+ 401'; then
-  echo "Abbruch: Der Verzeichnisschutz ist nach dem Upload nicht mehr aktiv." >&2
+login_response="$(/usr/bin/curl --silent --show-error --dump-header - --max-time 20 "$cockpit_url")"
+if ! printf '%s' "$login_response" | /usr/bin/grep -Eiq '^HTTP/[^ ]+ 200'; then
+  echo "Abbruch: Das Cockpit liefert nach dem Upload nicht HTTP 200." >&2
   exit 1
 fi
-if ! printf '%s' "$postflight_headers" | /usr/bin/grep -Eiq '^WWW-Authenticate: Basic'; then
-  echo "Abbruch: Der Server meldet keinen HTTP-Basic-Verzeichnisschutz." >&2
+if ! printf '%s' "$login_response" | /usr/bin/grep -Fq 'Redaktionscockpit öffnen'; then
+  echo "Abbruch: Die Loginansicht wurde nicht ausgeliefert." >&2
+  exit 1
+fi
+if ! printf '%s' "$login_response" | /usr/bin/grep -Eiq '^X-Robots-Tag: noindex, nofollow, noarchive'; then
+  echo "Abbruch: Der X-Robots-Tag des Cockpits fehlt." >&2
+  exit 1
+fi
+if printf '%s' "$login_response" | /usr/bin/grep -Fq 'Vorbereitete Ratgeberartikel'; then
+  echo "Abbruch: Artikelinhalte sind ohne Anmeldung sichtbar." >&2
   exit 1
 fi
 
-echo "Redaktionscockpit geschützt auf $cockpit_url veröffentlicht."
+for protected_path in content.php lib/auth.php; do
+  protected_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "${cockpit_url}${protected_path}")"
+  if [[ "$protected_status" != "403" ]]; then
+    echo "Abbruch: redaktion/$protected_path liefert HTTP $protected_status statt 403." >&2
+    exit 1
+  fi
+done
+
+article_response="$(/usr/bin/curl --silent --show-error --max-time 20 "${cockpit_url}artikel/krankenfahrt-anfragen-welche-angaben/")"
+if ! printf '%s' "$article_response" | /usr/bin/grep -Fq 'Redaktionscockpit öffnen'; then
+  echo "Abbruch: Ein Artikelpfad wird vor der Anmeldung nicht auf die Loginansicht beschränkt." >&2
+  exit 1
+fi
+if printf '%s' "$article_response" | /usr/bin/grep -Fq 'Welche Angaben werden benötigt'; then
+  echo "Abbruch: Ein Artikel ist ohne Anmeldung lesbar." >&2
+  exit 1
+fi
+
+echo "Redaktionscockpit mit Einmalcode-Login auf $cockpit_url veröffentlicht."

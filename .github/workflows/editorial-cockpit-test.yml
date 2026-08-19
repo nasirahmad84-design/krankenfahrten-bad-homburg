@@ -34,7 +34,7 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Geschütztes Redaktionscockpit übertragen
+      - name: Redaktionscockpit mit Einmalcode-Login übertragen
         run: npm run deploy:editorial:test
 
       - name: Ergebnis zusammenfassen
@@ -44,5 +44,6 @@ jobs:
             echo "## Redaktionscockpit"
             echo "- Ziel: ${TEST_SITE_URL%/}/redaktion/"
             echo "- Enthalten: vorbereitete Artikel, Quellen, Claims und Facebook-Entwürfe"
+            echo "- Zugang: serverseitiger Einmalcode an das hinterlegte interne Postfach"
             echo "- Produktion: nicht verändert"
           } >> "$GITHUB_STEP_SUMMARY"
