@@ -10,6 +10,7 @@ import {
   persistNoTopicRun,
   persistReviewedRun,
   requestJson,
+  reviewedOutputErrors,
 } from "./lib/blog-cloud.mjs";
 
 const root = process.cwd();
@@ -90,6 +91,7 @@ ANTWORTFORMAT
   "facebookDraft": "... {{ARTICLE_URL}} ..."
 }
 Nur wenn alle fünf Gates passed sind und kein Claim blocked ist, darf decision approved_for_publish sein. relatedServiceSlugs nur aus: ${context.serviceSlugs.join(", ")}.
+Formale Pflichtwerte: metadataTitle 25 bis 60 Zeichen, description 110 bis 160 Zeichen, mindestens drei summary-Punkte, mindestens drei Abschnitte, mindestens zwei FAQ und mindestens zwei Quellen.
 
 REDAKTIONELLE RICHTLINIE
 ${context.editorialPolicy}
@@ -108,7 +110,14 @@ ${JSON.stringify(writerResult)}`;
 
   console.log("Starte unabhängigen Quellen- und Claim-Review …");
   const reviewerResponse = await requestJson({ apiKey, model, instructions: reviewerInstructions, input: reviewerInput });
-  const reviewerResult = parseJsonOutput(reviewerResponse, "Reviewlauf");
+  let reviewerResult = parseJsonOutput(reviewerResponse, "Reviewlauf");
+  const formalErrors = reviewedOutputErrors(reviewerResult, context.serviceSlugs);
+  if (formalErrors.length > 0) {
+    console.log("Reviewer korrigiert einmalig formale Validatorfehler …");
+    const repairInput = `Korrigiere ausschließlich die folgenden formalen Validatorfehler in deinem geprüften Ergebnis. Verändere keine belegten Aussagen, Quellen, Freigabeentscheidung oder Gates ohne sachlichen Grund. Gib wieder ausschließlich das vollständige JSON-Objekt im zuvor verlangten Reviewformat zurück.\n\nFEHLER\n${formalErrors.map((error) => `- ${error}`).join("\n")}\n\nGEPRÜFTES ERGEBNIS\n${JSON.stringify(reviewerResult)}`;
+    const repairedResponse = await requestJson({ apiKey, model, instructions: reviewerInstructions, input: repairInput });
+    reviewerResult = parseJsonOutput(repairedResponse, "Reviewkorrektur");
+  }
   const result = persistReviewedRun(root, scheduledDate, writerResult, reviewerResult, context.serviceSlugs);
   githubOutput(result);
   console.log(`Review abgeschlossen: ${result.status} (${result.runId}).`);

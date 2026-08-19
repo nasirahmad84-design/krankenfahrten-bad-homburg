@@ -90,6 +90,14 @@ function writeJson(path, value) {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
+export function reviewedOutputErrors(reviewerResult, allowedServiceSlugs) {
+  const errors = validateArticle(reviewerResult?.article, "Review-Artikel");
+  const serviceSlugs = new Set(allowedServiceSlugs);
+  const unknownServices = (reviewerResult?.article?.relatedServiceSlugs ?? []).filter((slug) => !serviceSlugs.has(slug));
+  if (unknownServices.length) errors.push(`Unbekannte Leistungs-Slugs: ${unknownServices.join(", ")}`);
+  return errors;
+}
+
 export function persistNoTopicRun(root, scheduledDate, result) {
   const topic = ensureString(result?.topic || "Kein veröffentlichbares Thema", "Thema");
   const brief = ensureString(result?.researchBrief, "Recherchebrief", 80);
@@ -118,11 +126,8 @@ export function persistNoTopicRun(root, scheduledDate, result) {
 
 export function persistReviewedRun(root, scheduledDate, writerResult, reviewerResult, allowedServiceSlugs) {
   const article = reviewerResult?.article;
-  const articleErrors = validateArticle(article, "Review-Artikel");
+  const articleErrors = reviewedOutputErrors(reviewerResult, allowedServiceSlugs);
   if (articleErrors.length) throw new Error(articleErrors.join("\n"));
-  const serviceSlugs = new Set(allowedServiceSlugs);
-  const unknownServices = (article.relatedServiceSlugs ?? []).filter((slug) => !serviceSlugs.has(slug));
-  if (unknownServices.length) throw new Error(`Unbekannte Leistungs-Slugs: ${unknownServices.join(", ")}`);
 
   const publishedPath = resolve(root, "automation/blog/published", `${article.slug}.json`);
   if (existsSync(publishedPath)) throw new Error(`Der Artikel-Slug ist bereits veröffentlicht: ${article.slug}`);
