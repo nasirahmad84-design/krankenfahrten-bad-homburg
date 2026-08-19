@@ -12,6 +12,7 @@ const environmentGates = read("automation/blog/environment-gate-matrix.csv");
 const reviewerPrompt = read("automation/blog/prompts/review-and-test-publish.md");
 const routes = read("automation/blog/route-matrix.csv");
 const manualWorkflow = read(".github/workflows/blog-manual.yml");
+const cloudRunner = read("scripts/run-blog-cloud.mjs");
 
 test("trennt Recherche und Veröffentlichung in zwei Läufe", () => {
   assert.match(architecture, /Recherche und Entwurf/);
@@ -48,4 +49,9 @@ test("Cloud-MVP läuft nur manuell und deployt ausschließlich das geprüfte Blo
   assert.doesNotMatch(manualWorkflow, /npm test|verify:deployment|deploy:test|deploy:live/);
   assert.match(manualWorkflow, /OPENAI_API_KEY: \$\{\{ secrets\.OPENAI_API_KEY \}\}/);
   assert.match(manualWorkflow, /FTP_PASSWORD: \$\{\{ secrets\.FTP_PASSWORD \}\}/);
+});
+
+test("formale Reviewfehler lösen keinen dritten kostenpflichtigen KI-Aufruf aus", () => {
+  assert.match(cloudRunner, /Review blockiert; keine kostenpflichtige Reparatur ausgeführt/);
+  assert.doesNotMatch(cloudRunner, /Reviewkorrektur|repairedResponse|repairInput/);
 });

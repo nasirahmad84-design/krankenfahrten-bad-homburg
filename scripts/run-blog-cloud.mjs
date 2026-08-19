@@ -110,13 +110,10 @@ ${JSON.stringify(writerResult)}`;
 
   console.log("Starte unabhängigen Quellen- und Claim-Review …");
   const reviewerResponse = await requestJson({ apiKey, model, instructions: reviewerInstructions, input: reviewerInput });
-  let reviewerResult = parseJsonOutput(reviewerResponse, "Reviewlauf");
+  const reviewerResult = parseJsonOutput(reviewerResponse, "Reviewlauf");
   const formalErrors = reviewedOutputErrors(reviewerResult, context.serviceSlugs);
   if (formalErrors.length > 0) {
-    console.log("Reviewer korrigiert einmalig formale Validatorfehler …");
-    const repairInput = `Korrigiere ausschließlich die folgenden formalen Validatorfehler in deinem geprüften Ergebnis. Verändere keine belegten Aussagen, Quellen, Freigabeentscheidung oder Gates ohne sachlichen Grund. Gib wieder ausschließlich das vollständige JSON-Objekt im zuvor verlangten Reviewformat zurück.\n\nFEHLER\n${formalErrors.map((error) => `- ${error}`).join("\n")}\n\nGEPRÜFTES ERGEBNIS\n${JSON.stringify(reviewerResult)}`;
-    const repairedResponse = await requestJson({ apiKey, model, instructions: reviewerInstructions, input: repairInput });
-    reviewerResult = parseJsonOutput(repairedResponse, "Reviewkorrektur");
+    throw new Error(`Review blockiert; keine kostenpflichtige Reparatur ausgeführt:\n${formalErrors.join("\n")}`);
   }
   const result = persistReviewedRun(root, scheduledDate, writerResult, reviewerResult, context.serviceSlugs);
   githubOutput(result);
