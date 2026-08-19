@@ -38,5 +38,7 @@ jobs:
 
       - name: Websitebasis mit Ratgeber-Navigation auf Testdomain übertragen
         env:
-          DEPLOY_CONFIG_FILE: /dev/null
-        run: npm run deploy:test
+          DEPLOY_CONFIG_FILE: ${{ runner.temp }}/deploy.env
+        run: |
+          touch "$DEPLOY_CONFIG_FILE"
+          npm run deploy:test
