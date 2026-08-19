@@ -1,0 +1,65 @@
+name: Vollständiger Live-Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: full-live-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      FTP_HOST: ${{ vars.FTP_HOST }}
+      FTP_USER: ${{ vars.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      FTP_TEST_DIRECTORY: ${{ vars.FTP_TEST_DIRECTORY }}
+      FTP_LIVE_DIRECTORY: ${{ vars.FTP_LIVE_DIRECTORY }}
+      TEST_SITE_URL: ${{ vars.TEST_SITE_URL }}
+      LIVE_SITE_URL: ${{ vars.LIVE_SITE_URL }}
+      DEPLOY_LIVE_CONFIRM: JA
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v5
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      - name: Vollständigen geprüften Stand live veröffentlichen
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          trap 'rm -f .env.deploy.local' EXIT
+          umask 077
+          {
+            printf 'FTP_HOST=%q\n' "$FTP_HOST"
+            printf 'FTP_USER=%q\n' "$FTP_USER"
+            printf 'FTP_PASSWORD=%q\n' "$FTP_PASSWORD"
+            printf 'FTP_TEST_DIRECTORY=%q\n' "$FTP_TEST_DIRECTORY"
+            printf 'FTP_LIVE_DIRECTORY=%q\n' "$FTP_LIVE_DIRECTORY"
+            printf 'TEST_SITE_URL=%q\n' "$TEST_SITE_URL"
+            printf 'LIVE_SITE_URL=%q\n' "$LIVE_SITE_URL"
+          } > .env.deploy.local
+          npm run deploy:live
+
+      - name: Ergebnis zusammenfassen
+        if: always()
+        run: |
+          {
+            echo "## Vollständiger Live-Release"
+            echo "- Ziel: ${LIVE_SITE_URL}"
+            echo "- Commit: ${GITHUB_SHA}"
+            echo "- Serverseitige api/config.php wird vor dem Upload geprüft und nicht überschrieben."
+          } >> "$GITHUB_STEP_SUMMARY"
