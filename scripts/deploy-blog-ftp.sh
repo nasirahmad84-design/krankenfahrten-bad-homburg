@@ -15,20 +15,17 @@ if [[ ! "$slug" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
   echo "Ungültiger Artikel-Slug: $slug" >&2
   exit 2
 fi
-if [[ ! -f "$config_file" ]]; then
-  echo "Deployment-Konfiguration fehlt: $config_file" >&2
-  exit 2
+if [[ -f "$config_file" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$config_file"
+  set +a
 fi
-
-set -a
-# shellcheck disable=SC1090
-source "$config_file"
-set +a
 
 required_variables=(FTP_HOST FTP_USER FTP_PASSWORD FTP_TEST_DIRECTORY FTP_LIVE_DIRECTORY TEST_SITE_URL LIVE_SITE_URL)
 for variable in "${required_variables[@]}"; do
   if [[ -z "${!variable:-}" ]]; then
-    echo "Fehlender Wert in $config_file: $variable" >&2
+    echo "Fehlende Deployment-Variable: $variable (Umgebung oder $config_file)." >&2
     exit 2
   fi
 done

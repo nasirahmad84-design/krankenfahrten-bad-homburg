@@ -11,6 +11,7 @@ const editorialPolicy = read("automation/blog/editorial-policy.md");
 const environmentGates = read("automation/blog/environment-gate-matrix.csv");
 const reviewerPrompt = read("automation/blog/prompts/review-and-test-publish.md");
 const routes = read("automation/blog/route-matrix.csv");
+const manualWorkflow = read(".github/workflows/blog-manual.yml");
 
 test("trennt Recherche und Veröffentlichung in zwei Läufe", () => {
   assert.match(architecture, /Recherche und Entwurf/);
@@ -36,4 +37,15 @@ test("plant statische Ratgeberrouten ohne öffentliches Schreib-API", () => {
   assert.match(routes, /^\/ratgeber\/,/m);
   assert.match(routes, /^\/ratgeber\/\[slug\]\//m);
   assert.match(routes, /^\/api\/blog\/,Runtime-Endpunkt,no,none,rejected/m);
+});
+
+test("Cloud-MVP läuft nur manuell und deployt ausschließlich das geprüfte Blog-Delta", () => {
+  assert.match(manualWorkflow, /workflow_dispatch:/);
+  assert.doesNotMatch(manualWorkflow, /schedule:/);
+  assert.match(manualWorkflow, /npm run blog:cloud-run/);
+  assert.match(manualWorkflow, /npm run deploy:blog:test/);
+  assert.match(manualWorkflow, /npm run deploy:blog:live/);
+  assert.doesNotMatch(manualWorkflow, /npm test|verify:deployment|deploy:test|deploy:live/);
+  assert.match(manualWorkflow, /OPENAI_API_KEY: \$\{\{ secrets\.OPENAI_API_KEY \}\}/);
+  assert.match(manualWorkflow, /FTP_PASSWORD: \$\{\{ secrets\.FTP_PASSWORD \}\}/);
 });
