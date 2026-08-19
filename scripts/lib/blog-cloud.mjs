@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { basename, join, resolve } from "node:path";
 
 import { REQUIRED_CLAIM_HEADERS, validateArticle, validateRun } from "./blog-pipeline.mjs";
 
@@ -95,6 +96,38 @@ export function reviewedOutputErrors(reviewerResult, allowedServiceSlugs) {
   const serviceSlugs = new Set(allowedServiceSlugs);
   const unknownServices = (reviewerResult?.article?.relatedServiceSlugs ?? []).filter((slug) => !serviceSlugs.has(slug));
   if (unknownServices.length) errors.push(`Unbekannte Leistungs-Slugs: ${unknownServices.join(", ")}`);
+  if (errors.length > 0) return errors;
+
+  const directory = mkdtempSync(join(tmpdir(), "blog-review-preflight-"));
+  try {
+    const runId = basename(directory);
+    const article = reviewerResult.article;
+    const claims = normalizeClaims(reviewerResult?.claims, article.slug);
+    const gates = Object.fromEntries(REVIEW_GATES.map((gate) => [gate, reviewerResult?.[gate] === "passed" ? "passed" : "failed"]));
+    const approved = reviewerResult?.decision === "approved_for_publish"
+      && REVIEW_GATES.every((gate) => gates[gate] === "passed")
+      && claims.every((claim) => claim.status !== "blocked");
+    writeJson(join(directory, "article.json"), article);
+    writeFileSync(join(directory, "research-brief.md"), `${ensureString(reviewerResult?.researchBrief, "Recherchebrief", 80)}\n`, "utf8");
+    writeFileSync(join(directory, "claim-register.csv"), claimsToCsv(claims), "utf8");
+    writeFileSync(join(directory, "facebook-draft.md"), `${ensureString(reviewerResult?.facebookDraft, "Facebook-Entwurf", 80)}\n`, "utf8");
+    writeJson(join(directory, "run-status.json"), {
+      schemaVersion: 1,
+      runId,
+      scheduledDate: article.reviewedAt,
+      articleSlug: article.slug,
+      topic: reviewerResult?.topic || article.title,
+      status: approved ? "approved_for_publish" : "blocked",
+      ...gates,
+      livePublishing: false,
+      facebookPublishing: false,
+    });
+    errors.push(...validateRun(directory, { requirePublishable: approved }).errors);
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : String(error));
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
   return errors;
 }
 
