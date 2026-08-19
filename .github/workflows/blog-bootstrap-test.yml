@@ -36,11 +36,7 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Ratgeber-Export erstellen
-        run: npm run build
-
-      - name: Ratgeber-Export prüfen
-        run: npm run verify:blog-export -- krankenfahrt-oder-krankentransport-unterschied
-
-      - name: Ratgeber-Grundstruktur auf Testdomain übertragen
-        run: npm run deploy:blog:test -- krankenfahrt-oder-krankentransport-unterschied
+      - name: Websitebasis mit Ratgeber-Navigation auf Testdomain übertragen
+        env:
+          DEPLOY_CONFIG_FILE: /dev/null
+        run: npm run deploy:test
