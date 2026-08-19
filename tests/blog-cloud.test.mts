@@ -124,6 +124,10 @@ test("meldet formale Reviewfehler vor jeder Dateierzeugung", () => {
     reviewedOutputErrors({ ...reviewer, article: { ...reviewer.article, description: "zu kurz" } }, pilot.relatedServiceSlugs).join(" "),
     /description muss 110 bis 160 Zeichen lang sein/,
   );
+  assert.match(
+    reviewedOutputErrors({ ...reviewer, claims: reviewer.claims.slice(1) }, pilot.relatedServiceSlugs).join(" "),
+    /Artikelquelle ohne zugehörigen Claim/,
+  );
 });
 
 test("sendet den Schlüssel nur als Authorization-Header und fordert Websuche an", async () => {
