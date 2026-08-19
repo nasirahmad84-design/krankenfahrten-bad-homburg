@@ -1,32 +1,26 @@
-# Verbleibende Punkte nach BLOG-00
+# Verbleibende Punkte
 
-## Nicht blockierend für BLOG-01 und BLOG-02
+## Für den rechnerunabhängigen Blogbetrieb
 
-- Der öffentliche Bereich verwendet vorläufig die Bezeichnung **Ratgeber**. Diese ist verständlicher und vertrauenswürdiger als „Blog“.
-- Vorgeschlagene Laufzeiten sind 06:30 und 08:30 Uhr in `Europe/Berlin`. Sie können vor BLOG-03 geändert werden.
-- Artikel verwenden zunächst das bestehende Open-Graph-Motiv. Eigene Beitragsbilder sind kein MVP-Zwang.
-- RSS und E-Mail-Newsletter werden zurückgestellt.
+- privates Remote-Repository beziehungsweise anderer dauerhaft verfügbarer Cloud-Runner
+- sicher hinterlegter OpenAI-API-Schlüssel mit Kostenlimit
+- erneuerte und sicher hinterlegte FTPS-Zugangsdaten für Test- und Live-Verzeichnis
+- einmaliger manueller Cloud-Probelauf zur Prüfung der Zugangsdaten und Verzeichnisziele
 
-## Blockierend für BLOG-03
+Der Probelauf prüft die technische Konfiguration; er ist keine vierteilige redaktionelle Wartephase. Nach erfolgreicher Einrichtung kann jeder einzeln freigegebene Artikel im selben Lauf über Test nach Live gehen.
 
-- Die lokale Projektzuordnung für die Scheduled Tasks muss in der Desktop-App verfügbar sein.
-- Rechner und Desktop-App müssen montags und donnerstags während der Läufe eingeschaltet sein.
-- Ein manueller kompletter Recherche-/Review-/Testdeployment-Lauf muss bestanden sein.
-- Die lokale FTPS-Konfiguration muss für den Hintergrundlauf erreichbar bleiben, ohne Zugangsdaten ins Repository zu übernehmen.
+## Für Facebook
 
-## Blockierend für BLOG-04
-
-- Entscheidung nach mindestens vier erfolgreichen Testläufen, ob die Qualitätsgates für unbeaufsichtigtes Live-Publishing ausreichen.
-- verifizierter administrativer Zugriff auf die Facebook-Seite
-- Meta-App beziehungsweise geeigneter Veröffentlichungszugang, benötigte Seitenberechtigungen und ein sicher gespeichertes Page Access Token
-- praktische Prüfung der aktuellen Meta-Pages-API-Dokumentation; der offizielle Dokumentationsabruf war am 11. August 2026 wegen HTTP 429 nicht vollständig möglich
-- Datenschutzprüfung für die verwendete Plattformverbindung
-- Rollback- und Fehlerbenachrichtigung für bereits live veröffentlichte Beiträge
+- administrativer Zugriff auf die Facebook-Seite
+- geeigneter Veröffentlichungszugang und sicher gespeichertes Page Access Token
+- aktuelle Prüfung der benötigten Meta-Berechtigungen
+- Datenschutzprüfung der Plattformverbindung
 
 ## Bewusst nicht benötigt
 
-- kein OpenAI-API-Key für den nativen Codex-MVP
-- keine Datenbank
 - kein Node.js-Prozess bei ALL-INKL
-- kein ALL-INKL-Cronjob
-- keine Google-Search-Console- oder Analytics-Zugangsdaten für die Artikelerstellung
+- keine Datenbank
+- kein vollständiges Website-Deployment pro Artikel
+- keine globalen 49 Projektprüfungen pro Artikel
+- keine vier erfolgreichen Testveröffentlichungen vor Live
+- keine Google-Analytics- oder Search-Console-Zugangsdaten für die Artikelerstellung

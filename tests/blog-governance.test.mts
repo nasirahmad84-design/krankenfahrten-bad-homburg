@@ -9,12 +9,13 @@ const read = (path: string) => readFileSync(join(root, path), "utf8");
 const architecture = read("automation/blog/README.md");
 const editorialPolicy = read("automation/blog/editorial-policy.md");
 const environmentGates = read("automation/blog/environment-gate-matrix.csv");
+const reviewerPrompt = read("automation/blog/prompts/review-and-test-publish.md");
 const routes = read("automation/blog/route-matrix.csv");
 
 test("trennt Recherche und Veröffentlichung in zwei Läufe", () => {
   assert.match(architecture, /Recherche und Entwurf/);
-  assert.match(architecture, /Review und Veröffentlichung/);
-  assert.match(architecture, /ersten vier erfolgreichen Publikationsläufe.*Testdomain/s);
+  assert.match(architecture, /Claim- und Quellenprüfung/);
+  assert.match(architecture, /keine vier vorgeschalteten Testläufe/);
 });
 
 test("verhindert Ersatzartikel ohne hinreichende Evidenz", () => {
@@ -23,9 +24,12 @@ test("verhindert Ersatzartikel ohne hinreichende Evidenz", () => {
   assert.match(editorialPolicy, /`blocked` verhindert die Veröffentlichung/);
 });
 
-test("hält Live- und Facebook-Veröffentlichung bis BLOG-04 gesperrt", () => {
-  assert.match(environmentGates, /Deployment,deny,allow,allow,deny-until-BLOG-04,deny/);
-  assert.match(environmentGates, /Facebook-Veröffentlichung,deny,deny,n\/a,requires-success,deny-until-BLOG-04/);
+test("erlaubt ausschließlich den geprüften Blog-Delta-Release", () => {
+  assert.match(environmentGates, /Vollständiges Website-Deployment,deny,deny,deny,deny,deny/);
+  assert.match(environmentGates, /Blog-Delta deployen,deny,allow,allow,allow-after-test-smoke,deny/);
+  assert.match(reviewerPrompt, /npm run test:blog/);
+  assert.match(reviewerPrompt, /kein `npm test`/);
+  assert.match(reviewerPrompt, /keine vier Testläufe/);
 });
 
 test("plant statische Ratgeberrouten ohne öffentliches Schreib-API", () => {

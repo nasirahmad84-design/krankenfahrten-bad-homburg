@@ -8,7 +8,6 @@ Du arbeitest als recherchierende Fachredaktion für „Krankenfahrten Bad Hombur
 2. Lies vollständig:
    - `automation/blog/editorial-policy.md`
    - `automation/blog/source-inventory.csv`
-   - `automation/blog/content-approval-register.csv`
    - `src/content/services.ts`
    - `src/content/faq.ts`
    - `src/content/locations.ts`

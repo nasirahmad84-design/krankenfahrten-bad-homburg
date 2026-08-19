@@ -37,7 +37,7 @@ test("lässt nur getrennt geprüfte und vollständig belegte Läufe zur Übernah
         scheduledDate: "2026-08-11",
         articleSlug: pilot.slug,
         topic: pilot.title,
-        status: "approved_for_test",
+        status: "approved_for_publish",
         sourceGate: "passed",
         claimGate: "passed",
         serviceGate: "passed",
@@ -74,7 +74,8 @@ test("hält Recherchelauf und Reviewlauf technisch getrennt", () => {
   const writerPrompt = readFileSync(join(root, "automation/blog/prompts/research-and-draft.md"), "utf8");
   const reviewerPrompt = readFileSync(join(root, "automation/blog/prompts/review-and-test-publish.md"), "utf8");
   assert.match(writerPrompt, /weder öffentliche Blogdaten ändern noch committen oder deployen/);
-  assert.match(reviewerPrompt, /kein `deploy:live`/);
-  assert.match(reviewerPrompt, /kein Facebook-Post/);
-  assert.match(reviewerPrompt, /npm run blog:promote/);
+  assert.match(reviewerPrompt, /npm run deploy:blog:test/);
+  assert.match(reviewerPrompt, /npm run deploy:blog:live/);
+  assert.match(reviewerPrompt, /kein `npm run deploy:test` oder `npm run deploy:live`/);
+  assert.match(reviewerPrompt, /kein Facebook-Post vor erfolgreicher Live-URL/);
 });

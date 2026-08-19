@@ -3,11 +3,10 @@ import { basename, join } from "node:path";
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const PUBLISHABLE_STATUSES = new Set(["approved_for_test", "approved_for_live"]);
+const PUBLISHABLE_STATUSES = new Set(["approved_for_publish"]);
 const RUN_STATUSES = new Set([
   "draft_ready",
-  "approved_for_test",
-  "approved_for_live",
+  "approved_for_publish",
   "blocked",
   "rejected",
   "no_publishable_topic",
@@ -157,7 +156,7 @@ export function validateRun(runDirectory, { requirePublishable = false } = {}) {
   if (!RUN_STATUSES.has(status.status)) errors.push("run-status.json: unbekannter Status.");
   if (!DATE_PATTERN.test(status.scheduledDate ?? "")) errors.push("run-status.json: scheduledDate ist ungültig.");
   if (status.livePublishing !== false || status.facebookPublishing !== false) {
-    errors.push("run-status.json: Live- und Facebook-Veröffentlichung müssen im MVP deaktiviert sein.");
+    errors.push("run-status.json: Deployment und Facebook-Veröffentlichung werden ausschließlich vom kontrollierten Publisher gesteuert.");
   }
 
   if (status.status === "no_publishable_topic") {
@@ -209,7 +208,7 @@ export function validateRun(runDirectory, { requirePublishable = false } = {}) {
   }
 
   const publishable = PUBLISHABLE_STATUSES.has(status.status);
-  if (requirePublishable && !publishable) errors.push("Lauf ist nicht zur Test- oder Live-Veröffentlichung freigegeben.");
+  if (requirePublishable && !publishable) errors.push("Lauf ist nicht zur Veröffentlichung freigegeben.");
   if (publishable || requirePublishable) {
     for (const gate of GATES) {
       if (status[gate] !== "passed") errors.push(`run-status.json: ${gate} ist nicht bestanden.`);
