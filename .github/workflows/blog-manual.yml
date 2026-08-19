@@ -2,6 +2,12 @@ name: Manueller Cloud-Bloglauf
 
 on:
   workflow_dispatch:
+    inputs:
+      deploy_live:
+        description: "Freigegebenen Artikel nach der Testdomain auch live veröffentlichen"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -65,7 +71,7 @@ jobs:
         run: npm run deploy:blog:test -- "${{ steps.editorial.outputs.slug }}"
 
       - name: Gleiches Blog-Delta live veröffentlichen
-        if: steps.editorial.outputs.status == 'approved_for_publish'
+        if: steps.editorial.outputs.status == 'approved_for_publish' && inputs.deploy_live
         env:
           BLOG_DEPLOY_LIVE_CONFIRM: JA
         run: npm run deploy:blog:live -- "${{ steps.editorial.outputs.slug }}"
@@ -78,7 +84,8 @@ jobs:
             echo "- Status: ${{ steps.editorial.outputs.status || 'abgebrochen' }}"
             echo "- Run-ID: ${{ steps.editorial.outputs.run_id || 'nicht erzeugt' }}"
             if [[ "${{ steps.editorial.outputs.status }}" == "approved_for_publish" ]]; then
-              echo "- Live-URL: https://krankenfahrten-bad-homburg.de/ratgeber/${{ steps.editorial.outputs.slug }}/"
+              echo "- Test-URL: https://test.krankenfahrten-bad-homburg.de/ratgeber/${{ steps.editorial.outputs.slug }}/"
+              echo "- Live-Deployment: ${{ inputs.deploy_live }}"
             else
               echo "- Es wurde nichts veröffentlicht."
             fi
