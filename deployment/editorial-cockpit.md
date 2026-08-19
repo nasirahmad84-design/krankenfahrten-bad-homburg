@@ -18,7 +18,7 @@ Das Cockpit ist absichtlich nur lesend. Es besitzt keine Datenbank und keinen Fr
 
 ## Anmeldung
 
-Es gibt keinen KAS-Verzeichnisschutz und kein festes Cockpit-Passwort. Der Server versendet einen sechsstelligen Einmalcode ausschließlich an das in `api/config.php` fest hinterlegte interne Anfragepostfach. Das Cockpit verwendet dafür dieselbe serverseitige SMTP-Konfiguration und PHPMailer-Installation wie das Fahrtanfrageformular. SMTP-Zugangsdaten werden weder kopiert noch in den Cockpit-Export geschrieben.
+Es gibt keinen KAS-Verzeichnisschutz und kein festes Cockpit-Passwort. Der Server versendet einen sechsstelligen Einmalcode ausschließlich an die als GitHub-Secret `EDITORIAL_LOGIN_EMAIL` hinterlegte Redaktionsadresse. Der Deploymentlauf schreibt diese Adresse in die HTTP-gesperrte Serverdatei `redaktion/login-config.php`. Das Cockpit verwendet dieselbe serverseitige SMTP-Konfiguration und PHPMailer-Installation wie das Fahrtanfrageformular; dessen Empfänger bleibt unverändert. SMTP-Zugangsdaten werden weder kopiert noch in den Cockpit-Export geschrieben.
 
 - Codegültigkeit: 10 Minuten
 - höchstens fünf Prüfversuche pro Code
@@ -56,7 +56,7 @@ https://test.krankenfahrten-bad-homburg.de/redaktion/
 
 Der manuelle GitHub-Workflow heißt `Redaktionscockpit auf Testdomain`. Er verwendet die vorhandenen FTP-Variablen und das vorhandene `FTP_PASSWORD`-Secret. Es ist kein OpenAI-Schlüssel erforderlich.
 
-Der Deploymentprozess prüft vor dem Upload, dass `api/config.php` auf der Testdomain HTTP 403 liefert. Anschließend prüft er die Loginseite, den `X-Robots-Tag`, die Sperre von `content.php` und `lib/auth.php` sowie einen direkten Artikelaufruf ohne Sitzung. Eine echte Code-E-Mail wird dabei bewusst nicht ausgelöst.
+Der Deploymentprozess prüft vor dem Upload, dass `api/config.php` auf der Testdomain HTTP 403 liefert. Anschließend prüft er die Loginseite, den `X-Robots-Tag`, die Sperre von `content.php`, `login-config.php` und `lib/auth.php` sowie einen direkten Artikelaufruf ohne Sitzung. Eine echte Code-E-Mail wird dabei bewusst nicht ausgelöst.
 
 ## Sicherheitsgrenzen
 

@@ -45,7 +45,8 @@ test("schützt Inhalte mit serverseitigem Einmalcode-Login", () => {
   assert.match(auth, /random_int\(0, 999999\)/);
   assert.match(auth, /hash_hmac\('sha256'/);
   assert.match(auth, /SameSite|samesite/);
-  assert.ok(access.includes("content\\.php|lib"));
+  assert.ok(access.includes("content\\.php") && access.includes("lib(?:/|$)"));
+  assert.ok(access.includes("login-config\\.php"));
   assert.match(access, /Require all denied/);
   assert.doesNotMatch(controller, /localStorage|sessionStorage/);
   assert.equal(readdirSync(output, { recursive: true }).filter((path) => String(path).endsWith(".html")).length, 0);

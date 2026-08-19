@@ -48,6 +48,7 @@ $config = [
     'mail_to' => 'anfrage@krankenfahrten-bad-homburg.de',
     'mail_from' => 'anfrage@krankenfahrten-bad-homburg.de',
     'mail_from_name' => 'Krankenfahrten Bad Homburg',
+    'editorial_login_email' => 'redaktion@example.org',
     'rate_limit_salt' => $salt,
     'rate_limit_dir' => sys_get_temp_dir() . '/kfbh-editorial-test-' . bin2hex(random_bytes(4)),
 ];
@@ -57,7 +58,8 @@ $sent = editorial_send_login_code('246810', $config, static function (array $pay
     return true;
 });
 editorial_test($sent, 'Der injizierte Testversand muss gelingen.');
-editorial_test(($captured[0]['to'] ?? '') === $config['mail_to'], 'Der Empfänger muss fest aus der Serverkonfiguration stammen.');
+editorial_test(($captured[0]['to'] ?? '') === $config['editorial_login_email'], 'Der Loginempfänger muss getrennt und fest aus der Serverkonfiguration stammen.');
+editorial_test(($captured[0]['to'] ?? '') !== $config['mail_to'], 'Die Loginadresse darf den Empfänger von Fahrtanfragen nicht verändern.');
 editorial_test(str_contains((string) ($captured[0]['body'] ?? ''), '246810'), 'Die Nachricht muss den Einmalcode enthalten.');
 editorial_test(array_key_exists('reply_to', $captured[0]) && $captured[0]['reply_to'] === null, 'Die Loginmail darf kein fremdes Reply-To erhalten.');
 

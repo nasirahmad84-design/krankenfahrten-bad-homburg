@@ -150,7 +150,8 @@ function editorial_page_end(): void
 function editorial_render_login(?array $config, string $csrfToken, ?string $notice, ?string $error): void
 {
     editorial_page_start('Anmeldung', false, $csrfToken);
-    $recipient = $config !== null && is_string($config['mail_to'] ?? null) ? editorial_mask_email($config['mail_to']) : 'das hinterlegte Postfach';
+    $loginEmail = $config !== null ? editorial_login_email($config) : null;
+    $recipient = $loginEmail !== null ? editorial_mask_email($loginEmail) : 'das hinterlegte Postfach';
     $codePending = isset($_SESSION['otp_hash'], $_SESSION['otp_expires_at']) && is_int($_SESSION['otp_expires_at']) && $_SESSION['otp_expires_at'] >= time();
     ?>
     <section class="login-section">

@@ -132,7 +132,21 @@ function editorial_load_config(): ?array
     $path = editorial_api_path('config.php');
     if (!is_file($path)) return null;
     $config = require $path;
-    return is_array($config) ? $config : null;
+    if (!is_array($config)) return null;
+    $loginConfigPath = dirname(__DIR__) . '/login-config.php';
+    if (is_file($loginConfigPath)) {
+        $loginConfig = require $loginConfigPath;
+        if (is_array($loginConfig) && is_string($loginConfig['editorial_login_email'] ?? null)) {
+            $config['editorial_login_email'] = $loginConfig['editorial_login_email'];
+        }
+    }
+    return $config;
+}
+
+function editorial_login_email(array $config): ?string
+{
+    $email = $config['editorial_login_email'] ?? null;
+    return is_string($email) && filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : null;
 }
 
 function editorial_login_salt(array $config): ?string
@@ -166,9 +180,10 @@ function editorial_send_login_code(string $code, array $config, ?callable $sende
         require_once $mailPath;
     }
     $smtp = validated_smtp_config($config);
-    if ($smtp === null) return false;
+    $recipient = editorial_login_email($config);
+    if ($smtp === null || $recipient === null) return false;
     $payload = [
-        'to' => $smtp['mail_to'],
+        'to' => $recipient,
         'from' => $smtp['mail_from'],
         'from_name' => $smtp['mail_from_name'],
         'reply_to' => null,

@@ -12,7 +12,7 @@ if [[ -f "$config_file" ]]; then
   set +a
 fi
 
-required_variables=(FTP_HOST FTP_USER FTP_PASSWORD FTP_TEST_DIRECTORY TEST_SITE_URL)
+required_variables=(FTP_HOST FTP_USER FTP_PASSWORD FTP_TEST_DIRECTORY TEST_SITE_URL EDITORIAL_LOGIN_EMAIL)
 for variable in "${required_variables[@]}"; do
   if [[ -z "${!variable:-}" ]]; then
     echo "Fehlende Deployment-Variable: $variable (Umgebung oder $config_file)." >&2
@@ -33,6 +33,17 @@ php -l out-editorial/lib/auth.php >/dev/null
 php -l out-editorial/content.php >/dev/null
 php tests/php/editorial-auth-test.php
 git diff --check
+
+if ! php -r 'exit(filter_var($argv[1], FILTER_VALIDATE_EMAIL) ? 0 : 1);' "$EDITORIAL_LOGIN_EMAIL"; then
+  echo "Abbruch: EDITORIAL_LOGIN_EMAIL ist keine gültige E-Mail-Adresse." >&2
+  exit 1
+fi
+EDITORIAL_LOGIN_EMAIL_VALUE="$EDITORIAL_LOGIN_EMAIL" node -e '
+  const { writeFileSync } = require("node:fs");
+  const email = process.env.EDITORIAL_LOGIN_EMAIL_VALUE;
+  writeFileSync("out-editorial/login-config.php", `<?php\ndeclare(strict_types=1);\n\nreturn [\n    "editorial_login_email" => ${JSON.stringify(email)},\n];\n`, { mode: 0o600 });
+'
+php -l out-editorial/login-config.php >/dev/null
 
 config_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "${TEST_SITE_URL%/}/api/config.php")"
 if [[ "$config_status" != "403" ]]; then
@@ -77,7 +88,7 @@ if printf '%s' "$login_response" | /usr/bin/grep -Fq 'Vorbereitete Ratgeberartik
   exit 1
 fi
 
-for protected_path in content.php lib/auth.php; do
+for protected_path in content.php login-config.php lib/auth.php; do
   protected_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "${cockpit_url}${protected_path}")"
   if [[ "$protected_status" != "403" ]]; then
     echo "Abbruch: redaktion/$protected_path liefert HTTP $protected_status statt 403." >&2

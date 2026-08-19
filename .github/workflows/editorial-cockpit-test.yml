@@ -20,6 +20,7 @@ jobs:
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
       FTP_TEST_DIRECTORY: ${{ vars.FTP_TEST_DIRECTORY }}
       TEST_SITE_URL: ${{ vars.TEST_SITE_URL }}
+      EDITORIAL_LOGIN_EMAIL: ${{ secrets.EDITORIAL_LOGIN_EMAIL }}
 
     steps:
       - name: Repository laden
