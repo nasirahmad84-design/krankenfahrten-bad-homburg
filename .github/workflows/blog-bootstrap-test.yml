@@ -36,9 +36,46 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Websitebasis mit Ratgeber-Navigation auf Testdomain übertragen
-        env:
-          DEPLOY_CONFIG_FILE: ${{ runner.temp }}/deploy.env
+      - name: Statischen Export erstellen und prüfen
         run: |
-          touch "$DEPLOY_CONFIG_FILE"
-          npm run deploy:test
+          npm run build
+          npm run verify:blog-export -- krankenfahrt-oder-krankentransport-unterschied
+
+      - name: Seitenbasis mit Ratgeber-Navigation gezielt übertragen
+        run: |
+          set -Eeuo pipefail
+          remote_directory="/${FTP_TEST_DIRECTORY#/}"
+          remote_directory="${remote_directory%/}/"
+          ftp_base="ftp://${FTP_HOST}${remote_directory}"
+
+          upload_file() {
+            local file="$1"
+            local relative_path="${file#out/}"
+            local encoded_path
+            encoded_path="$(RELATIVE_PATH="$relative_path" node -e 'process.stdout.write(process.env.RELATIVE_PATH.split("/").map(encodeURIComponent).join("/"))')"
+            curl --silent --show-error --fail \
+              --tls-max 1.2 --ssl-reqd --ftp-ssl-control --ftp-create-dirs --ftp-pasv \
+              --retry 3 --retry-all-errors --retry-delay 2 \
+              --user "${FTP_USER}:${FTP_PASSWORD}" \
+              --upload-file "$file" \
+              "${ftp_base}${encoded_path}"
+          }
+
+          while IFS= read -r -d '' file; do
+            upload_file "$file"
+          done < <(find out -type f \( -name '*.html' -o -name '__next*.txt' \) -print0)
+
+          upload_file out/sitemap.xml
+
+      - name: Testdomain prüfen
+        run: |
+          set -Eeuo pipefail
+          hub="${TEST_SITE_URL%/}/ratgeber/"
+          article="${TEST_SITE_URL%/}/ratgeber/krankenfahrt-oder-krankentransport-unterschied/"
+          draft="${TEST_SITE_URL%/}/ratgeber/krankenfahrt-anfragen-welche-angaben/"
+
+          curl --silent --show-error --fail --location "$hub" | grep -Fq 'Krankenfahrten verständlich erklärt'
+          curl --silent --show-error --fail --location "$article" | grep -Fq 'Krankenfahrt oder Krankentransport'
+          curl --silent --show-error --fail --location "${TEST_SITE_URL%/}/" | grep -Fq 'href="/ratgeber"'
+          curl --silent --show-error --head "$hub" | grep -Eiq '^x-robots-tag: noindex, nofollow, noarchive'
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' "$draft")" = '404'
