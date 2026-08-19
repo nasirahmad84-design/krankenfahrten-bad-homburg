@@ -55,13 +55,16 @@ test("Queue-Workflow läuft montags und donnerstags ohne bezahlten KI-Aufruf", (
   assert.ok(manualWorkflow.indexOf("Blog-Delta auf Testdomain veröffentlichen") < manualWorkflow.indexOf("Erfolgreich getesteten Inhalt dokumentieren"));
 });
 
-test("Vier-Wochen-Vorlauf bleibt bis zur Betreiberfreigabe ein Entwurf", () => {
+test("dokumentiert sieben Betreiberfreigaben und hält Muster 4 zurück", () => {
   const calendarRows = editorialCalendar.trim().split("\n").slice(1);
   const approvalRows = approvalRegister.trim().split("\n").slice(1);
   assert.equal(calendarRows.length, 8);
   assert.equal(approvalRows.length, 8);
-  assert.ok(calendarRows.every((row) => row.endsWith(",draft_ready")));
-  assert.ok(approvalRows.every((row) => row.includes(",pending,,2026-09-17,")));
+  assert.equal(calendarRows.filter((row) => row.endsWith(",approved_for_publish")).length, 7);
+  assert.equal(calendarRows.filter((row) => row.endsWith(",draft_ready")).length, 1);
+  assert.match(calendarRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,draft_ready$/);
+  assert.equal(approvalRows.filter((row) => row.includes(",approved,2026-08-19,2026-09-17,")).length, 7);
+  assert.match(approvalRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,pending,,2026-09-17,/);
 });
 
 test("formale Reviewfehler lösen keinen dritten kostenpflichtigen KI-Aufruf aus", () => {

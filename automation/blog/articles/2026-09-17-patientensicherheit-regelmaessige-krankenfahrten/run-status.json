@@ -5,7 +5,7 @@
   "articleSlug": "patientensicherheit-regelmaessige-krankenfahrten",
   "topic": "Welttag der Patientensicherheit 2026: Fahrten verlässlich abstimmen",
   "whyNow": "Erscheinung exakt am Welttag der Patientensicherheit 2026 mit engem Bezug zu wiederkehrenden Fahrten.",
-  "status": "draft_ready",
+  "status": "approved_for_publish",
   "sourceGate": "passed",
   "claimGate": "passed",
   "serviceGate": "passed",
@@ -13,7 +13,7 @@
   "seoGate": "passed",
   "livePublishing": false,
   "facebookPublishing": false,
-  "approvedAt": null,
+  "approvedAt": "2026-08-19",
   "revalidateAfter": "2026-09-17",
-  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+  "reviewNotes": "Vom Betreiber am 19.08.2026 zur geplanten Veröffentlichung freigegeben; WHO-Aktionstag und Quellen vor Veröffentlichung erneut prüfen."
 }

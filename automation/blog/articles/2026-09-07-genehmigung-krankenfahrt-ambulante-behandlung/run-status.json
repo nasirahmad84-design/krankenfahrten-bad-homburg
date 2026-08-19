@@ -5,7 +5,7 @@
   "articleSlug": "genehmigung-krankenfahrt-ambulante-behandlung",
   "topic": "Krankenfahrt zur ambulanten Behandlung: Wann ist eine Genehmigung nötig?",
   "whyNow": "Vertieft vor dem Kostenbeitrag die häufigste versicherungsrechtliche Rückfrage.",
-  "status": "draft_ready",
+  "status": "approved_for_publish",
   "sourceGate": "passed",
   "claimGate": "passed",
   "serviceGate": "passed",
@@ -13,7 +13,7 @@
   "seoGate": "passed",
   "livePublishing": false,
   "facebookPublishing": false,
-  "approvedAt": null,
+  "approvedAt": "2026-08-19",
   "revalidateAfter": "2026-09-17",
-  "reviewNotes": "Redaktionell vorbereitet; Betreiberfreigabe und Aktualitätsprüfung vor Veröffentlichung stehen aus."
+  "reviewNotes": "Vom Betreiber am 19.08.2026 zur geplanten Veröffentlichung freigegeben; Aktualitätsprüfung vor Veröffentlichung bleibt erforderlich."
 }

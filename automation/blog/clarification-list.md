@@ -2,9 +2,9 @@
 
 ## Vor Aktivierung des Queue-Runners
 
-- ausdrückliche Betreiberfreigabe der acht vorbereiteten Beiträge im Content-Approval-Register
+- Entscheidung und Betreiberfreigabe für den Muster-4-Beitrag nach Klärung der geplanten Abbildung
 - Aktualitätsprüfung der Primärquellen unmittelbar vor der jeweiligen Freigabe
-- Umstellung der freigegebenen Läufe von `draft_ready` auf `approved_for_publish` mit `approvedAt`
+- sieben Betreiberfreigaben sind als `approved_for_publish` mit `approvedAt` dokumentiert
 - Entscheidung, ob `BLOG_QUEUE_LIVE_ENABLED` nach dem Testdomain-Smoke-Test aktiviert werden darf
 - erneute Prüfung, dass der GitHub-Workflow bis zu dieser Entscheidung deaktiviert bleibt
 

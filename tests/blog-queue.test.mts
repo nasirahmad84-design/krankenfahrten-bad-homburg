@@ -106,9 +106,8 @@ test("blockiert abgelaufene oder doppelt terminierte Freigaben", () => {
   }
 });
 
-test("die vorbereiteten acht Artikel bleiben für den Publisher unsichtbar", () => {
-  const dates = ["2026-08-24", "2026-08-27", "2026-08-31", "2026-09-03", "2026-09-07", "2026-09-10", "2026-09-14", "2026-09-17"];
-  for (const publicationDate of dates) {
-    assert.equal(selectScheduledRun(projectRoot, publicationDate).status, "no_scheduled_article");
-  }
+test("stellt sieben freigegebene Artikel bereit und hält Muster 4 zurück", () => {
+  const approvedDates = ["2026-08-24", "2026-08-31", "2026-09-03", "2026-09-07", "2026-09-10", "2026-09-14", "2026-09-17"];
+  for (const publicationDate of approvedDates) assert.equal(selectScheduledRun(projectRoot, publicationDate).status, "ready");
+  assert.equal(selectScheduledRun(projectRoot, "2026-08-27").status, "no_scheduled_article");
 });

@@ -87,4 +87,4 @@ Der Workflow benötigt keinen `OPENAI_API_KEY`. Das frühere API-Experiment blei
 
 ## Vier-Wochen-Vorlauf
 
-Der aktuelle Redaktionsplan liegt in `automation/blog/editorial-calendar.csv`. Alle acht Beiträge sind als `draft_ready` vorbereitet. `automation/blog/content-approval-register.csv` dokumentiert, dass die ausdrückliche Betreiberfreigabe noch aussteht. Erst nach dieser Freigabe werden Status und `approvedAt` gesetzt; vor jeder Veröffentlichung schützt `revalidateAfter` zusätzlich vor veralteten Angaben.
+Der aktuelle Redaktionsplan liegt in `automation/blog/editorial-calendar.csv`. Sieben Beiträge wurden am 19.08.2026 durch den Betreiber als `approved_for_publish` freigegeben. Der Beitrag zu Muster 4 bleibt bis zur Entscheidung über eine erklärende Abbildung als `draft_ready` gesperrt. `automation/blog/content-approval-register.csv` dokumentiert den jeweiligen Stand; vor jeder Veröffentlichung schützt `revalidateAfter` zusätzlich vor veralteten Angaben.
