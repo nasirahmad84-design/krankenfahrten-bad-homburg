@@ -70,6 +70,15 @@ Nach diesem Smoke-Test darf derselbe Blog-Delta ohne Warteperiode live veröffen
 - Git dokumentiert nur die tatsächlich veröffentlichten Inhaltsänderungen; ein zusätzliches Laufregister ist nicht erforderlich.
 - Zugangsdaten bleiben außerhalb des Repositorys in Secret- oder lokaler Deployment-Konfiguration.
 
-## Automatisierungsumgebung
+## Manueller Cloud-MVP
 
-Für einen rechnerunabhängigen Betrieb wird der Prozess später in einem Cloud-Runner ausgeführt. Der Runner benötigt Zugriff auf Repository, OpenAI API und FTPS-Secrets. Die fachlichen und technischen Bloggates bleiben identisch, unabhängig vom verwendeten Runner.
+`.github/workflows/blog-manual.yml` stellt den ersten rechnerunabhängigen End-to-End-Lauf bereit. Er wird zunächst ausschließlich manuell in GitHub Actions gestartet:
+
+1. `scripts/run-blog-cloud.mjs` beauftragt eine recherchierende Redaktion über die OpenAI Responses API mit aktiviertem Web-Suchwerkzeug.
+2. Ein zweiter, vollständig neuer API-Aufruf prüft Quellen, Claims, Leistungsgrenzen, sensible Aussagen und SEO unabhängig und kann den Lauf blockieren.
+3. Nur `approved_for_publish` startet `blog:prepare-release`, den Testdomain-Smoke-Test und anschließend das Live-Deployment desselben Blog-Deltas.
+4. `blocked` und `no_publishable_topic` veröffentlichen nichts. Es gibt keinen automatisch erzeugten Ersatzartikel.
+
+Der Workflow besitzt noch keinen Zeitplan und keine Facebook-Veröffentlichung. Beides wird erst nach einem erfolgreichen manuellen Cloud-Lauf ergänzt. Das Modell ist für den MVP fest auf `gpt-5-mini` gesetzt; der API-Schlüssel und das FTP-Passwort liegen ausschließlich als GitHub-Secrets vor. Deployment-Werte ohne Geheimnis liegen als GitHub-Variablen vor. Die Responses werden mit `store: false` angefordert.
+
+Der Cloud-Lauf verwendet weder die globale Testsuite noch ein vollständiges Website-Deployment. Der statische Build bleibt nur die technisch unvermeidbare Erzeugungsstufe für die neuen Ratgeberdateien.
