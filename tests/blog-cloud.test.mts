@@ -12,6 +12,7 @@ import {
   persistNoTopicRun,
   persistReviewedRun,
   requestJson,
+  reviewedOutputErrors,
 } from "../scripts/lib/blog-cloud.mjs";
 
 const projectRoot = process.cwd();
@@ -114,6 +115,15 @@ test("gibt nur einen vollständig bestandenen unabhängigen Review frei", () => 
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+test("meldet formale Reviewfehler vor jeder Dateierzeugung", () => {
+  const { reviewer } = reviewedFixture();
+  assert.deepEqual(reviewedOutputErrors(reviewer, pilot.relatedServiceSlugs), []);
+  assert.match(
+    reviewedOutputErrors({ ...reviewer, article: { ...reviewer.article, description: "zu kurz" } }, pilot.relatedServiceSlugs).join(" "),
+    /description muss 110 bis 160 Zeichen lang sein/,
+  );
 });
 
 test("sendet den Schlüssel nur als Authorization-Header und fordert Websuche an", async () => {
