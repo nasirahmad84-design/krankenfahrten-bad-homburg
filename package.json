@@ -27,7 +27,8 @@
     "deploy:live": "bash scripts/deploy-ftp.sh live",
     "deploy:blog:test": "bash scripts/deploy-blog-ftp.sh test",
     "deploy:blog:live": "bash scripts/deploy-blog-ftp.sh live",
-    "deploy:editorial:test": "bash scripts/deploy-editorial-ftp.sh"
+    "deploy:editorial:test": "bash scripts/deploy-editorial-ftp.sh",
+    "deploy:blog-alert": "bash scripts/deploy-blog-alert-ftp.sh"
   },
   "dependencies": {
     "next": "16.2.10",

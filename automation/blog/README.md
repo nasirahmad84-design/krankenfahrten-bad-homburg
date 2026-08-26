@@ -87,4 +87,8 @@ Der Workflow benötigt keinen `OPENAI_API_KEY`. Das frühere API-Experiment blei
 
 ## Vier-Wochen-Vorlauf
 
-Der aktuelle Redaktionsplan liegt in `automation/blog/editorial-calendar.csv`. Sieben Beiträge wurden am 19.08.2026 durch den Betreiber als `approved_for_publish` freigegeben. Der Beitrag zu Muster 4 bleibt bis zur Entscheidung über eine erklärende Abbildung als `draft_ready` gesperrt. `automation/blog/content-approval-register.csv` dokumentiert den jeweiligen Stand; vor jeder Veröffentlichung schützt `revalidateAfter` zusätzlich vor veralteten Angaben.
+Der aktuelle Redaktionsplan liegt in `automation/blog/editorial-calendar.csv`. Alle acht vorbereiteten Beiträge sind durch den Betreiber als `approved_for_publish` freigegeben. Der Beitrag zu Muster 4 wird ohne eine unfreigegebene Formularabbildung veröffentlicht. `automation/blog/content-approval-register.csv` dokumentiert den jeweiligen Stand; vor jeder Veröffentlichung schützt `revalidateAfter` zusätzlich vor veralteten Angaben.
+
+## Fehleralarm
+
+Der getrennte Workflow `.github/workflows/blog-failure-alert.yml` reagiert auf jedes nicht erfolgreiche Ende des Queue-Publishers – einschließlich Abbruch und Zeitüberschreitung. Er sendet ausschließlich technische Laufdaten an den token-geschützten Endpunkt `/api/blog-alert.php`. Der Endpunkt verwendet die vorhandene serverseitige SMTP-Konfiguration und verschickt eine Textmail an die geschützte interne Alarmadresse. SMTP-Passwort, Alarmtoken und Empfängeradresse werden weder im Repository noch im öffentlichen Export gespeichert.

@@ -5,7 +5,7 @@
   "articleSlug": "muster-4-krankenbefoerderung",
   "topic": "Muster 4: Die Verordnung einer Krankenbeförderung verstehen",
   "whyNow": "Baut unmittelbar auf dem Anfrage-Artikel auf und klärt die wichtigste Unterlage vor planbaren Fahrten.",
-  "status": "draft_ready",
+  "status": "approved_for_publish",
   "sourceGate": "passed",
   "claimGate": "passed",
   "serviceGate": "passed",
@@ -13,7 +13,7 @@
   "seoGate": "passed",
   "livePublishing": false,
   "facebookPublishing": false,
-  "approvedAt": null,
+  "approvedAt": "2026-08-26",
   "revalidateAfter": "2026-09-17",
-  "reviewNotes": "Inhaltlich geprüft; Betreiberentscheidung zur erklärenden Muster-4-Abbildung und anschließende Freigabe stehen aus."
+  "reviewNotes": "Vom Betreiber am 26.08.2026 zur geplanten Veröffentlichung freigegeben; Veröffentlichung ohne unfreigegebene Formularabbildung."
 }

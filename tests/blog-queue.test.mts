@@ -106,8 +106,8 @@ test("blockiert abgelaufene oder doppelt terminierte Freigaben", () => {
   }
 });
 
-test("stellt sieben freigegebene Artikel bereit und hält Muster 4 zurück", () => {
-  const approvedDates = ["2026-08-24", "2026-08-31", "2026-09-03", "2026-09-07", "2026-09-10", "2026-09-14", "2026-09-17"];
+test("stellt alle acht freigegebenen Artikel zum geplanten Datum bereit", () => {
+  const approvedDates = ["2026-08-24", "2026-08-27", "2026-08-31", "2026-09-03", "2026-09-07", "2026-09-10", "2026-09-14", "2026-09-17"];
   for (const publicationDate of approvedDates) {
     const runDirectory = readdirSync(join(projectRoot, "automation/blog/articles"))
       .find((directory) => directory.startsWith(`${publicationDate}-`));
@@ -116,5 +116,4 @@ test("stellt sieben freigegebene Artikel bereit und hält Muster 4 zurück", () 
     const alreadyPublished = existsSync(join(projectRoot, "automation/blog/published", `${runStatus.articleSlug}.json`));
     assert.equal(selectScheduledRun(projectRoot, publicationDate).status, alreadyPublished ? "no_scheduled_article" : "ready");
   }
-  assert.equal(selectScheduledRun(projectRoot, "2026-08-27").status, "no_scheduled_article");
 });

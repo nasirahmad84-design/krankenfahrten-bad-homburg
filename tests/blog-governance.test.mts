@@ -59,16 +59,27 @@ test("Queue-Workflow läuft montags und donnerstags ohne bezahlten KI-Aufruf", (
   assert.ok(liveDeployment < documentation);
 });
 
-test("dokumentiert sieben Betreiberfreigaben und hält Muster 4 zurück", () => {
+test("dokumentiert die Betreiberfreigabe für alle acht vorbereiteten Beiträge", () => {
   const calendarRows = editorialCalendar.trim().split("\n").slice(1);
   const approvalRows = approvalRegister.trim().split("\n").slice(1);
   assert.equal(calendarRows.length, 8);
   assert.equal(approvalRows.length, 8);
-  assert.equal(calendarRows.filter((row) => row.endsWith(",approved_for_publish")).length, 7);
-  assert.equal(calendarRows.filter((row) => row.endsWith(",draft_ready")).length, 1);
-  assert.match(calendarRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,draft_ready$/);
+  assert.equal(calendarRows.filter((row) => row.endsWith(",approved_for_publish")).length, 8);
+  assert.equal(calendarRows.filter((row) => row.endsWith(",draft_ready")).length, 0);
+  assert.match(calendarRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,approved_for_publish$/);
   assert.equal(approvalRows.filter((row) => row.includes(",approved,2026-08-19,2026-09-17,")).length, 7);
-  assert.match(approvalRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,pending,,2026-09-17,/);
+  assert.match(approvalRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,approved,2026-08-26,2026-09-17,/);
+});
+
+test("alarmiert bei jedem nicht erfolgreichen Ende des Queue-Publishers", () => {
+  const alertWorkflow = read(".github/workflows/blog-failure-alert.yml");
+  const alertEndpoint = read("public/api/blog-alert.php");
+  assert.match(alertWorkflow, /workflow_run:/);
+  assert.match(alertWorkflow, /conclusion != 'success'/);
+  assert.match(alertWorkflow, /secrets\.BLOG_ALERT_TOKEN/);
+  assert.match(alertWorkflow, /scripts\/send-blog-alert\.sh/);
+  assert.match(alertEndpoint, /HTTP_X_BLOG_ALERT_TOKEN/);
+  assert.match(alertEndpoint, /\.blog-alert-config\.php/);
 });
 
 test("formale Reviewfehler lösen keinen dritten kostenpflichtigen KI-Aufruf aus", () => {

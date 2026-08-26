@@ -1,5 +1,5 @@
 source_id,type,title,location_or_url,sha256,authority,allowed_use,reviewed_at,status
-LOCAL-001,local,Package- und Buildkonfiguration,package.json,2fa57bd603efc6264372e5c0ba34d95af591deba1946dde5844c865f5d60f58b,project,architecture,2026-08-19,verified
+LOCAL-001,local,Package- und Buildkonfiguration,package.json,05d4cc0836b3e222655a14d45f3bf9dd52f5ddef5bdffe4dd33caae90e26c187,project,architecture,2026-08-26,verified
 LOCAL-002,local,FTPS-Deploymentstrecke,scripts/deploy-ftp.sh,3bfa7388fb56770cfd62e999c22be285fa5abc3e1061e8cd7d932a750069b747,project,deployment,2026-08-11,verified
 LOCAL-003,local,Bestätigte Leistungen,src/content/services.ts,d84f6020a3336dc02305f4811907250c1f59ee982e484d8875ac13ad011cd94e,operator-approved,service-claims,2026-08-11,verified
 LOCAL-004,local,Bestätigte FAQ,src/content/faq.ts,9e589c5a5628c7974222e832014fc5ee4de6b454a392abe6da3b95af6fca1ef1,operator-approved,service-claims,2026-08-11,verified

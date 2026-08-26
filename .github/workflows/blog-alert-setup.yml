@@ -1,0 +1,33 @@
+name: Blog-Alarmierung installieren
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blog-alert-setup
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FTP_HOST: ${{ vars.FTP_HOST }}
+      FTP_USER: ${{ vars.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      FTP_TEST_DIRECTORY: ${{ vars.FTP_TEST_DIRECTORY }}
+      FTP_LIVE_DIRECTORY: ${{ vars.FTP_LIVE_DIRECTORY }}
+      TEST_SITE_URL: ${{ vars.TEST_SITE_URL }}
+      LIVE_SITE_URL: ${{ vars.LIVE_SITE_URL }}
+      BLOG_ALERT_TOKEN: ${{ secrets.BLOG_ALERT_TOKEN }}
+      EDITORIAL_LOGIN_EMAIL: ${{ secrets.EDITORIAL_LOGIN_EMAIL }}
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v5
+
+      - name: Alarm-Endpunkt installieren und Testmail senden
+        run: bash scripts/deploy-blog-alert-ftp.sh

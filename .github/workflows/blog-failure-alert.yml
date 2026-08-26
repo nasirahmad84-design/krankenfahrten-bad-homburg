@@ -1,0 +1,32 @@
+name: Blog-Publisher-Fehleralarm
+
+on:
+  workflow_run:
+    workflows: ["Geplanter Blog-Queue-Release"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: github.event.workflow_run.conclusion != 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      LIVE_SITE_URL: ${{ vars.LIVE_SITE_URL }}
+      BLOG_ALERT_TOKEN: ${{ secrets.BLOG_ALERT_TOKEN }}
+      BLOG_ALERT_REPOSITORY: ${{ github.repository }}
+      BLOG_ALERT_WORKFLOW: ${{ github.event.workflow_run.name }}
+      BLOG_ALERT_RUN_URL: ${{ github.event.workflow_run.html_url }}
+      BLOG_ALERT_RUN_ID: ${{ github.event.workflow_run.id }}
+      BLOG_ALERT_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+      BLOG_ALERT_EVENT_NAME: ${{ github.event.workflow_run.event }}
+      BLOG_ALERT_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v5
+
+      - name: Fehlgeschlagene Veröffentlichung per E-Mail melden
+        run: bash scripts/send-blog-alert.sh

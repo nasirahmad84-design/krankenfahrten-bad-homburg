@@ -37,11 +37,13 @@ const requiredFiles = [
   "sitemap.xml",
   ".htaccess",
   "api/fahrtanfrage.php",
+  "api/blog-alert.php",
   "api/config.example.php",
   "api/lib/validation.php",
   "api/lib/security.php",
   "api/lib/calendar.php",
   "api/lib/mail.php",
+  "api/lib/blog-alert.php",
   "api/vendor/autoload.php",
   "api/vendor/.htaccess",
   "api/vendor/composer/installed.json",
@@ -70,6 +72,7 @@ for (const [file, width, height, maxBytes] of websiteImages) {
 }
 
 assert.ok(!existsSync(join(out, "api/config.php")), "api/config.php darf nicht im Build-Paket liegen.");
+assert.ok(!existsSync(join(out, "api/.blog-alert-config.php")), "Die produktive Blog-Alarmkonfiguration darf nicht im Build-Paket liegen.");
 assert.ok(!existsSync(join(out, "icons")), "Der auf ALL-INKL reservierte Icon-Ordner darf nicht verwendet werden.");
 assert.ok(!existsSync(join(out, "staging.htaccess.example")), "Staging-Regeln dürfen nicht im Produktionspaket liegen.");
 assert.ok(!existsSync(join(out, "api/vendor/phpunit")), "Composer-Entwicklungsabhängigkeit im Upload-Paket.");

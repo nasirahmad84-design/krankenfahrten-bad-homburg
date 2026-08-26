@@ -325,6 +325,8 @@ BLOG-01 stellt den öffentlichen Bereich unter `/ratgeber/` und statisch generie
 
 Der rechnerunabhängige Queue-Publisher liegt in `.github/workflows/blog-manual.yml`. Er plant montags und donnerstags ausschließlich bereits redaktionell vorbereitete und ausdrücklich freigegebene Beiträge ein. Zum Veröffentlichungszeitpunkt findet kein bezahlter KI-Aufruf statt. Die Live-Übertragung ist nach Betreiberfreigabe über `BLOG_QUEUE_LIVE_ENABLED` aktiviert. Voraussetzung ist, dass die Ratgeber-Basis einmal über den vollständigen Live-Release auf der Produktionsdomain bereitgestellt wurde. Facebook ist noch nicht automatisiert.
 
+Fehlgeschlagene, abgebrochene oder zeitüberschrittene Publisher-Läufe werden durch `.github/workflows/blog-failure-alert.yml` überwacht. Der Monitor übermittelt nur technische Laufdaten an den token-geschützten ALL-INKL-Endpunkt `/api/blog-alert.php`; dort wird über die vorhandene SMTP-Konfiguration eine interne Alarmmail versendet. Die Einrichtung beziehungsweise Tokenrotation erfolgt ausschließlich manuell über `.github/workflows/blog-alert-setup.yml`. Alarmtoken, Empfängeradresse und SMTP-Zugangsdaten bleiben außerhalb des Repositorys.
+
 ## Geschütztes Redaktionscockpit
 
 `npm run editorial:build` erzeugt aus den vorbereiteten Artikelläufen eine vollständig separate interne PHP-Anwendung unter `out-editorial/`. Nach Anmeldung stellt sie Artikeltext, Termine, Status, Quellen, Recherchebrief, Claim-Prüfung und Facebook-Entwurf lesbar dar. `npm run editorial:verify` prüft Vollständigkeit, Loginarchitektur, Secret-Ausschluss und die Trennung vom öffentlichen `out/`-Paket.
