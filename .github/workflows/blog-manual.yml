@@ -20,7 +20,7 @@ concurrency:
 jobs:
   publish-approved-queue-item:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       BLOG_PUBLICATION_DATE: ${{ inputs.publication_date }}
       FTP_HOST: ${{ vars.FTP_HOST }}
@@ -58,8 +58,14 @@ jobs:
         if: steps.queue.outputs.status == 'ready'
         run: npm run deploy:blog:test -- "${{ steps.queue.outputs.slug }}"
 
-      - name: Erfolgreich getesteten Inhalt dokumentieren
-        if: steps.queue.outputs.status == 'ready'
+      - name: Gleiches Blog-Delta live veröffentlichen
+        if: steps.queue.outputs.status == 'ready' && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
+        env:
+          BLOG_DEPLOY_LIVE_CONFIRM: JA
+        run: npm run deploy:blog:live -- "${{ steps.queue.outputs.slug }}"
+
+      - name: Erfolgreich live veröffentlichten Inhalt dokumentieren
+        if: steps.queue.outputs.status == 'ready' && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
         run: |
           git config user.name "krankenfahrten-blog-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -68,12 +74,6 @@ jobs:
           git diff --cached --check
           git commit -m "feat: publish guide ${{ steps.queue.outputs.slug }}"
           git push origin HEAD:main
-
-      - name: Gleiches Blog-Delta live veröffentlichen
-        if: steps.queue.outputs.status == 'ready' && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
-        env:
-          BLOG_DEPLOY_LIVE_CONFIRM: JA
-        run: npm run deploy:blog:live -- "${{ steps.queue.outputs.slug }}"
 
       - name: Ergebnis zusammenfassen
         if: always()

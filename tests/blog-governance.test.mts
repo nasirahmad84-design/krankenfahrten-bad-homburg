@@ -52,7 +52,11 @@ test("Queue-Workflow läuft montags und donnerstags ohne bezahlten KI-Aufruf", (
   assert.doesNotMatch(manualWorkflow, /OPENAI_API_KEY|blog:cloud-run/);
   assert.doesNotMatch(manualWorkflow, /npm test|verify:deployment|deploy:test|deploy:live/);
   assert.match(manualWorkflow, /FTP_PASSWORD: \$\{\{ secrets\.FTP_PASSWORD \}\}/);
-  assert.ok(manualWorkflow.indexOf("Blog-Delta auf Testdomain veröffentlichen") < manualWorkflow.indexOf("Erfolgreich getesteten Inhalt dokumentieren"));
+  const testDeployment = manualWorkflow.indexOf("Blog-Delta auf Testdomain veröffentlichen");
+  const liveDeployment = manualWorkflow.indexOf("Gleiches Blog-Delta live veröffentlichen");
+  const documentation = manualWorkflow.indexOf("Erfolgreich live veröffentlichten Inhalt dokumentieren");
+  assert.ok(testDeployment < liveDeployment);
+  assert.ok(liveDeployment < documentation);
 });
 
 test("dokumentiert sieben Betreiberfreigaben und hält Muster 4 zurück", () => {

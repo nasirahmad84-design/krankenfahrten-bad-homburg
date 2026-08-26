@@ -23,7 +23,10 @@ test("veröffentlicht nur vollständig belegte Ratgeberdaten", () => {
 });
 
 test("grenzt den Pilotbeitrag vom qualifizierten Krankentransport ab", () => {
-  const post = publishedBlogPosts[0];
+  const post = publishedBlogPosts.find(
+    ({ slug }) => slug === "krankenfahrt-oder-krankentransport-unterschied",
+  );
+  assert.ok(post, "Der Pilotbeitrag fehlt in den veröffentlichten Ratgeberdaten.");
   const text = JSON.stringify(post);
   assert.match(text, /keine medizinisch-fachliche Betreuung/);
   assert.match(text, /ausschließlich planbare sitzende Krankenfahrten/);

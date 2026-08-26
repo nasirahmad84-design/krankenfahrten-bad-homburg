@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -8,12 +8,19 @@ import { generatedPublishedBlogPosts } from "../src/content/generated-blog-posts
 import { parseCsv, validateArticle, validateRun } from "../scripts/lib/blog-pipeline.mjs";
 
 const root = process.cwd();
-const pilotPath = join(root, "automation/blog/published/krankenfahrt-oder-krankentransport-unterschied.json");
+const publishedDirectory = join(root, "automation/blog/published");
+const pilotPath = join(publishedDirectory, "krankenfahrt-oder-krankentransport-unterschied.json");
 const pilot = JSON.parse(readFileSync(pilotPath, "utf8"));
 
 test("erzeugt öffentliche Ratgeberdaten ausschließlich aus validierten JSON-Dateien", () => {
-  assert.deepEqual(generatedPublishedBlogPosts, [pilot]);
-  assert.deepEqual(validateArticle(pilot), []);
+  const publishedPosts = readdirSync(publishedDirectory)
+    .filter((file) => file.endsWith(".json"))
+    .sort()
+    .map((file) => JSON.parse(readFileSync(join(publishedDirectory, file), "utf8")))
+    .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt) || left.slug.localeCompare(right.slug));
+
+  assert.deepEqual(generatedPublishedBlogPosts, publishedPosts);
+  for (const post of publishedPosts) assert.deepEqual(validateArticle(post), []);
 });
 
 test("verarbeitet korrekt maskierte CSV-Claims", () => {
