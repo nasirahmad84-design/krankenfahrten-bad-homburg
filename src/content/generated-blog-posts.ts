@@ -1,6 +1,112 @@
 // Automatisch aus automation/blog/published/*.json erzeugt. Nicht manuell bearbeiten.
 export const generatedPublishedBlogPosts = [
   {
+    "slug": "muster-4-krankenbefoerderung",
+    "title": "Muster 4: Die Verordnung einer Krankenbeförderung verstehen",
+    "metadataTitle": "Muster 4 für Krankenfahrten einfach erklärt",
+    "description": "Was steht auf Muster 4, wer stellt die Verordnung aus und wann kann eine Genehmigung nötig sein? Ein verständlicher Überblick für Fahrgäste.",
+    "format": "Ratgeber",
+    "publishedAt": "2026-08-27",
+    "updatedAt": "2026-08-27",
+    "reviewedAt": "2026-08-19",
+    "readingTimeMinutes": 5,
+    "intro": "Muster 4 ist die ärztliche Verordnung einer Krankenbeförderung. Das Formular dokumentiert unter anderem den Anlass, das erforderliche Beförderungsmittel und mögliche medizinische Anforderungen. Es ist jedoch keine pauschale Zusage, dass jede angegebene Fahrt von der Krankenkasse bezahlt wird.",
+    "summary": [
+      "Muster 4 wird verwendet, wenn eine Krankenbeförderung medizinisch notwendig verordnet wird.",
+      "Die Verordnung bezeichnet Anlass, Beförderungsmittel und gegebenenfalls notwendige Zusatzanforderungen.",
+      "Ob vor der Fahrt eine Genehmigung nötig ist, hängt vom Behandlungsanlass und den persönlichen Voraussetzungen ab."
+    ],
+    "sections": [
+      {
+        "id": "bedeutung",
+        "title": "Was ist Muster 4?",
+        "paragraphs": [
+          "Ärztinnen, Ärzte und weitere verordnungsberechtigte Behandelnde nutzen Muster 4, wenn eine Krankenbeförderung medizinisch notwendig ist. Die Verordnung unterscheidet den Grund der Fahrt und das erforderliche Beförderungsmittel.",
+          "Taxi oder Mietwagen kommen als Krankenfahrt infrage, wenn keine medizinisch-fachliche Betreuung und keine besondere Einrichtung eines Krankentransportwagens erforderlich sind. Diese fachliche Auswahl trifft nicht der Fahrdienst."
+        ],
+        "sourceIds": [
+          "KBV-KRANKENBEFOERDERUNG",
+          "KBV-MUSTER-ERLAEUTERUNGEN"
+        ]
+      },
+      {
+        "id": "angaben",
+        "title": "Welche Angaben sind für die Fahrt wichtig?",
+        "paragraphs": [
+          "Für die organisatorische Abstimmung sind vor allem Behandlungsort, Termin, Fahrtanlass sowie das verordnete Beförderungsmittel relevant. Prüfen Sie, ob die Angaben lesbar sind und zur geplanten Fahrt passen.",
+          "Ändert sich der Termin oder das Ziel, sollte vor der Fahrt geklärt werden, ob die vorhandene Verordnung weiterhin passt. Der Fahrdienst darf unklare medizinische oder versicherungsrechtliche Angaben nicht eigenständig ersetzen."
+        ],
+        "sourceIds": [
+          "KBV-MUSTER-ERLAEUTERUNGEN"
+        ]
+      },
+      {
+        "id": "genehmigung",
+        "title": "Verordnung ist nicht immer gleich Genehmigung",
+        "paragraphs": [
+          "Bei bestimmten Fahrten ist keine vorherige Genehmigung der Krankenkasse erforderlich, etwa bei medizinisch notwendigen Fahrten zu einer stationären Behandlung. Bei ambulanten Behandlungen besteht dagegen häufig ein Genehmigungsvorbehalt, zugleich gibt es klar definierte Ausnahmen.",
+          "Lassen Sie sich im Zweifel von der verordnenden Stelle und Ihrer Krankenkasse bestätigen, ob die Verordnung vor Fahrtbeginn genehmigt werden muss. Eine allgemeine Antwort für alle Fälle wäre irreführend."
+        ],
+        "sourceIds": [
+          "GBA-KRANKENBEFOERDERUNG",
+          "KBV-KRANKENBEFOERDERUNG"
+        ]
+      },
+      {
+        "id": "vorlage",
+        "title": "Was sollte vor der ersten Fahrt vorliegen?",
+        "paragraphs": [
+          "Halten Sie die vollständig ausgefüllte Verordnung und – falls erforderlich – die Genehmigung der Krankenkasse bereit. Stimmen Sie anschließend Termin, Abholadresse, Ziel und Rückfahrt mit dem Fahrdienst ab.",
+          "Auch mit Verordnung bleibt eine konkrete Fahrtanfrage zunächst unverbindlich, bis der Fahrdienst sie ausdrücklich bestätigt hat."
+        ],
+        "sourceIds": [
+          "GBA-KRANKENBEFOERDERUNG"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Ist Muster 4 ein Transportschein?",
+        "answer": "Im Alltag wird die Verordnung häufig Transportschein genannt. Die offizielle Bezeichnung lautet Verordnung einer Krankenbeförderung, Muster 4."
+      },
+      {
+        "question": "Bedeutet eine Verordnung automatisch Kostenübernahme?",
+        "answer": "Nein. Je nach Fahrt und persönlicher Voraussetzung kann zusätzlich eine Genehmigung erforderlich sein. Die Krankenkasse entscheidet über die Kostenübernahme."
+      },
+      {
+        "question": "Wer entscheidet über Taxi oder Krankentransportwagen?",
+        "answer": "Das notwendige Beförderungsmittel wird anhand des medizinischen Bedarfs verordnet. Der Fahrdienst ersetzt diese fachliche Entscheidung nicht."
+      }
+    ],
+    "sources": [
+      {
+        "id": "KBV-KRANKENBEFOERDERUNG",
+        "title": "Krankenbeförderung",
+        "publisher": "Kassenärztliche Bundesvereinigung",
+        "url": "https://www.kbv.de/praxis/verordnungen/krankenbefoerderung",
+        "checkedAt": "2026-08-19"
+      },
+      {
+        "id": "KBV-MUSTER-ERLAEUTERUNGEN",
+        "title": "Erläuterungen zur Vordruckvereinbarung – Muster 4",
+        "publisher": "Kassenärztliche Bundesvereinigung",
+        "url": "https://www.kbv.de/documents/infothek/rechtsquellen/bundesmantelvertrag/anlage-02-vordruckvereinbarung/02_Erlaeuterungen.pdf",
+        "checkedAt": "2026-08-19"
+      },
+      {
+        "id": "GBA-KRANKENBEFOERDERUNG",
+        "title": "Krankenbeförderung",
+        "publisher": "Gemeinsamer Bundesausschuss",
+        "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+        "checkedAt": "2026-08-19"
+      }
+    ],
+    "relatedServiceSlugs": [
+      "sitzende-krankenfahrten",
+      "arzt-klinikfahrten"
+    ]
+  },
+  {
     "slug": "krankenfahrt-anfragen-welche-angaben",
     "title": "Krankenfahrt anfragen: Welche Angaben werden benötigt?",
     "metadataTitle": "Krankenfahrt anfragen: Diese Angaben helfen",
