@@ -1,6 +1,105 @@
 // Automatisch aus automation/blog/published/*.json erzeugt. Nicht manuell bearbeiten.
 export const generatedPublishedBlogPosts = [
   {
+    "slug": "dialysefahrten-als-serienfahrt-planen",
+    "title": "Dialysefahrten als Terminserie vorausschauend planen",
+    "metadataTitle": "Dialysefahrten als Terminserie planen",
+    "description": "Regelmäßige Dialysefahrten werden einfacher, wenn Termine, Rückfahrten und Änderungen früh abgestimmt sind. Das sollten Fahrgäste beachten.",
+    "format": "Ratgeber",
+    "publishedAt": "2026-08-31",
+    "updatedAt": "2026-08-31",
+    "reviewedAt": "2026-08-19",
+    "readingTimeMinutes": 5,
+    "intro": "Dialysebehandlungen finden häufig wiederkehrend statt. Eine Terminserie kann die Organisation erleichtern, wenn feste Behandlungstage, Abholadressen und Rückfahrten frühzeitig abgestimmt werden. Jede einzelne Fahrt bleibt dennoch von Verfügbarkeit und Bestätigung abhängig.",
+    "summary": [
+      "Dialyse gehört zu den hochfrequenten ambulanten Behandlungen, für die eine Krankenfahrt verordnet werden kann.",
+      "Die Verordnung muss bei solchen Fahrten grundsätzlich vorab der Krankenkasse zur Genehmigung vorgelegt werden.",
+      "Eine Terminserie hilft bei der Planung, ersetzt aber nicht die Bestätigung jeder einzelnen Fahrt und kurzfristiger Änderungen."
+    ],
+    "sections": [
+      {
+        "id": "serienfahrt",
+        "title": "Warum eine Terminserie sinnvoll ist",
+        "paragraphs": [
+          "Wiederkehrende Behandlungstage lassen sich besser koordinieren, wenn Wochentage, Behandlungsbeginn, Abholadresse und Ziel vollständig vorliegen. Auch der Rückfahrtbedarf sollte von Anfang an besprochen werden.",
+          "Krankenfahrten Bad Homburg kann regelmäßige sitzende Dialysefahrten als Serie abstimmen. Die Serie garantiert jedoch keine unbegrenzte Kapazität; nur ausdrücklich bestätigte Termine sind verbindlich."
+        ],
+        "sourceIds": [
+          "KBV-KRANKENBEFOERDERUNG",
+          "GBA-KRANKENBEFOERDERUNG"
+        ]
+      },
+      {
+        "id": "verordnung",
+        "title": "Verordnung und Genehmigung bei Dialysefahrten",
+        "paragraphs": [
+          "Die KBV nennt Dialysebehandlungen ausdrücklich als hochfrequente ambulante Behandlung, für die eine Krankenfahrt verordnet werden kann. Die Verordnung ist der Krankenkasse vor der Fahrt zur Genehmigung vorzulegen.",
+          "Die konkrete Kostenübernahme bleibt eine Entscheidung der Krankenkasse. Deshalb sollten Verordnung und Genehmigung möglichst vor Beginn der Terminserie geklärt sein."
+        ],
+        "sourceIds": [
+          "KBV-KRANKENBEFOERDERUNG",
+          "GBA-KRANKENBEFOERDERUNG"
+        ]
+      },
+      {
+        "id": "aenderungen",
+        "title": "Änderungen möglichst früh mitteilen",
+        "paragraphs": [
+          "Behandlungszeiten können sich verschieben. Teilen Sie Terminänderungen, Ausfälle oder einen geänderten Abholort möglichst früh mit. Der Fahrdienst prüft anschließend, ob die angepasste Fahrt verfügbar ist und neu bestätigt werden kann.",
+          "Für die Rückfahrt sollte geklärt sein, ob eine feste Zeit realistisch ist oder eine telefonische Abstimmung benötigt wird. Eine nicht vereinbarte Wartezeit kann nicht vorausgesetzt werden."
+        ],
+        "sourceIds": [
+          "KBV-KRANKENBEFOERDERUNG"
+        ]
+      },
+      {
+        "id": "grenzen",
+        "title": "Leistungsgrenzen vor der ersten Fahrt klären",
+        "paragraphs": [
+          "Der angebotene Fahrdienst ist für Menschen bestimmt, die während der Fahrt sitzen können. Hilfe beim Ein- und Aussteigen sowie eine Begleitung bis zur Anmeldung können abgestimmt werden.",
+          "Medizinische Betreuung oder Überwachung während der Fahrt sowie Rollstuhl-, Tragestuhl- und Liegendtransporte gehören nicht zum Angebot. Ändert sich der Unterstützungsbedarf, muss vor der nächsten Fahrt geprüft werden, welches Beförderungsmittel medizinisch geeignet ist."
+        ],
+        "sourceIds": [
+          "GBA-KRANKENBEFOERDERUNG"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Können Dialysefahrten regelmäßig gebucht werden?",
+        "answer": "Sie können als Terminserie angefragt und abgestimmt werden. Jede einzelne Fahrt bleibt von Verfügbarkeit und ausdrücklicher Bestätigung abhängig."
+      },
+      {
+        "question": "Braucht eine Dialysefahrt eine Genehmigung?",
+        "answer": "Bei verordneten Dialysefahrten zur ambulanten Behandlung ist nach den KBV-Informationen eine vorherige Genehmigung der Krankenkasse erforderlich."
+      },
+      {
+        "question": "Was passiert bei einer geänderten Behandlungszeit?",
+        "answer": "Informieren Sie den Fahrdienst möglichst früh. Die neue Zeit muss erneut auf Verfügbarkeit geprüft und bestätigt werden."
+      }
+    ],
+    "sources": [
+      {
+        "id": "KBV-KRANKENBEFOERDERUNG",
+        "title": "Krankenbeförderung",
+        "publisher": "Kassenärztliche Bundesvereinigung",
+        "url": "https://www.kbv.de/praxis/verordnungen/krankenbefoerderung",
+        "checkedAt": "2026-08-19"
+      },
+      {
+        "id": "GBA-KRANKENBEFOERDERUNG",
+        "title": "Krankenbeförderung",
+        "publisher": "Gemeinsamer Bundesausschuss",
+        "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+        "checkedAt": "2026-08-19"
+      }
+    ],
+    "relatedServiceSlugs": [
+      "dialysefahrten",
+      "serienfahrten"
+    ]
+  },
+  {
     "slug": "muster-4-krankenbefoerderung",
     "title": "Muster 4: Die Verordnung einer Krankenbeförderung verstehen",
     "metadataTitle": "Muster 4 für Krankenfahrten einfach erklärt",
