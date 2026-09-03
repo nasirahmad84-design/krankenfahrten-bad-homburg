@@ -1,0 +1,99 @@
+{
+  "slug": "krankenfahrt-nach-krankenhausentlassung",
+  "title": "Krankenfahrt nach der Krankenhausentlassung organisieren",
+  "metadataTitle": "Entlassungsfahrt aus dem Krankenhaus planen",
+  "description": "Abholort, Zeitfenster, Gepäck und Verordnung: So lässt sich eine sitzende Fahrt nach der Krankenhausentlassung verlässlich abstimmen.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-09-03",
+  "updatedAt": "2026-09-03",
+  "reviewedAt": "2026-08-19",
+  "readingTimeMinutes": 5,
+  "intro": "Der Entlassungstag ist oft mit vielen Absprachen verbunden. Für eine sitzende Heimfahrt helfen ein klarer Abholpunkt, eine erreichbare Kontaktperson und ein realistisches Zeitfenster. Krankenhäuser können im Rahmen des Entlassmanagements unter bestimmten Voraussetzungen auch eine Krankenbeförderung verordnen.",
+  "summary": [
+    "Krankenhäuser können Krankenbeförderung im Rahmen des Entlassmanagements verordnen.",
+    "Entlassungszeiten können sich ändern; deshalb sollte ein erreichbarer Kontakt für die Abstimmung benannt werden.",
+    "Der angebotene Dienst übernimmt nur sitzende Fahrten ohne medizinische Betreuung oder besondere Transportausstattung."
+  ],
+  "sections": [
+    {
+      "id": "entlassmanagement",
+      "title": "Verordnung im Entlassmanagement",
+      "paragraphs": [
+        "Der Gemeinsame Bundesausschuss weist darauf hin, dass Krankenhäuser im Rahmen des Entlassmanagements eine Krankenbeförderung verordnen können. Ob dies im konkreten Fall medizinisch notwendig ist und welches Beförderungsmittel benötigt wird, klärt das Krankenhaus.",
+        "Eine Verordnung sollte vor der Abholung vollständig vorliegen. Die Regelungen zur Genehmigung unterscheiden sich nach Behandlungszusammenhang und Beförderungsart; bei Unsicherheit ist die Krankenkasse einzubeziehen."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG",
+        "KBV-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "abholort",
+      "title": "Abholort und Kontaktperson eindeutig festlegen",
+      "paragraphs": [
+        "Nennen Sie Klinik, Gebäude, Station und den vereinbarten Ausgang oder Abholpunkt so genau wie möglich. Eine Mobilnummer der entlassenen Person oder einer begleitenden Kontaktperson erleichtert die Abstimmung, wenn sich Abläufe verschieben.",
+        "Die Fahrt gilt erst nach ausdrücklicher Bestätigung als vereinbart. Ändert sich das Zeitfenster, muss die neue Abholzeit auf Verfügbarkeit geprüft werden."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "sitzfaehigkeit",
+      "title": "Vorher klären, ob eine sitzende Fahrt geeignet ist",
+      "paragraphs": [
+        "Krankenfahrten Bad Homburg befördert ausschließlich Menschen, die während der Fahrt sitzen können. Hilfe beim Ein- und Aussteigen und Begleitung bis zu einem vereinbarten Ziel können abgestimmt werden.",
+        "Ist medizinisch-fachliche Betreuung, besondere Lagerung oder spezielle Fahrzeugausstattung erforderlich, muss ein Krankentransport oder anderes geeignetes Beförderungsmittel organisiert werden. Diese Entscheidung sollte das medizinische Personal treffen."
+      ],
+      "sourceIds": [
+        "GBA-KRANKENBEFOERDERUNG",
+        "KBV-KRANKENBEFOERDERUNG"
+      ]
+    },
+    {
+      "id": "gepaeck",
+      "title": "Gepäck und Zieladresse mit angeben",
+      "paragraphs": [
+        "Übliches Gepäck kann nach vorheriger Abstimmung berücksichtigt werden. Teilen Sie Umfang und besondere Gegenstände vorab mit, damit geprüft werden kann, ob sie sicher untergebracht werden können.",
+        "Neben der vollständigen Zieladresse sollte auch geklärt sein, welche Unterstützung dort vereinbart ist. Eine medizinische oder pflegerische Übergabe gehört nicht automatisch zur Fahrleistung."
+      ],
+      "sourceIds": [
+        "KBV-KRANKENBEFOERDERUNG"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Kann das Krankenhaus eine Krankenfahrt verordnen?",
+      "answer": "Ja. Im Rahmen des Entlassmanagements kann das Krankenhaus unter den geltenden Voraussetzungen eine Krankenbeförderung verordnen."
+    },
+    {
+      "question": "Was passiert, wenn sich die Entlassungszeit verschiebt?",
+      "answer": "Teilen Sie die Änderung sofort mit. Die neue Abholzeit muss erneut geprüft und ausdrücklich bestätigt werden."
+    },
+    {
+      "question": "Sind Liegendfahrten nach der Entlassung möglich?",
+      "answer": "Nein. Krankenfahrten Bad Homburg bietet ausschließlich sitzende Fahrten ohne medizinische Betreuung oder Überwachung an."
+    }
+  ],
+  "sources": [
+    {
+      "id": "GBA-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Gemeinsamer Bundesausschuss",
+      "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
+      "checkedAt": "2026-08-19"
+    },
+    {
+      "id": "KBV-KRANKENBEFOERDERUNG",
+      "title": "Krankenbeförderung",
+      "publisher": "Kassenärztliche Bundesvereinigung",
+      "url": "https://www.kbv.de/praxis/verordnungen/krankenbefoerderung",
+      "checkedAt": "2026-08-19"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "entlassungsfahrten",
+    "arzt-klinikfahrten"
+  ]
+}
