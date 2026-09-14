@@ -1,6 +1,7 @@
 "use client";
 
 import { siteConfig } from "@/lib/site-config";
+import { analyticsPageContext } from "./analytics-page-context.ts";
 
 export type AnalyticsConsent = "granted" | "denied" | "unset";
 
@@ -61,6 +62,9 @@ export function initializeGoogleAnalytics() {
     return;
   }
 
+  const context = analyticsPageContext(window.location.href, document.referrer);
+  if (!context) return;
+
   window.dataLayer = window.dataLayer ?? [];
   window.gtag = window.gtag ?? function gtag() {
     // Google Tag expects the native arguments object in the dataLayer queue.
@@ -76,6 +80,7 @@ export function initializeGoogleAnalytics() {
   window.gtag("set", "ads_data_redaction", true);
   window.gtag("js", new Date());
   window.gtag("config", siteConfig.analytics.measurementId, {
+    ...context,
     send_page_view: false,
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
@@ -93,10 +98,12 @@ export function initializeGoogleAnalytics() {
 
 export function trackPageView(pathname: string) {
   if (!canTrack()) return;
+  const context = analyticsPageContext(window.location.href, document.referrer);
+  if (!context || context.page_path !== pathname) return;
+  window.gtag?.("set", context);
   window.gtag?.("event", "page_view", {
     page_title: document.title,
-    page_location: `${window.location.origin}${pathname}`,
-    page_path: pathname,
+    ...context,
   });
 }
 
@@ -104,12 +111,15 @@ export function trackAnalyticsEvent(
   eventName: "generate_lead" | "click_phone" | "click_whatsapp" | "click_google_review",
 ) {
   if (!canTrack()) return;
-  window.gtag?.("event", eventName, { transport_type: "beacon" });
+  const context = analyticsPageContext(window.location.href, document.referrer);
+  if (!context) return;
+  window.gtag?.("event", eventName, { transport_type: "beacon", ...context });
 }
 
 function canTrack() {
   return (
     typeof window !== "undefined" &&
+    analyticsPageContext(window.location.href) !== null &&
     getAnalyticsConsent() === "granted" &&
     window.__kfbhAnalyticsInitialized === true
   );

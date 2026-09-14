@@ -132,8 +132,8 @@ test("meldet formale Reviewfehler vor jeder Dateierzeugung", () => {
 
 test("sendet den Schlüssel nur als Authorization-Header und fordert Websuche an", async () => {
   let request: { url?: string; options?: RequestInit } = {};
-  const fetchImpl = async (url: string, options: RequestInit) => {
-    request = { url, options };
+  const fetchImpl: typeof fetch = async (url, options) => {
+    request = { url: String(url), options };
     return new Response(JSON.stringify({ output_text: '{"ok":true}' }), { status: 200, headers: { "Content-Type": "application/json" } });
   };
   await requestJson({ apiKey: "test-secret", instructions: "Gib JSON zurück.", input: "Test", fetchImpl });

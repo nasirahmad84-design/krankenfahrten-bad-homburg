@@ -20,7 +20,7 @@ test("erzeugt eine separate lesbare Datenbasis für jeden vorbereiteten Artikel"
   assert.equal(content.runs.length, articleRuns.length);
   for (const entry of articleRuns) {
     const article = JSON.parse(readFileSync(resolve(root, "automation/blog/articles", entry.name, "article.json"), "utf8"));
-    const run = content.runs.find((candidate) => candidate.article.slug === article.slug);
+    const run = content.runs.find((candidate: { article: { slug: string } }) => candidate.article.slug === article.slug);
     assert.ok(run);
     assert.equal(run.article.title, article.title);
     assert.ok(run.claims.length > 0);
