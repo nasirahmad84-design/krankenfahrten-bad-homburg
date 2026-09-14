@@ -6,7 +6,7 @@ LOCAL-004,local,Bestätigte FAQ,src/content/faq.ts,9e589c5a5628c7974222e832014fc
 LOCAL-005,local,Bestätigte Orte,src/content/locations.ts,d9c85ffdc2ad3315224ca6a356f0ad413ee9389ee12b0f533c61ca368946dc01,operator-approved,regional-claims,2026-08-11,verified
 LOCAL-006,local,Unternehmens- und Kontaktkonfiguration,src/lib/site-config.ts,6b8b56b4fcebe4979fafe0f517b4aafa514c5aa78f6cd3e995595489b0cb5ca5,operator-approved,identity-and-contact,2026-08-11,verified
 LOCAL-007,local,Rechtliche Prüfliste,deployment/legal-review-checklist.md,1e2b39d83b0d5a677afbe47e5cbffde2c294b2549bbedd8ee65c2559cf0e71be,project,release-gates,2026-08-11,verified
-LOCAL-008,local,Redaktionelle Richtlinie,automation/blog/editorial-policy.md,1d84a1d6346fdbfc42df770a2e05f6e7b097870cdb2413f60a9a2355648e696c,project,editorial-boundaries,2026-08-11,verified
+LOCAL-008,local,Redaktionelle Richtlinie,automation/blog/editorial-policy.md,ac21efe23308fcc54f8c58e836e854a3674714f7bc986a4976343fa43e7dd99e,project,editorial-boundaries,2026-09-14,verified
 WEB-001,web,Krankentransport-Richtlinie,https://www.g-ba.de/richtlinien/25/,,primary,regulation,2026-08-11,verified
 WEB-002,web,Krankenbeförderung,https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/,,primary,regulation-explanation,2026-08-19,verified
 WEB-003,web,Krankenbeförderung,https://www.kbv.de/praxis/verordnungen/krankenbefoerderung,,primary,prescription-and-form-4,2026-08-19,verified

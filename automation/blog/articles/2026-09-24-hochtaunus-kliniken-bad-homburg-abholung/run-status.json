@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-24-hochtaunus-kliniken-bad-homburg-abholung",
+  "scheduledDate": "2026-09-24",
+  "articleSlug": "hochtaunus-kliniken-bad-homburg-abholung",
+  "topic": "Fahrt zu den Hochtaunus-Kliniken: Treffpunkt und Abholung klären",
+  "whyNow": "Lokaler Nutzwert statt weiterer allgemeiner Kostentexte.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "revalidateAfter": "2026-09-24",
+  "reviewNotes": "Am 14.09.2026 anhand geöffneter Primärquellen und bestätigter eigener Leistungen vorbereitet. Organisatorische Tipps sind redaktionelle Empfehlungen. Betreiberfreigabe ausstehend; keine Veröffentlichung allein aufgrund des Plans."
+}

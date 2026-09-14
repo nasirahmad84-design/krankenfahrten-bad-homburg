@@ -30,7 +30,7 @@ for (const runDirectory of runDirectories) {
   assert.equal(exportedRun.article.intro, article.intro);
   assert.ok(exportedRun.claims.length > 0, `Claims für ${article.slug} fehlen.`);
   assert.ok(exportedRun.researchBrief.length > 0, `Recherchebrief für ${article.slug} fehlt.`);
-  assert.ok(exportedRun.facebookDraft.length > 0, `Facebook-Entwurf für ${article.slug} fehlt.`);
+  assert.ok(exportedRun.socialDraft.length > 0, `Beitragsentwurf für ${article.slug} fehlt.`);
 }
 
 const controller = readFileSync(join(outputDirectory, "index.php"), "utf8");

@@ -35,7 +35,31 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
+      - name: Vorhandenes Cockpit sichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/editorial-backup"
+          for item in index.php content.php .htaccess login-config.php lib/auth.php assets/editorial.css assets/logo.svg; do
+            mkdir -p "$RUNNER_TEMP/editorial-backup/$(dirname "$item")"
+            curl --silent --show-error --fail --ssl-reqd --ftp-ssl-control --tls-max 1.2 \
+              --user "$FTP_USER:$FTP_PASSWORD" \
+              "ftp://$FTP_HOST/${FTP_TEST_DIRECTORY#/}redaktion/$item" \
+              --output "$RUNNER_TEMP/editorial-backup/$item"
+          done
+
+      - name: Wiederherstellbare Sicherung aufbewahren
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/editorial-backup/
+          include-hidden-files: true
+          retention-days: 14
+          if-no-files-found: error
+
       - name: Redaktionscockpit mit Einmalcode-Login übertragen
+        # Backup must be recoverable before the first overwrite.
+        if: success()
         run: npm run deploy:editorial:test
 
       - name: Ergebnis zusammenfassen
@@ -44,7 +68,7 @@ jobs:
           {
             echo "## Redaktionscockpit"
             echo "- Ziel: ${TEST_SITE_URL%/}/redaktion/"
-            echo "- Enthalten: vorbereitete Artikel, Quellen, Claims und Facebook-Entwürfe"
+            echo "- Enthalten: vorbereitete Artikel, Quellen, Claims und Google-Business-Entwürfe"
             echo "- Zugang: serverseitiger Einmalcode an das hinterlegte interne Postfach"
             echo "- Produktion: nicht verändert"
           } >> "$GITHUB_STEP_SUMMARY"

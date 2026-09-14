@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-12-arztfahrt-unterlagen-fahrtdaten-trennen",
+  "scheduledDate": "2026-10-12",
+  "articleSlug": "arztfahrt-unterlagen-fahrtdaten-trennen",
+  "topic": "Arztfahrt vorbereiten: Unterlagen für die Praxis und Daten für den Fahrer",
+  "whyNow": "Praktische Checkliste vor der Rückkehr in den Alltag nach den Herbstferien.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "revalidateAfter": "2026-10-12",
+  "reviewNotes": "Am 14.09.2026 anhand geöffneter Primärquellen und bestätigter eigener Leistungen vorbereitet. Organisatorische Tipps sind redaktionelle Empfehlungen. Betreiberfreigabe ausstehend; keine Veröffentlichung allein aufgrund des Plans."
+}

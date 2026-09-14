@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 
 import { validateRun } from "./lib/blog-pipeline.mjs";
@@ -30,7 +30,8 @@ function loadRuns() {
         status: validation.status,
         claims: validation.claims,
         researchBrief: readFileSync(join(directory, "research-brief.md"), "utf8"),
-        facebookDraft: readFileSync(join(directory, "facebook-draft.md"), "utf8").trim(),
+        socialPlatform: existsSync(join(directory, "google-business-draft.md")) ? "Google Business" : "Archiv – nicht zur Veröffentlichung",
+        socialDraft: readFileSync(join(directory, existsSync(join(directory, "google-business-draft.md")) ? "google-business-draft.md" : "facebook-draft.md"), "utf8").trim(),
       };
     })
     .sort((left, right) => left.status.scheduledDate.localeCompare(right.status.scheduledDate));

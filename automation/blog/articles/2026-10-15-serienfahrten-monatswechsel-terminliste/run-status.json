@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-15-serienfahrten-monatswechsel-terminliste",
+  "scheduledDate": "2026-10-15",
+  "articleSlug": "serienfahrten-monatswechsel-terminliste",
+  "topic": "Serienfahrten zum Monatswechsel: Eine Terminliste mit klarem Stand",
+  "whyNow": "Planung der Novembertermine rechtzeitig vor Monatsende.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "revalidateAfter": "2026-10-15",
+  "reviewNotes": "Am 14.09.2026 anhand geöffneter Primärquellen und bestätigter eigener Leistungen vorbereitet. Organisatorische Tipps sind redaktionelle Empfehlungen. Betreiberfreigabe ausstehend; keine Veröffentlichung allein aufgrund des Plans."
+}

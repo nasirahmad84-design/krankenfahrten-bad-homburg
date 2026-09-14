@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { basename, join } from "node:path";
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -171,12 +171,13 @@ export function validateRun(runDirectory, { requirePublishable = false } = {}) {
   if (article.slug !== status.articleSlug) errors.push("Artikel-Slug und Laufstatus stimmen nicht überein.");
 
   const researchBrief = readFileSync(join(runDirectory, "research-brief.md"), "utf8");
-  const facebookDraft = readFileSync(join(runDirectory, "facebook-draft.md"), "utf8");
+  const socialDraftPath = join(runDirectory, existsSync(join(runDirectory, "google-business-draft.md")) ? "google-business-draft.md" : "facebook-draft.md");
+  const socialDraft = readFileSync(socialDraftPath, "utf8");
   for (const source of article.sources ?? []) {
     if (!researchBrief.includes(source.url)) errors.push(`Recherchebrief enthält Quelle ${source.id} nicht.`);
   }
-  if (!facebookDraft.includes("{{ARTICLE_URL}}")) errors.push("Facebook-Entwurf benötigt den Platzhalter {{ARTICLE_URL}}.");
-  if (facebookDraft.length < 80 || facebookDraft.length > 1500) errors.push("Facebook-Entwurf muss 80 bis 1.500 Zeichen lang sein.");
+  if (!socialDraft.includes("{{ARTICLE_URL}}")) errors.push("Beitragsentwurf benötigt den Platzhalter {{ARTICLE_URL}}.");
+  if (socialDraft.length < 80 || socialDraft.length > 1500) errors.push("Beitragsentwurf muss 80 bis 1.500 Zeichen lang sein.");
 
   const csvRows = parseCsv(readFileSync(join(runDirectory, "claim-register.csv"), "utf8"));
   const [headers = [], ...dataRows] = csvRows;

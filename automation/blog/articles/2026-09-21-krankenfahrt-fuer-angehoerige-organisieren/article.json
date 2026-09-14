@@ -1,0 +1,97 @@
+{
+  "slug": "krankenfahrt-fuer-angehoerige-organisieren",
+  "title": "Krankenfahrt für Angehörige organisieren: Wer stimmt was ab?",
+  "metadataTitle": "Krankenfahrt für Angehörige organisieren",
+  "description": "Sie organisieren eine Krankenfahrt für Eltern oder Angehörige? So stimmen Sie Ansprechpartner, Abholung und Rückmeldung verständlich ab.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-09-21",
+  "updatedAt": "2026-09-21",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Wer eine Krankenfahrt für die Mutter, den Vater oder einen anderen Angehörigen organisiert, sitzt häufig nicht selbst im Fahrzeug. Dann kommt es darauf an, dass die vereinbarten Informationen beim Fahrgast ankommen. Ein kurzer gemeinsamer Plan hilft, Rückfragen am Abholtag zu vermeiden.",
+  "summary": [
+    "Eine Person bündelt die Absprachen mit dem Fahrdienst.",
+    "Fahrgast und organisierende Person sollten denselben bestätigten Stand kennen.",
+    "Unterstützungsbedarf und Rückfahrt gehören vorab in die Abstimmung."
+  ],
+  "sections": [
+    {
+      "id": "kontakt",
+      "title": "Eine erreichbare Kontaktperson benennen",
+      "paragraphs": [
+        "Legen Sie fest, wer die Fahrt anfragt und wer am Fahrtag erreichbar ist. Das können unterschiedliche Personen sein. Teilen Sie dem Fahrdienst mit, an wen Rückfragen zur Abholung gerichtet werden sollen. Eine Telefonnummer ist nur hilfreich, wenn die Person zur vereinbarten Zeit tatsächlich erreichbar ist.",
+        "Besprechen Sie mit dem Fahrgast, welche Informationen Sie weitergeben. Für die Organisation stehen die Fahrtdaten und die benötigte Unterstützung im Vordergrund. Eine ausführliche Krankengeschichte gehört nicht in die Terminabstimmung."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "weitergeben",
+      "title": "Die Bestätigung an den Fahrgast weitergeben",
+      "paragraphs": [
+        "Bei Krankenfahrten Bad Homburg wird die Fahrt persönlich abgestimmt und erst ausdrücklich bestätigt. Notieren Sie danach Abholtag, Abholzeit, Ziel und Kontaktmöglichkeit in einem kurzen Vermerk. Geben Sie diesen dem Fahrgast in einer Form, die er gut nutzen kann – zum Beispiel auf Papier neben dem Telefon.",
+        "Prüfen Sie gemeinsam: Ist die Klingel richtig beschriftet? Ist mit Abholung die Haustür oder ein anderer Treffpunkt gemeint? Eine vereinbarte Uhrzeit sollte nicht mit dem Behandlungsbeginn verwechselt werden."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "grenzen",
+      "title": "Die passende Unterstützung vorab klären",
+      "paragraphs": [
+        "Sprechen Sie konkrete Schwierigkeiten an, etwa einen langen Weg vom Hauseingang zum Fahrzeug. Unser Angebot betrifft sitzende Fahrten und umfasst keine Rollstuhl-, Tragestuhl- oder Liegendtransporte. Medizinische Betreuung während der Fahrt ist nicht Bestandteil der Leistung.",
+        "Gehen Sie nicht davon aus, dass eine Anfrage automatisch jede benötigte Hilfe einschließt. Lassen Sie den vereinbarten Umfang bestätigen. Das gilt auch für eine gewünschte Mitfahrt eines Angehörigen und für den Übergabepunkt am Ziel."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "rueckmeldung",
+      "title": "Rückfahrt und Rückmeldung gemeinsam planen",
+      "paragraphs": [
+        "Vereinbaren Sie vor dem Termin, wer eine Änderung des Behandlungsendes mitteilt. Wünscht die Familie eine Rückmeldung, sollte auch das ausdrücklich besprochen werden. Eine automatische Benachrichtigung lässt sich aus einer Fahrtanfrage nicht ableiten.",
+        "Für den nächsten Termin genügt es anschließend, den Plan zu aktualisieren. Eine neue Zieladresse oder ein anderer Ansprechpartner sollte sichtbar geändert werden, damit keine veraltete Notiz weiterverwendet wird."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Kann ich die Fahrt für meinen Vater anfragen?",
+      "answer": "Ja. Klären Sie die Fahrtdaten mit ihm und benennen Sie einen erreichbaren Ansprechpartner. Die Durchführung benötigt eine Bestätigung."
+    },
+    {
+      "question": "Werde ich automatisch über die Ankunft informiert?",
+      "answer": "Eine gewünschte Rückmeldung muss vorab vereinbart werden. Aus der Anfrage ergibt sich kein automatischer Benachrichtigungsdienst."
+    },
+    {
+      "question": "Muss ich medizinische Einzelheiten nennen?",
+      "answer": "Beschreiben Sie die für die Beförderung nötige Unterstützung. Eine ausführliche Krankengeschichte wird für die organisatorische Anfrage nicht benötigt."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "sitzende-krankenfahrten",
+    "arzt-klinikfahrten"
+  ]
+}

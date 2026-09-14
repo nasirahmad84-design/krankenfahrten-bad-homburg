@@ -1,0 +1,97 @@
+{
+  "slug": "serienfahrten-monatswechsel-terminliste",
+  "title": "Serienfahrten zum Monatswechsel: Eine Terminliste mit klarem Stand",
+  "metadataTitle": "Serienfahrten: Terminliste zum Monatswechsel",
+  "description": "Bei regelmäßigen Krankenfahrten ändern sich manchmal einzelne Termine. Eine übersichtliche Monatsliste hilft, Bestätigungen und Ausnahmen festzuhalten.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-10-15",
+  "updatedAt": "2026-10-15",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Regelmäßige Fahrten wirken im Kalender schnell selbstverständlich. Zum Monatswechsel können jedoch einzelne Termine, Kontakte oder Ziele anders sein. Eine kurze Übersicht hilft Fahrgästen und Angehörigen dabei, den bestätigten Stand zu erkennen. Dafür genügt eine einfache Liste; eine besondere App ist nicht erforderlich.",
+  "summary": [
+    "Trennen Sie Behandlungstermine von bestätigten Abholzeiten.",
+    "Kennzeichnen Sie Ausnahmen innerhalb einer Serie einzeln.",
+    "Die Liste dokumentiert Absprachen und ersetzt keine Fahrtbestätigung."
+  ],
+  "sections": [
+    {
+      "id": "spalten",
+      "title": "Vier Angaben pro Termin festhalten",
+      "paragraphs": [
+        "Unsere organisatorische Empfehlung: Notieren Sie Datum, Behandlungstermin, bestätigte Abholzeit und Rückfahrtstatus in getrennten Spalten. So ist erkennbar, ob die Abholung bereits vereinbart wurde oder lediglich ein Wunsch vorliegt.",
+        "Für offene Punkte können Sie „Rückmeldung ausstehend“ ergänzen. Lassen Sie ein Feld lieber eindeutig offen, als eine geschätzte Abholzeit ohne Kennzeichnung einzutragen. Die Fahrt wird erst durch ausdrückliche Bestätigung vereinbart."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "ausnahmen",
+      "title": "Ausnahmen sichtbar machen",
+      "paragraphs": [
+        "Kennzeichnen Sie abweichende Termine innerhalb einer Serie. Ein anderer Wochentag, ein neuer Eingang oder eine abweichende Rückfahrt kann leicht übersehen werden, wenn überall nur „wie immer“ steht.",
+        "Senden Sie Änderungen mit Bezug auf den betroffenen Termin. Erfragen Sie anschließend, welche Fahrten bestätigt sind. Die Liste soll alle Beteiligten auf denselben Informationsstand bringen, nicht eine automatische Umbuchung auslösen."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "bedarf",
+      "title": "Änderungen beim Unterstützungsbedarf besprechen",
+      "paragraphs": [
+        "Passt die bisher vereinbarte Hilfe noch? Besprechen Sie Veränderungen vor der nächsten Fahrt. Krankenfahrten Bad Homburg bietet sitzende Beförderung ohne medizinische Betreuung. Eine Serienvereinbarung erweitert diese Grenzen nicht.",
+        "Wenn der Fahrgast nicht mehr wie bisher einsteigen oder sitzen kann, darf die alte Planung nicht einfach als passend vorausgesetzt werden. Klären Sie die geeignete Beförderung mit der behandelnden Stelle und teilen Sie organisatorisch relevante Änderungen mit."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "version",
+      "title": "Nur einen aktuellen Plan verwenden",
+      "paragraphs": [
+        "Schreiben Sie auf die Übersicht, wann sie zuletzt mit den bestätigten Absprachen abgeglichen wurde. Ersetzen Sie alte Ausdrucke und teilen Sie Änderungen mit der benannten Kontaktperson. Für die Organisation genügt eine Zuordnung zum Fahrgast; medizinische Einzelheiten gehören nicht in eine frei ausliegende Liste.",
+        "Nehmen Sie die nächste Terminserie zum Anlass, offene Punkte frühzeitig zu klären. Dieser Abgleich garantiert weder Verfügbarkeit noch unveränderte Fahrzeiten. Er macht sichtbar, was schon vereinbart ist und was noch eine Rückmeldung benötigt."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Brauche ich eine bestimmte App für die Terminliste?",
+      "answer": "Nein. Eine übersichtliche Papierliste oder eine einfache Tabelle reicht für die eigene Organisation."
+    },
+    {
+      "question": "Sind alle Termine in meiner Liste automatisch gebucht?",
+      "answer": "Nein. Die Liste dokumentiert Ihren Stand. Jede Fahrt muss ausdrücklich vereinbart sein."
+    },
+    {
+      "question": "Soll ich Diagnosen in die Liste aufnehmen?",
+      "answer": "Für diese organisatorische Übersicht reichen Termin- und Fahrtdaten. Vermeiden Sie unnötige medizinische Einzelheiten."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "serienfahrten",
+    "dialysefahrten"
+  ]
+}

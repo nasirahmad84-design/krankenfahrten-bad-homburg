@@ -60,7 +60,7 @@ Jede nachprüfbare Aussage erhält vor Veröffentlichung im Artikelregister:
 - Servicegrenzen und Einzelfallabhängigkeit deutlich machen
 - eine sinnvolle interne Verlinkung, keine Keyword-Listen
 - keine austauschbaren Ortsnamen-Seiten oder künstlich aufgeblähten Texte
-- Facebook-Text ist eine eigenständige Kurzfassung und kein abgeschnittener Artikelanfang
+- Google-Business-Text ist eine eigenständige Kurzfassung und kein abgeschnittener Artikelanfang. Seit Betreiberentscheidung vom 14.09.2026 keine Facebook-Veröffentlichung; ältere Facebook-Entwürfe bleiben nur als Archiv.
 
 ## Technische Pflichtgates
 

@@ -25,7 +25,8 @@ test("erzeugt eine separate lesbare Datenbasis für jeden vorbereiteten Artikel"
     assert.equal(run.article.title, article.title);
     assert.ok(run.claims.length > 0);
     assert.ok(run.researchBrief.length > 0);
-    assert.ok(run.facebookDraft.length > 0);
+    assert.ok(run.socialDraft.length > 0);
+    assert.ok(["Google Business", "Archiv – nicht zur Veröffentlichung"].includes(run.socialPlatform));
   }
 });
 

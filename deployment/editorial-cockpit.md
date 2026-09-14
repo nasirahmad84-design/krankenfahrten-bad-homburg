@@ -12,7 +12,7 @@ Das Redaktionscockpit macht vorbereitete Ratgeberartikel lesbar, ohne sie als ö
 - Quellen einschließlich Prüfdatum
 - Claim-Register in lesbarer Tabellenform
 - Recherchebrief
-- vorbereiteter Facebook-Text
+- vorbereiteter Google-Business-Text; frühere Facebook-Texte bleiben als nicht zur Veröffentlichung vorgesehenes Archiv sichtbar
 
 Das Cockpit ist absichtlich nur lesend. Es besitzt keine Datenbank und keinen Freigabe-Endpunkt. Die verbindliche Betreiberfreigabe wird anschließend versioniert im Repository dokumentiert.
 

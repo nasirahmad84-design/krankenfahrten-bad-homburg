@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-01-begleitperson-krankenfahrt-abstimmen",
+  "scheduledDate": "2026-10-01",
+  "articleSlug": "begleitperson-krankenfahrt-abstimmen",
+  "topic": "Begleitperson bei der Krankenfahrt: Was vorher geklärt sein sollte",
+  "whyNow": "Praktische Ergänzung zur Angehörigenplanung zum Monatsbeginn.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "revalidateAfter": "2026-10-01",
+  "reviewNotes": "Am 14.09.2026 anhand geöffneter Primärquellen und bestätigter eigener Leistungen vorbereitet. Organisatorische Tipps sind redaktionelle Empfehlungen. Betreiberfreigabe ausstehend; keine Veröffentlichung allein aufgrund des Plans."
+}

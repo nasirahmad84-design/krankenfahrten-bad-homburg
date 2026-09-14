@@ -1,0 +1,104 @@
+{
+  "slug": "herbstferien-hessen-2026-krankenfahrten-planen",
+  "title": "Herbstferien 2026 in Hessen: Krankenfahrten rechtzeitig abstimmen",
+  "metadataTitle": "Herbstferien 2026: Krankenfahrten planen",
+  "description": "Die Herbstferien in Hessen dauern vom 5. bis 17. Oktober 2026. So bereiten Angehörige Termine, Vertretungen und geplante Krankenfahrten vor.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-09-28",
+  "updatedAt": "2026-09-28",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Die hessischen Herbstferien beginnen am 5. Oktober und enden am 17. Oktober 2026. Wenn Angehörige in dieser Zeit verreisen oder andere Aufgaben übernehmen, lohnt sich ein kurzer Blick auf bereits geplante Behandlungsfahrten. Nicht die Ferien selbst ändern die Fahrt – entscheidend sind bestätigte Termine und konkrete Absprachen.",
+  "summary": [
+    "Hessens Herbstferien dauern vom 5. bis 17. Oktober 2026.",
+    "Prüfen Sie bestehende Termine und erreichbare Ansprechpartner.",
+    "Ferien bedeuten keine automatische Terminabsage oder geänderte Abholzeit."
+  ],
+  "sections": [
+    {
+      "id": "kalender",
+      "title": "Den Ferienzeitraum mit dem Terminkalender abgleichen",
+      "paragraphs": [
+        "Das Kultusministerium veröffentlicht den Zeitraum für das Schuljahr 2026/2027. Markieren Sie im eigenen Kalender diejenigen Behandlungstermine, die in diese zwei Wochen fallen. Daraus lässt sich keine Aussage über Öffnungszeiten Ihrer Praxis oder einen Ausfall der Behandlung ableiten.",
+        "Fragen Sie bei Unklarheiten direkt in der Einrichtung nach, ob Termin und Anmeldung unverändert gelten. Lassen Sie eine Änderung anschließend auch in den Fahrtplan übernehmen."
+      ],
+      "sourceIds": [
+        "HESSEN-FERIEN"
+      ]
+    },
+    {
+      "id": "vertretung",
+      "title": "Eine Vertretung für organisatorische Aufgaben finden",
+      "paragraphs": [
+        "Wer öffnet die Tür, wenn ein Angehöriger sonst bei der Abholung hilft? Wer ist für Rückfragen erreichbar? Prüfen Sie diese Punkte vor einer Reise und besprechen Sie den Plan mit dem Fahrgast. Der Ersatzkontakt sollte wissen, welche Absprachen tatsächlich bestätigt sind.",
+        "Eine Notiz mit Termin, Treffpunkt und Kontaktmöglichkeit ist oft besser nutzbar als viele einzelne Nachrichten. Halten Sie persönliche Informationen dabei auf das für die Organisation erforderliche Maß begrenzt."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "serie",
+      "title": "Bestehende Serien nicht stillschweigend verändern",
+      "paragraphs": [
+        "Auch bei einer regelmäßigen Fahrt sollten einzelne Ausnahmen ausdrücklich benannt werden. Teilen Sie mit, welcher Termin betroffen ist und ob nur die Uhrzeit oder auch das Ziel geändert wurde. So bleibt erkennbar, welche übrigen Termine unverändert sind.",
+        "Krankenfahrten Bad Homburg stimmt Fahrten persönlich ab. Eine Nachricht mit einem Änderungswunsch ist noch keine Bestätigung der neuen Abholzeit. Warten Sie die Rückmeldung ab und aktualisieren Sie danach Ihren Kalender."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "umfang",
+      "title": "Den Unterstützungsbedarf nicht erst am Fahrtag klären",
+      "paragraphs": [
+        "Falls während der Ferien eine sonst mitfahrende Person fehlt, kann sich der benötigte Unterstützungsumfang ändern. Besprechen Sie das vorab. Unser Angebot bleibt auf sitzende Beförderung ohne medizinische Betreuung begrenzt.",
+        "Die Ferien sind ein Anlass, die Organisation zu überprüfen. Sie sind keine Grundlage für die Behauptung, dass Fahrzeuge knapp sind oder längere Fahrzeiten sicher eintreten. Für Ihren Termin zählt die individuelle Bestätigung."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Wann sind die Herbstferien 2026 in Hessen?",
+      "answer": "Nach dem veröffentlichten Kalender des hessischen Kultusministeriums vom 5. bis 17. Oktober 2026."
+    },
+    {
+      "question": "Fallen Therapietermine während der Ferien aus?",
+      "answer": "Das lässt sich aus den Schulferien nicht ableiten. Fragen Sie Ihre behandelnde Einrichtung nach dem konkreten Termin."
+    },
+    {
+      "question": "Ändert sich eine bestätigte Abholung automatisch?",
+      "answer": "Nein. Abweichungen müssen ausdrücklich abgestimmt und bestätigt werden."
+    }
+  ],
+  "sources": [
+    {
+      "id": "HESSEN-FERIEN",
+      "title": "Ferientermine",
+      "publisher": "Hessisches Ministerium für Kultus, Bildung und Chancen",
+      "url": "https://kultus.hessen.de/schulsystem/ferien/ferientermine",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "serienfahrten",
+    "arzt-klinikfahrten"
+  ]
+}

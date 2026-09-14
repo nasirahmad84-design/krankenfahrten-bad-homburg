@@ -1,0 +1,97 @@
+{
+  "slug": "arzttermin-verschoben-krankenfahrt-aendern",
+  "title": "Arzttermin verschoben: Eine vereinbarte Krankenfahrt richtig ändern",
+  "metadataTitle": "Arzttermin verschoben: Krankenfahrt ändern",
+  "description": "Ihre Praxis hat den Termin geändert? So melden Sie die betroffene Krankenfahrt eindeutig um und vermeiden widersprüchliche Abholzeiten.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-10-08",
+  "updatedAt": "2026-10-08",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Ein neuer Arzttermin steht im Kalender – die alte Fahrtvereinbarung kann trotzdem noch bestehen. Damit keine unnötige Anfahrt oder eine falsche Abholzeit entsteht, sollten Sie die Änderung gesondert mit dem Fahrdienst abstimmen. Das gilt auch, wenn Sie seit längerer Zeit regelmäßig gefahren werden.",
+  "summary": [
+    "Benennen Sie den alten Termin und die gewünschte Änderung.",
+    "Eine Praxisänderung erreicht den Fahrdienst nicht automatisch.",
+    "Erst die Rückbestätigung macht die neue Fahrtvereinbarung eindeutig."
+  ],
+  "sections": [
+    {
+      "id": "zuordnen",
+      "title": "Die betroffene Fahrt eindeutig benennen",
+      "paragraphs": [
+        "Beginnen Sie mit dem bisherigen Tag, der vereinbarten Abholzeit und dem Namen zur Zuordnung. Nennen Sie anschließend die neue Terminzeit. So wird erkennbar, welche Fahrt ersetzt werden soll. Die Formulierung „morgen doch später“ kann bei mehreren Terminen missverständlich sein.",
+        "Falls noch kein Ersatztermin feststeht, sagen Sie das ausdrücklich. Eine Absage und eine Anfrage für einen neuen Termin sind unterschiedliche Vorgänge. Bewahren Sie die Rückmeldung zur Änderung auf."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "umfang",
+      "title": "Hin- und Rückfahrt gemeinsam prüfen",
+      "paragraphs": [
+        "Wird die Behandlung verschoben, prüfen Sie auch die geplante Rückfahrt. Ändern sich Standort, Ansprechpartner oder Unterstützungsbedarf, gehören diese Angaben ebenfalls in das Gespräch. Eine geänderte Hinfahrt aktualisiert nicht automatisch alle weiteren Details.",
+        "Bei einer Serie sollten Sie deutlich machen, ob nur ein Termin betroffen ist oder mehrere. Führen Sie Ausnahmen einzeln auf und kennzeichnen Sie, welche bereits bestätigten Fahrten unverändert bleiben."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "bestaetigung",
+      "title": "Die neue Vereinbarung abwarten",
+      "paragraphs": [
+        "Fahrten werden nach Verfügbarkeit persönlich bestätigt. Deshalb kann eine neue Wunschzeit nicht allein durch eine Nachricht verbindlich reserviert werden. Fragen Sie nach einer ausdrücklichen Rückmeldung und übertragen Sie erst den abgestimmten Stand in den gemeinsamen Fahrplan.",
+        "Wenn der Termin sehr kurzfristig geändert wird, nutzen Sie den vereinbarten direkten Kontakt. Dieser Text nennt keine pauschale Stornofrist und verspricht keine kostenfreie Änderung; maßgeblich sind die für Ihre Fahrt vereinbarten Bedingungen."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "personen",
+      "title": "Alte Notizen bei allen Beteiligten ersetzen",
+      "paragraphs": [
+        "Informieren Sie den Fahrgast und die benannte Kontaktperson über die bestätigte Änderung. Streichen oder ersetzen Sie eine alte Papiernotiz, statt zwei unterschiedliche Zeiten nebeneinander stehen zu lassen.",
+        "Für künftige Änderungen kann eine einfache Tabelle helfen: Termin bei der Einrichtung, gewünschte Abholung, bestätigte Abholung und Datum der letzten Rückmeldung. Sie dient der Organisation und ersetzt keine Bestätigung durch den Fahrdienst."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Informiert meine Praxis automatisch den Fahrdienst?",
+      "answer": "Davon sollten Sie nicht ausgehen. Klären Sie selbst, wer die Änderung an den Fahrdienst weitergibt."
+    },
+    {
+      "question": "Reicht die Nachricht mit dem neuen Termin?",
+      "answer": "Der Fahrdienst muss die Änderung prüfen und die neue Fahrt ausdrücklich bestätigen."
+    },
+    {
+      "question": "Gilt die Änderung für die ganze Serie?",
+      "answer": "Nur wenn dies ausdrücklich vereinbart wurde. Benennen Sie die betroffenen Termine einzeln."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "serienfahrten",
+    "arzt-klinikfahrten"
+  ]
+}

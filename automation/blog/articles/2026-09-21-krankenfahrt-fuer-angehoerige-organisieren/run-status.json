@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-21-krankenfahrt-fuer-angehoerige-organisieren",
+  "scheduledDate": "2026-09-21",
+  "articleSlug": "krankenfahrt-fuer-angehoerige-organisieren",
+  "topic": "Krankenfahrt für Angehörige organisieren: Wer stimmt was ab?",
+  "whyNow": "Neuer Schwerpunkt Angehörige; Organisation aus der Ferne vor den Herbstferien.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "revalidateAfter": "2026-09-21",
+  "reviewNotes": "Am 14.09.2026 anhand geöffneter Primärquellen und bestätigter eigener Leistungen vorbereitet. Organisatorische Tipps sind redaktionelle Empfehlungen. Betreiberfreigabe ausstehend; keine Veröffentlichung allein aufgrund des Plans."
+}

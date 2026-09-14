@@ -1,0 +1,106 @@
+{
+  "slug": "arztfahrt-unterlagen-fahrtdaten-trennen",
+  "title": "Arztfahrt vorbereiten: Unterlagen für die Praxis und Daten für den Fahrer",
+  "metadataTitle": "Arztfahrt vorbereiten: Unterlagen und Fahrtdaten",
+  "description": "Was braucht die Praxis und was der Fahrdienst? Diese Vorbereitungshilfe trennt Terminunterlagen von Fahrtdaten und erleichtert die erste Arztfahrt.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-10-12",
+  "updatedAt": "2026-10-12",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Vor der ersten Arztfahrt kommen oft mehrere Fragen zusammen: Wo muss ich mich melden, welche Unterlagen brauche ich und was teile ich dem Fahrdienst mit? Ordnen Sie die Informationen nach ihrem Empfänger. Das erleichtert die Vorbereitung und vermeidet, dass unnötig medizinische Einzelheiten weitergegeben werden.",
+  "summary": [
+    "Die Praxis bestimmt, welche Behandlungsunterlagen mitzubringen sind.",
+    "Für den Fahrdienst stehen Abholung, Ziel und Unterstützung im Mittelpunkt.",
+    "Überweisung und Beförderungsverordnung erfüllen unterschiedliche Zwecke."
+  ],
+  "sections": [
+    {
+      "id": "praxis",
+      "title": "Die Unterlagenliste der Einrichtung prüfen",
+      "paragraphs": [
+        "Die KV Hessen nennt bei ihren Hinweisen zum Terminservice unter anderem Untersuchungsunterlagen und abhängig vom Termin eine Überweisung. Welche Unterlagen für Ihren konkreten Besuch nötig sind, erfahren Sie von der behandelnden Einrichtung. Prüfen Sie dazu die Terminbestätigung.",
+        "Legen Sie angeforderte Dokumente an einem gut erreichbaren Platz bereit. Wenn etwas fehlt, klären Sie mit der Praxis, wie Sie vorgehen sollen. Eine allgemeine Checkliste kann die Auskunft der Einrichtung nicht ersetzen."
+      ],
+      "sourceIds": [
+        "KVH-TERMINE"
+      ]
+    },
+    {
+      "id": "fahrt",
+      "title": "Dem Fahrdienst die organisatorischen Angaben geben",
+      "paragraphs": [
+        "Für die Abstimmung zählen Termin, Abholadresse, konkretes Ziel, erreichbarer Kontakt und gewünschte Unterstützung. Teilen Sie auch mit, ob eine Rückfahrt benötigt wird und ob deren Uhrzeit schon feststeht.",
+        "Der Fahrdienst muss nicht den gesamten Inhalt Ihrer Befunde kennen. Beschreiben Sie praktisch, welche Unterstützung für Ein- und Ausstieg oder den Weg zur Anmeldung gebraucht wird. Die Hilfe muss zum bestätigten Leistungsumfang passen."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF",
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "dokumente",
+      "title": "Behandlung und Beförderung nicht verwechseln",
+      "paragraphs": [
+        "Eine Überweisung für die Behandlung ist nicht dieselbe Unterlage wie eine ärztliche Verordnung für die Krankenbeförderung. Wenn eine Abrechnung über die Krankenkasse vorgesehen ist, klären Sie die dafür nötigen Unterlagen mit Praxis, Kasse und Fahrdienst vorab. Dieser Beitrag enthält keine Zusage zur Kostenübernahme.",
+        "Nehmen Sie die für Ihren Fall angeforderten Dokumente mit, schicken Sie aber nicht vorsorglich sämtliche Befunde über eine allgemeine Fahrtanfrage. Fragen Sie bei Unsicherheit, welche Angabe wirklich benötigt wird."
+      ],
+      "sourceIds": [
+        "KVH-TERMINE",
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "abgleich",
+      "title": "Am Vortag einen kurzen Abgleich machen",
+      "paragraphs": [
+        "Vergleichen Sie die bestätigte Abholung mit dem Behandlungstermin. Überlegen Sie, wo die vorbereiteten Unterlagen liegen und wer im Fall einer Rückfrage erreichbar ist. Informieren Sie den Fahrdienst über Änderungen, statt sie erst beim Einstieg zu erwähnen.",
+        "Eine kleine eigene Liste kann lauten: bestätigte Fahrt, richtiger Eingang, angeforderte Unterlagen und abgesprochener Rückweg. Die Durchführung ist erst durch die Rückbestätigung des Fahrdienstes vereinbart."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Welche Unterlagen muss ich zur Untersuchung mitnehmen?",
+      "answer": "Das richtet sich nach Ihrem Termin. Prüfen Sie die Angaben der behandelnden Einrichtung und fragen Sie bei Unklarheiten dort nach."
+    },
+    {
+      "question": "Braucht der Fahrer meine vollständigen Befunde?",
+      "answer": "Für die organisatorische Anfrage sind Fahrtdaten und der konkrete Unterstützungsbedarf maßgeblich. Geben Sie keine ausführliche Krankengeschichte vorsorglich weiter."
+    },
+    {
+      "question": "Ist eine Überweisung automatisch ein Transportschein?",
+      "answer": "Nein. Die Überweisung für eine Behandlung und die Verordnung einer Krankenbeförderung sind unterschiedliche Unterlagen."
+    }
+  ],
+  "sources": [
+    {
+      "id": "KVH-TERMINE",
+      "title": "Patientenservice 116117: TSS und ÄBD",
+      "publisher": "Kassenärztliche Vereinigung Hessen",
+      "url": "https://www.kvhessen.de/116117-patientenservice",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}
