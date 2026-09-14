@@ -76,6 +76,21 @@ test("holt für mögliche Gesundheitsdaten eine ausdrückliche Einwilligung ein"
   assert.match(form, /jederzeit mit Wirkung für die Zukunft widerrufen/);
 });
 
+test("aktiviert externe Adressvorschläge nur freiwillig und dokumentiert Photon", () => {
+  const form = readFileSync(join(projectRoot, "src/components/forms/ride-request-form.tsx"), "utf8");
+  const privacy = JSON.stringify(privacyContent);
+  assert.match(form, /Adressvorschläge nutzen/);
+  assert.match(form, /addressSuggestionsEnabled/);
+  assert.match(form, /trimmed\.length < 4/);
+  assert.match(form, /countrycode[\s\S]*DE/);
+  assert.match(form, /limit[\s\S]*5/);
+  assert.match(form, /Manuelle Eingabe bleibt jederzeit möglich/);
+  assert.match(privacy, /Photon-Dienst/);
+  assert.match(privacy, /Erst danach/);
+  assert.match(privacyInventory.externalRuntimeResources.join("\n"), /photon\.komoot\.io/);
+  assert.equal(privacyInventory.form.optionalAddressSuggestions.browserStorage, false);
+});
+
 test("interne Prüfpunkte werden von öffentlichen Seiten nicht importiert", () => {
   const pages = collectFiles(join(projectRoot, "src/app"), [".ts", ".tsx"])
     .map((file) => readFileSync(file, "utf8"))

@@ -50,7 +50,7 @@ ErrorDocument 404 /404.html
 
   # CSP erst nach erfolgreicher Prüfung auf dem ALL-INKL-Abnahmehost aktivieren.
   # Die statische Next.js-Ausgabe benötigt derzeit Inline-Skripte und Inline-Styles.
-  # Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+  # Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://photon.komoot.io; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
   # HSTS erst im KAS beziehungsweise hier aktivieren, wenn HTTPS und Subdomains stabil geprüft sind.
   # Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>

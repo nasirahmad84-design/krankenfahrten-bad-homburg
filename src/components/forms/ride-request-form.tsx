@@ -16,6 +16,9 @@ const Prefix = createContext('request');
 const subscribe = () => () => {};
 const stepFields = [['pickup', 'destination', 'journey'], ['date', 'time', 'reason'], ['name', 'phone', 'email'], ['notes', 'consent']];
 const stepTitles = ['Wohin geht die Fahrt?', 'Wann möchten Sie fahren?', 'Wie erreichen wir Sie?', 'Prüfen und absenden'];
+const photonEndpoint = 'https://photon.komoot.io/api/';
+
+type PhotonFeature = Readonly<{properties?: Readonly<Record<string, unknown>>}>;
 
 export function RideRequestForm({onBusyChange}: {onBusyChange?: (busy: boolean) => void}) {
   const prefix = `request-${useId().replaceAll(':', '')}`;
@@ -26,6 +29,7 @@ export function RideRequestForm({onBusyChange}: {onBusyChange?: (busy: boolean) 
   const [errors, setErrors] = useState<RideRequestFieldErrors>({});
   const [status, setStatus] = useState<FormStatus>(initialStatus);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [addressSuggestionsEnabled, setAddressSuggestionsEnabled] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const formStartedAtRef = useRef<HTMLInputElement>(null);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -103,7 +107,7 @@ export function RideRequestForm({onBusyChange}: {onBusyChange?: (busy: boolean) 
   }
 
   return (
-    <Prefix.Provider value={prefix}><form ref={formRef} action="/api/fahrtanfrage.php" method="post" noValidate onSubmit={handleSubmit} className="relative mx-auto max-w-xl rounded-2xl border border-[#dce2e9] bg-white p-4 sm:p-5" aria-label="Fahrt unverbindlich anfragen">
+    <Prefix.Provider value={prefix}><form ref={formRef} action="/api/fahrtanfrage.php" method="post" noValidate onSubmit={handleSubmit} onReset={() => setAddressSuggestionsEnabled(false)} className="relative mx-auto max-w-xl rounded-2xl border border-[#dce2e9] bg-white p-4 sm:p-5" aria-label="Fahrt unverbindlich anfragen">
       <input ref={formStartedAtRef} type="hidden" name="formStartedAt" />
       <div className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor={`${prefix}-website`}>Website</label>
@@ -129,8 +133,16 @@ export function RideRequestForm({onBusyChange}: {onBusyChange?: (busy: boolean) 
       </fieldset>
       <fieldset disabled={isSubmitting} hidden={enhanced && step !== 0} className="space-y-3">
         <legend className="sr-only">Strecke</legend>
-        <Field id="pickup" label="Abholadresse" required error={errors.pickup} autoComplete="street-address" maxLength={200} />
-        <Field id="destination" label="Zieladresse" required error={errors.destination} maxLength={200} />
+        {enhanced && <div className="rounded-xl bg-[#f6f9fc] p-3 text-sm leading-relaxed">
+          <label className="flex min-h-11 cursor-pointer items-center gap-3 font-semibold" htmlFor={`${prefix}-address-suggestions`}>
+            <input id={`${prefix}-address-suggestions`} type="checkbox" checked={addressSuggestionsEnabled} onChange={(event) => setAddressSuggestionsEnabled(event.currentTarget.checked)} className="size-6 shrink-0 accent-green" aria-describedby={`${prefix}-address-suggestions-help`} />
+            Adressvorschläge nutzen
+          </label>
+          <p id={`${prefix}-address-suggestions-help`} className="mt-1 text-xs text-[#5b697a]">Optional: Beim Tippen wird Ihre Eingabe an Photon übertragen. Manuelle Eingabe bleibt jederzeit möglich. <Link href="/datenschutz/" target="_blank" rel="noopener" className="font-semibold underline">Datenschutzhinweise</Link></p>
+          {addressSuggestionsEnabled && <p className="mt-2 text-xs"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="font-semibold underline">Daten © OpenStreetMap-Mitwirkende</a> · Suche über Photon</p>}
+        </div>}
+        <AddressField id="pickup" label="Abholadresse" required error={errors.pickup} autoComplete="street-address" maxLength={200} suggestionsEnabled={enhanced && addressSuggestionsEnabled} />
+        <AddressField id="destination" label="Zieladresse" required error={errors.destination} maxLength={200} suggestionsEnabled={enhanced && addressSuggestionsEnabled} />
         <SelectField id="journey" label="Rückfahrt (optional)" error={errors.journey} options={["Nur Hinfahrt", "Hin- und Rückfahrt"]} />
       </fieldset>
       <fieldset disabled={isSubmitting} hidden={enhanced && step !== 3} className="space-y-3">
@@ -186,6 +198,76 @@ function Field({ id, label, error, required, type = "text", autoComplete, maxLen
   const inputId = `${useContext(Prefix)}-${id}`;
   const errorId = `${inputId}-error`;
   return <div><label htmlFor={inputId} className="form-label">{label}{required && <span aria-hidden="true"> *</span>}</label><input id={inputId} name={id} type={type} autoComplete={autoComplete} maxLength={maxLength} className="form-control" required={required} aria-invalid={Boolean(error)} aria-describedby={error ? errorId : undefined} />{error && <FieldError id={errorId} message={error} />}</div>;
+}
+
+function AddressField({id, label, error, required, autoComplete, maxLength, suggestionsEnabled}: FieldProps & {suggestionsEnabled: boolean}) {
+  const inputId = `${useContext(Prefix)}-${id}`;
+  const errorId = `${inputId}-error`;
+  const helpId = `${inputId}-suggestion-status`;
+  const listId = `${inputId}-suggestions`;
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (!suggestionsEnabled || trimmed.length < 4) return;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setMessage('Adressvorschläge werden gesucht …');
+      try {
+        const url = new URL(photonEndpoint);
+        url.searchParams.set('q', trimmed);
+        url.searchParams.set('lang', 'de');
+        url.searchParams.set('countrycode', 'DE');
+        url.searchParams.set('limit', '5');
+        const response = await fetch(url, {signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer'});
+        if (!response.ok) throw new Error('address search failed');
+        const data = await response.json() as {features?: PhotonFeature[]};
+        const next = [...new Set((data.features ?? []).map(formatPhotonAddress).filter((value): value is string => Boolean(value)))].slice(0, 5);
+        setSuggestions(next);
+        setMessage(next.length ? `${next.length} Adressvorschläge verfügbar.` : 'Keine passende Adresse gefunden. Sie können die Adresse vollständig selbst eingeben.');
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+        setSuggestions([]);
+        setMessage('Adressvorschläge sind momentan nicht verfügbar. Bitte geben Sie die Adresse vollständig ein.');
+      }
+    }, 650);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [query, suggestionsEnabled]);
+
+  const describedBy = [error ? errorId : '', suggestionsEnabled ? helpId : ''].filter(Boolean).join(' ') || undefined;
+  return <div>
+    <label htmlFor={inputId} className="form-label">{label}{required && <span aria-hidden="true"> *</span>}</label>
+    <input id={inputId} name={id} type="text" autoComplete={autoComplete} maxLength={maxLength} className="form-control" required={required} aria-invalid={Boolean(error)} aria-describedby={describedBy} list={suggestionsEnabled ? listId : undefined} onInput={(event) => {
+      const value = event.currentTarget.value;
+      setQuery(value);
+      setSuggestions([]);
+      setMessage(value.trim().length < 4 ? '' : 'Adressvorschläge werden gleich gesucht …');
+    }} />
+    {suggestionsEnabled && <datalist id={listId}>{suggestions.map((suggestion) => <option key={suggestion} value={suggestion} />)}</datalist>}
+    {suggestionsEnabled && <p id={helpId} aria-live="polite" className="mt-1 text-xs text-[#5b697a]">{query.trim().length > 0 && query.trim().length < 4 ? 'Bitte mindestens vier Zeichen eingeben.' : message || 'Ab vier Zeichen erscheinen passende Adressen.'}</p>}
+    {error && <FieldError id={errorId} message={error} />}
+  </div>;
+}
+
+function formatPhotonAddress(feature: PhotonFeature): string | null {
+  const properties = feature.properties ?? {};
+  const text = (key: string) => typeof properties[key] === 'string' ? String(properties[key]).trim() : '';
+  const name = text('name');
+  const street = text('street');
+  const houseNumber = text('housenumber');
+  const postcode = text('postcode');
+  const city = text('city') || text('district') || text('county');
+  const streetLine = [street, houseNumber].filter(Boolean).join(' ');
+  const placeLine = [postcode, city].filter(Boolean).join(' ');
+  const parts = [name !== street && name !== streetLine ? name : '', streetLine, placeLine].filter(Boolean);
+  return parts.length >= 2 ? [...new Set(parts)].join(', ') : null;
 }
 
 type SelectFieldProps = { id: string; label: string; options: readonly string[]; error?: string; required?: boolean };

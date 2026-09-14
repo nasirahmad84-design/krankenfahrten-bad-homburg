@@ -1,5 +1,5 @@
 export const privacyInventory = {
-  reviewedAt: "2026-08-11",
+  reviewedAt: "2026-09-14",
   website: {
     delivery: "Statisch exportierte HTML-, CSS-, JavaScript-, Schrift- und Bilddateien über HTTPS",
     hostingProvider: "ALL-INKL",
@@ -28,6 +28,7 @@ export const privacyInventory = {
   externalRuntimeResources: [
     "www.googletagmanager.com: Google-Tag erst nach Analytics-Einwilligung",
     "google-analytics.com und regionale Analytics-Endpunkte: Messdaten erst nach Analytics-Einwilligung",
+    "photon.komoot.io: höchstens fünf deutsche Adressvorschläge erst nach ausdrücklicher Aktivierung; übermittelt werden Suchtext und technisch erforderliche Verbindungsdaten",
   ] as readonly string[],
   analytics: {
     provider: "Google Analytics 4 / Google Ireland Limited",
@@ -58,6 +59,15 @@ export const privacyInventory = {
     databaseStorage: false,
     recipient: "anfrage@krankenfahrten-bad-homburg.de",
     automaticUserConfirmation: false,
+    optionalAddressSuggestions: {
+      provider: "Photon / komoot GmbH mit Daten von OpenStreetMap",
+      activation: "ausdrückliche, nicht gespeicherte Aktivierung im Anfrageformular",
+      minimumQueryLength: 4,
+      maximumResults: 5,
+      countryFilter: "DE",
+      fallback: "vollständig manuelle Adresseingabe",
+      browserStorage: false,
+    },
     rateLimit: {
       identifier: "HMAC-gehashte IP-Kennung; die vollständige IP-Adresse wird nicht in der Rate-Limit-Datei gespeichert",
       storage: "temporäre dateibasierte Speicherung außerhalb des öffentlichen Webroots",

@@ -4,7 +4,7 @@ export const privacyContent = {
   eyebrow: "Datenschutz",
   title: "Datenschutzerklärung",
   description: "Informationen zur Verarbeitung personenbezogener Daten beim Besuch dieser Website und bei einer Fahrtanfrage.",
-  updatedAt: "11. August 2026",
+  updatedAt: "14. September 2026",
   sections: [
     {
       id: "verantwortlicher",
@@ -54,6 +54,7 @@ export const privacyContent = {
         "Das Formular dient der Bearbeitung einer unverbindlichen Fahrtanfrage und der anschließenden Kontaktaufnahme. Verarbeitet werden Vorname und Nachname, Telefonnummer, optional E-Mail-Adresse, Fahrtdatum, Uhrzeit, Abhol- und Zieladresse, Fahrtart beziehungsweise Anlass, die optionale Angabe zu Hin- und Rückfahrt, optionale zusätzliche Hinweise und die ausdrückliche Einwilligung zur Verarbeitung möglicherweise gesundheitsbezogener Angaben sowie zur Kontaktaufnahme.",
         "Der gewählte Fahrtanlass kann Rückschlüsse auf eine Behandlung und damit auf die Gesundheit zulassen. Bitte geben Sie keine Diagnosen, Versicherungsnummern oder medizinischen Notfalldaten ein.",
         "Zusätzlich wird eine technische Formularzeit verarbeitet. Die Anfrage wird an eine fest konfigurierte E-Mail-Adresse des Betreibers übermittelt. Es erfolgt keine Speicherung in einer Datenbank und keine automatische Buchungs- oder Eingangsbestätigung. Eine Fahrt ist erst nach ausdrücklicher Bestätigung vereinbart.",
+        "Optional können Sie Adressvorschläge aktivieren. Erst danach werden während der Eingabe ab vier Zeichen der eingegebene Suchtext sowie technisch erforderliche Verbindungsdaten direkt an den öffentlichen Photon-Dienst der komoot GmbH übertragen. Photon durchsucht dafür Daten von OpenStreetMap und liefert höchstens fünf Vorschläge aus Deutschland zurück. Die Funktion setzt keine Cookies dieser Website und speichert die Auswahl nicht dauerhaft im Browser; eine vollständig manuelle Adresseingabe bleibt möglich.",
       ],
     },
     {
@@ -85,7 +86,7 @@ export const privacyContent = {
       id: "empfaenger",
       title: "10. Empfänger und Kategorien von Empfängern",
       paragraphs: [
-        "Empfänger einer Formularanfrage ist der Betreiber von Krankenfahrten Bad Homburg. Technisch können der Hostinganbieter und die von ihm bereitgestellte Mailinfrastruktur mit der Verarbeitung befasst sein. Eine Weitergabe zu Werbezwecken erfolgt nicht.",
+        "Empfänger einer Formularanfrage ist der Betreiber von Krankenfahrten Bad Homburg. Technisch können der Hostinganbieter und die von ihm bereitgestellte Mailinfrastruktur mit der Verarbeitung befasst sein. Wenn Sie die optionale Adresssuche aktivieren, erhält außerdem die komoot GmbH als Betreiberin des Photon-Dienstes den jeweiligen Suchtext und technisch erforderliche Verbindungsdaten. Eine Weitergabe zu Werbezwecken erfolgt nicht.",
       ],
     },
     {
@@ -103,6 +104,7 @@ export const privacyContent = {
         "Die Bereitstellung der Website, Server-Logfiles und der technische Schutz vor Missbrauch erfolgen auf Grundlage von Art. 6 Abs. 1 Buchst. f DSGVO. Das berechtigte Interesse besteht im sicheren, stabilen und missbrauchsarmen Betrieb des Internetangebots.",
         "Kontakt- und Fahrtanfragen werden nach Art. 6 Abs. 1 Buchst. b DSGVO verarbeitet, soweit dies zur Bearbeitung Ihrer Anfrage, zur Durchführung vorvertraglicher Maßnahmen oder zur Durchführung einer vereinbarten Fahrt erforderlich ist.",
         "Soweit der ausgewählte Fahrtanlass oder freiwillige Hinweise Gesundheitsdaten erkennen lassen, erfolgt deren Verarbeitung auf Grundlage Ihrer ausdrücklichen Einwilligung nach Art. 9 Abs. 2 Buchst. a in Verbindung mit Art. 6 Abs. 1 Buchst. a DSGVO.",
+        "Die optionale Übertragung von Adresseingaben an Photon erfolgt erst nach Ihrer ausdrücklichen Aktivierung auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 Buchst. a DSGVO. Sie können die Funktion jederzeit wieder ausschalten und Adressen manuell eingeben.",
         "Soweit eine Verarbeitung zur Erfüllung gesetzlicher Aufbewahrungspflichten erforderlich ist, beruht sie auf Art. 6 Abs. 1 Buchst. c DSGVO. Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der Verarbeitung bis zum Widerruf bleibt unberührt.",
       ],
     },
@@ -170,7 +172,7 @@ export const privacyContent = {
       id: "externe-dienste",
       title: "19. Weitere externe Inhalte und Dienste",
       paragraphs: [
-        "Abgesehen von Google Analytics nach Ihrer Einwilligung sind keine Karten, Videos, Social-Media-Widgets, externen Schrift-CDNs oder sonstigen extern geladenen Medien eingebunden. Facebook, WhatsApp und Google-Rezensionen werden nur als normale Links aufgerufen, wenn Sie diese bewusst auswählen.",
+        "Google Analytics wird ausschließlich nach Ihrer Einwilligung geladen. Zusätzlich wird der Photon-Dienst ausschließlich nach Aktivierung der optionalen Adressvorschläge angesprochen. Karten, Videos, Social-Media-Widgets und externe Schrift-CDNs sind nicht eingebunden. Facebook, WhatsApp und Google-Rezensionen werden nur als normale Links aufgerufen, wenn Sie diese bewusst auswählen.",
       ],
     },
     {
@@ -183,7 +185,7 @@ export const privacyContent = {
     {
       id: "stand",
       title: "21. Stand der Datenschutzerklärung",
-      paragraphs: ["Stand: 11. August 2026"],
+      paragraphs: ["Stand: 14. September 2026"],
     },
   ] satisfies readonly LegalSectionContent[],
 } as const;
