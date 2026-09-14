@@ -42,7 +42,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/editorial-backup"
           for item in index.php content.php .htaccess login-config.php lib/auth.php assets/editorial.css assets/logo.svg; do
             mkdir -p "$RUNNER_TEMP/editorial-backup/$(dirname "$item")"
-            curl --silent --show-error --fail --ssl-reqd --ftp-ssl-control --tls-max 1.2 \
+            curl --silent --show-error --fail --connect-timeout 20 --max-time 60 --ftp-pasv --disable-epsv --ssl-reqd --ftp-ssl-control --tls-max 1.2 \
               --user "$FTP_USER:$FTP_PASSWORD" \
               "ftp://$FTP_HOST/${FTP_TEST_DIRECTORY#/}redaktion/$item" \
               --output "$RUNNER_TEMP/editorial-backup/$item"
