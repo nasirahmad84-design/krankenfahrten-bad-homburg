@@ -10,7 +10,8 @@ import { publishedBlogPosts } from "../src/content/blog-posts.ts";
 
 test("zentralisiert Produktionsdomain und alle öffentlichen Routen", () => {
   assert.equal(productionOrigin, "https://krankenfahrten-bad-homburg.de");
-  assert.equal(publicRoutePaths.length, 27 + publishedBlogPosts.length);
+  assert.equal(publicRoutePaths.length, 28 + publishedBlogPosts.length);
+  assert.ok(publicRoutePaths.includes('/fahrdienst-check/'));
   assert.equal(new Set(publicRoutePaths).size, publicRoutePaths.length);
   for (const route of publicRoutePaths) assert.ok(route === "/" || route.endsWith("/"));
 });

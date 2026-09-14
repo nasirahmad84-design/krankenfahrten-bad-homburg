@@ -22,6 +22,11 @@ export function HomeGuide() {
         <Button href="/ratgeber" variant="link" className="mt-8 text-base">
           Alle Ratgeber ansehen →
         </Button>
+        <div className="mt-10 rounded-2xl bg-[#f6f9fc] p-6">
+          <h3 className="text-2xl font-bold text-navy">Passt unser Fahrdienst zu Ihrer Situation?</h3>
+          <p className="mt-3">Vier kurze Fragen zu Ihrem Transportbedarf – ohne persönliche Daten.</p>
+          <Button href="/fahrdienst-check/" className="mt-5">Fahrdienst-Check starten</Button>
+        </div>
       </SiteContainer>
     </section>
   );

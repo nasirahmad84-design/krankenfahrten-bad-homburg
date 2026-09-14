@@ -18,6 +18,9 @@
 /out/
 /out-editorial/
 /artifacts/remotion/
+/.venv-video/
+/remotion/public/audio/
+/artifacts/voices/
 
 # production
 /build

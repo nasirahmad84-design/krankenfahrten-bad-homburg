@@ -9,6 +9,7 @@ const topLevelRoutes = [
   "/leistungen/",
   "/kosten-abrechnung/",
   "/ablauf/",
+  "/fahrdienst-check/",
   "/ueber-uns/",
   "/faq/",
   "/kontakt/",

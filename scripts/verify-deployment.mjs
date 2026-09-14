@@ -140,7 +140,7 @@ for (const file of relativeFiles) {
 
 const sitemap = readFileSync(join(out, "sitemap.xml"), "utf8");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.equal(sitemapUrls.length, 27 + expectedBlogRoutes.length, "Die Sitemap enthält nicht alle erwarteten öffentlichen URLs.");
+assert.equal(sitemapUrls.length, 28 + expectedBlogRoutes.length, "Die Sitemap enthält nicht alle erwarteten öffentlichen URLs.");
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, "Die Sitemap enthält doppelte URLs.");
 for (const route of expectedBlogRoutes) {
   assert.ok(sitemapUrls.includes(new URL(route, productionOrigin).toString()), `Ratgeber fehlt in der Sitemap: ${route}`);

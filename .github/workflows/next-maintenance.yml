@@ -1,0 +1,47 @@
+name: Next.js Wartung
+on:
+  schedule:
+    - cron: '23 5 * * 2'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: next-maintenance
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Stabile Updates innerhalb der Hauptversion installieren
+        run: node scripts/update-next.mjs
+      - name: Verhalten und Export prüfen
+        run: |
+          npm test
+          npm run lint
+          npx tsc --noEmit
+          npm run build
+          npm run test:export
+          npm run verify:deployment
+          for test in tests/php/*-test.php; do php "$test"; done
+          npm audit --audit-level=high
+          git diff --check
+      - name: Nur geprüfte Abhängigkeiten übernehmen
+        run: |
+          git add package.json package-lock.json automation/blog/source-inventory.csv
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: update tested Next.js dependencies'
+          git push origin HEAD:main
+      - name: Ergebnis
+        if: always()
+        run: echo 'Updates werden nur nach Tests auf main übernommen. Ein Live-Release erfolgt über den bestehenden Release-Workflow. Bei Fehlern bleibt main unverändert.' >> "$GITHUB_STEP_SUMMARY"
