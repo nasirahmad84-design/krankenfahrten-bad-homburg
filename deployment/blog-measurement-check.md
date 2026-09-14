@@ -25,6 +25,10 @@ Noch offen: reale Netzwerk-/GA4-Abnahme nach Deployment, Administratorprüfung d
 
 ## Betriebscheck: erster externer Zeitplan
 
+### Offene Übergangslücke vom 14.09.2026
+
+Der bereits freigegebene Lauf `2026-09-14-reha-therapiefahrten-kosten-vorab-klaeren` ist noch nicht veröffentlicht. Beim Check am 14.09. liefert seine Live-URL HTTP 404, die lokale Queue wählt ihn weiterhin aus. Der einzige heutige GitHub-Lauf war ein absichtlicher Dry Run. Der neue Cronjob beginnt erst am 17.09.; er holt den 14.09. nicht automatisch nach. Vor gezieltem Nachholen Quellenaktualität und wiederherstellbare Sicherung des Blog-Deltas prüfen. Nicht als erledigt behandeln.
+
 - Nächster freigegebener Lauf laut `automation/blog/articles/2026-09-17-patientensicherheit-regelmaessige-krankenfahrten/run-status.json`: **Donnerstag, 17.09.2026, 09:00 Europe/Berlin**.
 - Erwartete Live-URL: `https://krankenfahrten-bad-homburg.de/ratgeber/patientensicherheit-regelmaessige-krankenfahrten/`.
 - Ab 09:00 cron-job.org-Ausführung und zugehörigen GitHub-Run prüfen. Erfolgreiche Dispatch-Antwort allein beweist noch keinen erfolgreichen Publisher. Runner-/Builddauer kann den tatsächlichen Veröffentlichungstermin verschieben.
