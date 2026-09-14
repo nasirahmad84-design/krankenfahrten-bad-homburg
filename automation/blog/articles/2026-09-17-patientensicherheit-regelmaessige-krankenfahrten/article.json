@@ -6,7 +6,7 @@
   "format": "Aktuelle Information",
   "publishedAt": "2026-09-17",
   "updatedAt": "2026-09-17",
-  "reviewedAt": "2026-08-19",
+  "reviewedAt": "2026-09-14",
   "readingTimeMinutes": 5,
   "intro": "Am 17. September 2026 stellt die Weltgesundheitsorganisation den Welttag der Patientensicherheit unter das Thema sichere Versorgung bei nichtübertragbaren Erkrankungen. Viele Betroffene benötigen langfristige und wiederkehrende Behandlung. Für planbare Krankenfahrten bedeutet das vor allem: Zuständigkeiten, Unterstützungsbedarf und Termine müssen eindeutig abgestimmt sein.",
   "summary": [
@@ -82,14 +82,14 @@
       "title": "World Patient Safety Day 2026",
       "publisher": "World Health Organization",
       "url": "https://www.who.int/campaigns/world-patient-safety-day/2026",
-      "checkedAt": "2026-08-19"
+      "checkedAt": "2026-09-14"
     },
     {
       "id": "GBA-KRANKENBEFOERDERUNG",
       "title": "Krankenbeförderung",
       "publisher": "Gemeinsamer Bundesausschuss",
       "url": "https://www.g-ba.de/themen/veranlasste-leistungen/krankenbefoerderung/",
-      "checkedAt": "2026-08-19"
+      "checkedAt": "2026-09-14"
     }
   ],
   "relatedServiceSlugs": [
