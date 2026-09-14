@@ -44,4 +44,3 @@ Geprüft wurde der vom Betreiber bereitgestellte SEORCH-Export gegen den aktuell
 - **SEO-CONTENT-01:** Search-Console-Auswertung nach Suchintention und Zielseite; Snippets nur anhand realer Impressionen/CTR verbessern.
 - **SEO-TRUST-01:** reale Autoren-/Prüferdarstellung und Betreiberfoto nur nach Betreiberfreigabe.
 - **SEO-CWV-01:** JavaScript- und CSS-Profiling erst dann, wenn wiederholbare Labordaten oder Felddaten einen Engpass bestätigen.
-
