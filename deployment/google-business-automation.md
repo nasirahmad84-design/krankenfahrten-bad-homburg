@@ -24,8 +24,9 @@ Linkparameter: `utm_source=google&utm_medium=organic&utm_campaign=gbp_ratgeber&u
 
 ## Google-Voraussetzungen und offene Freigaben
 
-- Verifiziertes und seit mindestens 60 Tagen aktives Unternehmensprofil gemäß aktueller API-Zugangsdokumentation; tatsächliches Verifizierungsdatum noch nicht nachgewiesen.
-- Google-Cloud-Projekt mit freigeschaltetem Business-Profile-API-Zugang. Quota 0 ist keine Freischaltung.
+- Verifiziertes und seit mindestens 60 Tagen aktives Unternehmensprofil gemäß aktueller API-Zugangsdokumentation; am 14.09.2026 durch den Betreiber bestätigt.
+- Eigenständiges Google-Cloud-Projekt `krankenfahrten-gbp` (Projektnummer `1080836537604`) ist aktiv. Es ist kein Rechnungskonto verknüpft (`billingEnabled: false`).
+- Antrag auf grundlegenden Business-Profile-API-Zugang am 14.09.2026 eingereicht. Google nennt etwa 7–10 Arbeitstage Bearbeitungszeit. Bis zur Genehmigung bleibt die API-Zulassung offen; Quota 0 ist keine Freischaltung.
 - Einmalige OAuth-Zustimmung eines Profilinhabers/-managers, `business.manage`, refreshfähige serverseitige Zugangsdaten. OAuth-Veröffentlichungsstatus und Tokenlaufzeit müssen für unbeaufsichtigten Betrieb passend eingerichtet sein.
 - Exakte Account- und Location-ID aus der API. Die sichtbare Maps-CID oder der Rezensionenlink darf nicht als API-Location-ID angenommen werden.
 - Ein echter Testbeitrag und Sichtprüfung nach API-Freischaltung. Noch kein Google-Beitrag automatisch angelegt.

@@ -1,6 +1,6 @@
 # Google Business: ausführbarer, standardmäßig deaktivierter Publisher
 
-Stand 14.09.2026. Kein Beitrag gesendet, keine Google-Zugangsdaten angelegt. Dieser Baustein ergänzt die vorhandene Konzeption; er aktiviert keinen Zeitplan und verändert keine Blog-Veröffentlichung.
+Stand 14.09.2026. Kein Beitrag gesendet, keine Google-OAuth-Zugangsdaten angelegt. Das aktive Cloud-Projekt `krankenfahrten-gbp` (Projektnummer `1080836537604`) besitzt kein verknüpftes Rechnungskonto. Der Antrag auf grundlegenden Business-Profile-API-Zugang wurde eingereicht und wartet auf Googles Prüfung. Dieser Baustein ergänzt die vorhandene Konzeption; er aktiviert keinen Zeitplan und verändert keine Blog-Veröffentlichung.
 
 ## Sichere Vorschau
 
@@ -35,7 +35,7 @@ Der Publisher erneuert OAuth im Speicher. Anschließend werden **alle** vorhande
 
 ## Noch offen vor unbeaufsichtigtem Betrieb
 
-1. Google-API-Zulassung, OAuth-Einwilligung und Account-/Location-ID.
+1. Genehmigung des am 14.09.2026 eingereichten Google-API-Zugangsantrags; anschließend OAuth-Einwilligung und Account-/Location-ID.
 2. Ein echter ausdrücklich freigegebener Testpost und Sichtprüfung.
 3. Persistenz/Lock über Runner hinweg sowie GBP-spezifische Fehleralarmierung an die bereits freigegebene Alarmadresse. Geplante Blogläufe dürfen dabei nicht mitgestoppt werden.
 4. Anschluss als unabhängiger Nachlauf für tatsächlich live verifizierte Artikel, inklusive PROCESSING-Abgleich und kontrollierter Erneuerung von OAuth bei Widerruf.
