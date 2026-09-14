@@ -9,16 +9,17 @@ import { prepareGoogleBusinessPost } from "../scripts/prepare-google-business-po
 const root = process.cwd();
 const dates = ["2026-09-21", "2026-09-24", "2026-09-28", "2026-10-01", "2026-10-05", "2026-10-08", "2026-10-12", "2026-10-15"];
 
-test("acht neue Entwürfe sind valide und werden ohne Betreiberfreigabe nicht ausgewählt", () => {
+test("acht ausdrücklich freigegebene Artikel werden jeweils zum geplanten Datum ausgewählt", () => {
   for (const date of dates) {
     const directory = readdirSync(join(root, "automation/blog/articles")).find(name => name.startsWith(date + "-"));
     assert.ok(directory);
     const run = validateRun(join(root, "automation/blog/articles", directory));
     assert.deepEqual(run.errors, []);
-    assert.equal(run.status.status, "draft_ready");
-    assert.equal(selectScheduledRun(root, date).status, "no_scheduled_article");
+    assert.equal(run.status.status, "approved_for_publish");
+    assert.equal(run.status.approvedAt, "2026-09-14");
+    assert.equal(selectScheduledRun(root, date).slug, run.article.slug);
     const preview = prepareGoogleBusinessPost(join(root, "automation/blog/articles", directory));
-    assert.equal(preview.operatorApproval, "pending");
+    assert.equal(preview.operatorApproval, "approved");
     assert.equal(preview.status, "preview_only");
     assert.equal(preview.payload.topicType, "STANDARD");
     const url = new URL(preview.payload.callToAction.url);
