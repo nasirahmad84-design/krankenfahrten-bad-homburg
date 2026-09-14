@@ -9,6 +9,11 @@ on:
         description: "Optionales Veröffentlichungsdatum im Format YYYY-MM-DD"
         required: false
         type: string
+      dry_run:
+        description: "Nur Auswahl prüfen; keine Veröffentlichung und kein Commit"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -19,6 +24,7 @@ concurrency:
 
 jobs:
   publish-approved-queue-item:
+    if: github.event_name != 'schedule' || vars.BLOG_EXTERNAL_SCHEDULER_ENABLED != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -51,21 +57,21 @@ jobs:
         run: npm run blog:select-scheduled
 
       - name: Blog-Delta vorbereiten
-        if: steps.queue.outputs.status == 'ready'
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
         run: npm run blog:prepare-release -- "${{ steps.queue.outputs.run_directory }}"
 
       - name: Blog-Delta auf Testdomain veröffentlichen
-        if: steps.queue.outputs.status == 'ready'
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
         run: npm run deploy:blog:test -- "${{ steps.queue.outputs.slug }}"
 
       - name: Gleiches Blog-Delta live veröffentlichen
-        if: steps.queue.outputs.status == 'ready' && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
         env:
           BLOG_DEPLOY_LIVE_CONFIRM: JA
         run: npm run deploy:blog:live -- "${{ steps.queue.outputs.slug }}"
 
       - name: Erfolgreich live veröffentlichten Inhalt dokumentieren
-        if: steps.queue.outputs.status == 'ready' && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'
         run: |
           git config user.name "krankenfahrten-blog-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -82,6 +88,7 @@ jobs:
             echo "## Blog-Warteschlange"
             echo "- Datum: ${{ steps.queue.outputs.publication_date || inputs.publication_date || 'Europe/Berlin heute' }}"
             echo "- Status: ${{ steps.queue.outputs.status || 'abgebrochen' }}"
+            echo "- Prüflauf ohne Veröffentlichung: ${{ inputs.dry_run == true }}"
             if [[ "${{ steps.queue.outputs.status }}" == "ready" ]]; then
               echo "- Test-URL: https://test.krankenfahrten-bad-homburg.de/ratgeber/${{ steps.queue.outputs.slug }}/"
               echo "- Live-Freigabe: ${{ vars.BLOG_QUEUE_LIVE_ENABLED == 'true' }}"
