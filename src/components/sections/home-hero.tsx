@@ -44,8 +44,8 @@ export function HomeHero() {
         <SectionImage
           src="/images/home/hero-krankenfahrt.webp"
           alt="Fahrer öffnet einem älteren Fahrgast die hintere Fahrzeugtür."
-          width={1800}
-          height={1100}
+          width={1200}
+          height={734}
           sizes="(max-width: 1279px) calc(100vw - 48px), 500px"
           preload
           className="aspect-[3/2] xl:aspect-[10/9]"

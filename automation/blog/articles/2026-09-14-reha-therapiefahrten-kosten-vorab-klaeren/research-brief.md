@@ -1,7 +1,7 @@
 # Recherchebrief: Reha- und Therapiefahrten: Kostenübernahme vorher klären
 
 - Geplante Veröffentlichung: 2026-09-14
-- Recherchiert am: 2026-08-19
+- Recherchiert am: 2026-08-19; Pflichtquellen am 2026-09-14 erneut geprüft
 - Warum jetzt: Räumt vor Beginn der zweiten Septemberhälfte mit einer häufigen pauschalen Annahme zur Kostenübernahme auf.
 - Zielgruppe: Fahrgäste, Angehörige und organisatorische Ansprechpartner in Bad Homburg und Umgebung
 - Leistungsbezug: ausschließlich planbare sitzende Krankenfahrten ohne medizinische Betreuung

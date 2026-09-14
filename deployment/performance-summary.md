@@ -4,7 +4,7 @@
 
 - Der vollständige Export umfasst nach dem finalen Batch 6,60 MiB und 367 Dateien. Die exakte Zahl und Dateianzahl gibt `npm run verify:deployment` nach jedem Build erneut aus.
 - Die größten JavaScript-Dateien sind aktuell ungefähr 222 KiB, 142 KiB und 110 KiB groß und stammen aus der Next.js-/React-Laufzeit.
-- Neue WebP-Bilder: Hero 169 KiB (1800×1100), Über uns 121 KiB (1200×900), Unterstützung 118 KiB (1400×900), Leistungen 99 KiB (1400×900), Open Graph mit finalem Logo 32 KiB (1200×630).
+- WebP-Bilder: Hero nach SEORCH-Prüfung auf 89 KiB (1200×734) reduziert; Über uns 121 KiB (1200×900), Unterstützung 118 KiB (1400×900), Leistungen 99 KiB (1400×900), Open Graph mit finalem Logo 32 KiB (1200×630).
 - Die größten lokalen Schriftdateien liegen bei ungefähr 83 KiB, 47 KiB und 25 KiB.
 - Inter wird lokal über `next/font` ausgeliefert; Fotos und Sharing-Vorschau liegen lokal als optimierte WebP-Dateien, Marken- und Leistungsicons als SVG beziehungsweise PNG vor.
 - Der Export enthält keine Karten-, Video-, Social-Media-Widget- oder externen Font-Ressourcen. Google Analytics 4 wird ausschließlich nach ausdrücklicher Einwilligung dynamisch geladen; vor der Zustimmung findet kein Google-Request statt.

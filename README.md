@@ -275,7 +275,7 @@ Die vier fotografischen Motive wurden mit der integrierten Bildgenerierung eigen
 
 | Datei | Abmessungen | Größe | Einsatz und Alt-Text | Zuschnitt |
 | --- | ---: | ---: | --- | --- |
-| `images/home/hero-krankenfahrt.webp` | 1800×1100 | 169 KiB | Startseiten-Hero: „Fahrer öffnet einem älteren Fahrgast die hintere Fahrzeugtür.“ | mobil 58 %, Desktop 55 % |
+| `images/home/hero-krankenfahrt.webp` | 1200×734 | 89 KiB | Startseiten-Hero: „Fahrer öffnet einem älteren Fahrgast die hintere Fahrzeugtür.“ | mobil 58 %, Desktop 55 % |
 | `images/home/persoenliche-unterstuetzung.webp` | 1400×900 | 118 KiB | Unterstützung: „Fahrer begleitet einen älteren Fahrgast zum Eingang einer Praxis.“ | 52 % horizontal |
 | `images/services/leistungen-hero.webp` | 1400×900 | 99 KiB | Leistungen: „Fahrer und älterer Fahrgast stehen neben einem Fahrzeug vor einer Praxis.“ | 40 % horizontal |
 | `images/about/betreiber-mit-fahrzeug.webp` | 1200×900 | 121 KiB | Über uns: „Fahrer steht neben einem dunklen Fahrzeug des Fahrdienstes.“ | 48 % horizontal |
@@ -305,13 +305,13 @@ Der lokale Export wurde bei 320, 375, 390, 430, 768, 1024, 1280 und 1440 Pixel B
 
 Die Testdomain lieferte für `/`, `/leistungen/` und `/orte/` HTTP 200 sowie für eine unbekannte URL HTTP 404. Alle vier Antworten enthielten `X-Robots-Tag: noindex, nofollow, noarchive`. Die Produktionsdomain lieferte keinen `noindex`-Header. Der Header wird ausschließlich serverseitig auf der Testdomain gesetzt und ist nicht in den statischen Produktionsmetadaten eingebaut.
 
-Die Testdomain entspricht dem lokalen Stand vor diesem Batch: 26 Sitemap-URLs, Ortsseiten, finales Logo, Hero-, Open-Graph-Bild, Facebook-Link und zentrale Laufzeit-Chunks stimmen; der CSS-Hash und ein Seitenskript unterscheiden sich, und der neue Google-Rezensions-CTA fehlt dort noch. Ein neuer lokaler Build erscheint nicht automatisch auf dem Webspace. Für diesen Batch ist ein erneuter manueller FTP-/SFTP-Upload von `out/` erforderlich.
+Ein neuer lokaler Build erscheint nicht automatisch auf dem Webspace. Test- und Produktionsversion müssen nach jedem Release anhand von Canonical, Sitemap, Assets und den erwarteten Headern gegen den freigegebenen Commit geprüft werden.
 
 Live geprüft wurden langfristiges Caching für CSS, JavaScript und WebP, Revalidierung für HTML, `no-store` für PHP sowie Brotli-Kompression für HTML, CSS und JavaScript. Das Open-Graph-Bild liefert HTTP 200 und misst 1200×630 Pixel. Facebook- und Google-Rezensionslink sind erreichbar. WebP wird erwartungsgemäß nicht zusätzlich komprimiert. Lighthouse bleibt ein manueller Go-live-Test; es werden keine Werte behauptet.
 
 Nach Betreiberangabe ist DKIM für die Hauptdomain eingerichtet. Für die Test-Subdomain ist keine separate DKIM-Konfiguration erforderlich. DNS-Einträge wurden nicht verändert; SPF und DMARC bleiben manuelle Prüfpositionen.
 
-Die vorhandene `.htaccess` enthält bereits eine hostgebundene 301-Regel von `www` auf non-`www`. Live liefert `https://www.krankenfahrten-bad-homburg.de/` dennoch HTTP 200. Im ALL-INKL-KAS muss deshalb für `www` manuell eine permanente Domainweiterleitung auf `https://krankenfahrten-bad-homburg.de/` eingerichtet und danach auf genau einen 301-Schritt ohne Schleife geprüft werden.
+Die KAS-Weiterleitung von `https://www.krankenfahrten-bad-homburg.de/` auf `https://krankenfahrten-bad-homburg.de/` liefert seit der erneuten Prüfung am 14.09.2026 genau einen HTTP-301-Schritt ohne Schleife.
 
 ## Search-Console-Baseline (SEO-09)
 

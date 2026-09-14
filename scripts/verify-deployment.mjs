@@ -14,7 +14,7 @@ const blogPostsSource = readFileSync(join(root, "src/content/generated-blog-post
 const expectedBlogRoutes = [...blogPostsSource.matchAll(/^\s{4}"slug":\s*"([^"]+)"/gm)]
   .map((match) => `/ratgeber/${match[1]}/`);
 const websiteImages = [
-  ["images/home/hero-krankenfahrt.webp", 1800, 1100, 400 * 1024],
+  ["images/home/hero-krankenfahrt.webp", 1200, 734, 150 * 1024],
   ["images/home/persoenliche-unterstuetzung.webp", 1400, 900, 300 * 1024],
   ["images/services/leistungen-hero.webp", 1400, 900, 300 * 1024],
   ["images/about/betreiber-mit-fahrzeug.webp", 1200, 900, 300 * 1024],

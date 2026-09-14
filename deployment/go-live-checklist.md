@@ -2,11 +2,11 @@
 
 ## Domain und HTTPS
 
-- [ ] `krankenfahrten-bad-homburg.de` zeigt auf den geprüften Webroot
-- [ ] `www` leitet dauerhaft auf die Domain ohne `www` weiter – am 28.07.2026 liefert HTTPS-www noch 200; KAS-Weiterleitung erforderlich
+- [x] `krankenfahrten-bad-homburg.de` liefert aus dem produktiven Webroot HTTP 200
+- [x] `www` leitet dauerhaft mit HTTP 301 auf die Domain ohne `www` weiter
 - [x] HTTP leitet dauerhaft auf HTTPS weiter
-- [ ] Zertifikat ist gültig
-- [ ] keine Redirect-Schleife
+- [x] Zertifikat wird beim HTTPS-Abruf erfolgreich validiert
+- [x] keine Redirect-Schleife
 - [ ] keine Mixed-Content-Fehler
 
 ## Website
@@ -80,10 +80,10 @@
 
 ## Sicherheit
 
-- [ ] `api/config.php` ergibt 403
+- [x] `api/config.php` ergibt 403
 - [ ] Directory Listing deaktiviert
 - [ ] keine Secrets oder Backups öffentlich erreichbar
-- [ ] `api/vendor/` und Konfigurationsdateien ergeben 403
+- [x] `api/vendor/autoload.php` und Konfigurationsdateien ergeben 403
 - [ ] SMTP-Passwort liegt ausschließlich in der serverseitigen Konfiguration
 - [ ] SPF und DMARC geprüft
 - [x] DKIM laut Betreiberangabe für die Hauptdomain eingerichtet; keine separate Test-Subdomain-Konfiguration erforderlich

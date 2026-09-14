@@ -27,10 +27,10 @@
 
 ## 2. Auf ALL-INKL manuell zu prüfen
 
-- [ ] `www` dauerhaft auf non-`www` weiterleiten; HTTPS-www lieferte am 28.07.2026 noch 200
-- [ ] SSL-Zertifikat und finale KAS-Weiterleitung nach manueller Änderung erneut prüfen
+- [x] `www` leitet dauerhaft mit HTTP 301 auf non-`www` weiter; am 14.09.2026 live erneut geprüft
+- [x] HTTPS und finale KAS-Weiterleitungen am 14.09.2026 ohne Schleife geprüft
 - [x] existierende URL liefert HTTP 200
-- [ ] `/404.html` ist direkt erreichbar und enthält noindex
+- [x] `/404.html` ist direkt erreichbar und enthält noindex
 - [x] unbekannte Testdomain-URL liefert HTTP 404 statt 500
 - [x] Testdomain liefert auf regulären Seiten und 404 `X-Robots-Tag: noindex, nofollow, noarchive`
 - [x] Produktionsdomain liefert keinen noindex-Header
@@ -81,7 +81,7 @@ Die vier Fotos sind eigens generierte illustrative Darstellungen mit fiktiven Pe
 
 ## 4. Nach Go-live auf externen Plattformen
 
-- [ ] Google Search Console einrichten, Property verifizieren und Sitemap einreichen
+- [x] Google Search Console laut Betreiberangabe eingerichtet und Sitemap eingereicht
 - [ ] Bing Webmaster Tools einrichten und Sitemap einreichen
 - [ ] Google-Unternehmensprofil mit Website, Kontaktdaten, Leistungen und freigegebenen Öffnungszeiten abgleichen
 - [ ] Indexierungsstatus und 404-Berichte nach Go-live beobachten

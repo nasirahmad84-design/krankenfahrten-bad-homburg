@@ -59,23 +59,25 @@ test("Queue-Workflow läuft montags und donnerstags ohne bezahlten KI-Aufruf", (
   assert.ok(liveDeployment < documentation);
 });
 
-test("dokumentiert die Betreiberfreigabe für alle acht vorbereiteten Beiträge", () => {
+test("dokumentiert die Betreiberfreigabe für beide vorbereiteten Achter-Batches", () => {
   const calendarRows = editorialCalendar.trim().split("\n").slice(1);
   const approvalRows = approvalRegister.trim().split("\n").slice(1);
-  assert.equal(calendarRows.length, 8);
-  assert.equal(approvalRows.length, 8);
-  assert.equal(calendarRows.filter((row) => row.endsWith(",approved_for_publish")).length, 8);
-  assert.equal(calendarRows.filter((row) => row.endsWith(",draft_ready")).length, 0);
+  assert.equal(calendarRows.length, 16);
+  assert.equal(approvalRows.length, 16);
+  assert.equal(calendarRows.filter((row) => /,\"?approved_for_publish\"?$/.test(row)).length, 16);
+  assert.equal(calendarRows.filter((row) => /,\"?draft_ready\"?$/.test(row)).length, 0);
   assert.match(calendarRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,approved_for_publish$/);
   assert.equal(approvalRows.filter((row) => row.includes(",approved,2026-08-19,2026-09-17,")).length, 7);
   assert.match(approvalRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,approved,2026-08-26,2026-09-17,/);
+  assert.equal(approvalRows.filter((row) => /,"?approved"?,"?2026-09-14"?,/.test(row)).length, 8);
 });
 
-test("alarmiert bei jedem nicht erfolgreichen Ende des Queue-Publishers", () => {
+test("alarmiert bei operativen Fehlerenden, aber nicht bei absichtlich übersprungenen Läufen", () => {
   const alertWorkflow = read(".github/workflows/blog-failure-alert.yml");
   const alertEndpoint = read("public/api/blog-alert.php");
   assert.match(alertWorkflow, /workflow_run:/);
-  assert.match(alertWorkflow, /conclusion != 'success'/);
+  assert.match(alertWorkflow, /\["failure","cancelled","timed_out","action_required","startup_failure"\]/);
+  assert.doesNotMatch(alertWorkflow, /\[.*"skipped".*\]/);
   assert.match(alertWorkflow, /secrets\.BLOG_ALERT_TOKEN/);
   assert.match(alertWorkflow, /scripts\/send-blog-alert\.sh/);
   assert.match(alertEndpoint, /HTTP_X_BLOG_ALERT_TOKEN/);
