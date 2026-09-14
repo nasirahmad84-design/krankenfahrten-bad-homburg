@@ -36,7 +36,7 @@ export function ServiceFitCheck() {
     <h2 ref={heading} tabIndex={-1} className="text-xl leading-snug font-bold text-navy focus:outline-none sm:text-2xl">{outcome?.title ?? questions[answers.length]}</h2>
     {outcome ? <>
       <p className="mt-3 text-base leading-relaxed">{outcome.text}</p>
-      <Button href={outcome.href} className="mt-5 min-h-12 w-full">{outcome.label}</Button>
+      <Button href={outcome.href} data-ride-request={result === 'possible' ? true : undefined} className="mt-5 min-h-12 w-full">{outcome.label}</Button>
       {result === 'possible' && <p className="mt-2 text-xs text-navy/70">Noch keine Buchung. Erst unsere Bestätigung ist verbindlich.</p>}
     </> : <div className="mt-5 grid grid-cols-2 gap-3">
       {([['yes', 'Ja'], ['no', 'Nein'], ['unsure', 'Ich bin unsicher']] as const).map(([value, label]) => <Button key={value} variant="outline" className={`min-h-12 ${value === 'unsure' ? 'col-span-2 border-transparent text-sm' : 'border-navy/20 bg-[#f6f9fc]'}`} onClick={() => answer(value)}>{label}</Button>)}

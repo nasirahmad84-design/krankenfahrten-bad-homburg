@@ -11,7 +11,7 @@ export function PageCta({ title = "Ihre Fahrt persönlich abstimmen", descriptio
         <h2 id="page-cta-title" className="max-w-3xl text-[32px] leading-tight font-bold sm:text-[42px]">{title}</h2>
         <p className="mt-5 max-w-3xl text-[18px] leading-[1.7] text-white/80">{description}</p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Button href="/kontakt" size="large" className="min-h-[54px] rounded-xl text-base">Fahrt anfragen</Button>
+          <Button data-ride-request href="/kontakt" size="large" className="min-h-[54px] rounded-xl text-base">Fahrt anfragen</Button>
           <Button href={siteConfig.phone.href} variant="outline" size="large" className="min-h-[54px] rounded-xl border-white bg-white text-base text-navy hover:bg-white/90">{siteConfig.phone.display}</Button>
         </div>
       </SiteContainer>

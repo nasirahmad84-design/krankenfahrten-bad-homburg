@@ -16,7 +16,7 @@ export function HomeHero() {
             Zuverlässig zu Ihrer Behandlung und persönlich an Ihrer Seite: Wir bringen Sie sicher zu Arzt, Klinik, Dialyse, Therapie und Reha – mit Unterstützung beim Ein- und Aussteigen und auf Wunsch bis zur Anmeldung.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button href="/kontakt" size="large" className="min-h-[54px] w-full rounded-xl px-7 text-base sm:w-auto">Fahrt anfragen</Button>
+            <Button data-ride-request href="/kontakt" size="large" className="min-h-[54px] w-full rounded-xl px-7 text-base sm:w-auto">Fahrt anfragen</Button>
             <Button href={siteConfig.phone.href} variant="outline" size="large" className="min-h-[54px] w-full rounded-xl px-7 text-base sm:w-auto">{siteConfig.phone.display}</Button>
             <a
               href={siteConfig.whatsapp.href}

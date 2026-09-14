@@ -12,7 +12,7 @@ export function HomeCta() {
         <p className="mt-6 max-w-3xl text-[18px] leading-[1.7] text-white/85">Rufen Sie uns direkt an oder senden Sie Ihre Fahrtdaten über die Kontaktseite. Ihre Anfrage ist unverbindlich und wird erst nach unserer ausdrücklichen Bestätigung zur Buchung.</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Button href={siteConfig.phone.href} size="large" className="min-h-[54px] w-full rounded-xl px-7 text-base sm:w-auto">Jetzt anrufen</Button>
-          <Button href="/kontakt" variant="outline" size="large" className="min-h-[54px] w-full rounded-xl border-white bg-white px-7 text-base text-navy hover:bg-white/90 sm:w-auto">Fahrt online anfragen</Button>
+          <Button data-ride-request href="/kontakt" variant="outline" size="large" className="min-h-[54px] w-full rounded-xl border-white bg-white px-7 text-base text-navy hover:bg-white/90 sm:w-auto">Fahrt online anfragen</Button>
         </div>
         <aside className="mt-10 max-w-4xl rounded-2xl border border-white/30 bg-white/10 p-5 backdrop-blur-sm sm:p-6" role="note" aria-label="Notfallhinweis">
           <p className="text-base leading-relaxed font-semibold"><span className="mr-2" aria-hidden="true">⚠</span>Kein medizinischer Notfalldienst. In akuten Notfällen wählen Sie <strong className="ml-1 text-2xl text-white">112</strong>.</p>

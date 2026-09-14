@@ -4,6 +4,11 @@
   scroll-margin-top: 96px;
 }
 
+@media (min-width: 48rem) and (max-width: 79.999rem) {
+  body.site-body { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+  .site-body .analytics-consent-banner { bottom: calc(6rem + env(safe-area-inset-bottom)); }
+}
+
 :root {
   --color-navy: #021f58;
   --color-navy-light: #123b78;

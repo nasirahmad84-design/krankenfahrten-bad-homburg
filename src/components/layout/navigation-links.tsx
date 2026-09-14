@@ -57,6 +57,7 @@ export function HeaderContactButton({
 
   return (
     <Button
+      data-ride-request
       href={href}
       size="large"
       className="min-h-[52px] shrink-0 rounded-xl px-4 text-[14px] whitespace-nowrap xl:px-6 xl:text-[15px]"

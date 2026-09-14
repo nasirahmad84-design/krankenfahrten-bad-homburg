@@ -198,6 +198,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
           <div className="mt-auto border-t border-[#dbe0e8] pt-4 pb-1">
             <Button
               href={siteConfig.contactLink.href}
+              data-ride-request
               size="large"
               className="min-h-[52px] w-full rounded-xl text-[15px]"
               onClick={() => closeMenu()}

@@ -19,7 +19,7 @@ export function HomeProcess() {
         </ol>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <Button href="/ablauf" variant="outline">Ablauf ansehen</Button>
-          <Button href="/kontakt">Fahrt anfragen</Button>
+          <Button data-ride-request href="/kontakt">Fahrt anfragen</Button>
         </div>
       </SiteContainer>
     </section>

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { RideRequestForm } from "@/components/forms/ride-request-form";
 import { ContentSection } from "@/components/sections/content-section";
-import { PageHero } from "@/components/sections/page-hero";
+import { SiteContainer } from "@/components/layout/site-container";
 import { InfoList } from "@/components/ui/info-list";
 import { NoticeBox } from "@/components/ui/notice-box";
 import { contactAvailability } from "@/content/contact";
@@ -13,7 +13,11 @@ export const metadata = createPageMetadata("Fahrt anfragen | Krankenfahrten Bad 
 
 export default function ContactPage() {
   return <>
-    <PageHero eyebrow="Kontakt & Fahrt anfragen" title="Ihre Fahrt unverbindlich anfragen" description="Rufen Sie uns direkt an oder übermitteln Sie Ihre Fahrtdaten sicher über das Formular. Eine Fahrt gilt erst nach unserer ausdrücklichen Bestätigung als vereinbart." />
+    <section className="bg-[#f6f9fc] pt-5 pb-8 sm:pt-8"><SiteContainer><div className="mx-auto max-w-xl">
+      <h1 id="request-form" className="mb-2 text-2xl font-bold text-navy sm:text-3xl">Ihre Fahrt unverbindlich anfragen</h1>
+      <p className="mb-5 text-sm text-navy/70">Strecke, Termin, Kontakt – wir führen Sie Schritt für Schritt.</p>
+      <RideRequestForm />
+    </div></SiteContainer></section>
     <ContentSection id="contact-options" title="Direkter Kontakt">
       <div className="grid gap-3 md:grid-cols-3 md:gap-5">
         <ContactCard icon="☎" label="Telefon" value={siteConfig.phone.display} href={siteConfig.phone.href} />
@@ -22,7 +26,6 @@ export default function ContactPage() {
       </div>
       <div className="mt-5 rounded-2xl border border-[#dce2e9] bg-[#f6f9fc] px-4 py-2 md:mt-6 md:bg-transparent md:p-0"><InfoList items={contactAvailability} columns={3} compactMobile /></div>
     </ContentSection>
-    <ContentSection id="request-form" title="Fahrtdaten eingeben" description="Wir verwenden Ihre Angaben ausschließlich zur Bearbeitung der unverbindlichen Fahrtanfrage und speichern sie nicht in einer Datenbank." muted><RideRequestForm /></ContentSection>
     <ContentSection id="contact-notices" title="Wichtige Hinweise">
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
         <NoticeBox title="Datenschutz und Verbindlichkeit" variant="information" className="rounded-2xl p-5 text-[17px] leading-[1.7] sm:p-7"><p>Bitte übermitteln Sie keine medizinischen Diagnosen oder Notfalldaten. Die Anfrage wird erst nach ausdrücklicher Bestätigung verbindlich. Hinweise finden Sie in der <Link className="font-semibold underline" href="/datenschutz/">Datenschutzerklärung</Link>.</p></NoticeBox>

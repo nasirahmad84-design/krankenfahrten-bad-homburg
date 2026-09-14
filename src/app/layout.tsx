@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import { AnalyticsConsentManager } from "@/components/analytics/analytics-consent-manager";
 import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
+import { RideRequestDialog } from "@/components/forms/ride-request-dialog";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/lib/site-config";
@@ -47,6 +48,7 @@ export default function RootLayout({
         <SiteFooter />
         <MobileContactBar />
         <AnalyticsConsentManager />
+        <RideRequestDialog />
       </body>
     </html>
   );

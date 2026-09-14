@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { createContext, useContext, useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 
 import { rideReasons } from "@/content/contact";
 import { trackAnalyticsEvent } from "@/lib/analytics-consent";
@@ -12,8 +12,17 @@ type FormStatus = Readonly<{ kind: "initial" | "submitting" | "validation_error"
 const initialStatus: FormStatus = { kind: "initial", message: "" };
 const successMessage = "Vielen Dank. Ihre Anfrage wurde übermittelt. Sie ist erst nach unserer ausdrücklichen Bestätigung verbindlich.";
 const errorMessage = "Die Anfrage konnte momentan nicht übermittelt werden. Bitte versuchen Sie es erneut oder rufen Sie uns unter 0175 4142222 an.";
+const Prefix = createContext('request');
+const subscribe = () => () => {};
+const stepFields = [['pickup', 'destination', 'journey'], ['date', 'time', 'reason'], ['name', 'phone', 'email'], ['notes', 'consent']];
+const stepTitles = ['Wohin geht die Fahrt?', 'Wann möchten Sie fahren?', 'Wie erreichen wir Sie?', 'Prüfen und absenden'];
 
-export function RideRequestForm() {
+export function RideRequestForm({onBusyChange}: {onBusyChange?: (busy: boolean) => void}) {
+  const prefix = `request-${useId().replaceAll(':', '')}`;
+  const enhanced = useSyncExternalStore(subscribe, () => true, () => false);
+  const [step, setStep] = useState(0);
+  const [summary, setSummary] = useState<Record<string, FormDataEntryValue>>({});
+  const stepHeading = useRef<HTMLHeadingElement>(null);
   const [errors, setErrors] = useState<RideRequestFieldErrors>({});
   const [status, setStatus] = useState<FormStatus>(initialStatus);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,20 +35,49 @@ export function RideRequestForm() {
     if (formStartedAtRef.current) formStartedAtRef.current.value = String(Date.now());
   }, []);
 
+  function goToStep(next: number) {
+    setStep(next);
+    setStatus(initialStatus);
+    setErrors({});
+    requestAnimationFrame(() => {
+      stepHeading.current?.focus({preventScroll: true});
+      stepHeading.current?.scrollIntoView({block: 'nearest', behavior: 'instant'});
+    });
+  }
+  function focusError(found: RideRequestFieldErrors) {
+    const first = Object.keys(found)[0];
+    if (!first) return;
+    setStep(Math.max(0, stepFields.findIndex(group => group.includes(first))));
+    requestAnimationFrame(() => {
+      const field = formRef.current?.elements.namedItem(first);
+      if (field instanceof HTMLElement) field.focus();
+    });
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submissionLockRef.current) return;
     const formData = new FormData(event.currentTarget);
     const validation = validateRideRequest(formData);
+    if (step < 3) {
+      const currentErrors = validation.success ? {} : Object.fromEntries(Object.entries(validation.fieldErrors).filter(([key]) => stepFields[step].includes(key)));
+      if (Object.keys(currentErrors).length) {
+        setErrors(currentErrors); focusError(currentErrors); return;
+      }
+      setSummary(Object.fromEntries(formData));
+      goToStep(step + 1);
+      return;
+    }
     if (!validation.success) {
       setErrors(validation.fieldErrors);
       setStatus({ kind: "validation_error", message: "Bitte prüfen Sie die markierten Felder." });
-      focusFirstError(validation.fieldErrors);
+      focusError(validation.fieldErrors);
       return;
     }
 
     submissionLockRef.current = true;
     setIsSubmitting(true);
+    onBusyChange?.(true);
     setErrors({});
     setStatus({ kind: "submitting", message: "Anfrage wird übermittelt …" });
     const result = await postRideRequest(createRideRequestPayload(validation.data, formData));
@@ -47,79 +85,105 @@ export function RideRequestForm() {
     if (result.success) {
       trackAnalyticsEvent("generate_lead");
       formRef.current?.reset();
+      setSummary({});
       if (formStartedAtRef.current) formStartedAtRef.current.value = String(Date.now());
       setStatus({ kind: "success", message: successMessage });
       requestAnimationFrame(() => successHeadingRef.current?.focus());
     } else if (result.type === "validation") {
       setErrors(result.errors);
       setStatus({ kind: "validation_error", message: "Bitte prüfen Sie die markierten Felder." });
-      focusFirstError(result.errors);
+      focusError(result.errors);
     } else {
       setStatus({ kind: "server_error", message: errorMessage });
     }
 
     submissionLockRef.current = false;
     setIsSubmitting(false);
+    onBusyChange?.(false);
   }
 
   return (
-    <form ref={formRef} action="/api/fahrtanfrage.php" method="post" noValidate onSubmit={handleSubmit} className="relative rounded-[20px] border border-[#dce2e9] bg-white p-4 shadow-[0_12px_32px_rgba(2,31,88,0.07)] sm:rounded-[22px] sm:p-8" aria-label="Fahrt unverbindlich anfragen">
-      <input ref={formStartedAtRef} type="hidden" name="formStartedAt" defaultValue="0" />
+    <Prefix.Provider value={prefix}><form ref={formRef} action="/api/fahrtanfrage.php" method="post" noValidate onSubmit={handleSubmit} className="relative mx-auto max-w-xl rounded-2xl border border-[#dce2e9] bg-white p-4 sm:p-5" aria-label="Fahrt unverbindlich anfragen">
+      <input ref={formStartedAtRef} type="hidden" name="formStartedAt" />
       <div className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden" aria-hidden="true">
-        <label htmlFor="request-website">Website</label>
-        <input id="request-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor={`${prefix}-website`}>Website</label>
+        <input id={`${prefix}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
+      <div hidden={status.kind === 'success'}>
+      {enhanced && <ol aria-label="Fortschritt" className="mb-4 grid grid-cols-4 gap-2">{['Strecke', 'Termin', 'Kontakt', 'Absenden'].map((label, index) => <li key={label} aria-current={step === index ? 'step' : undefined} className={`border-t-4 pt-2 text-xs font-semibold ${index <= step ? 'border-green' : 'border-navy/10 text-navy/60'}`}>{index + 1}. {label}</li>)}</ol>}
+      <h3 ref={stepHeading} tabIndex={-1} className="mb-4 text-xl font-bold text-navy focus:outline-none">{enhanced ? stepTitles[step] : 'Ihre Fahrtdaten'}</h3>
+      <fieldset disabled={isSubmitting} hidden={enhanced && step !== 2} className="space-y-3">
+        <legend className="sr-only">Kontakt</legend>
         <Field id="name" label="Vorname und Nachname" required error={errors.name} autoComplete="name" maxLength={120} />
         <Field id="phone" label="Telefonnummer" required error={errors.phone} type="tel" autoComplete="tel" maxLength={40} />
         <Field id="email" label="E-Mail (optional)" error={errors.email} type="email" autoComplete="email" maxLength={254} />
-        <Field id="date" label="Gewünschtes Fahrtdatum" required error={errors.date} type="date" />
-        <Field id="time" label="Gewünschte Uhrzeit" required error={errors.time} type="time" />
-        <SelectField id="reason" label="Fahrtart beziehungsweise Anlass" required error={errors.reason} options={rideReasons} />
+      </fieldset>
+      <fieldset disabled={isSubmitting} hidden={enhanced && step !== 1} className="space-y-3">
+        <legend className="sr-only">Termin</legend>
+        <div className="grid grid-cols-2 gap-3">
+        <Field id="date" label="Fahrtdatum" required error={errors.date} type="date" />
+        <Field id="time" label="Abholzeit" required error={errors.time} type="time" />
+        </div>
+        <SelectField id="reason" label="Fahrtanlass" required error={errors.reason} options={rideReasons} />
+      </fieldset>
+      <fieldset disabled={isSubmitting} hidden={enhanced && step !== 0} className="space-y-3">
+        <legend className="sr-only">Strecke</legend>
         <Field id="pickup" label="Abholadresse" required error={errors.pickup} autoComplete="street-address" maxLength={200} />
         <Field id="destination" label="Zieladresse" required error={errors.destination} maxLength={200} />
-        <SelectField id="journey" label="Gewünschte Fahrt (optional)" error={errors.journey} options={["Nur Hinfahrt", "Hin- und Rückfahrt"]} />
-        <div className="md:col-span-2">
-          <label htmlFor="request-notes" className="form-label">Zusätzliche Hinweise (optional)</label>
-          <textarea id="request-notes" name="notes" rows={4} maxLength={1000} className="form-control min-h-28 resize-y" aria-invalid={Boolean(errors.notes)} aria-describedby={errors.notes ? "request-notes-help request-notes-error" : "request-notes-help"} />
-          <p id="request-notes-help" className="mt-2 text-[14px] leading-[1.55] text-[#5b697a]">Bitte geben Sie keine medizinischen Diagnosen oder Notfalldaten ein.</p>
-          {errors.notes && <FieldError id="request-notes-error" message={errors.notes} />}
-        </div>
-      </div>
+        <SelectField id="journey" label="Rückfahrt (optional)" error={errors.journey} options={["Nur Hinfahrt", "Hin- und Rückfahrt"]} />
+      </fieldset>
+      <fieldset disabled={isSubmitting} hidden={enhanced && step !== 3} className="space-y-3">
+        <legend className="sr-only">Prüfen und absenden</legend>
+        {enhanced && <div className="rounded-xl bg-[#f6f9fc] p-3 text-sm leading-relaxed">
+          <p className="break-words font-semibold">{String(summary.pickup ?? '')} → {String(summary.destination ?? '')}</p>
+          <p>{String(summary.date ?? '')} · {String(summary.time ?? '')} Uhr</p>
+          <p>{String(summary.reason ?? '')} · {String(summary.journey ?? '')}</p>
+          <p className="break-words">{String(summary.name ?? '')} · {String(summary.phone ?? '')}</p>
+          {summary.email && <p className="break-words">{String(summary.email)}</p>}
+          <button type="button" onClick={() => goToStep(0)} className="min-h-11 font-semibold underline">Angaben ändern</button>
+        </div>}
+        <details open={errors.notes ? true : undefined}>
+          <summary className="min-h-11 cursor-pointer text-sm font-semibold">Hinweise ergänzen (optional)</summary>
+          <label htmlFor={`${prefix}-notes`} className="form-label">Zusätzliche Hinweise</label>
+          <textarea id={`${prefix}-notes`} name="notes" rows={2} maxLength={1000} className="form-control resize-y" aria-invalid={Boolean(errors.notes)} aria-describedby={`${prefix}-notes-help`} />
+          <p id={`${prefix}-notes-help`} className="mt-1 text-xs">Bitte geben Sie keine medizinischen Diagnosen oder Notfalldaten ein.</p>
+          {errors.notes && <FieldError id={`${prefix}-notes-error`} message={errors.notes} />}
+        </details>
 
-      <div className="mt-6">
-        <label className="flex min-h-12 cursor-pointer items-start gap-3 rounded-xl p-2 text-base leading-[1.6] text-[#5b697a] transition-colors hover:bg-[#f6f9fc]" htmlFor="request-consent">
-          <input id="request-consent" name="consent" type="checkbox" className="mt-0.5 size-6 shrink-0 accent-green" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "request-consent-error" : undefined} />
+      <div>
+        <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-[#5b697a]" htmlFor={`${prefix}-consent`}>
+          <input id={`${prefix}-consent`} name="consent" type="checkbox" className="mt-0.5 size-6 shrink-0 accent-green" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? `${prefix}-consent-error` : undefined} />
           <span>Ich willige ausdrücklich ein, dass meine Angaben – einschließlich des gewählten Fahrtanlasses und möglicher gesundheitsbezogener Angaben – zur Bearbeitung der Fahrtanfrage verarbeitet werden und ich hierzu telefonisch oder per E-Mail kontaktiert werde. Die Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. <span aria-hidden="true">*</span></span>
         </label>
-        {errors.consent && <FieldError id="request-consent-error" message={errors.consent} />}
-        <p className="mt-2 pl-2 text-[14px] leading-relaxed text-[#5b697a]">Informationen zur Verarbeitung Ihrer Angaben finden Sie in der <Link className="font-semibold text-navy underline decoration-green decoration-2 underline-offset-4" href="/datenschutz/">Datenschutzerklärung</Link>.</p>
+        {errors.consent && <FieldError id={`${prefix}-consent-error`} message={errors.consent} />}
+        <p className="mt-2 text-xs leading-relaxed text-[#5b697a]">Informationen in der <Link target="_blank" rel="noopener" className="font-semibold text-navy underline" href="/datenschutz/">Datenschutzerklärung (neuer Tab)</Link>. Erst unsere Bestätigung macht die Fahrt verbindlich.</p>
       </div>
 
-      <button type="submit" disabled={isSubmitting} aria-disabled={isSubmitting} className="mt-7 inline-flex min-h-[58px] w-full items-center justify-center rounded-xl bg-green px-8 text-[17px] font-semibold text-navy shadow-sm transition-[background-color,box-shadow] hover:bg-green-light hover:shadow-md disabled:cursor-not-allowed disabled:bg-navy/20 sm:w-auto sm:min-w-72">{isSubmitting ? "Anfrage wird übermittelt …" : "Anfrage übermitteln"}</button>
+      </fieldset>
+      <div className="sticky bottom-0 mt-4 flex gap-3 border-t border-navy/10 bg-white py-3">
+        {enhanced && step > 0 && <button type="button" disabled={isSubmitting} onClick={() => goToStep(step - 1)} className="min-h-12 rounded-xl border border-navy/20 px-4 font-semibold disabled:opacity-50">Zurück</button>}
+        <button type="submit" disabled={isSubmitting} aria-disabled={isSubmitting} className="min-h-12 flex-1 rounded-xl bg-green px-4 font-bold text-navy disabled:opacity-50">{isSubmitting ? "Wird gesendet …" : enhanced && step < 3 ? 'Weiter →' : 'Unverbindlich absenden'}</button>
+      </div>
+      </div>
       <div aria-live="polite" aria-atomic="true">
         {status.kind !== "initial" && status.kind !== "submitting" && (
           <section className={`mt-6 rounded-xl border p-4 text-base leading-relaxed ${status.kind === "success" ? "border-green/40 bg-[#f0f7eb] text-navy" : "border-red-700/30 bg-red-50 text-red-950"}`} role={status.kind === "success" ? "status" : "alert"}>
             <h3 ref={successHeadingRef} tabIndex={status.kind === "success" ? -1 : undefined} className="font-bold">{status.kind === "success" ? "Anfrage übermittelt" : "Übermittlung nicht abgeschlossen"}</h3>
             <p className="mt-1">{status.message}</p>
+            {status.kind === 'success' && <button type="button" className="mt-3 min-h-11 font-semibold underline" onClick={() => goToStep(0)}>Weitere Fahrt anfragen</button>}
           </section>
         )}
         {status.kind === "submitting" && <p className="sr-only">{status.message}</p>}
       </div>
-    </form>
+    </form></Prefix.Provider>
   );
-}
-
-function focusFirstError(errors: RideRequestFieldErrors) {
-  const firstError = Object.keys(errors)[0];
-  if (firstError) requestAnimationFrame(() => document.getElementById(`request-${firstError}`)?.focus());
 }
 
 type FieldProps = { id: string; label: string; error?: string; required?: boolean; type?: string; autoComplete?: string; maxLength?: number };
 
 function Field({ id, label, error, required, type = "text", autoComplete, maxLength }: FieldProps) {
-  const inputId = `request-${id}`;
+  const inputId = `${useContext(Prefix)}-${id}`;
   const errorId = `${inputId}-error`;
   return <div><label htmlFor={inputId} className="form-label">{label}{required && <span aria-hidden="true"> *</span>}</label><input id={inputId} name={id} type={type} autoComplete={autoComplete} maxLength={maxLength} className="form-control" required={required} aria-invalid={Boolean(error)} aria-describedby={error ? errorId : undefined} />{error && <FieldError id={errorId} message={error} />}</div>;
 }
@@ -127,7 +191,7 @@ function Field({ id, label, error, required, type = "text", autoComplete, maxLen
 type SelectFieldProps = { id: string; label: string; options: readonly string[]; error?: string; required?: boolean };
 
 function SelectField({ id, label, options, error, required }: SelectFieldProps) {
-  const inputId = `request-${id}`;
+  const inputId = `${useContext(Prefix)}-${id}`;
   const errorId = `${inputId}-error`;
   return <div><label htmlFor={inputId} className="form-label">{label}{required && <span aria-hidden="true"> *</span>}</label><select id={inputId} name={id} className="form-control" defaultValue="" required={required} aria-invalid={Boolean(error)} aria-describedby={error ? errorId : undefined}><option value="">Bitte auswählen</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select>{error && <FieldError id={errorId} message={error} />}</div>;
 }
