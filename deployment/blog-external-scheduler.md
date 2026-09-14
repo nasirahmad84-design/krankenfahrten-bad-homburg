@@ -26,9 +26,15 @@ Konkrete Vorlage: `automation/blog/external-schedule.example.json`. Sie ist stan
 
 Externen Cronjob deaktivieren und `BLOG_EXTERNAL_SCHEDULER_ENABLED=false` setzen. Eine bereits laufende Veröffentlichung nicht abbrechen. Der vorhandene Publisher verhindert Doppelpublikationen bereits versionierter Artikel und serialisiert gleichzeitige Läufe über `blog-publishing`.
 
-## Noch offen
+## Aktivierung am 14.09.2026
 
-Konto und zugriffsbegrenzter Token; aktivierter Job und erfolgreicher End-to-End-Test. Diese Datei ist eine geprüfte Einrichtungsvorlage, kein Nachweis einer aktiven Umstellung.
+cron-job.org Job 8444723 ist gespeichert und aktiviert: Montag und Donnerstag 09:00 Europe/Berlin. Der gespeicherte POST-Body verwendet nun `dry_run: false`. GitHub-Variable `BLOG_EXTERNAL_SCHEDULER_ENABLED=true` ist gesetzt; der alte Schedule wird damit übersprungen.
+
+Prüflauf: cron-job.org antwortete mit HTTP 204; GitHub-Lauf 34825920092 wurde erfolgreich abgeschlossen. Alle vier Build-/Deployment-/Commit-Schritte wurden im Dry Run übersprungen. Es wurde im Test kein Artikel veröffentlicht.
+
+Der repository-begrenzte Actions-Token liegt ausschließlich beim externen Dienst und läuft am 14.10.2026 ab. Vorher muss er erneuert werden. Fehler-, Wiederherstellungs- und Deaktivierungsbenachrichtigungen sind im Cronjob eingeschaltet.
+
+Noch offen: erster regulärer Veröffentlichungslauf am 17.09.2026; Live-URL und Publish-Commit anschließend prüfen. Der erfolgreiche Dry Run ist kein Nachweis einer bereits erfolgten Veröffentlichung.
 
 ## Quellen
 
