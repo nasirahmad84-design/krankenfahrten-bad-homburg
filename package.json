@@ -28,7 +28,9 @@
     "deploy:blog:test": "bash scripts/deploy-blog-ftp.sh test",
     "deploy:blog:live": "bash scripts/deploy-blog-ftp.sh live",
     "deploy:editorial:test": "bash scripts/deploy-editorial-ftp.sh",
-    "deploy:blog-alert": "bash scripts/deploy-blog-alert-ftp.sh"
+    "deploy:blog-alert": "bash scripts/deploy-blog-alert-ftp.sh",
+    "video:studio": "remotion studio remotion/index.ts",
+    "video:pilot": "bash scripts/render-remotion-pilot.sh"
   },
   "dependencies": {
     "next": "16.2.10",
@@ -36,12 +38,14 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@remotion/cli": "4.0.524",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "remotion": "4.0.524",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

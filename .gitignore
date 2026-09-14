@@ -17,6 +17,7 @@
 /.next/
 /out/
 /out-editorial/
+/artifacts/remotion/
 
 # production
 /build
