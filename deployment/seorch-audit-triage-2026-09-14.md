@@ -18,6 +18,9 @@ Geprüft wurde der vom Betreiber bereitgestellte SEORCH-Export gegen den aktuell
 
 - Das Startseiten-Hero wurde von 1800×1100 und 169 KiB auf 1200×734 und rund 89 KiB reduziert. Bei maximal ungefähr 500 CSS-Pixeln Darstellungsbreite bleibt damit ausreichend Reserve für hochauflösende Displays. Seitenverhältnis, Ausschnitt, Preload und Alt-Text bleiben erhalten.
 - Die maximale Dateigröße wird nun automatisiert mit 150 KiB begrenzt.
+- Der optimierte Stand wurde am 14.09.2026 live veröffentlicht. Die Produktionsdatei liefert HTTP 200 und 91.530 Byte; das HTML enthält den Bild-Preload sowie die intrinsischen Maße 1200×734.
+- Die Live-Abnahme bestätigte außerdem: kein produktiver `noindex`-Header, echter 404-Status für unbekannte URLs, geschützte `api/config.php` und den neuen Ratgeber-Sitemap-Eintrag.
+- Eine direkte Wiederholungsmessung über die öffentliche PageSpeed-API war wegen HTTP 429 nicht verfügbar. Daher wird kein neuer Lighthouse- oder Core-Web-Vitals-Wert behauptet.
 
 ## Belastbare nächste Prüfungen
 
