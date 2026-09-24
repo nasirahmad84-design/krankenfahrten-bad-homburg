@@ -1,6 +1,110 @@
 // Automatisch aus automation/blog/published/*.json erzeugt. Nicht manuell bearbeiten.
 export const generatedPublishedBlogPosts = [
   {
+    "slug": "hochtaunus-kliniken-bad-homburg-abholung",
+    "title": "Fahrt zu den Hochtaunus-Kliniken: Treffpunkt und Abholung klären",
+    "metadataTitle": "Hochtaunus-Kliniken: Abholung in Bad Homburg",
+    "description": "Bei einer Fahrt zu den Hochtaunus-Kliniken Bad Homburg zählen das richtige Gebäude, ein klarer Treffpunkt und eine abgestimmte Rückfahrt.",
+    "format": "Ratgeber",
+    "publishedAt": "2026-09-24",
+    "updatedAt": "2026-09-24",
+    "reviewedAt": "2026-09-14",
+    "readingTimeMinutes": 2,
+    "intro": "„Zum Krankenhaus“ ist für eine Fahrtplanung oft zu ungenau. Besonders bei einer ersten Untersuchung hilft es, Standort, Abteilung und gewünschten Übergabepunkt zusammen zu betrachten. Für Bad Homburg veröffentlichen die Hochtaunus-Kliniken eigene Anfahrtsinformationen. Die Hinweise Ihrer behandelnden Stelle bleiben für Ihren Termin entscheidend.",
+    "summary": [
+      "Prüfen Sie Standort und Abteilung anhand Ihrer Terminunterlagen.",
+      "Vereinbaren Sie einen konkreten Übergabepunkt.",
+      "Der Klinikvorplatz ist kein zugesagter Langzeitwarteplatz für den Fahrer."
+    ],
+    "sections": [
+      {
+        "id": "ziel",
+        "title": "Nicht nur den Kliniknamen nennen",
+        "paragraphs": [
+          "Übernehmen Sie das konkrete Ziel aus der Terminbestätigung. Prüfen Sie, ob dort Bad Homburg als Standort genannt ist und ob zusätzliche Hinweise zu einer Ambulanz oder Anmeldung stehen. Geben Sie diese organisatorischen Angaben bei der Fahrtanfrage weiter.",
+          "Die allgemeine Anfahrtsseite der Klinik hilft bei der Orientierung zum Gelände. Sie ersetzt jedoch keine Auskunft der zuständigen Abteilung darüber, wo Sie sich für die Untersuchung melden sollen."
+        ],
+        "sourceIds": [
+          "HTK-STANDORT"
+        ]
+      },
+      {
+        "id": "vorplatz",
+        "title": "Kurzzeitiges Halten von längerem Warten unterscheiden",
+        "paragraphs": [
+          "Die Klinik beschreibt die Parkfläche vor dem Haupteingang als Bereich für kurzzeitiges Parken von Patientinnen und Patienten und deren Begleitung. Daraus folgt keine Zusage, dass ein Fahrzeug dort während einer gesamten Behandlung warten kann.",
+          "Für Ihre Fahrt ist deshalb die Absprache wichtig: Wird nur der Einstieg ermöglicht oder ist eine längere Wartezeit überhaupt vereinbart? Maßgeblich sind außerdem die aktuellen Hinweise und die Beschilderung vor Ort. Gebühren oder freie Plätze können wir aus einer Terminbuchung nicht vorhersagen."
+        ],
+        "sourceIds": [
+          "HTK-VORPLATZ"
+        ]
+      },
+      {
+        "id": "uebergabe",
+        "title": "Den Übergabepunkt in einfachen Worten festhalten",
+        "paragraphs": [
+          "Vereinbaren Sie eine eindeutig erkennbare Stelle und klären Sie, ob eine Begleitung zur Anmeldung benötigt wird. „Ich bin irgendwo am Ausgang“ ist am Ende einer Behandlung schwerer zu koordinieren als ein gemeinsam festgelegter Treffpunkt.",
+          "Unser Fahrdienst stimmt die Durchführung persönlich ab. Die Nennung der Klinik beschreibt lediglich ein mögliches Fahrtziel; damit wird keine Kooperation oder bevorzugte Zufahrt behauptet."
+        ],
+        "sourceIds": [
+          "SERVICE-ABLAUF"
+        ]
+      },
+      {
+        "id": "rueckfahrt",
+        "title": "Änderungen beim Behandlungsende mitteilen",
+        "paragraphs": [
+          "Ist das Ende der Behandlung noch offen, sagen Sie das bereits bei der Anfrage. Die Rückfahrt und eine mögliche Wartezeit müssen passend dazu besprochen werden. Teilen Sie erst dann einen Abholzeitpunkt als sicher mit, wenn die behandelnde Stelle ihn bestätigt hat.",
+          "Bei der Abholung hilft ein erreichbares Telefon. Wer nicht selbst telefonieren kann, sollte vorher mit einer Begleitperson oder der Einrichtung klären, wer den Kontakt übernimmt."
+        ],
+        "sourceIds": [
+          "SERVICE-ABLAUF"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Kann der Fahrer auf dem Vorplatz die ganze Behandlung warten?",
+        "answer": "Das kann nicht vorausgesetzt werden. Die Klinik beschreibt den Bereich vor dem Haupteingang für kurzzeitiges Parken; eine Wartezeit muss individuell abgestimmt werden."
+      },
+      {
+        "question": "Reicht die Angabe Hochtaunus-Kliniken?",
+        "answer": "Nennen Sie auch den bestätigten Standort und die Angaben zur Anmeldung aus Ihren Terminunterlagen."
+      },
+      {
+        "question": "Besteht eine Kooperation mit der Klinik?",
+        "answer": "Aus diesem Ratgeber ergibt sich keine Kooperation. Die Klinik wird als regionales Fahrtziel und Quelle ihrer eigenen Anfahrtsinformationen genannt."
+      }
+    ],
+    "sources": [
+      {
+        "id": "HTK-STANDORT",
+        "title": "Standort Bad Homburg",
+        "publisher": "Hochtaunus-Kliniken",
+        "url": "https://www.hochtaunus-kliniken.de/die-hochtaunus-kliniken/standorte/bad-homburg",
+        "checkedAt": "2026-09-14"
+      },
+      {
+        "id": "HTK-VORPLATZ",
+        "title": "Parkplätze und Parkgebühren",
+        "publisher": "Hochtaunus-Kliniken",
+        "url": "https://www.hochtaunus-kliniken.de/die-hochtaunus-kliniken/patienten-besucher/parkplaetze-und-parkgebuehren",
+        "checkedAt": "2026-09-14"
+      },
+      {
+        "id": "SERVICE-ABLAUF",
+        "title": "Ablauf einer Krankenfahrt",
+        "publisher": "Krankenfahrten Bad Homburg",
+        "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+        "checkedAt": "2026-09-14"
+      }
+    ],
+    "relatedServiceSlugs": [
+      "arzt-klinikfahrten",
+      "entlassungsfahrten"
+    ]
+  },
+  {
     "slug": "krankenfahrt-fuer-angehoerige-organisieren",
     "title": "Krankenfahrt für Angehörige organisieren: Wer stimmt was ab?",
     "metadataTitle": "Krankenfahrt für Angehörige organisieren",
