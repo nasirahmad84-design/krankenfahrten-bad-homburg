@@ -127,6 +127,11 @@ function editorial_api_path(string $relative): string
     return dirname(__DIR__, 2) . '/public/api/' . ltrim($relative, '/');
 }
 
+function editorial_read_config_file(string $file): mixed
+{
+    return require $file;
+}
+
 function editorial_load_config(): ?array
 {
     $path = editorial_api_path('config.php');
@@ -143,7 +148,7 @@ function editorial_load_config(): ?array
     $outreachPath = dirname(__DIR__) . '/outreach-config.php';
     if (is_file($outreachPath)) {
         // Included configuration may define $config itself. Keep its scope isolated.
-        $outreach = (static fn(string $file) => require $file)($outreachPath);
+        $outreach = editorial_read_config_file($outreachPath);
         if (is_array($outreach)) $config = array_replace($config, $outreach);
     }
     return $config;

@@ -53,6 +53,9 @@ $config = [
     'rate_limit_dir' => sys_get_temp_dir() . '/kfbh-editorial-test-' . bin2hex(random_bytes(4)),
 ];
 $captured = null;
+$outreachSettings = editorial_read_config_file(__DIR__ . '/fixtures/outreach-config.php');
+$config = array_replace($config, $outreachSettings);
+editorial_test(($config['mail_transport'] ?? null) === 'smtp' && $config['outreach_daily_limit'] === 1, 'Outreach-Konfiguration muss SMTP-Einstellungen erhalten.');
 $sent = editorial_send_login_code('246810', $config, static function (array $payload, array $smtp) use (&$captured): bool {
     $captured = [$payload, $smtp];
     return true;
