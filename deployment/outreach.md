@@ -9,7 +9,7 @@ Stand: 28.09.2026. Eigenes Modul im vorhandenen Einmalcode-Cockpit unter `/redak
 - GitHub-Lauf 36416434626: interne Testmail vom SMTP-Server angenommen, öffentlicher Abmeldeprozess erfolgreich, Empfänger danach gesperrt; erneuter Lauf ohne doppelte Mail. Posteingang/Spamordner noch vom Empfänger zu bestätigen.
 - Ein erster Versuch scheiterte vor SMTP durch Variablenüberschreibung beim Einlesen der Outreach-Konfiguration. Behoben, Regressionstest ergänzt; genau dieser belegte Vor-SMTP-Fehler wurde einmalig zurückgesetzt. Wiederholungsmechanismus anschließend entfernt.
 - Workflow `outreach-test-worker.yml` prüft alle 15 Minuten, sofern `OUTREACH_TEST_SCHEDULER_ENABLED=true`. Keine lokale Rechnerabhängigkeit. GitHub-Zeitpläne können verspätet laufen. Fehler werden als fehlgeschlagener Lauf sichtbar; eine separate E-Mail-Alarmierung wurde noch nicht eingerichtet.
-- Rechercheanbieter Private.coffee auch vom ALL-INKL-Server nicht erreichbar. Manuelle Kontakterfassung funktioniert; automatische Recherche noch offen. Keine fremden Organisationen angeschrieben.
+- Rechercheanbieter Private.coffee auch vom ALL-INKL-Server nicht erreichbar. Für manuelle Einzelrecherchen auf der Testdomain wird nach einem kurzen Timeout `overpass-api.de` als Ausweichserver genutzt, maximal fünf Aufrufe pro UTC-Tag. Der lokale Kliniken-Test importierte 54 unbestätigte Kandidaten. Die Serverabnahme folgt nach Upload; keine fremden Organisationen werden angeschrieben. Für einen dauerhaften kommerziellen Recherchebetrieb empfiehlt der Betreiber des öffentlichen Ausweichservers einen eigenen oder bezahlten Dienst. Quelle: https://wiki.openstreetmap.org/wiki/Overpass_API
 - Keine Änderungen an Produktion oder am öffentlichen Website-Export.
 
 ## Ablauf
@@ -45,7 +45,7 @@ Der Platzhalter-Token darf nicht produktiv eingesetzt werden. Bestehende geprüf
 
 Der Prozess speichert vor SMTP `unknown`; auch nach Verbindungsabbruch/Prozessende findet kein automatischer Retry statt. Unklare Zustellungen erzeugen HTTP 503 für die Scheduler-Alarmierung. Nach Postfach-/Hostprotokollprüfung lässt sich das Ergebnis in der Kampagnenansicht mit Prüfnachweis dokumentieren; dies löst keine neue Mail aus. Ein privates Dateilock serialisiert Worker, Kontaktänderungen und Abmeldungen. SQLite-Transaktionen reservieren einzelne Zustellungen. Die Datenschutzhinweise des öffentlichen Auftritts wurden nicht pauschal für einen noch nicht aktivierten Prozess verändert.
 
-Lokale Abnahme: Funktions- und Loginprüfungen bestanden. Der echte Aufruf von Private.coffee lieferte am 28.09.2026 einen Timeout; automatisierte Recherche ist daher noch nicht erfolgreich Ende-zu-Ende abgenommen. Die Oberfläche behandelt diesen Fall kontrolliert nach maximal 15 Sekunden. Importlogik wurde mit Testdaten geprüft.
+Lokale Abnahme: Funktions- und Loginprüfungen bestanden. Der echte Aufruf von Private.coffee lieferte am 28.09.2026 einen Timeout. Der Ausweichserver importierte im lokalen Kliniken-Test 54 Kandidaten. Die Oberfläche begrenzt die Anfrage auf insgesamt 24 Sekunden; Importlogik wurde zusätzlich mit Testdaten geprüft.
 
 ## Betrieb und nächste Ausbaustufen
 

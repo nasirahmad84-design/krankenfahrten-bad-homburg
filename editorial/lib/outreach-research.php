@@ -15,24 +15,34 @@ function outreach_discover(PDO $db, string $category, string $pool): int
     $last = (int)outreach_sql($db,"SELECT value FROM settings WHERE key='research_last'")->fetchColumn();
     if (time()-$last < 60) throw new RuntimeException('Bitte zwischen Recherchen eine Minute warten.');
     outreach_sql($db,"INSERT INTO settings(key,value) VALUES ('research_last',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",[(string)time()]);
-    // Fixed geographic scope and endpoint; no arbitrary URL fetching from imported records.
+    // Fixed geographic scope and endpoints; no arbitrary URL fetching from imported records.
     $query = '[out:json][timeout:10];nwr' . $filters[$category] . '(around:15000,50.2268,8.6182);out tags 150;';
-    $curl = curl_init('https://overpass.private.coffee/api/interpreter');
-    $buffer = '';
-    curl_setopt_array($curl,[CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>http_build_query(['data'=>$query]),
-        CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_FOLLOWLOCATION=>false,
-        CURLOPT_USERAGENT=>'KrankenfahrtenBadHomburg-Outreach/1.0 (+https://krankenfahrten-bad-homburg.de/)',
-        CURLOPT_WRITEFUNCTION=>static function ($handle,string $chunk) use (&$buffer): int {
-            if (strlen($buffer)+strlen($chunk)>2000000) return 0;
-            $buffer.=$chunk; return strlen($chunk);
-        }]);
-    $ok = curl_exec($curl);
-    $status = curl_getinfo($curl,CURLINFO_RESPONSE_CODE);
-    unset($curl);
-    if (!$ok || $status !== 200) throw new RuntimeException('Rechercheanbieter derzeit nicht erreichbar. Kontakte können weiterhin manuell erfasst werden.');
-    $result = json_decode($buffer,true,32,JSON_THROW_ON_ERROR);
-    if (!isset($result['elements']) || isset($result['remark'])) throw new RuntimeException('Recherche unvollständig. Bitte später erneut versuchen.');
-    return outreach_import_osm($db,$result['elements'],$category,$pool);
+    foreach ([['https://overpass.private.coffee/api/interpreter',6],['https://overpass-api.de/api/interpreter',18]] as $index => [$endpoint,$timeout]) {
+        if ($index === 1) {
+            // The community fallback is only for occasional manual searches on staging.
+            $key='research_fallback_'.gmdate('Y-m-d');
+            $used=(int)outreach_sql($db,'SELECT value FROM settings WHERE key=?',[$key])->fetchColumn();
+            if ($used >= 5) break;
+            outreach_sql($db,'INSERT INTO settings(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',[$key,(string)($used+1)]);
+        }
+        $curl = curl_init($endpoint);
+        $buffer = '';
+        curl_setopt_array($curl,[CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>http_build_query(['data'=>$query]),
+            CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>$timeout,CURLOPT_FOLLOWLOCATION=>false,
+            CURLOPT_USERAGENT=>'KrankenfahrtenBadHomburg-Outreach/1.0 (+https://krankenfahrten-bad-homburg.de/)',
+            CURLOPT_WRITEFUNCTION=>static function ($handle,string $chunk) use (&$buffer): int {
+                if (strlen($buffer)+strlen($chunk)>2000000) return 0;
+                $buffer.=$chunk; return strlen($chunk);
+            }]);
+        $ok = curl_exec($curl);
+        $status = curl_getinfo($curl,CURLINFO_RESPONSE_CODE);
+        unset($curl);
+        if (!$ok || $status !== 200) continue;
+        $result = json_decode($buffer,true,32);
+        if (!is_array($result) || !isset($result['elements']) || !is_array($result['elements']) || isset($result['remark'])) continue;
+        return outreach_import_osm($db,$result['elements'],$category,$pool);
+    }
+    throw new RuntimeException('Rechercheanbieter derzeit nicht erreichbar. Kontakte können weiterhin manuell erfasst werden.');
 }
 
 function outreach_import_osm(PDO $db, array $elements, string $category, string $pool): int
