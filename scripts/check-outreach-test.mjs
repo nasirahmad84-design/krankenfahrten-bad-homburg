@@ -10,6 +10,7 @@ async function call(action){
 }
 if(process.argv.includes('--diagnostics')){
  console.log(JSON.stringify(await call('diagnostics')));
+ try{const result=await call('research_test');console.log(`Echte Serverrecherche: ${result.imported} Kandidaten importiert (nicht versandberechtigt).`);}catch{console.log('OFFEN: Externer Rechercheanbieter derzeit nicht erreichbar.');}
 }else if(process.argv.includes('--tick')){
  const result=await call('run'); console.log(`Outreach-Zeitplan: ${result.status}, ${result.sent} SMTP-Annahmen.`);
 }else{
