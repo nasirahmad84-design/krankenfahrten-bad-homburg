@@ -142,7 +142,8 @@ function editorial_load_config(): ?array
     }
     $outreachPath = dirname(__DIR__) . '/outreach-config.php';
     if (is_file($outreachPath)) {
-        $outreach = require $outreachPath;
+        // Included configuration may define $config itself. Keep its scope isolated.
+        $outreach = (static fn(string $file) => require $file)($outreachPath);
         if (is_array($outreach)) $config = array_replace($config, $outreach);
     }
     return $config;

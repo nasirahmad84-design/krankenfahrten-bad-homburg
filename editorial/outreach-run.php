@@ -19,6 +19,12 @@ try {
     if (in_array($action,['setup_test','test_status','research_test'],true) && ($config['outreach_test_recipient']??'')!=='nahmad@outlook.de') throw new RuntimeException('Nur isolierter Testmodus.');
     if ($action==='setup_test') {
         $existing=outreach_sql($db,"SELECT value FROM settings WHERE key='internal_test_campaign'")->fetchColumn();
+        // One-off repair of the verified pre-SMTP configuration-scope failure on 28 Sep.
+        // No connection was attempted in that run. Never reset a later ambiguous delivery.
+        if ($existing) {
+            $fixed=outreach_sql($db,"UPDATE deliveries SET state='pending',attempted_at=NULL WHERE campaign_id=? AND email=? AND state='unknown' AND attempted_at<=1790595059",[$existing,$config['outreach_test_recipient']]);
+            if ($fixed->rowCount()) outreach_audit($db,'internal_test_pre_smtp_config_failure_repaired',(int)$existing);
+        }
         if (!$existing) {
             outreach_contact($db,['organisation'=>'Nasir Ahmad – interner Funktionstest','category'=>'Interner Test','pool'=>'Interner Test',
                 'email'=>$config['outreach_test_recipient'],'source'=>'https://krankenfahrten-bad-homburg.de/#interner-outreach-test',

@@ -213,6 +213,8 @@ function outreach_run(PDO $db, array $config, int $now, ?callable $sender = null
 {
     outreach_sql($db,"INSERT INTO settings(key,value) VALUES ('worker_last',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",[(string)$now]);
     if (($config['outreach_send_enabled'] ?? false) !== true) return ['sent'=>0,'status'=>'disabled'];
+    // Validate transport before claiming a delivery; configuration errors are not SMTP attempts.
+    if ($sender === null) outreach_mailer($config);
     $base = $config['outreach_public_base_url'] ?? '';
     if (!is_string($base) || !filter_var($base,FILTER_VALIDATE_URL) || parse_url($base,PHP_URL_SCHEME) !== 'https' || strlen($config['outreach_sender_footer'] ?? '') < 40) throw new RuntimeException('Versand benötigt HTTPS-Abmeldeadresse und vollständige Absenderangaben.');
     $sent = 0;
