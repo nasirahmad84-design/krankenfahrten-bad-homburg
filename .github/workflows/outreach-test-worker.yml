@@ -1,0 +1,34 @@
+name: Outreach Test-Zeitplan
+on:
+  workflow_dispatch:
+    inputs:
+      internal_test:
+        description: Einmaligen internen Versand und Abmeldung prüfen
+        type: boolean
+        default: false
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+permissions:
+  contents: read
+concurrency:
+  group: outreach-test-worker
+  cancel-in-progress: false
+jobs:
+  tick:
+    if: github.event_name == 'workflow_dispatch' || vars.OUTREACH_TEST_SCHEDULER_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      TEST_SITE_URL: ${{ vars.TEST_SITE_URL }}
+      OUTREACH_TEST_RUNNER_TOKEN: ${{ secrets.OUTREACH_TEST_RUNNER_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Isolierten Test oder Zeitplan ausführen
+        env:
+          INTERNAL_TEST: ${{ inputs.internal_test }}
+        run: |
+          if [ "$INTERNAL_TEST" = "true" ]; then
+            node scripts/check-outreach-test.mjs
+          else
+            node scripts/check-outreach-test.mjs --tick
+          fi

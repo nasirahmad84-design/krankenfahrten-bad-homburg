@@ -17,6 +17,10 @@
 /.next/
 /out/
 /out-editorial/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
 /artifacts/remotion/
 /.venv-video/
 /remotion/public/audio/

@@ -57,5 +57,9 @@ copyFileSync(resolve(root, "editorial/lib/auth.php"), join(outputDirectory, "lib
 copyFileSync(resolve(root, "editorial/.htaccess"), join(outputDirectory, ".htaccess"));
 copyFileSync(resolve(root, "public/brand/logo.svg"), join(outputDirectory, "assets/logo.svg"));
 copyFileSync(resolve(root, "editorial/editorial.css"), join(outputDirectory, "assets/editorial.css"));
+for (const file of ["outreach.php", "outreach-run.php", "outreach-unsubscribe.php", "lib/outreach.php", "lib/outreach-research.php"]) {
+  copyFileSync(resolve(root, "editorial", file), join(outputDirectory, file));
+}
+copyFileSync(resolve(root, "editorial/outreach.css"), join(outputDirectory, "assets/outreach.css"));
 
 console.log(`Redaktionscockpit erzeugt: ${runs.length} Artikel als geschützte PHP-Anwendung unter out-editorial/.`);

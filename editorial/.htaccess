@@ -3,11 +3,12 @@ DirectoryIndex index.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^(?:content\.php|login-config\.php|lib(?:/|$)) - [F,L,NC]
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+  RewriteRule ^(?:content\.php|login-config\.php|outreach-config\.php|lib(?:/|$)) - [F,L,NC]
   RewriteRule ^artikel/([a-z0-9-]+)/?$ index.php?article=$1 [L,QSA]
 </IfModule>
 
-<FilesMatch "^(?:content\.php|login-config\.php|.*\.(?:json|csv|md|log|bak|ini))$">
+<FilesMatch "^(?:content\.php|login-config\.php|outreach-config\.php|.*\.(?:json|csv|md|log|bak|ini))$">
   Require all denied
 </FilesMatch>
 

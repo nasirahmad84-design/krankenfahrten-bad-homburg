@@ -126,6 +126,7 @@ function editorial_page_start(string $title, bool $authenticated, string $csrfTo
       <div class="header-actions">
         <div class="header-label"><strong>Redaktionscockpit</strong><span>Interne Vorschau · Testdomain</span></div>
         <?php if ($authenticated): ?>
+          <a href="/redaktion/outreach.php">Kontakte & Kampagnen</a>
           <form method="post" action="/redaktion/" class="logout-form">
             <input type="hidden" name="csrf_token" value="<?= editorial_escape($csrfToken) ?>">
             <input type="hidden" name="action" value="logout">

@@ -14,7 +14,7 @@ Das Redaktionscockpit macht vorbereitete Ratgeberartikel lesbar, ohne sie als ö
 - Recherchebrief
 - vorbereiteter Google-Business-Text; frühere Facebook-Texte bleiben als nicht zur Veröffentlichung vorgesehenes Archiv sichtbar
 
-Das Cockpit ist absichtlich nur lesend. Es besitzt keine Datenbank und keinen Freigabe-Endpunkt. Die verbindliche Betreiberfreigabe wird anschließend versioniert im Repository dokumentiert.
+Die Artikelredaktion bleibt lesend. Die verbindliche Artikel-Freigabe wird anschließend versioniert im Repository dokumentiert. Das getrennte Modul „Kontakte & Kampagnen“ unter `outreach.php` hat eigene geschützte Schreibfunktionen und eine private SQLite-Datenbank; Einrichtung und Grenzen stehen in [outreach.md](outreach.md).
 
 ## Anmeldung
 
@@ -68,5 +68,5 @@ Der Deploymentprozess prüft vor dem Upload, dass `api/config.php` auf der Testd
 - keine JSON-, CSV-, Markdown- oder statischen Artikel-HTML-Dateien im Export
 - Artikel werden erst nach erfolgreicher serverseitiger Sitzung aus `content.php` gerendert
 - direkter HTTP-Zugriff auf `content.php` und `lib/` liefert 403
-- keine Freigabe- oder Schreibfunktion
+- keine Artikel-Freigabe- oder Artikel-Schreibfunktion; Outreach-Schreibaktionen erfordern Anmeldung und CSRF-Prüfung
 - keine Zugangsdaten im Repository

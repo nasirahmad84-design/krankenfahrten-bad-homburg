@@ -70,7 +70,10 @@ function walk(directory) {
 walk(outputDirectory);
 assert.deepEqual(unexpectedSources, [], "Cockpit-Export enthält interne Quelldateien.");
 assert.equal(files.filter((path) => path.endsWith(".html")).length, 0, "Artikel dürfen nicht als ungeschützte HTML-Dateien exportiert werden.");
-assert.equal(files.filter((path) => path.endsWith(".php")).length, 3, "Cockpit enthält unerwartete PHP-Dateien.");
+assert.equal(files.filter((path) => path.endsWith(".php")).length, 8, "Cockpit enthält unerwartete PHP-Dateien.");
+for (const path of ["outreach.php", "outreach-run.php", "outreach-unsubscribe.php", "lib/outreach.php", "lib/outreach-research.php", "assets/outreach.css"]) {
+  assert.ok(existsSync(join(outputDirectory, path)), `${path} fehlt im Outreach-Paket.`);
+}
 
 if (existsSync(resolve(root, "out/redaktion"))) throw new Error("Öffentliches Produktionspaket darf keinen Redaktionsbereich enthalten.");
 

@@ -140,6 +140,11 @@ function editorial_load_config(): ?array
             $config['editorial_login_email'] = $loginConfig['editorial_login_email'];
         }
     }
+    $outreachPath = dirname(__DIR__) . '/outreach-config.php';
+    if (is_file($outreachPath)) {
+        $outreach = require $outreachPath;
+        if (is_array($outreach)) $config = array_replace($config, $outreach);
+    }
     return $config;
 }
 

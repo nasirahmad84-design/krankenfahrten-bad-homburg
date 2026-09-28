@@ -32,6 +32,8 @@ php -l out-editorial/index.php >/dev/null
 php -l out-editorial/lib/auth.php >/dev/null
 php -l out-editorial/content.php >/dev/null
 php tests/php/editorial-auth-test.php
+php tests/php/outreach-test.php
+for file in out-editorial/outreach*.php out-editorial/lib/outreach*.php; do php -l "$file" >/dev/null; done
 git diff --check
 
 if ! php -r 'exit(filter_var($argv[1], FILTER_VALIDATE_EMAIL) ? 0 : 1);' "$EDITORIAL_LOGIN_EMAIL"; then
@@ -44,6 +46,10 @@ EDITORIAL_LOGIN_EMAIL_VALUE="$EDITORIAL_LOGIN_EMAIL" node -e '
   writeFileSync("out-editorial/login-config.php", `<?php\ndeclare(strict_types=1);\n\nreturn [\n    "editorial_login_email" => ${JSON.stringify(email)},\n];\n`, { mode: 0o600 });
 '
 php -l out-editorial/login-config.php >/dev/null
+if [[ -n "${OUTREACH_TEST_RUNNER_TOKEN:-}" ]]; then
+  node scripts/configure-outreach-test.mjs
+  php -l out-editorial/outreach-config.php >/dev/null
+fi
 
 config_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "${TEST_SITE_URL%/}/api/config.php")"
 if [[ "$config_status" != "403" ]]; then
@@ -67,6 +73,7 @@ upload_file() {
 }
 
 echo "Übertrage ausschließlich das interne Redaktionscockpit …"
+upload_file "out-editorial/.htaccess"
 while IFS= read -r -d '' file; do upload_file "$file"; done < <(find out-editorial -type f ! -name '.htaccess' -print0)
 upload_file "out-editorial/.htaccess"
 
@@ -88,7 +95,7 @@ if printf '%s' "$login_response" | /usr/bin/grep -Fq 'Vorbereitete Ratgeberartik
   exit 1
 fi
 
-for protected_path in content.php login-config.php lib/auth.php; do
+for protected_path in content.php login-config.php outreach-config.php lib/auth.php lib/outreach.php lib/outreach-research.php; do
   protected_status="$(/usr/bin/curl --silent --show-error --output /dev/null --write-out '%{http_code}' --max-time 20 "${cockpit_url}${protected_path}")"
   if [[ "$protected_status" != "403" ]]; then
     echo "Abbruch: redaktion/$protected_path liefert HTTP $protected_status statt 403." >&2
