@@ -174,7 +174,7 @@ function outreach_reconcile(PDO $db, int $id, string $state, string $note): void
     outreach_audit($db,'delivery_reconciled_'.$state.': '.trim($note),$id);
 }
 
-function outreach_send(array $item, array $config): bool
+function outreach_mailer(array $config): \PHPMailer\PHPMailer\PHPMailer
 {
     require_once editorial_api_path('lib/mail.php');
     $smtp = validated_smtp_config($config);
@@ -195,6 +195,12 @@ function outreach_send(array $item, array $config): bool
     $mail->Encoding = 'quoted-printable';
     $mail->setFrom($smtp['mail_from'],$smtp['mail_from_name']);
     $mail->addReplyTo($smtp['mail_from']);
+    return $mail;
+}
+
+function outreach_send(array $item, array $config): bool
+{
+    $mail=outreach_mailer($config);
     $mail->addAddress($item['email']);
     $url = rtrim($config['outreach_public_base_url'],'/') . '/outreach-unsubscribe.php?token=' . $item['unsubscribe_token'];
     $mail->addCustomHeader('List-Unsubscribe', '<'.$url.'>');

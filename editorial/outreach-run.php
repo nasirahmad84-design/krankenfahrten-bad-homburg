@@ -36,6 +36,20 @@ try {
         $id=outreach_sql($db,"SELECT value FROM settings WHERE key='internal_test_campaign'")->fetchColumn();
         $d=outreach_sql($db,'SELECT state,unsubscribe_token FROM deliveries WHERE campaign_id=?',[$id?:0])->fetch(PDO::FETCH_ASSOC);
         $result=['status'=>$d['state']??'missing','unsubscribe_url'=>$d?rtrim($config['outreach_public_base_url'],'/').'/outreach-unsubscribe.php?token='.$d['unsubscribe_token']:null];
+    } elseif ($action==='diagnostics') {
+        $result=['status'=>'diagnostics','pdo_sqlite'=>extension_loaded('pdo_sqlite'),'openssl'=>extension_loaded('openssl')];
+        try {
+            $mailer=outreach_mailer($config);
+            $result['smtp_config']='valid';
+            $result['smtp_connect']=$mailer->smtpConnect();
+            $mailer->smtpClose();
+        } catch (Throwable $e) {
+            $result['exception_class']=get_class($e);
+            $message=$e->getMessage();
+            $result['reason']=str_contains($message,'SMTP-Konfiguration')?'smtp_config':(str_contains($message,'authenticate')?'smtp_auth':(str_contains($message,'connect')?'smtp_connect':(str_contains($message,'undefined function')?'missing_function':(str_contains($message,'Class')?'missing_class':'other'))));
+        }
+        $id=outreach_sql($db,"SELECT value FROM settings WHERE key='internal_test_campaign'")->fetchColumn();
+        $result['test_state']=outreach_sql($db,'SELECT state FROM deliveries WHERE campaign_id=?',[$id?:0])->fetchColumn();
     } elseif ($action==='research_test') {
         require_once __DIR__.'/lib/outreach-research.php';
         $result=['status'=>'researched','imported'=>outreach_discover($db,'Kliniken','Kliniken – Recherche')];

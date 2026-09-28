@@ -2,6 +2,10 @@ name: Outreach Test-Zeitplan
 on:
   workflow_dispatch:
     inputs:
+      diagnostics:
+        description: Nur Server- und SMTP-Verbindung prüfen, keine Mail
+        type: boolean
+        default: false
       internal_test:
         description: Einmaligen internen Versand und Abmeldung prüfen
         type: boolean
@@ -26,8 +30,11 @@ jobs:
       - name: Isolierten Test oder Zeitplan ausführen
         env:
           INTERNAL_TEST: ${{ inputs.internal_test }}
+          DIAGNOSTICS: ${{ inputs.diagnostics }}
         run: |
-          if [ "$INTERNAL_TEST" = "true" ]; then
+          if [ "$DIAGNOSTICS" = "true" ]; then
+            node scripts/check-outreach-test.mjs --diagnostics
+          elif [ "$INTERNAL_TEST" = "true" ]; then
             node scripts/check-outreach-test.mjs
           else
             node scripts/check-outreach-test.mjs --tick

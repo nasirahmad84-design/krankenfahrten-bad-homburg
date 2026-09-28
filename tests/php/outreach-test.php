@@ -76,3 +76,11 @@ $before=$calls;outreach_run($db,[...$config,'outreach_daily_limit'=>1],min($date
 outreach_run($db,[...$config,'outreach_daily_limit'=>1],min($dates),$sender);
 check($calls===$before+1,'Daily limit ignored');
 echo "Outreach geprüft: Berechtigungen, Deduplizierung, Freigabe, Pause, Wiederanlauf, Sperren, Import, Personalisierung, Tageslimit und Kalenderplanung. Keine echte Mail versendet.\n";
+$isolated=new PDO('sqlite::memory:');outreach_schema($isolated);
+outreach_contact($isolated,$contact);
+$isolatedId=outreach_campaign($isolated,$draft,$now);outreach_campaign_status($isolated,$isolatedId,'approve');
+$testCalls=0;
+outreach_run($isolated,[...$config,'outreach_test_recipient'=>'nahmad@outlook.de'],$due,function()use(&$testCalls){$testCalls++;return true;});
+check($testCalls===0,'Test restriction allowed another recipient');
+check($isolated->query('SELECT state FROM deliveries')->fetchColumn()==='blocked','Recipient outside test allowlist not blocked');
+echo "Testumgebung: abweichende Empfänger trotz Kampagnenfreigabe serverseitig gesperrt.\n";
