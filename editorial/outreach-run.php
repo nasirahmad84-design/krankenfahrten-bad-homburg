@@ -38,6 +38,13 @@ try {
         $result=['status'=>$d['state']??'missing','unsubscribe_url'=>$d?rtrim($config['outreach_public_base_url'],'/').'/outreach-unsubscribe.php?token='.$d['unsubscribe_token']:null];
     } elseif ($action==='diagnostics') {
         $result=['status'=>'diagnostics','pdo_sqlite'=>extension_loaded('pdo_sqlite'),'openssl'=>extension_loaded('openssl')];
+        $result['smtp_checks']=[
+            'transport'=>($config['mail_transport']??null)==='smtp',
+            'auth'=>($config['smtp_auth']??null)===true,
+            'encryption'=>in_array([$config['smtp_port']??null,$config['smtp_secure']??null],[[587,'tls'],[465,'smtps']],true),
+            'timeout'=>isset($config['smtp_timeout']) && (int)$config['smtp_timeout']>=1 && (int)$config['smtp_timeout']<=60,
+        ];
+        foreach (['smtp_host','smtp_username','smtp_password','mail_from_name','mail_from','mail_to'] as $key) $result['smtp_checks'][$key]=is_string($config[$key]??null) && trim($config[$key])!=='';
         try {
             $mailer=outreach_mailer($config);
             $result['smtp_config']='valid';
