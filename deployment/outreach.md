@@ -1,6 +1,16 @@
 # Outreach – Kontakte und Kampagnen
 
-Stand: 28.09.2026. Eigenes Modul im vorhandenen Einmalcode-Cockpit unter `/redaktion/outreach.php`. PHP + PDO SQLite + cURL; kein Next.js-Build erforderlich. Enthalten im separaten `editorial:build`-Paket. Noch kein produktiver Versand und kein neuer Scheduler eingerichtet.
+Stand: 28.09.2026. Eigenes Modul im vorhandenen Einmalcode-Cockpit unter `/redaktion/outreach.php`. PHP + PDO SQLite + cURL; kein Next.js-Build erforderlich. Enthalten im separaten `editorial:build`-Paket. Auf der Testdomain eingerichtet; kein produktiver Firmenversand.
+
+## Serverabnahme 28.09.2026
+
+- Geschütztes Testcockpit, Konfiguration HTTP 403, unauthentifizierter Worker HTTP 403 und Noindex geprüft.
+- Isolierte Konfiguration `outreach-config.php`, privater Speicher außerhalb des Test-Webroots, nur `nahmad@outlook.de` erlaubt, höchstens eine Kampagnenmail am Tag.
+- GitHub-Lauf 36416434626: interne Testmail vom SMTP-Server angenommen, öffentlicher Abmeldeprozess erfolgreich, Empfänger danach gesperrt; erneuter Lauf ohne doppelte Mail. Posteingang/Spamordner noch vom Empfänger zu bestätigen.
+- Ein erster Versuch scheiterte vor SMTP durch Variablenüberschreibung beim Einlesen der Outreach-Konfiguration. Behoben, Regressionstest ergänzt; genau dieser belegte Vor-SMTP-Fehler wurde einmalig zurückgesetzt. Wiederholungsmechanismus anschließend entfernt.
+- Workflow `outreach-test-worker.yml` prüft alle 15 Minuten, sofern `OUTREACH_TEST_SCHEDULER_ENABLED=true`. Keine lokale Rechnerabhängigkeit. GitHub-Zeitpläne können verspätet laufen. Fehler werden als fehlgeschlagener Lauf sichtbar; eine separate E-Mail-Alarmierung wurde noch nicht eingerichtet.
+- Rechercheanbieter Private.coffee auch vom ALL-INKL-Server nicht erreichbar. Manuelle Kontakterfassung funktioniert; automatische Recherche noch offen. Keine fremden Organisationen angeschrieben.
+- Keine Änderungen an Produktion oder am öffentlichen Website-Export.
 
 ## Ablauf
 
