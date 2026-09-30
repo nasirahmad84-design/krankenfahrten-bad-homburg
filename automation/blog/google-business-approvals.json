@@ -5,5 +5,10 @@
     "payloadHash": "5def2367611743ba71db6d46efc60c65f2919fd0089c2981a176ef08c87e686d",
     "publishedState": "LIVE",
     "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/2837264369540629405"
-  }
+  },
+  "begleitperson-krankenfahrt-abstimmen": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
+  "rueckfahrt-behandlungsende-offen": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
+  "arzttermin-verschoben-krankenfahrt-aendern": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
+  "arztfahrt-unterlagen-fahrtdaten-trennen": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
+  "serienfahrten-monatswechsel-terminliste": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"}
 }
