@@ -18,6 +18,8 @@ const topLevelRoutes = [
   "/impressum/",
   "/datenschutz/",
   "/cookie-einstellungen/",
+  "/google-unternehmensprofil-publisher/",
+  "/google-unternehmensprofil-publisher/nutzungsbedingungen/",
 ] as const;
 
 export const publicRoutePaths = [

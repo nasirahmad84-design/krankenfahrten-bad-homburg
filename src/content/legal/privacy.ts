@@ -4,7 +4,7 @@ export const privacyContent = {
   eyebrow: "Datenschutz",
   title: "Datenschutzerklärung",
   description: "Informationen zur Verarbeitung personenbezogener Daten beim Besuch dieser Website und bei einer Fahrtanfrage.",
-  updatedAt: "14. September 2026",
+  updatedAt: "30. September 2026",
   sections: [
     {
       id: "verantwortlicher",
@@ -183,9 +183,19 @@ export const privacyContent = {
       ],
     },
     {
+      id: "google-unternehmensprofil-publisher",
+      title: "21. Google-Unternehmensprofil-Publisher",
+      paragraphs: [
+        "Der Google-Unternehmensprofil-Publisher ist ein internes Redaktionswerkzeug des Betreibers. Nach gesonderter Autorisierung eines berechtigten Google-Kontos soll er freigegebene Ratgeberbeiträge als Kurzbeitrag mit Link im eigenen Google-Unternehmensprofil veröffentlichen. Websitebesucher benötigen dafür kein Google-Konto. Fahrtanfragen, Fahrgastdaten und Gesundheitsangaben werden nicht an den Publisher übergeben.",
+        "Für die Verbindung wird die Google-Berechtigung business.manage angefordert. Diese Berechtigung ist technisch weiter gefasst als der geplante Ablauf: Der Publisher soll das zugeordnete Unternehmensprofil und bestehende Beiträge zur Vermeidung doppelter Veröffentlichungen abrufen und neue, bereits freigegebene Beiträge erstellen. Eine Veröffentlichung erfolgt erst nach Einrichtung und Freigabe der Verbindung.",
+        "Bei Nutzung können Google-Kontokennung, Unternehmensprofil- und Standortkennung, bestehende Beitragsdaten sowie OAuth-Zugangsdaten verarbeitet werden. Der Publisher übermittelt freigegebenen Beitragstext und Artikellink an Google. Zugangsdaten und technische Veröffentlichungsnachweise werden nur im geschützten Betriebsbereich, nicht im öffentlichen Website-Code, aufbewahrt. Google-Nutzerdaten werden nicht verkauft oder zu Werbezwecken an Dritte weitergegeben. Die Verbindung kann im Google-Konto widerrufen werden; nach Beendigung der Nutzung werden die gespeicherten Zugangsdaten gelöscht, soweit keine gesetzliche Aufbewahrungspflicht entgegensteht. Eine Löschung kann auch über die oben genannte Kontaktadresse angefragt werden.",
+        "Die Verarbeitung dient der Verwaltung des eigenen Unternehmensprofils. Soweit personenbezogene Daten des berechtigten Kontoinhabers betroffen sind, ist die Rechtsgrundlage Art. 6 Abs. 1 Buchst. f DSGVO (berechtigtes Interesse an der Pflege des eigenen Unternehmensprofils). Google verarbeitet Daten im Rahmen seiner eigenen Dienste nach seinen Bedingungen und Datenschutzhinweisen. Der Publisher setzt für Websitebesucher keine zusätzlichen Cookies.",
+      ],
+    },
+    {
       id: "stand",
-      title: "21. Stand der Datenschutzerklärung",
-      paragraphs: ["Stand: 14. September 2026"],
+      title: "22. Stand der Datenschutzerklärung",
+      paragraphs: ["Stand: 30. September 2026"],
     },
   ] satisfies readonly LegalSectionContent[],
 } as const;
