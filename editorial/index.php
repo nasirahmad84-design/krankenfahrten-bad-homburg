@@ -192,7 +192,7 @@ function editorial_render_login(?array $config, string $csrfToken, ?string $noti
     editorial_page_end();
 }
 
-function editorial_render_index(array $runs, string $csrfToken): void
+function editorial_render_index(array $runs, array $googlePlanned, string $csrfToken): void
 {
     editorial_page_start('Artikelübersicht', true, $csrfToken);
     $pending = count(array_filter($runs, static fn(array $run): bool => ($run['status']['status'] ?? '') === 'draft_ready'));
@@ -216,6 +216,18 @@ function editorial_render_index(array $runs, string $csrfToken): void
         </article>
       <?php endforeach; ?>
       </div>
+    </div></section>
+    <section class="section section-muted"><div class="shell">
+      <div class="section-heading"><div><p class="eyebrow">Google Unternehmensprofil</p><h2>Beitrags-Pipeline</h2></div><p>Artikel-Freigaben gelten nicht automatisch für Google-Beiträge. Erst nach deiner gesonderten Freigabe des konkreten Kurztexts kann ein Beitrag veröffentlicht werden.</p></div>
+      <div class="table-wrap" tabindex="0" aria-label="Google-Beitragsplan"><table><thead><tr><th>Termin</th><th>Thema</th><th>Google-Status</th><th>Prüfen</th></tr></thead><tbody>
+      <?php foreach ($runs as $run): if ($run['socialPlatform'] !== 'Google Business' || ($run['status']['scheduledDate'] ?? '') < '2026-09-28') continue; $approval = $run['googleApproval']; ?>
+        <tr><td><?= editorial_date($run['status']['scheduledDate']) ?></td><td><?= editorial_escape($run['article']['title']) ?></td><td><?= ($approval['publishedState'] ?? '') === 'LIVE' ? 'Live' : (($approval['status'] ?? '') === 'approved' ? 'Gesondert freigegeben' : 'Google-Freigabe ausstehend') ?></td><td><a href="/redaktion/artikel/<?= editorial_escape($run['article']['slug']) ?>/">Text ansehen</a></td></tr>
+      <?php endforeach; ?>
+      <?php foreach ($googlePlanned as $item): ?>
+        <tr><td><?= editorial_date($item['date']) ?></td><td><?= editorial_escape($item['title']) ?></td><td>Thema geplant · Recherche und Freigabe ausstehend</td><td>–</td></tr>
+      <?php endforeach; ?>
+      </tbody></table></div>
+      <p>Freigabe im Codex-Chat bitte mit Beitragstitel und ausdrücklichem Hinweis „Google-Beitrag freigegeben“. Änderungen am Kurztext erfordern eine neue Freigabe. Diese Ansicht veröffentlicht nichts selbst.</p>
     </div></section>
     <section class="section section-muted"><div class="shell narrow"><div class="decision-box"><p class="eyebrow">Freigabe</p><h2>So gibst du Artikel frei</h2><p>Lies die Artikel einzeln. Nenne anschließend im Codex-Chat entweder die gewünschten Titel oder schreibe eindeutig: <strong>„Alle acht Artikel freigegeben.“</strong></p><p>Die Freigabe wird erst danach versioniert. Diese Ansicht verändert selbst keine Inhalte und veröffentlicht nichts.</p></div></div></section>
     <?php
@@ -251,7 +263,7 @@ function editorial_render_article(array $run, string $csrfToken): void
     </div></article>
     <section class="section section-muted"><div class="shell review-grid">
       <section class="review-panel"><p class="eyebrow">Recherche</p><h2>Recherchebrief</h2><div class="formatted-brief"><?= editorial_research_brief($run['researchBrief']) ?></div></section>
-      <section class="review-panel"><p class="eyebrow">Beitragsentwurf</p><h2><?= editorial_escape($run['socialPlatform']) ?></h2><div class="social-draft"><?= nl2br(editorial_escape($run['socialDraft'])) ?></div><p class="microcopy">Google-Business-Beiträge verlinken erst nach erfolgreicher Veröffentlichung auf den Artikel. Facebook-Veröffentlichung ist deaktiviert.</p></section>
+      <section class="review-panel"><p class="eyebrow">Beitragsentwurf</p><h2><?= editorial_escape($run['socialPlatform']) ?></h2><p><?= ($run['googleApproval']['publishedState'] ?? '') === 'LIVE' ? 'Google-Beitrag ist live.' : (($run['googleApproval']['status'] ?? '') === 'approved' ? 'Google-Beitrag gesondert freigegeben.' : 'Google-Freigabe ausstehend.') ?></p><div class="social-draft"><?= nl2br(editorial_escape($run['socialDraft'])) ?></div><p class="microcopy">Dieser Kurztext braucht eine eigene Freigabe im Codex-Chat. Die Artikelfreigabe allein genügt nicht. Google-Business-Beiträge verlinken erst nach erfolgreicher Veröffentlichung auf den Artikel. Facebook-Veröffentlichung ist deaktiviert.</p></section>
     </div></section>
     <section class="section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">Faktenprüfung</p><h2>Geprüfte Aussagen</h2></div><p>Diese Tabelle verbindet sensible oder geschäftlich relevante Aussagen mit Quelle, Fundstelle und Prüfnotiz.</p></div><div class="table-wrap" tabindex="0" aria-label="Tabelle der geprüften Aussagen"><table><thead><tr><th>Aussage</th><th>Status</th><th>Fundstelle</th><th>Geprüft</th><th>Redaktionsnotiz</th></tr></thead><tbody>
       <?php foreach ($run['claims'] as $claim): ?><tr><td><strong><?= editorial_escape($claim['claim_text']) ?></strong><span><?= editorial_escape($claim['claim_type']) ?></span></td><td><?= ($claim['status'] ?? '') === 'verified' ? 'Verifiziert' : editorial_escape($claim['status']) ?></td><td><?= editorial_escape($claim['source_locator']) ?></td><td><?= editorial_date($claim['checked_at']) ?></td><td><?= editorial_escape($claim['review_note']) ?></td></tr><?php endforeach; ?>
@@ -268,6 +280,7 @@ if (!$authenticated) {
 
 $content = require __DIR__ . '/content.php';
 $runs = is_array($content['runs'] ?? null) ? $content['runs'] : [];
+$googlePlanned = is_array($content['googlePlanned'] ?? null) ? $content['googlePlanned'] : [];
 $requestedSlug = is_string($_GET['article'] ?? null) ? $_GET['article'] : '';
 if ($requestedSlug !== '') {
     foreach ($runs as $run) {
@@ -278,4 +291,4 @@ if ($requestedSlug !== '') {
     }
     http_response_code(404);
 }
-editorial_render_index($runs, $csrfToken);
+editorial_render_index($runs, $googlePlanned, $csrfToken);

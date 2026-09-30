@@ -1,6 +1,6 @@
 # Google Business: ausführbarer, standardmäßig deaktivierter Publisher
 
-Stand 14.09.2026. Kein Beitrag gesendet, keine Google-OAuth-Zugangsdaten angelegt. Das aktive Cloud-Projekt `krankenfahrten-gbp` (Projektnummer `1080836537604`) besitzt kein verknüpftes Rechnungskonto. Der Antrag auf grundlegenden Business-Profile-API-Zugang wurde eingereicht und wartet auf Googles Prüfung. Dieser Baustein ergänzt die vorhandene Konzeption; er aktiviert keinen Zeitplan und verändert keine Blog-Veröffentlichung.
+Stand 30.09.2026. Der erste ausdrücklich freigegebene Herbstferien-Beitrag wurde gesendet und von Google als `LIVE` bestätigt (Post-ID `2837264369540629405`). Das Cloud-Projekt `krankenfahrten-gbp` ist für die Business Profile API freigegeben. Ziel ist ausschließlich `accounts/111505448904866961656/locations/14639701242816410626` („Krankenfahrten Bad Homburg“). Andere Standorte und die Gruppe „Gelem Hilft“ sind ausgeschlossen. Dieser Publisher aktiviert keinen automatischen Veröffentlichungszeitplan.
 
 ## Sichere Vorschau
 
@@ -17,7 +17,7 @@ Ohne `--publish` **und** `GBP_PUBLISH_ENABLED=true` erfolgt ausschließlich eine
 - Secrets ausschließlich in geschützter Laufzeitkonfiguration: `GBP_CLIENT_ID`, `GBP_CLIENT_SECRET`, `GBP_REFRESH_TOKEN`.
 - `GBP_LOCATION_NAME=accounts/ACCOUNT_ID/locations/LOCATION_ID`, keine Maps-CID.
 - `GBP_STATE_DIRECTORY`: dauerhaftes, nur für den Publisher zugängliches Verzeichnis außerhalb des öffentlich ausgelieferten Webroots. Darf nicht je CI-Lauf neu erzeugt/verworfen werden. JSON enthält lediglich Artikel-/Post-IDs, Payloadhash und Status, keine Tokens.
-- Betreiberfreigabe des Artikels und des zusammen gelesenen Google-Kurztexts. Den aus der freigegebenen Vorschau stammenden Hash als `GBP_APPROVED_PAYLOAD_SHA256` setzen. Änderungen benötigen einen neuen ausdrücklich geprüften Hash.
+- Zwei getrennte Betreiberfreigaben: Artikel im Laufstatus und Google-Kurztext in `automation/blog/google-business-approvals.json` mit Datum und SHA-256 des exakten Payloads. Zusätzlich denselben Hash als `GBP_APPROVED_PAYLOAD_SHA256` in der geschützten Laufzeit setzen. Änderungen benötigen eine neue ausdrückliche Freigabe.
 
 Die Zugangsdaten nicht als Befehlszeilenargumente und nicht in Git speichern. Der Ablauf steht absichtlich **noch nicht** in GitHub Actions: vor Cloud-Automatik müssen ein dauerhafter, laufübergreifend konsistenter Ledger, eine gemeinsame Schreibsperre und separate Fehleralarmierung angeschlossen werden. Ein flüchtiger Runner-Ordner allein erfüllt das nicht. Die vorhandene Blog-Veröffentlichung bleibt unabhängig aktiv.
 
@@ -35,9 +35,9 @@ Der Publisher erneuert OAuth im Speicher. Anschließend werden **alle** vorhande
 
 ## Noch offen vor unbeaufsichtigtem Betrieb
 
-1. Genehmigung des am 14.09.2026 eingereichten Google-API-Zugangsantrags; anschließend OAuth-Einwilligung und Account-/Location-ID.
-2. Ein echter ausdrücklich freigegebener Testpost und Sichtprüfung.
-3. Persistenz/Lock über Runner hinweg sowie GBP-spezifische Fehleralarmierung an die bereits freigegebene Alarmadresse. Geplante Blogläufe dürfen dabei nicht mitgestoppt werden.
+1. OAuth-Zugangsdaten bleiben in einer ignorierten lokalen Laufzeitdatei, niemals im Chat oder Repository. Ein zuvor im Chat geteilter Access-Token darf nicht weiterverwendet werden.
+2. Der erste ausdrücklich freigegebene Post ist `LIVE`; alle weiteren Google-Texte stehen unabhängig von ihrer Artikelfreigabe auf „Freigabe ausstehend“.
+3. Für unbeaufsichtigten Cloud-Betrieb fehlen ein dauerhafter, laufübergreifend konsistenter Ledger und eine gemeinsame Sperre sowie GBP-spezifische Fehleralarmierung. Geplante Blogläufe dürfen dabei nicht mitgestoppt werden.
 4. Anschluss als unabhängiger Nachlauf für tatsächlich live verifizierte Artikel, inklusive PROCESSING-Abgleich und kontrollierter Erneuerung von OAuth bei Widerruf.
 5. UTM-Messung in echter zustimmender GA4-Session prüfen, bevor Attribution behauptet wird.
 

@@ -101,13 +101,14 @@ export async function createGoogleBusinessClient(env, fetcher = fetch) {
   };
 }
 
-export async function publishGoogleBusinessPost({ preview, article, status, publishedArticle, parent, enabled = false, approvedPayloadHash, ledger, client, fetcher = fetch, today = berlinDate() }) {
+export async function publishGoogleBusinessPost({ preview, article, status, publishedArticle, parent, enabled = false, approvedPayloadHash, googleApproval, ledger, client, fetcher = fetch, today = berlinDate() }) {
   const payloadHash = sha256(preview.payload);
   if (!enabled) return { ...preview, payloadHash, status: "preview_only" };
   requireThat(/^accounts\/\d+\/locations\/\d+$/.test(parent || ""), "Exakte Google-Account-/Location-ID fehlt oder ist ungültig.");
   requireThat(preview.operatorApproval === "approved" && status.status === "approved_for_publish" && /^\d{4}-\d{2}-\d{2}$/.test(status.approvedAt || "") && status.approvedAt <= today, "Betreiberfreigabe fehlt.");
   requireThat(article.publishedAt <= today, "Artikel ist noch nicht fällig.");
   requireThat(approvedPayloadHash === payloadHash, "Explizite Freigabe dieses Google-Kurztexts fehlt oder Text wurde geändert.");
+  requireThat(googleApproval?.status === "approved" && googleApproval.payloadHash === payloadHash && /^\d{4}-\d{2}-\d{2}$/.test(googleApproval.approvedAt || "") && googleApproval.approvedAt <= today, "Separate Betreiberfreigabe des Google-Beitrags fehlt oder Text wurde geändert.");
   requireThat(publishedArticle && sha256(publishedArticle) === sha256(article), "Veröffentlichungsregister enthält nicht den identischen Artikel.");
   requireThat(preview.articleSlug === article.slug && new URL(preview.payload.callToAction.url).origin === ORIGIN && new URL(preview.payload.callToAction.url).pathname === `/ratgeber/${article.slug}/`, "Google-Ziellink stimmt nicht mit dem Artikel überein.");
   await verifyPublishedArticle(fetcher, article);
@@ -153,9 +154,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
       requireThat(process.env.GBP_STATE_DIRECTORY, "Dauerhaftes GBP_STATE_DIRECTORY erforderlich; kein flüchtiger CI-Arbeitsordner.");
       const parent = process.env.GBP_LOCATION_NAME;
       const publishedArticle = JSON.parse(readFileSync(resolve("automation/blog/published", `${article.slug}.json`), "utf8"));
+      const googleApproval = JSON.parse(readFileSync(resolve("automation/blog/google-business-approvals.json"), "utf8"))[article.slug];
       const client = await createGoogleBusinessClient(process.env);
       const ledger = createFileLedger(resolve(process.env.GBP_STATE_DIRECTORY), `${parent}:${article.slug}`);
-      console.log(JSON.stringify(await publishGoogleBusinessPost({ preview, article, status, publishedArticle, parent, enabled, approvedPayloadHash: process.env.GBP_APPROVED_PAYLOAD_SHA256, ledger, client }), null, 2));
+      console.log(JSON.stringify(await publishGoogleBusinessPost({ preview, article, status, publishedArticle, parent, enabled, approvedPayloadHash: process.env.GBP_APPROVED_PAYLOAD_SHA256, googleApproval, ledger, client }), null, 2));
     }
   } catch (error) {
     // Own errors only; filesystem errors may contain private local paths but never contents.

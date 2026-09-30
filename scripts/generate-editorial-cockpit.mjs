@@ -6,6 +6,8 @@ import { validateRun } from "./lib/blog-pipeline.mjs";
 const root = process.cwd();
 const articlesDirectory = resolve(root, "automation/blog/articles");
 const outputDirectory = resolve(root, "out-editorial");
+const googleApprovals = JSON.parse(readFileSync(resolve(root, "automation/blog/google-business-approvals.json"), "utf8"));
+const googlePlanned = JSON.parse(readFileSync(resolve(root, "automation/blog/google-business-planned.json"), "utf8"));
 
 function loadRuns() {
   return readdirSync(articlesDirectory, { withFileTypes: true })
@@ -32,6 +34,7 @@ function loadRuns() {
         researchBrief: readFileSync(join(directory, "research-brief.md"), "utf8"),
         socialPlatform: existsSync(join(directory, "google-business-draft.md")) ? "Google Business" : "Archiv – nicht zur Veröffentlichung",
         socialDraft: readFileSync(join(directory, existsSync(join(directory, "google-business-draft.md")) ? "google-business-draft.md" : "facebook-draft.md"), "utf8").trim(),
+        googleApproval: googleApprovals[validation.article.slug] ?? null,
       };
     })
     .sort((left, right) => left.status.scheduledDate.localeCompare(right.status.scheduledDate));
@@ -40,7 +43,7 @@ function loadRuns() {
 const runs = loadRuns();
 if (runs.length === 0) throw new Error("Keine prüfbaren Redaktionsläufe gefunden.");
 
-const encodedContent = Buffer.from(JSON.stringify({ generatedAt: new Date().toISOString(), runs }), "utf8").toString("base64");
+const encodedContent = Buffer.from(JSON.stringify({ generatedAt: new Date().toISOString(), runs, googlePlanned }), "utf8").toString("base64");
 const contentPhp = `<?php
 declare(strict_types=1);
 

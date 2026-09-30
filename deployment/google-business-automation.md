@@ -8,6 +8,12 @@ Acht eigenständige Kurztexte für die Artikel vom 21.09. bis 15.10.2026. Das Re
 
 Das Vorschauwerkzeug sendet nichts. Der Freigabestatus wird mitgeführt. Artikel ohne Betreiberfreigabe werden durch den bestehenden Blogpublisher nicht veröffentlicht.
 
+## Aktueller Betrieb und Freigaben
+
+Am 30.09.2026 wurde der ausdrücklich freigegebene Herbstferien-Beitrag über die API als `LIVE` bestätigt. Die Redaktion führt nun getrennte Freigaben für Websiteartikel und Google-Kurztexte. `automation/blog/google-business-approvals.json` enthält nur ausdrücklich freigegebene exakte Kurztexte; alle anderen Entwürfe bleiben gesperrt. Die geschützte Test-Redaktion zeigt zusätzlich die Beitrags-Pipeline und acht noch ungeprüfte Themen für 19.10.–12.11.2026. Die Themenliste ist keine Veröffentlichungsfreigabe.
+
+Der Themen-Watcher prüft dienstags und freitags neue Primärquellen, regionale Relevanz und Dopplungen. Er darf Vorschläge vorbereiten, aber weder freigeben noch veröffentlichen. Als Codex-Heartbeat benötigt er eine verfügbare lokale Codex-Umgebung; eine vom Rechner unabhängige 24/7-Zusage besteht dafür nicht. Eine automatische Google-Veröffentlichung ist nicht aktiviert.
+
 ## Vorgesehener automatischer Ablauf
 
 1. Artikel freigegeben und fällig → vorhandener Publisher veröffentlicht das Blog-Delta.
@@ -26,10 +32,10 @@ Linkparameter: `utm_source=google&utm_medium=organic&utm_campaign=gbp_ratgeber&u
 
 - Verifiziertes und seit mindestens 60 Tagen aktives Unternehmensprofil gemäß aktueller API-Zugangsdokumentation; am 14.09.2026 durch den Betreiber bestätigt.
 - Eigenständiges Google-Cloud-Projekt `krankenfahrten-gbp` (Projektnummer `1080836537604`) ist aktiv. Es ist kein Rechnungskonto verknüpft (`billingEnabled: false`).
-- Antrag auf grundlegenden Business-Profile-API-Zugang am 14.09.2026 eingereicht. Google nennt etwa 7–10 Arbeitstage Bearbeitungszeit. Bis zur Genehmigung bleibt die API-Zulassung offen; Quota 0 ist keine Freischaltung.
+- Google hat das Projekt am 29.09.2026 für die Business Profile API freigegeben (Standardkontingent: 300 Anfragen pro Minute). OAuth ist eingerichtet und der erste Beitrag ist live. Freigabe und Aktivierung allein starten keine automatische Veröffentlichung.
 - Einmalige OAuth-Zustimmung eines Profilinhabers/-managers, `business.manage`, refreshfähige serverseitige Zugangsdaten. OAuth-Veröffentlichungsstatus und Tokenlaufzeit müssen für unbeaufsichtigten Betrieb passend eingerichtet sein.
 - Exakte Account- und Location-ID aus der API. Die sichtbare Maps-CID oder der Rezensionenlink darf nicht als API-Location-ID angenommen werden.
-- Ein echter Testbeitrag und Sichtprüfung nach API-Freischaltung. Noch kein Google-Beitrag automatisch angelegt.
+- Der erste Beitrag ist als `LIVE` per API bestätigt; weitere Beiträge bleiben bis zur gesonderten Betreiberfreigabe gesperrt.
 
 Zunächst reine Textbeiträge mit Button. Keine fremden Klinikbilder, erfundenen Kundenfotos, Telefonnummern im Text oder nicht freigegebenen Werbeclaims. Ein thematisch passendes eigenes Bild kann später ergänzt werden.
 

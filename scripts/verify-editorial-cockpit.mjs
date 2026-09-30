@@ -21,6 +21,8 @@ const encodedMatch = contentPhp.match(/base64_decode\('([A-Za-z0-9+/=]+)'/);
 assert.ok(encodedMatch, "Generierte Redaktionsdaten sind nicht lesbar eingebettet.");
 const content = JSON.parse(Buffer.from(encodedMatch[1], "base64").toString("utf8"));
 assert.equal(content.runs.length, runDirectories.length, "Nicht alle Redaktionsläufe wurden exportiert.");
+assert.equal(content.googlePlanned.length, 8, "Geplante Google-Themen fehlen.");
+assert.equal(content.runs.find(run => run.article.slug === "herbstferien-hessen-2026-krankenfahrten-planen")?.googleApproval?.publishedState, "LIVE");
 
 for (const runDirectory of runDirectories) {
   const article = JSON.parse(readFileSync(join(runDirectory, "article.json"), "utf8"));
@@ -38,6 +40,7 @@ const auth = readFileSync(join(outputDirectory, "lib/auth.php"), "utf8");
 const htaccess = readFileSync(join(outputDirectory, ".htaccess"), "utf8");
 assert.match(controller, /editorial_is_authenticated/);
 assert.match(controller, /editorial_render_login/);
+assert.match(controller, /Beitrags-Pipeline/);
 assert.match(controller, /session_regenerate_id\(true\)/);
 assert.match(auth, /random_int\(0, 999999\)/);
 assert.match(auth, /hash_hmac\('sha256'/);

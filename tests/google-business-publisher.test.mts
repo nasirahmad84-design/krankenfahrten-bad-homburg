@@ -19,7 +19,7 @@ function options(directory: string) {
   return {
     preview: { articleSlug: article.slug, operatorApproval: "approved", payload },
     article, status: { status: "approved_for_publish", approvedAt: "2026-09-14", revalidateAfter: "2026-09-14" },
-    publishedArticle: article, parent, enabled: true, approvedPayloadHash: payloadHash,
+    publishedArticle: article, parent, enabled: true, approvedPayloadHash: payloadHash, googleApproval: { status: "approved", approvedAt: "2026-09-14", payloadHash },
     ledger: createFileLedger(directory, `${parent}:${article.slug}`),
     client: { list: async (): Promise<(typeof post)[]> => [], create: async () => post }, fetcher: page, today: "2026-09-14",
   };
@@ -32,7 +32,7 @@ test("Vorschau bleibt ohne Freigabe offline; Live verweigert jede unvollständig
     const offline = { ...base, enabled: false, fetcher: async () => { throw new Error("kein Netz erlaubt"); } };
     assert.equal((await publishGoogleBusinessPost(offline)).status, "preview_only");
     for (const change of [
-      { approvedPayloadHash: "changed" }, { parent: "https://evil.invalid" }, { publishedArticle: null },
+      { approvedPayloadHash: "changed" }, { googleApproval: undefined }, { googleApproval: { status: "approved", approvedAt: "2026-09-14", payloadHash: "changed" } }, { parent: "https://evil.invalid" }, { publishedArticle: null },
       { status: { ...base.status, approvedAt: undefined } }, { today: "2026-09-15" }, { today: "2026-09-13" },
     ]) await assert.rejects(publishGoogleBusinessPost({ ...base, ...change }));
   } finally { rmSync(directory, { recursive: true }); }
