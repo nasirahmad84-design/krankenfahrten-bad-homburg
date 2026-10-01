@@ -1,0 +1,97 @@
+{
+  "slug": "begleitperson-krankenfahrt-abstimmen",
+  "title": "Begleitperson bei der Krankenfahrt: Was vorher geklärt sein sollte",
+  "metadataTitle": "Begleitperson bei Krankenfahrten abstimmen",
+  "description": "Eine Begleitperson soll bei der Krankenfahrt mitfahren? Klären Sie Platz, Aufgaben, Unterstützung am Ziel und die Rückfahrt vor dem Termin.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-10-01",
+  "updatedAt": "2026-10-01",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Ein vertrauter Mensch kann bei einem Arzttermin organisatorisch unterstützen. Soll diese Person auch im Fahrzeug mitfahren, muss das vorher geklärt sein. Der Wunsch nach einer Begleitperson bedeutet weder automatisch einen zugesagten Sitzplatz noch eine Kostenübernahme für ihre Mitfahrt.",
+  "summary": [
+    "Eine gewünschte Begleitperson gehört bereits in die Anfrage.",
+    "Mitfahrt und Hilfe durch den Fahrer sind unterschiedliche Absprachen.",
+    "Platz und Rückfahrt müssen ausdrücklich bestätigt werden."
+  ],
+  "sections": [
+    {
+      "id": "mitfahrt",
+      "title": "Die zusätzliche Person ausdrücklich anmelden",
+      "paragraphs": [
+        "Geben Sie bei der Anfrage an, ob eine Begleitperson mitfahren möchte. Teilen Sie auch mit, ob beide an derselben Adresse einsteigen und gemeinsam zurückfahren sollen. So kann der Fahrdienst die konkrete Anfrage prüfen.",
+        "Gehen Sie nicht von einem freien Platz aus, nur weil die Strecke kurz ist. Entscheidend ist die ausdrückliche Bestätigung für die vereinbarte Fahrt. Auch eine nachträgliche Änderung sollte noch einmal abgestimmt werden."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "aufgaben",
+      "title": "Mitfahrt und Unterstützung am Ziel trennen",
+      "paragraphs": [
+        "Überlegen Sie, welche Aufgabe die Begleitperson übernimmt: den Weg zur Anmeldung gemeinsam gehen, Unterlagen bereithalten oder während des Gesprächs dabei sein. Ob sie in einen Behandlungsraum mitgehen darf, klären Sie mit der Einrichtung und dem Fahrgast.",
+        "Die Begleitung durch unseren Fahrer bis zu einem vereinbarten Übergabepunkt ist nicht gleichbedeutend mit Anwesenheit während der Behandlung. Beschreiben Sie Ihren Bedarf deshalb konkret, anstatt nur allgemein „mit Begleitung“ anzufragen."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "rueckweg",
+      "title": "Den Rückweg für beide Personen planen",
+      "paragraphs": [
+        "Bleibt die Begleitperson beim Fahrgast, kann das Ende der Behandlung gemeinsam abgewartet werden. Möchte sie zwischendurch wegfahren oder später an einem anderen Ort abgeholt werden, ist das eine zusätzliche organisatorische Frage.",
+        "Lassen Sie bestätigen, welche Strecke vereinbart ist. Eine Hinfahrt mit zwei Personen sagt noch nichts darüber aus, wie eine spätere Abholung erfolgt. Offene Rückfahrtzeiten sollten frühzeitig angesprochen werden."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "entscheidung",
+      "title": "Eignung und Kosten gesondert klären",
+      "paragraphs": [
+        "Unser Angebot umfasst ausschließlich sitzende Fahrten ohne medizinische Überwachung. Eine mitfahrende Privatperson erweitert diesen Leistungsumfang nicht. Bei Fragen zur geeigneten Beförderungsart ist die behandelnde Stelle der richtige Ansprechpartner.",
+        "Erkundigen Sie sich vorab nach den Konditionen der vereinbarten Fahrt. Dieser organisatorische Ratgeber trifft keine Entscheidung darüber, ob eine Krankenkasse die Mitfahrt einer Begleitperson bezahlt."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Ist ein Platz für eine Begleitperson automatisch vorhanden?",
+      "answer": "Nein. Die gewünschte Mitfahrt muss bei der Anfrage genannt und ausdrücklich bestätigt werden."
+    },
+    {
+      "question": "Bleibt der Fahrer während der Behandlung dabei?",
+      "answer": "Eine vereinbarte Begleitung bis zur Anmeldung ist keine Begleitung während der Behandlung. Klären Sie den Übergabepunkt vorher."
+    },
+    {
+      "question": "Muss auch die Begleitperson für die Rückfahrt genannt werden?",
+      "answer": "Ja. Stimmen Sie ab, wer zurückfahren möchte und wo die Personen abgeholt werden sollen."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "sitzende-krankenfahrten",
+    "arzt-klinikfahrten"
+  ]
+}
