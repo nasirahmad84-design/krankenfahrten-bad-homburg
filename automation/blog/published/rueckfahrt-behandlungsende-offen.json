@@ -1,0 +1,97 @@
+{
+  "slug": "rueckfahrt-behandlungsende-offen",
+  "title": "Behandlungsende noch offen: So stimmen Sie die Rückfahrt ab",
+  "metadataTitle": "Krankenfahrt: Rückfahrt bei offenem Terminende",
+  "description": "Sie wissen noch nicht, wann die Behandlung endet? So vereinbaren Sie Kontakt, Treffpunkt und Rückfahrt, ohne eine feste Abholzeit zu erfinden.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "reviewedAt": "2026-09-14",
+  "readingTimeMinutes": 2,
+  "intro": "Der Beginn eines Termins steht fest, sein Ende häufig noch nicht. Für die Fahrt nach Hause ist das eine wichtige Information. Eine realistische Absprache hilft mehr als eine geschätzte Uhrzeit, die später wie eine feste Zusage behandelt wird.",
+  "summary": [
+    "Nennen Sie ein unbekanntes Behandlungsende als offen.",
+    "Vereinbaren Sie vorher, wer die Rückfahrt telefonisch abstimmt.",
+    "Eine sofortige Abholung auf Abruf kann nicht vorausgesetzt werden."
+  ],
+  "sections": [
+    {
+      "id": "offen",
+      "title": "Ungewissheit bereits bei der Anfrage benennen",
+      "paragraphs": [
+        "Teilen Sie mit, dass die Dauer noch nicht feststeht. Gibt die Praxis ein ungefähres Zeitfenster an, kennzeichnen Sie es als Schätzung. Fragen Sie den Fahrdienst, wie die Rückfahrt unter diesen Bedingungen abgestimmt werden kann.",
+        "Eine bestätigte Hinfahrt enthält nicht automatisch die Zusage, dass der Fahrer unbegrenzt vor Ort bleibt. Wartezeit und spätere Rückfahrt sind eigene Bestandteile der Vereinbarung."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "anruf",
+      "title": "Den Anruf nach der Behandlung vorbereiten",
+      "paragraphs": [
+        "Klären Sie vorher, wer nach dem Termin anruft. Das kann der Fahrgast oder eine dafür benannte Begleitperson sein. Wird Hilfe der Einrichtung benötigt, fragen Sie dort nach; eine automatische Benachrichtigung durch das Praxispersonal sollten Sie nicht voraussetzen.",
+        "Halten Sie die vereinbarte Kontaktmöglichkeit bereit. Für den Anruf sind der Name zur Zuordnung, der Abholort und die Information hilfreich, dass die Behandlung beendet ist. Einzelheiten zur Diagnose werden für diese organisatorische Rückmeldung nicht benötigt."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "treffpunkt",
+      "title": "Erst den bestätigten Treffpunkt aufsuchen",
+      "paragraphs": [
+        "Stimmen Sie einen gut erkennbaren Abholpunkt ab. Bei größeren Gebäuden ist „vor der Klinik“ möglicherweise nicht eindeutig genug. Der Treffpunkt sollte zur Unterstützung passen, die zuvor vereinbart wurde.",
+        "Unser Angebot ist eine sitzende Beförderung ohne medizinische Betreuung. Wenn sich der Unterstützungsbedarf nach dem Termin verändert hat, teilen Sie das mit, bevor eine Abholung bestätigt wird. Die Eignung der Beförderung beurteilt bei medizinischen Fragen die behandelnde Stelle."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "wartezeit",
+      "title": "Auf eine Rückmeldung zur Abholung warten",
+      "paragraphs": [
+        "Nach dem Anruf muss die Rückfahrt noch mit den verfügbaren Kapazitäten zusammenpassen. Rechnen Sie nicht allein aufgrund des Gesprächs mit einer sofortigen Abholung. Lassen Sie sich den tatsächlichen Stand bestätigen.",
+        "Geben Sie eine neue Information auch an Angehörige weiter, die zu Hause warten. So beziehen sich alle Beteiligten auf dieselbe Absprache und nicht auf die ursprünglich geschätzte Uhrzeit."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Muss ich für die Anfrage eine Rückfahrtzeit schätzen?",
+      "answer": "Sie können mitteilen, dass das Behandlungsende offen ist. Das Vorgehen für die Rückfahrt wird dann individuell besprochen."
+    },
+    {
+      "question": "Bleibt der Fahrer automatisch vor Ort?",
+      "answer": "Nein. Eine Wartezeit wird nicht pauschal zugesagt und muss ausdrücklich vereinbart sein."
+    },
+    {
+      "question": "Bedeutet mein Anruf eine sofortige Abholung?",
+      "answer": "Nein. Lassen Sie die Rückfahrt und den möglichen Abholzeitpunkt bestätigen."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-09-14"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "reha-therapiefahrten"
+  ]
+}
