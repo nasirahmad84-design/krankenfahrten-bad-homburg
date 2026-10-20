@@ -32,8 +32,19 @@ jobs:
           npm run test:export
           npm run verify:deployment
           for test in tests/php/*-test.php; do php "$test"; done
-          npm audit --audit-level=high
           git diff --check
+      - name: Sicherheitsfunde prüfen
+        env:
+          AUDIT_REPORT_PATH: ${{ runner.temp }}/next-maintenance-audit.json
+        run: node scripts/check-maintenance-audit.mjs
+      - name: Sicherheitsbericht aufbewahren
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-maintenance-audit
+          path: ${{ runner.temp }}/next-maintenance-audit.json
+          if-no-files-found: ignore
+          retention-days: 30
       - name: Nur geprüfte Abhängigkeiten übernehmen
         run: |
           git add package.json package-lock.json automation/blog/source-inventory.csv

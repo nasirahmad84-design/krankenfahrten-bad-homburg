@@ -1,4 +1,4 @@
-import {execFileSync} from 'node:child_process';
+import {execFileSync, spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {readFileSync, writeFileSync} from 'node:fs';
 
@@ -12,7 +12,10 @@ const target = (Array.isArray(versions) ? versions : [versions])
 if (!target) throw new Error('Keine stabile Version gefunden.');
 execFileSync('npm', ['install', '--save-exact', `next@${target}`, `eslint-config-next@${target}`], {stdio: 'inherit'});
 // Compatible transitive security fixes only; never use --force.
-execFileSync('npm', ['audit', 'fix'], {stdio: 'inherit'});
+const repair = spawnSync('npm', ['audit', 'fix'], {stdio: 'inherit'});
+if (repair.error) throw repair.error;
+if (![0, 1].includes(repair.status)) throw new Error('npm audit fix konnte nicht ausgeführt werden.');
+// Exit 1 may mean unresolved advisories. The separate audit gate evaluates them.
 const inventoryPath = 'automation/blog/source-inventory.csv';
 const hash = createHash('sha256').update(readFileSync('package.json')).digest('hex');
 const date = new Date().toISOString().slice(0, 10);

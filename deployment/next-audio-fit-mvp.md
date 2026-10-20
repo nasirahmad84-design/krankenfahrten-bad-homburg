@@ -10,6 +10,19 @@ Security-Fixes werden ebenfalls übernommen; kein `--force`, keine Canary-Versio
 
 Vor dem Commit laufen Anwendungstests, Lint, TypeScript, statischer Build,
 Export-/Deployment-Prüfung, PHP-Tests und npm audit (high/critical als Sperre).
+`npm audit fix` darf bei verbleibenden Warnungen Exit 1 liefern; danach entscheidet
+`scripts/check-maintenance-audit.mjs` anhand des vollständigen Berichts.
+Einzige befristete Ausnahme bis ausschließlich 20.11.2026:
+[GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)
+für braces 3.0.0–3.0.3 und die daraus abgeleiteten Meldungen in micromatch,
+fast-glob und Next-ESLint. Jede betroffene Installation muss laut Lockdatei
+ausschließlich Entwicklungsabhängigkeit sein. Es werden keine fremden
+Glob-Muster über das Anfrageformular verarbeitet und keine Node-Module zum
+Apache-Server übertragen. Andere Advisories, Produktionsabhängigkeiten,
+critical-Funde und unbekannte Audit-Formate sperren weiterhin. Nach Ablauf sperrt
+auch dieser Fund wieder; dann sind Fix-Verfügbarkeit und Ausnahme erneut zu prüfen.
+Die Ausnahme erscheint als Warnung im Lauf; der vollständige Audit-Bericht wird
+30 Tage als GitHub-Artefakt aufbewahrt. Die Schwachstelle ist damit nicht behoben.
 Nur erfolgreiche Läufe schreiben die geprüften Abhängigkeiten auf `main`.
 Schlägt ein Test oder ein konkurrierender Push fehl, bleibt der Remote-Stand
 unverändert; der GitHub-Lauf zeigt den Fehler. GitHub-Benachrichtigungen hängen
