@@ -99,6 +99,8 @@ test("Zustandsprüfung erkennt ausbleibende, übersprungene und gescheiterte Sta
   const now = new Date("2026-10-28T18:00:00Z");
   const healthy = {created_at: "2026-10-28T12:17:00Z", status: "completed", conclusion: "success"};
   assert.doesNotThrow(() => checkPublisherHeartbeat([healthy], now));
+  assert.equal(checkPublisherHeartbeat([{...healthy, created_at: "2026-10-28T17:50:00Z", status: "in_progress", conclusion: null}], now), "running");
+  assert.throws(() => checkPublisherHeartbeat([{...healthy, status: "in_progress", conclusion: null}], now), /nicht erfolgreich/);
   assert.throws(() => checkPublisherHeartbeat([{...healthy, conclusion: "skipped"}], now), /36 Stunden/);
   assert.throws(() => checkPublisherHeartbeat([{...healthy, created_at: "2026-10-26T08:00:00Z"}], now), /36 Stunden/);
   assert.throws(() => checkPublisherHeartbeat([{...healthy, conclusion: "failure"}], now), /nicht erfolgreich/);
