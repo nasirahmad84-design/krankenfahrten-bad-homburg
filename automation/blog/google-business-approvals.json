@@ -6,9 +6,72 @@
     "publishedState": "LIVE",
     "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/2837264369540629405"
   },
-  "begleitperson-krankenfahrt-abstimmen": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
-  "rueckfahrt-behandlungsende-offen": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
-  "arzttermin-verschoben-krankenfahrt-aendern": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
-  "arztfahrt-unterlagen-fahrtdaten-trennen": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"},
-  "serienfahrten-monatswechsel-terminliste": {"status":"text_approved_image_pending","approvedAt":"2026-09-30"}
+  "begleitperson-krankenfahrt-abstimmen": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-09-30"
+  },
+  "rueckfahrt-behandlungsende-offen": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-09-30"
+  },
+  "arzttermin-verschoben-krankenfahrt-aendern": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-09-30"
+  },
+  "arztfahrt-unterlagen-fahrtdaten-trennen": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-09-30"
+  },
+  "serienfahrten-monatswechsel-terminliste": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-09-30"
+  },
+  "arzttermin-abholzeit-unterschied": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-10-29",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "klinikfahrt-usingen-richtiger-standort": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-02",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "wetterwarnung-krankenfahrt-organisieren": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-05",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "fahrtanfrage-nachricht-keine-diagnosen": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-09",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "anfrage-gesendet-fahrt-bestaetigt": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-12",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "abholung-dunkelheit-treffpunkt": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-16",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "stufen-hauseingang-krankenfahrt": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-19",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  },
+  "klinikfahrt-demenz-absprachen": {
+    "status": "text_approved_image_pending",
+    "approvedAt": "2026-10-28",
+    "plannedDate": "2026-11-23",
+    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+  }
 }

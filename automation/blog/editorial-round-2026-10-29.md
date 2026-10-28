@@ -1,6 +1,6 @@
 # Redaktionsrunde 29. Oktober bis 23. November 2026
 
-Stand: 28.10.2026. Acht ausgearbeitete Artikel und acht Google-Beitragsentwürfe, jeweils **draft_ready / finale Betreiberfreigabe ausstehend**. Die redaktionellen Prüfungen sind keine Betreiberfreigabe. Keine Veröffentlichung ausgelöst.
+Stand: 28.10.2026. Finale Betreiberfreigabe im Codex-Chat für alle acht Artikel und Google-Kurztexte erteilt. Artikelstatus: **approved_for_publish**. Google-Status: **text_approved_image_pending**. Keine Veröffentlichung vorgezogen oder ausgelöst.
 
 | Plantermin | Artikel | Bildidee für Google (noch nicht freigegeben) |
 | --- | --- | --- |
@@ -17,15 +17,17 @@ Stand: 28.10.2026. Acht ausgearbeitete Artikel und acht Google-Beitragsentwürfe
 
 Der Zeitumstellungsbeitrag wird nach dem 25.10.2026 nicht mehr vorbereitet. Stufen und Dunkelheit erhalten zukünftige Plantermine. Der Demenzbeitrag ist zeitlos neu ausgearbeitet; ein früherer lokaler Entwurf mit vergangenem Veranstaltungsbezug wird nicht veröffentlicht. Slugs und Plantermine in der Google-Themenliste stimmen mit den neuen Läufen überein. Alte freigegebene Veröffentlichungen und Freigaberegister bleiben unverändert.
 
-## Nächste Freigabe
+## Erteilte Freigabe und noch offene Google-Voraussetzungen
 
-Im geschützten Test-Cockpit sind vollständige Texte, Quellen, Claim-Prüfung und Google-Entwurf lesbar. Betreiberfreigabe je Artikel dokumentieren; Datum allein löst nichts aus. Vor Freischaltung Quellen nochmals prüfen und Prüfdaten fortschreiben. Bei bereits verstrichenem Termin neu einplanen, nicht rückdatieren.
+Die finale Freigabe vom 28.10.2026 ist in allen acht Laufstatusdateien, Kalender, Inhaltsfreigaberegister und Google-Freigaberegister dokumentiert. Die Artikel sind für ihre bestehenden Montag-/Donnerstag-Termine vorgesehen. Vor Freischaltung Quellen nochmals prüfen und Prüfdaten fortschreiben. Bei bereits verstrichenem Termin neu einplanen, nicht rückdatieren.
+
+Google-Zielplan: ebenfalls 29.10., 02.11., 05.11., 09.11., 12.11., 16.11., 19.11. und 23.11.2026, jeweils erst nach nachgewiesenem Livegang des zugehörigen Artikels. Das ist noch kein aktivierter Versandzeitplan. Es fehlen fertige freigegebene Bildassets und die Anbindung des vorhandenen manuellen Google-Publishers an einen dauerhaften Zeitplan mit persistentem Duplikatschutz. Keine feste Uhrzeit zugesagt.
 
 ## Google-Business-Bilder
 
 Obige Motive sind ein Plan, keine fertigen Assets und keine Rechtefreigabe. Nur eigene Grafik oder freigegebenes vorhandenes Material verwenden; keine fremden Klinik-, BBK- oder Beratungsstellenlogos übernehmen. Google-Beitrag erst mit freigegebenem Text/Motiv und erreichbarem Artikel einplanen. Bestehende Google-Freigaben werden nicht verändert. Diese Runde enthält keine Facebook-Veröffentlichung.
 
-## Technische Abnahme am 28.10.2026
+## Technische Erstabnahme am 28.10.2026 vor Betreiberfreigabe
 
 - Alle acht Läufe mit dem bestehenden Validator geprüft; Status jeweils draft_ready, keine Betreiberfreigabe gesetzt.
 - Acht Google-Vorschauen erzeugbar: preview_only, operatorApproval pending, LEARN_MORE-CTA mit produktiver Artikel-URL und UTM.

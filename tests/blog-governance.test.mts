@@ -60,17 +60,32 @@ test("Queue-Workflow prüft täglich mit Wiederholungsstart ohne bezahlten KI-Au
   assert.ok(liveDeployment < documentation);
 });
 
-test("dokumentiert die Betreiberfreigabe für beide vorbereiteten Achter-Batches", () => {
+test("dokumentiert die Betreiberfreigaben der drei vorbereiteten Achter-Batches", () => {
   const calendarRows = editorialCalendar.trim().split("\n").slice(1);
   const approvalRows = approvalRegister.trim().split("\n").slice(1);
-  assert.equal(calendarRows.length, 16);
-  assert.equal(approvalRows.length, 16);
-  assert.equal(calendarRows.filter((row) => /,\"?approved_for_publish\"?$/.test(row)).length, 16);
+  assert.equal(calendarRows.length, 24);
+  assert.equal(approvalRows.length, 24);
+  assert.equal(calendarRows.filter((row) => /,\"?approved_for_publish\"?$/.test(row)).length, 24);
   assert.equal(calendarRows.filter((row) => /,\"?draft_ready\"?$/.test(row)).length, 0);
   assert.match(calendarRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,approved_for_publish$/);
   assert.equal(approvalRows.filter((row) => row.includes(",approved,2026-08-19,2026-09-17,")).length, 7);
   assert.match(approvalRows.find((row) => row.includes(",muster-4-krankenbefoerderung,")) ?? "", /,approved,2026-08-26,2026-09-17,/);
   assert.equal(approvalRows.filter((row) => /,"?approved"?,"?2026-09-14"?,/.test(row)).length, 8);
+  assert.equal(approvalRows.filter((row) => /,"?approved"?,"?2026-10-28"?,/.test(row)).length, 8);
+});
+
+test("trennt die aktuelle Artikel- und Google-Textfreigabe von noch offenen Bildern", () => {
+  const planned = JSON.parse(read("automation/blog/google-business-planned.json"));
+  const googleApprovals = JSON.parse(read("automation/blog/google-business-approvals.json"));
+  assert.equal(planned.length, 8);
+  for (const item of planned) {
+    const status = JSON.parse(read(`automation/blog/articles/${item.date}-${item.slug}/run-status.json`));
+    assert.equal(status.status, "approved_for_publish");
+    assert.equal(status.approvedAt, "2026-10-28");
+    assert.equal(status.scheduledDate, item.date);
+    assert.equal(googleApprovals[item.slug].status, "text_approved_image_pending");
+    assert.equal(googleApprovals[item.slug].approvedAt, "2026-10-28");
+  }
 });
 
 test("alarmiert bei operativen Fehlerenden, aber nicht bei absichtlich übersprungenen Läufen", () => {

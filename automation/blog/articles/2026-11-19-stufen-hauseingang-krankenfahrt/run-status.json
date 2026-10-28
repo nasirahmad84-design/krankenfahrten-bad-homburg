@@ -5,7 +5,7 @@
   "articleSlug": "stufen-hauseingang-krankenfahrt",
   "topic": "Stufen am Hauseingang: Unterstützung vor der Krankenfahrt klären",
   "whyNow": "Zeitloser Leistungsgrenzen-Ratgeber; verschobener Oktober-Entwurf ohne veralteten Anlass.",
-  "status": "draft_ready",
+  "status": "approved_for_publish",
   "sourceGate": "passed",
   "claimGate": "passed",
   "serviceGate": "passed",
@@ -14,5 +14,6 @@
   "livePublishing": false,
   "facebookPublishing": false,
   "revalidateAfter": "2026-11-19",
-  "reviewNotes": "Am 28.10.2026 redaktionell und anhand der angegebenen Primär- bzw. Betreiberquellen geprüft. Organisatorische Empfehlungen sind als solche kenntlich; keine medizinischen oder rechtlichen Zusagen. Finale Inhalts- und Veröffentlichungsfreigabe des Betreibers sowie Google-Beitragsfreigabe stehen aus. Plantermin ist keine Freigabe. Vor tatsächlicher Veröffentlichung Quellen und Aktualität erneut prüfen; danach reviewedAt, checkedAt und Recheck-Frist nachführen. Keine selbst erteilte Freigabe."
+  "reviewNotes": "Finale Betreiberfreigabe im Codex-Chat am 28.10.2026 für die acht Artikel und zugehörigen Google-Kurztexte erteilt. Quellen und redaktionelle Gates am 28.10.2026 geprüft. Plantermine bleiben erhalten. Vor tatsächlicher Veröffentlichung Quellen und Aktualität erneut prüfen; bei Verschiebung Recheck-Frist bewusst neu setzen. Google-Bilder waren nur Motivvorschläge und sind nicht als fertige Assets freigegeben. Google-Veröffentlichung bleibt bis zur fertigen Bild-/Payloadfreigabe und nachgewiesenem Live-Artikel gesperrt.",
+  "approvedAt": "2026-10-28"
 }
