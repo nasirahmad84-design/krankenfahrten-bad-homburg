@@ -19,6 +19,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     "repos/nasirahmad84-design/krankenfahrten-bad-homburg/actions/workflows/blog-manual.yml/runs?per_page=30"],
   {encoding: "utf8"}));
   checkPublisherHeartbeat(response.workflow_runs);
-  selectDueRun(process.cwd(), berlinDate());
+  const queue = selectDueRun(process.cwd(), berlinDate());
+  if (queue.status === "ready") throw new Error("Ein freigegebener Artikel ist weiterhin fällig, obwohl die Tagesläufe abgeschlossen sein sollten.");
   console.log("Publisher-Start, letzter Lauf und fällige Freigaben geprüft.");
 }
