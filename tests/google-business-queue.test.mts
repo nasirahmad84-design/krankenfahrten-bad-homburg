@@ -64,6 +64,7 @@ test("Google-Workflow ist unabhängig vom Blog, mit Nachlauf, Retry, persistente
   assert.match(workflow, /10 9,13 \* \* \*/);
   assert.match(workflow, /group: google-business-publishing/);
   assert.match(workflow, /git fetch origin gbp-state/);
+  assert.doesNotMatch(workflow.split("steps:")[0], /runner\.temp/);
   assert.doesNotMatch(workflow, /npm ci|npm run build|OPENAI_API_KEY/);
   assert.match(readFileSync(".github/workflows/blog-failure-alert.yml", "utf8"), /Google-Business-Pipeline/);
   assert.match(readFileSync(".github/workflows/blog-health.yml", "utf8"), /check-google-business-health/);

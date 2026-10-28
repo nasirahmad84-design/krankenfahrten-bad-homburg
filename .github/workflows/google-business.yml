@@ -33,7 +33,6 @@ jobs:
       GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
       GBP_QUEUE_ENABLED: ${{ vars.GBP_QUEUE_ENABLED }}
       GBP_QUEUE_DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
-      GBP_STATE_DIRECTORY: ${{ runner.temp }}/gbp-state
     steps:
       - uses: actions/checkout@v5
         with:
@@ -45,7 +44,8 @@ jobs:
       - name: Dauerhaften Versandstatus laden
         run: |
           git fetch origin gbp-state
-          git worktree add --detach "$GBP_STATE_DIRECTORY" FETCH_HEAD
+          git worktree add --detach "$RUNNER_TEMP/gbp-state" FETCH_HEAD
+          echo "GBP_STATE_DIRECTORY=$RUNNER_TEMP/gbp-state" >> "$GITHUB_ENV"
       - name: Freigegebene und live veröffentlichte Beiträge abgleichen
         id: queue
         run: node scripts/run-google-business-queue.mjs
