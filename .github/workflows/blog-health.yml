@@ -1,0 +1,24 @@
+name: Blog-Publisher-Gesundheit
+
+on:
+  schedule:
+    - cron: "43 17 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Tatsächlichen Publisher-Lauf und Redaktionsvorrat prüfen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/check-blog-health.mjs

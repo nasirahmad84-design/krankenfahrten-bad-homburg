@@ -42,9 +42,10 @@ test("plant statische Ratgeberrouten ohne öffentliches Schreib-API", () => {
   assert.match(routes, /^\/api\/blog\/,Runtime-Endpunkt,no,none,rejected/m);
 });
 
-test("Queue-Workflow läuft montags und donnerstags ohne bezahlten KI-Aufruf", () => {
+test("Queue-Workflow prüft täglich mit Wiederholungsstart ohne bezahlten KI-Aufruf", () => {
   assert.match(manualWorkflow, /workflow_dispatch:/);
-  assert.match(manualWorkflow, /cron: "0 7 \* \* 1,4"/);
+  assert.ok(manualWorkflow.includes('cron: "17 8,12 * * *"'));
+  assert.doesNotMatch(manualWorkflow, /BLOG_EXTERNAL_SCHEDULER_ENABLED/);
   assert.match(manualWorkflow, /npm run blog:select-scheduled/);
   assert.match(manualWorkflow, /npm run deploy:blog:test/);
   assert.match(manualWorkflow, /npm run deploy:blog:live/);

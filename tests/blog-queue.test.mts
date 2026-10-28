@@ -4,7 +4,9 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
-import { selectScheduledRun } from "../scripts/lib/blog-queue.mjs";
+import { selectScheduledRun, selectDueRun } from "../scripts/lib/blog-queue.mjs";
+import { checkPublisherHeartbeat } from "../scripts/check-blog-health.mjs";
+import { spawnSync } from "node:child_process";
 
 const projectRoot = process.cwd();
 const pilot = JSON.parse(readFileSync(join(projectRoot, "automation/blog/published/krankenfahrt-oder-krankentransport-unterschied.json"), "utf8"));
@@ -59,6 +61,48 @@ function queueRun(root: string, runId: string, { status = "approved_for_publish"
   }, null, 2)}\n`);
   return { directory, slug };
 }
+
+test("holt gültige Freigaben nach und verwendet das tatsächliche Veröffentlichungsdatum", () => {
+  const root = rootFixture();
+  try {
+    const {slug} = queueRun(root, "2026-08-24-nachholen");
+    const selected = selectDueRun(root, "2026-08-25");
+    assert.ok("slug" in selected);
+    assert.equal(selected.slug, slug);
+    assert.equal(selected.publicationDate, "2026-08-25");
+    assert.equal(selected.plannedDate, "2026-08-24");
+    const result = spawnSync(process.execPath, [join(projectRoot, "scripts/promote-blog-run.mjs"), "automation/blog/articles/2026-08-24-nachholen"], {
+      cwd: root, env: {...process.env, BLOG_RELEASE_DATE: "2026-08-25"}, encoding: "utf8",
+    });
+    assert.equal(result.status, 0, result.stderr);
+    const published = JSON.parse(readFileSync(join(root, "automation/blog/published", slug + ".json"), "utf8"));
+    assert.equal(published.publishedAt, "2026-08-25");
+    assert.equal(selectDueRun(root, "2026-08-25").status, "no_scheduled_article");
+  } finally { rmSync(root, {recursive: true, force: true}); }
+});
+
+test("Nachholen sperrt abgelaufene Freigaben und meldet leere Veröffentlichungstage", () => {
+  const root = rootFixture();
+  try {
+    queueRun(root, "2026-08-24-veraltet", {revalidateAfter: "2026-08-24"});
+    assert.throws(() => selectDueRun(root, "2026-08-25"), /Aktualitätsfreigabe/);
+  } finally { rmSync(root, {recursive: true, force: true}); }
+  const empty = rootFixture();
+  try {
+    queueRun(empty, "2026-08-24-entwurf", {status: "draft_ready"});
+    assert.throws(() => selectDueRun(empty, "2026-08-24"), /Redaktionsvorrat leer/);
+    assert.equal(selectDueRun(empty, "2026-08-25").status, "no_scheduled_article");
+  } finally { rmSync(empty, {recursive: true, force: true}); }
+});
+
+test("Zustandsprüfung erkennt ausbleibende, übersprungene und gescheiterte Starts", () => {
+  const now = new Date("2026-10-28T18:00:00Z");
+  const healthy = {created_at: "2026-10-28T12:17:00Z", status: "completed", conclusion: "success"};
+  assert.doesNotThrow(() => checkPublisherHeartbeat([healthy], now));
+  assert.throws(() => checkPublisherHeartbeat([{...healthy, conclusion: "skipped"}], now), /36 Stunden/);
+  assert.throws(() => checkPublisherHeartbeat([{...healthy, created_at: "2026-10-26T08:00:00Z"}], now), /36 Stunden/);
+  assert.throws(() => checkPublisherHeartbeat([{...healthy, conclusion: "failure"}], now), /nicht erfolgreich/);
+});
 
 test("wählt genau den freigegebenen und aktuellen Artikel des Tages", () => {
   const root = rootFixture();

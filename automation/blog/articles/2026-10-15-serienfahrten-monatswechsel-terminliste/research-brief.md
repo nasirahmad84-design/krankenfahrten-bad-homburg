@@ -17,4 +17,13 @@ Die Quellen belegen eng begrenzte Fakten. Die Ablauftipps sind eigene, unverbind
 
 ## Review
 
-Lesbarkeit, Servicegrenzen, individuelle Suchintention und Quellenbezug redaktionell geprüft. Betreiberfreigabe steht aus.
+Lesbarkeit, Servicegrenzen, individuelle Suchintention und Quellenbezug redaktionell geprüft. Betreiberfreigabe aller acht Artikel vom 14.09.2026 dokumentiert.
+
+## Nachholprüfung 28.10.2026
+
+Beide oben genannten Betreiberquellen erneut geöffnet. Bestätigungspflicht,
+Änderungsabsprachen und Grenzen der sitzenden Beförderung weiterhin bestätigt.
+Der Artikeltext bleibt unverändert; die Checklisten sind als eigene Empfehlungen
+gekennzeichnet. Originaltermin 15.10. bleibt in der Planungshistorie erhalten.
+Auftrag zur Reparatur und zum Nachholen am 28.10.; Veröffentlichung trägt das
+tatsächliche Datum, kein rückdatiertes Datum. Quellenprüfung gültig bis 04.11.2026.

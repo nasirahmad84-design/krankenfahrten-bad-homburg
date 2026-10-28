@@ -36,10 +36,10 @@ test("acht ausdrücklich freigegebene Artikel werden geplant oder sind bereits v
   }
 });
 
-test("Prüflauf überspringt alle vier Veröffentlichungsschritte und lässt alten Cron bis Umschaltung aktiv", () => {
+test("Prüflauf überspringt Veröffentlichung; externer Cron kann GitHub nicht abschalten", () => {
   const workflow = readFileSync(join(root, ".github/workflows/blog-manual.yml"), "utf8");
   assert.equal((workflow.match(/if: steps\.queue\.outputs\.status == 'ready' && inputs\.dry_run != true/g) || []).length, 4);
-  assert.match(workflow, /github.event_name != 'schedule' \|\| vars.BLOG_EXTERNAL_SCHEDULER_ENABLED != 'true'/);
+  assert.doesNotMatch(workflow, /BLOG_EXTERNAL_SCHEDULER_ENABLED/);
   const config = JSON.parse(readFileSync(join(root, "automation/blog/external-schedule.example.json"), "utf8"));
   assert.equal(config.job.enabled, false);
   assert.equal(JSON.parse(config.job.extendedData.body).inputs.dry_run, "true");

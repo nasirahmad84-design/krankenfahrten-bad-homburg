@@ -59,3 +59,36 @@ export function selectScheduledRun(root, publicationDate = berlinDate()) {
     slug: candidate.article.slug,
   };
 }
+
+// Keep the exact-date selector for historical checks. Live runs also recover missed starts.
+export function selectDueRun(root, today = berlinDate()) {
+  if (!DATE_PATTERN.test(today)) throw new Error("Veröffentlichungsdatum muss YYYY-MM-DD entsprechen.");
+  const pending = readdirSync(resolve(root, "automation/blog/articles"), { withFileTypes: true })
+    .filter(entry => entry.isDirectory())
+    .map(entry => join(root, "automation/blog/articles", entry.name, "run-status.json"))
+    .filter(path => existsSync(path))
+    .map(path => readJson(path))
+    .filter(status => status.status === "approved_for_publish"
+      && !existsSync(resolve(root, "automation/blog/published", `${status.articleSlug}.json`)));
+  if (pending.some(status => !DATE_PATTERN.test(status.scheduledDate ?? ""))) {
+    throw new Error("Freigegebener Artikel ohne gültigen Termin.");
+  }
+  const due = pending.filter(status => status.scheduledDate <= today)
+    .sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate));
+  if (due.length) {
+    const oldest = due[0];
+    if (!DATE_PATTERN.test(oldest.revalidateAfter ?? "") || oldest.revalidateAfter < today) {
+      throw new Error(`Aktualitätsfreigabe abgelaufen: ${oldest.articleSlug}. Quellencheck und neue Terminierung erforderlich.`);
+    }
+    const selected = selectScheduledRun(root, oldest.scheduledDate);
+    return { ...selected, plannedDate: oldest.scheduledDate, publicationDate: today };
+  }
+  const published = readdirSync(resolve(root, "automation/blog/published"))
+    .filter(name => name.endsWith(".json"))
+    .map(name => readJson(resolve(root, "automation/blog/published", name)));
+  const weekday = new Date(today + "T12:00:00Z").getUTCDay();
+  if ([1, 4].includes(weekday) && !published.some(article => article.publishedAt === today)) {
+    throw new Error(`Redaktionsvorrat leer: Für ${today} liegt kein freigegebener Artikel vor. Entwürfe werden nicht automatisch freigegeben.`);
+  }
+  return { status: "no_scheduled_article", publicationDate: today };
+}

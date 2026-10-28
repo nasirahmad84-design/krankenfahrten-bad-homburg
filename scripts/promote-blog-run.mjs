@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { basename, join, resolve, sep } from "node:path";
 
 import { assertValid, validateRun } from "./lib/blog-pipeline.mjs";
@@ -24,7 +24,15 @@ try {
     console.log(`Freigabeprüfung bestanden: ${basename(runDirectory)} würde nach ${target} übernommen.`);
   } else {
     mkdirSync(publishedDirectory, { recursive: true });
-    copyFileSync(join(runDirectory, "article.json"), target);
+    const article = { ...result.article };
+    const releaseDate = process.env.BLOG_RELEASE_DATE;
+    if (releaseDate) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(releaseDate) || releaseDate < article.publishedAt
+        || releaseDate > result.status.revalidateAfter) throw new Error("Ungültiges oder nicht mehr geprüftes Nachhol-Datum.");
+      article.publishedAt = releaseDate;
+      article.updatedAt = releaseDate;
+    }
+    writeFileSync(target, JSON.stringify(article, null, 2) + "\n");
     console.log(`Ratgeberbeitrag übernommen: ${target}`);
   }
 } catch (error) {

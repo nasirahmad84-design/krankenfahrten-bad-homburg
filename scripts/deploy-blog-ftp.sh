@@ -56,6 +56,7 @@ upload_file() {
   encoded_path="$(RELATIVE_PATH="$relative_path" node -e 'process.stdout.write(process.env.RELATIVE_PATH.split("/").map(encodeURIComponent).join("/"))')"
   /usr/bin/curl \
     --silent --show-error --fail \
+    --connect-timeout 20 --max-time 120 \
     --tls-max 1.2 --ssl-reqd --ftp-ssl-control --ftp-create-dirs --ftp-pasv \
     --retry 3 --retry-all-errors --retry-delay 2 \
     --user "${FTP_USER}:${FTP_PASSWORD}" \
@@ -65,9 +66,16 @@ upload_file() {
 }
 
 echo "Übertrage ausschließlich Ratgeberdateien, Sitemap und benötigte Next-Assets …"
-while IFS= read -r -d '' file; do upload_file "$file"; done < <(find "out/ratgeber" -type f -print0)
-upload_file "out/sitemap.xml"
 while IFS= read -r -d '' file; do upload_file "$file"; done < <(find "out/_next/static" -type f -print0)
+while IFS= read -r -d '' file; do upload_file "$file"; done < <(
+  find "out/ratgeber/$slug" -type f ! -name '*.html' -print0
+  find "out/ratgeber" -maxdepth 1 -type f ! -name '*.html' -print0
+)
+while IFS= read -r -d '' file; do upload_file "$file"; done < <(
+  find "out/ratgeber/$slug" -type f -name '*.html' -print0
+  find "out/ratgeber" -maxdepth 1 -type f -name '*.html' -print0
+)
+upload_file "out/sitemap.xml"
 
 article_url="${site_url%/}/ratgeber/${slug}/"
 hub_url="${site_url%/}/ratgeber/"

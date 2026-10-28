@@ -2,7 +2,7 @@ name: Geplanter Blog-Queue-Release
 
 on:
   schedule:
-    - cron: "0 7 * * 1,4"
+    - cron: "17 8,12 * * *"
   workflow_dispatch:
     inputs:
       publication_date:
@@ -24,7 +24,6 @@ concurrency:
 
 jobs:
   publish-approved-queue-item:
-    if: github.event_name != 'schedule' || vars.BLOG_EXTERNAL_SCHEDULER_ENABLED != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -49,20 +48,32 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Abhängigkeiten installieren
-        run: npm ci
-
       - name: Freigegebenen Warteschlangenartikel auswählen
         id: queue
         run: npm run blog:select-scheduled
 
       - name: Blog-Delta vorbereiten
         if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
-        run: npm run blog:prepare-release -- "${{ steps.queue.outputs.run_directory }}"
+        env:
+          BLOG_RELEASE_DATE: ${{ steps.queue.outputs.publication_date }}
+        run: |
+          npm ci
+          npm run blog:prepare-release -- "${{ steps.queue.outputs.run_directory }}"
 
       - name: Blog-Delta auf Testdomain veröffentlichen
         if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
         run: npm run deploy:blog:test -- "${{ steps.queue.outputs.slug }}"
+
+      - name: Geprüftes Blogpaket für Wiederherstellung sichern
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-release-${{ github.run_id }}
+          path: |
+            out/ratgeber/
+            out/_next/static/
+            out/sitemap.xml
+          retention-days: 30
 
       - name: Gleiches Blog-Delta live veröffentlichen
         if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true && vars.BLOG_QUEUE_LIVE_ENABLED == 'true'

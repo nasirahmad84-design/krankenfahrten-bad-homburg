@@ -1,11 +1,12 @@
 import { appendFileSync } from "node:fs";
 
-import { selectScheduledRun } from "./lib/blog-queue.mjs";
+import { berlinDate, selectDueRun } from "./lib/blog-queue.mjs";
 
 const publicationDate = process.env.BLOG_PUBLICATION_DATE || undefined;
 
 try {
-  const result = selectScheduledRun(process.cwd(), publicationDate);
+  if (publicationDate && publicationDate !== berlinDate()) throw new Error("Live-Auswahl ist nur für das heutige Berliner Datum erlaubt.");
+  const result = selectDueRun(process.cwd(), publicationDate);
   console.log(result.status === "ready"
     ? `Freigegebener Warteschlangenartikel: ${result.runId}`
     : `Kein freigegebener Warteschlangenartikel für ${result.publicationDate}.`);
@@ -14,6 +15,7 @@ try {
     appendFileSync(process.env.GITHUB_OUTPUT, [
       `status=${result.status}`,
       `publication_date=${result.publicationDate}`,
+      `planned_date=${result.plannedDate ?? result.publicationDate}`,
       `run_directory=${result.runDirectory ?? ""}`,
       `run_id=${result.runId ?? ""}`,
       `slug=${result.slug ?? ""}`,
