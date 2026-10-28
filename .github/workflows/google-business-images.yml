@@ -1,0 +1,37 @@
+name: Google-Business-Bilder bereitstellen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-business-image-deployment
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FTP_HOST: ${{ vars.FTP_HOST }}
+      FTP_USER: ${{ vars.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      FTP_LIVE_DIRECTORY: ${{ vars.FTP_LIVE_DIRECTORY }}
+      FTP_TEST_DIRECTORY: ${{ vars.FTP_TEST_DIRECTORY }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Vorhandene öffentliche Bilder sichern
+        run: node scripts/deploy-google-business-images.mjs backup
+      - uses: actions/upload-artifact@v4
+        with:
+          name: google-images-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/google-images-backup/
+          retention-days: 30
+          if-no-files-found: error
+      - name: Ausschließlich acht Bilder auf Test und Live übertragen und prüfen
+        run: node scripts/deploy-google-business-images.mjs upload

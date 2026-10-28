@@ -22,3 +22,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/check-blog-health.mjs
+      - name: Google-Versandstatus laden
+        if: vars.GBP_QUEUE_ENABLED == 'true'
+        run: |
+          git fetch origin gbp-state
+          git worktree add --detach "$RUNNER_TEMP/gbp-state" FETCH_HEAD
+      - name: Google-Start und fällige Beiträge prüfen
+        if: vars.GBP_QUEUE_ENABLED == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GBP_STATE_DIRECTORY: ${{ runner.temp }}/gbp-state
+        run: node scripts/check-google-business-health.mjs

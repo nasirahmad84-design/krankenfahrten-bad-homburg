@@ -11,6 +11,19 @@ const API = "https://mybusiness.googleapis.com/v4/";
 const sha256 = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const requireThat = (condition, message) => { if (!condition) throw new Error(message); };
 
+export async function verifyGoogleBusinessImage(fetcher, payload, expectedHash) {
+  if (!payload.media) return;
+  requireThat(payload.media.length === 1 && payload.media[0].mediaFormat === "PHOTO", "Genau ein freigegebenes Google-Bild erforderlich.");
+  const url = payload.media[0].sourceUrl;
+  requireThat(/^https:\/\/krankenfahrten-bad-homburg\.de\/images\/google-business\/[a-z0-9-]+\.jpg$/.test(url || ""), "Google-Bild liegt nicht auf der eigenen Produktionsdomain.");
+  requireThat(/^[a-f0-9]{64}$/.test(expectedHash || ""), "Exakter Bildhash fehlt.");
+  const response = await request(fetcher, url);
+  requireThat(response.ok && /image\/jpeg/i.test(response.headers.get("content-type") || ""), "Google-Bild nicht als JPEG erreichbar.");
+  const bytes = Buffer.from(await response.arrayBuffer());
+  requireThat(bytes.length >= 10240 && bytes.length <= 5 * 1024 * 1024, "Google-Bild hat ungültige Dateigröße.");
+  requireThat(createHash("sha256").update(bytes).digest("hex") === expectedHash, "Live-Bild weicht von der freigegebenen Datei ab.");
+}
+
 // Never include response bodies, credentials or request headers in exceptions/logs.
 async function request(fetcher, url, options = {}) {
   try {
@@ -112,6 +125,7 @@ export async function publishGoogleBusinessPost({ preview, article, status, publ
   requireThat(publishedArticle && sha256(publishedArticle) === sha256(article), "Veröffentlichungsregister enthält nicht den identischen Artikel.");
   requireThat(preview.articleSlug === article.slug && new URL(preview.payload.callToAction.url).origin === ORIGIN && new URL(preview.payload.callToAction.url).pathname === `/ratgeber/${article.slug}/`, "Google-Ziellink stimmt nicht mit dem Artikel überein.");
   await verifyPublishedArticle(fetcher, article);
+  await verifyGoogleBusinessImage(fetcher, preview.payload, googleApproval.imageSha256);
   ledger.lock();
   try {
     const previous = ledger.read();
@@ -124,13 +138,18 @@ export async function publishGoogleBusinessPost({ preview, article, status, publ
     requireThat(matches.length <= 1, "Mehrere Google-Beiträge für diesen Artikel gefunden; manuell prüfen.");
     const save = post => {
       requireThat(typeof post.name === "string" && post.name.startsWith(`${parent}/localPosts/`) && ["LIVE", "PROCESSING", "REJECTED"].includes(post.state), "Google-Beitrags-ID oder Status fehlt; kein erneuter POST.");
-      const state = { articleSlug: article.slug, parent, payloadHash, postName: post.name, status: post.state, checkedAt: new Date().toISOString() };
+      if (previous?.postName === post.name && previous?.status === post.state) {
+        requireThat(post.state !== "REJECTED", "Google hat den Beitrag abgelehnt; redaktionelle Prüfung erforderlich.");
+        return previous;
+      }
+      const state = { articleSlug: article.slug, parent, payloadHash, postName: post.name, status: post.state, firstSeenAt: previous?.firstSeenAt || previous?.attemptedAt || new Date().toISOString(), checkedAt: new Date().toISOString(), ...(post.searchUrl && /^https:\/\//.test(post.searchUrl) ? { searchUrl: post.searchUrl } : {}) };
       ledger.write(state);
       requireThat(post.state !== "REJECTED", "Google hat den Beitrag abgelehnt; redaktionelle Prüfung erforderlich.");
       return state;
     };
     if (matches.length) {
       requireThat(matches[0].summary === preview.payload.summary, "Vorhandener Google-Beitrag hat abweichenden Text; keine automatische Änderung.");
+      requireThat(matches[0].callToAction?.url === preview.payload.callToAction.url, "Vorhandener Google-Beitrag hat abweichenden Ziellink.");
       return save(matches[0]);
     }
     requireThat(!previous, "Früherer Schreibversuch vorhanden, aber remote nicht gefunden; nicht blind erneut senden.");
@@ -140,7 +159,7 @@ export async function publishGoogleBusinessPost({ preview, article, status, publ
   } finally { ledger.unlock(); }
 }
 
-// Explicit CLI only; not wired to a schedule. Preview makes no network requests.
+// Explicit single-post CLI; cloud scheduling uses run-google-business-queue.mjs.
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   try {
     const runDirectory = resolve(process.argv[2] || "");

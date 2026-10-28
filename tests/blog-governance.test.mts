@@ -74,7 +74,7 @@ test("dokumentiert die Betreiberfreigaben der drei vorbereiteten Achter-Batches"
   assert.equal(approvalRows.filter((row) => /,"?approved"?,"?2026-10-28"?,/.test(row)).length, 8);
 });
 
-test("trennt die aktuelle Artikel- und Google-Textfreigabe von noch offenen Bildern", () => {
+test("verknüpft die finale Freigabe mit exakten Google-Payloads und Bildern", () => {
   const planned = JSON.parse(read("automation/blog/google-business-planned.json"));
   const googleApprovals = JSON.parse(read("automation/blog/google-business-approvals.json"));
   assert.equal(planned.length, 8);
@@ -83,8 +83,11 @@ test("trennt die aktuelle Artikel- und Google-Textfreigabe von noch offenen Bild
     assert.equal(status.status, "approved_for_publish");
     assert.equal(status.approvedAt, "2026-10-28");
     assert.equal(status.scheduledDate, item.date);
-    assert.equal(googleApprovals[item.slug].status, "text_approved_image_pending");
+    assert.equal(googleApprovals[item.slug].status, "approved");
     assert.equal(googleApprovals[item.slug].approvedAt, "2026-10-28");
+    assert.equal(googleApprovals[item.slug].automaticPublishing, true);
+    assert.match(googleApprovals[item.slug].payloadHash, /^[a-f0-9]{64}$/);
+    assert.match(googleApprovals[item.slug].imageSha256, /^[a-f0-9]{64}$/);
   }
 });
 

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { validateRun, assertValid } from "./lib/blog-pipeline.mjs";
@@ -13,12 +13,17 @@ export function prepareGoogleBusinessPost(runDirectory) {
   }
   const url = new URL(`/ratgeber/${article.slug}/`, "https://krankenfahrten-bad-homburg.de");
   url.search = new URLSearchParams({ utm_source: "google", utm_medium: "organic", utm_campaign: "gbp_ratgeber", utm_content: article.slug }).toString();
+  const imagePath = resolve(runDirectory, "../../google-business-images.json");
+  const image = existsSync(imagePath) ? JSON.parse(readFileSync(imagePath, "utf8"))[article.slug] : undefined;
+  if (image && !/^https:\/\/krankenfahrten-bad-homburg\.de\/images\/google-business\/[a-z0-9-]+\.jpg$/.test(image.sourceUrl)) {
+    throw new Error("Google-Bild benötigt eine eigene öffentliche Produktions-URL.");
+  }
   return {
     articleSlug: article.slug,
     publicationDate: article.publishedAt,
     operatorApproval: status.status === "approved_for_publish" ? "approved" : "pending",
     status: "preview_only",
-    payload: { languageCode: "de", summary, topicType: "STANDARD", callToAction: { actionType: "LEARN_MORE", url: url.href } },
+    payload: { languageCode: "de", summary, topicType: "STANDARD", callToAction: { actionType: "LEARN_MORE", url: url.href }, ...(image ? { media: [{ mediaFormat: "PHOTO", sourceUrl: image.sourceUrl }] } : {}) },
   };
 }
 

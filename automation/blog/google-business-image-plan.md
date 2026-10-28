@@ -1,5 +1,7 @@
 # Bildplan für die nächsten Google-Business-Beiträge
 
+Update 28.10.2026: Die acht Motive der neuen Runde ab 29.10. sind als eigene Informationsgrafiken fertiggestellt. Exakte Dateien, Rechte und Hashes: google-business-images.json. Ausführungsfreigabe und Payloadhashes: google-business-approvals.json. Die folgenden fünf älteren Beiträge bleiben unverändert bildoffen; sie werden nicht automatisch nachveröffentlicht.
+
 Stand 30.09.2026. Der Betreiber hat die fünf vorhandenen Google-Kurztexte freigegeben. Die Bildmotive sind Vorschläge, noch nicht geliefert oder freigegeben. Deshalb bleiben alle fünf Beiträge technisch gesperrt. Acht weitere Themen ab 19.10. sind lediglich Planung und noch keine fertigen Beiträge.
 
 | Termin | Beitrag | Bildmotiv | Prüfpunkt |

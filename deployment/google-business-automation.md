@@ -1,5 +1,7 @@
 # Google-Business-Beiträge statt Facebook
 
+Aktueller Betriebsstand ab 28.10.2026: siehe [Google-Business-Cloudbetrieb](google-business-cloud-2026-10-28.md). Für die neue Achterrunde werden Bilder, dauerhafter Versandstatus, Nachlauf und Zeitsteuerung angeschlossen. Die folgenden Abschnitte dokumentieren den früheren Stand vom September und gelten nicht als aktuelle Aussage zur Aktivierung.
+
 Entscheidung des Betreibers vom 14.09.2026: Google Business ist der Verteilungskanal. Keine Facebook-Veröffentlichung. Bestehende Facebook-Entwürfe sind historisches Archiv, neue Artikel erhalten `google-business-draft.md`.
 
 ## Vorbereiteter Stand

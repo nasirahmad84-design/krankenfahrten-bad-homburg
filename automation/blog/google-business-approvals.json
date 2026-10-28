@@ -27,51 +27,75 @@
     "approvedAt": "2026-09-30"
   },
   "arzttermin-abholzeit-unterschied": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-10-29",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "5f04e495efc4ce4c2ce05a8734b6ae4a2d1ecf57b0e187651eb225f7c6a448b5",
+    "imageSha256": "95085b361bd755a9b259e45c5734cb7a86b5af2ac73c78c7f24dc44ce3749321",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "klinikfahrt-usingen-richtiger-standort": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-02",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "0a96342b7afbed5ad8175ec6ebd559a34addbd107dbd6c32f359433d589735b2",
+    "imageSha256": "3c41df08e329c258724ab9f2e8ba142d94da35a078ee1b3de2120d0eaf1130b0",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "wetterwarnung-krankenfahrt-organisieren": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-05",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "6e04552667283d0286784c226542cb83eda0e1bbcfc4c4fcdadd5de0834fb68b",
+    "imageSha256": "9493f6622dba403223705c1d49720e91732662821561892fdc20b1b28d7d1840",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "fahrtanfrage-nachricht-keine-diagnosen": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-09",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "bfdac8e9ebbd776a201ea1e4bf2d648d410dee296b62f5e468a1f98b4efabd4e",
+    "imageSha256": "ad9254338e84af5a92fa17a41a445ab01030a7e7b6491196aad65961b80baf53",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "anfrage-gesendet-fahrt-bestaetigt": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-12",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "ebcb6e160212ce1317f097a89f23205d8f85b7629061d1eb62f633fa1ca6c5fe",
+    "imageSha256": "355142e07247bc7e859d402034976c5bab164ec95c081207a972ebdaf0f51bf0",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "abholung-dunkelheit-treffpunkt": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-16",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "d051e9faa14f31ee5d1ed8e756b0942a00a67944caf8b681f21b739ee87d9323",
+    "imageSha256": "233409698417e39ed7897ffdfd979de6cf5b090c1a0fc865339f722c9461e8ed",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "stufen-hauseingang-krankenfahrt": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-19",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "86d7ed1a051664fb32d59b4bb27304d98626b2e0ee7ad75efc92088566cd55ed",
+    "imageSha256": "fae2b717d200325e061c43bdd5b2f6d4f38c53a29c51c5e4779bc58987b30121",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   },
   "klinikfahrt-demenz-absprachen": {
-    "status": "text_approved_image_pending",
+    "status": "approved",
     "approvedAt": "2026-10-28",
     "plannedDate": "2026-11-23",
-    "approvalNote": "Finale Betreiberfreigabe am 28.10.2026 für den vorgelegten Google-Kurztext. Bildmotiv bislang nur geplant; kein fertiges Bild und keine vollständige Payload freigegeben. Versand erst nach erfolgreichem Artikel-Livegang. Kein aktiver Google-Zeitplan."
+    "automaticPublishing": true,
+    "payloadHash": "4d6cdcf5fcba3d4b2544d2eae8d7e98d42afc70cbb173ceba05fed17f49cfe09",
+    "imageSha256": "bcc0e0cd5b7b015dca5e6ae83e8fe7780e98ac195675bd825231101416a06c7f",
+    "approvalNote": "Finale Artikel- und Textfreigabe am 28.10.2026; anschließender ausdrücklicher Betreiberauftrag: mache bitte alles fertig. Umsetzung und Nutzung der zuvor vorgestellten eigenen Informationsgrafik-Motive sowie automatischer Versand nach Livegang im Rahmen dieses Finalisierungsauftrags. Keine fremden Bilder oder zusätzlichen Leistungsversprechen."
   }
 }

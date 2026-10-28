@@ -35,6 +35,12 @@ jobs:
 
       - name: Abhängigkeiten installieren
         run: npm ci
+      - name: Google-Beitragsstatus laden
+        if: vars.GBP_QUEUE_ENABLED == 'true'
+        run: |
+          git fetch origin gbp-state
+          git worktree add --detach "$RUNNER_TEMP/gbp-state" FETCH_HEAD
+          echo "GBP_STATE_DIRECTORY=$RUNNER_TEMP/gbp-state" >> "$GITHUB_ENV"
 
       - name: Vorhandenes Cockpit sichern
         shell: bash

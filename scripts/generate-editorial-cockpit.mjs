@@ -8,6 +8,17 @@ const articlesDirectory = resolve(root, "automation/blog/articles");
 const outputDirectory = resolve(root, "out-editorial");
 const googleApprovals = JSON.parse(readFileSync(resolve(root, "automation/blog/google-business-approvals.json"), "utf8"));
 const googlePlanned = JSON.parse(readFileSync(resolve(root, "automation/blog/google-business-planned.json"), "utf8"));
+const imageManifestPath = resolve(root, "automation/blog/google-business-images.json");
+const googleImages = existsSync(imageManifestPath) ? JSON.parse(readFileSync(imageManifestPath, "utf8")) : {};
+if (process.env.GBP_STATE_DIRECTORY) {
+  for (const filename of readdirSync(process.env.GBP_STATE_DIRECTORY).filter(name => name.endsWith(".json"))) {
+    const state = JSON.parse(readFileSync(join(process.env.GBP_STATE_DIRECTORY, filename), "utf8"));
+    const approval = googleApprovals[state.articleSlug];
+    if (approval?.payloadHash === state.payloadHash) {
+      googleApprovals[state.articleSlug] = { ...approval, publishedState: state.status, postName: state.postName ?? null };
+    }
+  }
+}
 
 function loadRuns() {
   return readdirSync(articlesDirectory, { withFileTypes: true })
@@ -35,6 +46,7 @@ function loadRuns() {
         socialPlatform: existsSync(join(directory, "google-business-draft.md")) ? "Google Business" : "Archiv – nicht zur Veröffentlichung",
         socialDraft: readFileSync(join(directory, existsSync(join(directory, "google-business-draft.md")) ? "google-business-draft.md" : "facebook-draft.md"), "utf8").trim(),
         googleApproval: googleApprovals[validation.article.slug] ?? null,
+        googleImage: googleImages[validation.article.slug] ?? null,
       };
     })
     .sort((left, right) => left.status.scheduledDate.localeCompare(right.status.scheduledDate));
@@ -64,5 +76,8 @@ for (const file of ["outreach.php", "outreach-run.php", "outreach-unsubscribe.ph
   copyFileSync(resolve(root, "editorial", file), join(outputDirectory, file));
 }
 copyFileSync(resolve(root, "editorial/outreach.css"), join(outputDirectory, "assets/outreach.css"));
+for (const slug of Object.keys(googleImages)) {
+  copyFileSync(resolve(root, "public/images/google-business", slug + ".jpg"), join(outputDirectory, "assets", slug + ".jpg"));
+}
 
 console.log(`Redaktionscockpit erzeugt: ${runs.length} Artikel als geschützte PHP-Anwendung unter out-editorial/.`);

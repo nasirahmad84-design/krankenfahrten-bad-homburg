@@ -2,7 +2,7 @@ name: Blog-Publisher-Fehleralarm
 
 on:
   workflow_run:
-    workflows: ["Geplanter Blog-Queue-Release", "Blog-Publisher-Gesundheit"]
+    workflows: ["Geplanter Blog-Queue-Release", "Blog-Publisher-Gesundheit", "Google-Business-Pipeline"]
     types: [completed]
 
 permissions:

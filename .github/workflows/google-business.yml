@@ -1,0 +1,56 @@
+name: Google-Business-Pipeline
+
+on:
+  workflow_run:
+    workflows: ["Geplanter Blog-Queue-Release"]
+    types: [completed]
+  schedule:
+    - cron: "10 9,13 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nur Konfiguration und Vorschau prüfen, keine Beiträge senden"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: google-business-publishing
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+      GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+      GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+      GBP_QUEUE_ENABLED: ${{ vars.GBP_QUEUE_ENABLED }}
+      GBP_QUEUE_DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+      GBP_STATE_DIRECTORY: ${{ runner.temp }}/gbp-state
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Dauerhaften Versandstatus laden
+        run: |
+          git fetch origin gbp-state
+          git worktree add --detach "$GBP_STATE_DIRECTORY" FETCH_HEAD
+      - name: Freigegebene und live veröffentlichte Beiträge abgleichen
+        id: queue
+        run: node scripts/run-google-business-queue.mjs
+      - name: Neuen Beitragsstatus im geschützten Cockpit aktualisieren
+        if: steps.queue.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run editorial-cockpit-test.yml --ref main

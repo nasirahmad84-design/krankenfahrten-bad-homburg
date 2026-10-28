@@ -1,5 +1,7 @@
 # Google Business: ausführbarer, standardmäßig deaktivierter Publisher
 
+Seit 28.10.2026 ergänzt die unabhängige Cloud-Pipeline den Einzelpost-CLI. Aktuelle Bedienung und Abschalter: [Cloudbetrieb](google-business-cloud-2026-10-28.md). Die folgende Anleitung beschreibt den historischen manuellen Modus; nicht parallel zum Cloud-Lauf senden.
+
 Stand 30.09.2026. Der erste ausdrücklich freigegebene Herbstferien-Beitrag wurde gesendet und von Google als `LIVE` bestätigt (Post-ID `2837264369540629405`). Das Cloud-Projekt `krankenfahrten-gbp` ist für die Business Profile API freigegeben. Ziel ist ausschließlich `accounts/111505448904866961656/locations/14639701242816410626` („Krankenfahrten Bad Homburg“). Andere Standorte und die Gruppe „Gelem Hilft“ sind ausgeschlossen. Dieser Publisher aktiviert keinen automatischen Veröffentlichungszeitplan.
 
 ## Sichere Vorschau

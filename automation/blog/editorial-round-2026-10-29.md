@@ -1,6 +1,6 @@
 # Redaktionsrunde 29. Oktober bis 23. November 2026
 
-Stand: 28.10.2026. Finale Betreiberfreigabe im Codex-Chat für alle acht Artikel und Google-Kurztexte erteilt. Artikelstatus: **approved_for_publish**. Google-Status: **text_approved_image_pending**. Keine Veröffentlichung vorgezogen oder ausgelöst.
+Stand: 28.10.2026. Finale Betreiberfreigabe im Codex-Chat für alle acht Artikel und Google-Kurztexte erteilt, anschließend ausdrücklicher Finalisierungsauftrag. Artikelstatus: **approved_for_publish**. Die vorgestellten Motive sind als eigene Informationsgrafiken umgesetzt; vollständige Google-Payloads sind mit SHA-256 und Ausführungsauftrag im Freigaberegister hinterlegt. Keine Artikelveröffentlichung vorgezogen.
 
 | Plantermin | Artikel | Bildidee für Google (noch nicht freigegeben) |
 | --- | --- | --- |
@@ -21,11 +21,11 @@ Der Zeitumstellungsbeitrag wird nach dem 25.10.2026 nicht mehr vorbereitet. Stuf
 
 Die finale Freigabe vom 28.10.2026 ist in allen acht Laufstatusdateien, Kalender, Inhaltsfreigaberegister und Google-Freigaberegister dokumentiert. Die Artikel sind für ihre bestehenden Montag-/Donnerstag-Termine vorgesehen. Vor Freischaltung Quellen nochmals prüfen und Prüfdaten fortschreiben. Bei bereits verstrichenem Termin neu einplanen, nicht rückdatieren.
 
-Google-Zielplan: ebenfalls 29.10., 02.11., 05.11., 09.11., 12.11., 16.11., 19.11. und 23.11.2026, jeweils erst nach nachgewiesenem Livegang des zugehörigen Artikels. Das ist noch kein aktivierter Versandzeitplan. Es fehlen fertige freigegebene Bildassets und die Anbindung des vorhandenen manuellen Google-Publishers an einen dauerhaften Zeitplan mit persistentem Duplikatschutz. Keine feste Uhrzeit zugesagt.
+Google-Zielplan: ebenfalls 29.10., 02.11., 05.11., 09.11., 12.11., 16.11., 19.11. und 23.11.2026, jeweils erst nach nachgewiesenem Livegang des zugehörigen Artikels. Ein unabhängiger Nachlauf und tägliche Wiederholungsstarts übernehmen den Abgleich. Dauerhafter Duplikatschutz liegt im Branch gbp-state. Keine minutengenaue Google-Sichtbarkeit zugesagt. Betriebsanleitung: deployment/google-business-cloud-2026-10-28.md.
 
 ## Google-Business-Bilder
 
-Obige Motive sind ein Plan, keine fertigen Assets und keine Rechtefreigabe. Nur eigene Grafik oder freigegebenes vorhandenes Material verwenden; keine fremden Klinik-, BBK- oder Beratungsstellenlogos übernehmen. Google-Beitrag erst mit freigegebenem Text/Motiv und erreichbarem Artikel einplanen. Bestehende Google-Freigaben werden nicht verändert. Diese Runde enthält keine Facebook-Veröffentlichung.
+Obige Motive wurden im ausdrücklichen Finalisierungsauftrag vom 28.10.2026 als eigene sachliche Textgrafiken mit dem bestehenden Betreiberlogo umgesetzt. Keine fremden Klinik-, BBK- oder Beratungsstellenlogos, keine echten Personen oder Patientendaten. Bilder und Kurztexte sind im geschützten Cockpit sichtbar. Alte Google-Freigaben bleiben unverändert; diese Runde enthält keine Facebook-Veröffentlichung.
 
 ## Technische Erstabnahme am 28.10.2026 vor Betreiberfreigabe
 
