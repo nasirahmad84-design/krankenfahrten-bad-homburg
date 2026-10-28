@@ -2,7 +2,7 @@
 
 Stand: 28.10.2026. Finale Betreiberfreigabe im Codex-Chat für alle acht Artikel und Google-Kurztexte erteilt, anschließend ausdrücklicher Finalisierungsauftrag. Artikelstatus: **approved_for_publish**. Die vorgestellten Motive sind als eigene Informationsgrafiken umgesetzt; vollständige Google-Payloads sind mit SHA-256 und Ausführungsauftrag im Freigaberegister hinterlegt. Keine Artikelveröffentlichung vorgezogen.
 
-| Plantermin | Artikel | Bildidee für Google (noch nicht freigegeben) |
+| Plantermin | Artikel | Ursprüngliche Bildidee (als eigene Textgrafik umgesetzt) |
 | --- | --- | --- |
 | 2026-10-29 | Arzttermin und Abholzeit: Zwei Uhrzeiten mit unterschiedlicher Bedeutung | Zwei beschriftete Uhrzeiten, neutrale eigene Grafik |
 | 2026-11-02 | Klinikfahrt nach Usingen: Den richtigen Standort angeben | Eigene Standort-Textgrafik, keine Klinikfotos oder Kliniklogos |

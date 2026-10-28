@@ -36,6 +36,17 @@ Fehlgeschlagene Google-Läufe verwenden den vorhandenen serverseitigen Mailalarm
 
 ## Referenzen, geprüft 28.10.2026
 
+Abschlussprüfung am 28.10.2026:
+
+- 31 Blogtests und 11 Google-Publisher-/Queue-Tests bestanden, ESLint, PHP-Syntax und Cockpit-Paketprüfung erfolgreich.
+- Bildbereitstellung mit Sicherung und Prüfung sämtlicher 16 Test-/Live-Dateien erfolgreich: GitHub-Lauf 40688298716.
+- Cloud-Prüflauf mit OAuth und persistentem Zustandsbranch erfolgreich: 40688341123.
+- Versand aktiviert (GBP_QUEUE_ENABLED=true); aktiver Lauf 40688618638 erfolgreich, vor Fälligkeit korrekterweise kein POST.
+- Blog-/Google-Gesundheitsprüfung 40688796768 erfolgreich.
+- Geschütztes Cockpit mit Bildern erfolgreich bereitgestellt: 40688550639. Keine Produktionsseiten oder Formulare neu gebaut.
+- Bestehender Herbstferien-Beitrag erneut read-only als LIVE geprüft und sein tatsächlicher Zustand dauerhaft im Ledger gespeichert. Kein neuer Google-Beitrag als Test angelegt.
+- Ein beim ersten Cloudstart erkannter GitHub-Kontextfehler wurde vor Aktivierung behoben; Abschlusstests und neuester Lauf sind erfolgreich.
+
 - https://developers.google.com/my-business/reference/rest/v4/accounts.locations.localPosts
 - https://developers.google.com/my-business/reference/rest/v4/accounts.locations.media
 - https://support.google.com/business/answer/6103862
