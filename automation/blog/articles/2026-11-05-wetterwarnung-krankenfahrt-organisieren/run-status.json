@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-05-wetterwarnung-krankenfahrt-organisieren",
+  "scheduledDate": "2026-11-05",
+  "articleSlug": "wetterwarnung-krankenfahrt-organisieren",
+  "topic": "Wetterwarnung vor der Krankenfahrt: Was organisatorisch zu klären ist",
+  "whyNow": "Vorausschauender Organisationsratgeber für Herbst und Winter, ausdrücklich keine Wettervorhersage für November.",
+  "status": "draft_ready",
+  "sourceGate": "passed",
+  "claimGate": "passed",
+  "serviceGate": "passed",
+  "legalSensitivityGate": "passed",
+  "seoGate": "passed",
+  "livePublishing": false,
+  "facebookPublishing": false,
+  "revalidateAfter": "2026-11-05",
+  "reviewNotes": "Am 28.10.2026 redaktionell und anhand der angegebenen Primär- bzw. Betreiberquellen geprüft. Organisatorische Empfehlungen sind als solche kenntlich; keine medizinischen oder rechtlichen Zusagen. Finale Inhalts- und Veröffentlichungsfreigabe des Betreibers sowie Google-Beitragsfreigabe stehen aus. Plantermin ist keine Freigabe. Vor tatsächlicher Veröffentlichung Quellen und Aktualität erneut prüfen; danach reviewedAt, checkedAt und Recheck-Frist nachführen. Keine selbst erteilte Freigabe."
+}

@@ -1,0 +1,89 @@
+{
+  "slug": "wetterwarnung-krankenfahrt-organisieren",
+  "title": "Wetterwarnung vor der Krankenfahrt: Was organisatorisch zu klären ist",
+  "metadataTitle": "Wetterwarnung: Krankenfahrt rechtzeitig abstimmen",
+  "description": "Was tun, wenn eine Wetterwarnung Ihren Fahrttermin betrifft? Warngebiet prüfen, Praxis und Fahrdienst kontaktieren und neue Absprachen bestätigen lassen.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-05",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "Eine Wetterwarnung kann Fragen zur geplanten Fahrt aufwerfen. Statt selbst eine neue Abholzeit festzulegen, prüfen Sie zunächst, welchen Ort und Zeitraum die Meldung betrifft. Anschließend lassen sich Termin und Beförderung mit den jeweils zuständigen Stellen abstimmen.",
+  "summary": [
+    "Amtliche Meldung nach Ort und Gültigkeitszeit lesen.",
+    "Praxis und Fahrdienst erfüllen unterschiedliche Aufgaben.",
+    "Eine Warnung ist weder eine automatische Absage noch eine Fahrzusage."
+  ],
+  "sections": [
+    {
+      "id": "warnung",
+      "title": "Zuerst die konkrete Meldung lesen",
+      "paragraphs": [
+        "Das Bundesamt für Bevölkerungsschutz und Katastrophenhilfe erläutert, dass die Warn-App NINA auch Wetterwarnungen des Deutschen Wetterdienstes verwendet. Achten Sie in einer Meldung auf das betroffene Gebiet, den Zeitraum und die Hinweise der herausgebenden Stelle.",
+        "Dieser Artikel sagt keine Wetterlage für Ihren Fahrtag voraus. Prüfen Sie die aktuellen Informationen kurz vor dem Termin erneut und befolgen Sie die amtlichen Hinweise. Ein ausbleibender App-Hinweis ist keine Zusicherung, dass jeder Weg problemlos nutzbar ist."
+      ],
+      "sourceIds": [
+        "BBK-NINA"
+      ]
+    },
+    {
+      "id": "abstimmen",
+      "title": "Termin und Fahrt getrennt klären",
+      "paragraphs": [
+        "Die Praxis oder Klinik kann Auskunft zu Ihrem Behandlungstermin geben. Der Fahrdienst klärt die konkrete Beförderung. Fragen Sie bei beiden nach, wenn eine Meldung Ihre Planung betrifft. Unser organisatorischer Vorschlag: Notieren Sie, mit wem Sie gesprochen haben und welche Frage noch offen ist.",
+        "Eine Änderung des Behandlungstermins ändert die Fahrt nicht automatisch. Krankenfahrten Bad Homburg stimmt Abholort, Ziel und Uhrzeit ausdrücklich ab. Eine neue Zeit gilt erst nach Bestätigung; versprochene Erreichbarkeit oder garantierte Durchführung bei jedem Wetter lässt sich daraus nicht ableiten."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "zugang",
+      "title": "Auch den Weg zum Fahrzeug ansprechen",
+      "paragraphs": [
+        "Wenn ein vereinbarter Zugang vor Ort nicht wie geplant nutzbar erscheint, teilen Sie das mit, statt eigenständig einen anderen Treffpunkt vorauszusetzen. Klären Sie, ob eine passende Abholung überhaupt möglich ist.",
+        "Wir bieten sitzende Fahrten ohne medizinische Betreuung. Wetterbedingte Schwierigkeiten erweitern diesen Leistungsumfang nicht. Bei dringenden organisatorischen Rückfragen rufen Sie direkt an; kurzfristige Möglichkeiten hängen von der Verfügbarkeit ab."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Wird bei jeder Wetterwarnung automatisch abgesagt?",
+      "answer": "Dazu trifft dieser Artikel keine pauschale Aussage. Klären Sie den konkreten Termin und die mögliche Beförderung mit Praxis und Fahrdienst."
+    },
+    {
+      "question": "Soll ich einfach eine frühere Abholzeit eintragen?",
+      "answer": "Nein. Ein eigener Zeitwunsch ersetzt keine bestätigte Absprache. Fragen Sie nach, bevor Sie einen geänderten Plan als vereinbart ansehen."
+    }
+  ],
+  "sources": [
+    {
+      "id": "BBK-NINA",
+      "title": "Warn-App NINA",
+      "publisher": "Bundesamt für Bevölkerungsschutz und Katastrophenhilfe",
+      "url": "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

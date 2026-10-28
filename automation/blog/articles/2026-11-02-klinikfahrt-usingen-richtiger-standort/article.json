@@ -1,0 +1,89 @@
+{
+  "slug": "klinikfahrt-usingen-richtiger-standort",
+  "title": "Klinikfahrt nach Usingen: Den richtigen Standort angeben",
+  "metadataTitle": "Klinikfahrt nach Usingen: Ziel eindeutig angeben",
+  "description": "Für eine Klinikfahrt nach Usingen sind Standort und Eingang wichtig. So gleichen Sie Terminunterlagen, Zieladresse und vereinbarten Treffpunkt ab.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-02",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "„Zu den Hochtaunus-Kliniken“ ist als Ziel nicht immer eindeutig. Wer einen Termin in Usingen hat, sollte den Standort ausdrücklich nennen. Eine kurze Prüfung der Unterlagen hilft, Klinikadresse, Abteilung und Treffpunkt auseinanderzuhalten.",
+  "summary": [
+    "Usingen ausdrücklich als Klinikstandort nennen.",
+    "Adresse und zuständigen Eingang mit den Terminunterlagen abgleichen.",
+    "Beförderung und Rückfahrt individuell anfragen; es besteht keine pauschale Verfügbarkeitszusage."
+  ],
+  "sections": [
+    {
+      "id": "standort",
+      "title": "Welche Klinik ist auf der Einladung genannt?",
+      "paragraphs": [
+        "Die offizielle Kontaktseite der Hochtaunus-Kliniken führt mehrere Standorte auf. Für die Klinik Usingen nennt sie Weilburger Straße 48, 61250 Usingen. Prüfen Sie trotzdem Ihre konkrete Einladung: Entscheidend ist, wo Ihr eigener Termin stattfindet.",
+        "Eine genannte Klinikadresse ersetzt keine Auskunft darüber, welcher Eingang oder welche Anmeldung für Ihre Behandlung zuständig ist. Fragen Sie bei Unklarheiten die behandelnde Stelle. Aus der gleichen Klinikgruppe folgt nicht der gleiche Treffpunkt."
+      ],
+      "sourceIds": [
+        "HTK-KONTAKT"
+      ]
+    },
+    {
+      "id": "ziel",
+      "title": "So wird aus dem Kliniknamen ein eindeutiges Fahrziel",
+      "paragraphs": [
+        "Nennen Sie bei der Anfrage Standort, vollständige Zieladresse und den Behandlungstermin. Ergänzen Sie den Eingang, sobald dieser geklärt ist. Wir stimmen Abholort, Ziel, Uhrzeit und eine mögliche Rückfahrt mit Ihnen ab.",
+        "Unsere Empfehlung für eine Notiz: „Klinik Usingen; Adresse laut Einladung; Anmeldung/Eingang noch zu klären.“ Medizinische Befunde sind für diesen Abgleich nicht nötig. Bleibt ein Eingang offen, klären Sie ihn vor der Fahrt mit der Klinik."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "grenzen",
+      "title": "Rückfahrt und Unterstützung getrennt besprechen",
+      "paragraphs": [
+        "Für die Rückfahrt sollte feststehen, wer nach dem Termin erreichbar ist und welcher Treffpunkt vereinbart wurde. Schätzen Sie ein unbekanntes Behandlungsende nicht als feste Rückfahrtzeit. Lassen Sie offene Punkte ausdrücklich bestätigen.",
+        "Unser Angebot umfasst sitzende Krankenfahrten ohne medizinische Betreuung, keine Rollstuhl-, Tragestuhl- oder Liegendtransporte. Ob die konkrete Fahrt und benötigte Unterstützung möglich sind, wird vorab geklärt. Dieser Ratgeber enthält keine Aussage über eine Zusammenarbeit mit der Klinik."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Reicht „Hochtaunus-Kliniken“ als Ziel?",
+      "answer": "Besser ist der konkrete Standort mit Adresse und geklärtem Eingang. Die Klinikgruppe führt mehrere Standorte."
+    },
+    {
+      "question": "Ist die genannte Adresse eine Zusage für meine Fahrt?",
+      "answer": "Nein. Sie dient der Orientierung. Ihre Terminunterlagen müssen zum Ziel passen; die Fahrt selbst wird gesondert angefragt und bestätigt."
+    }
+  ],
+  "sources": [
+    {
+      "id": "HTK-KONTAKT",
+      "title": "Kontakt zu den Hochtaunus-Kliniken",
+      "publisher": "Hochtaunus-Kliniken",
+      "url": "https://www.hochtaunus-kliniken.de/kontakt",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "slug": "anfrage-gesendet-fahrt-bestaetigt",
+  "title": "Anfrage gesendet – ist die Fahrt schon gebucht?",
+  "metadataTitle": "Fahrtanfrage gesendet: Wann ist die Fahrt bestätigt?",
+  "description": "Nach dem Absenden ist die Fahrt noch nicht verbindlich vereinbart. So unterscheiden Sie Übermittlung, offene Rückfragen und ausdrückliche Fahrtbestätigung.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-12",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "Sie haben das Formular ausgefüllt und abgesendet. Damit haben Sie eine Fahrt angefragt – aber noch keine verbindliche Fahrtvereinbarung erhalten. Wer die folgenden Schritte unterscheidet, erkennt leichter, was bereits geklärt ist und wann noch eine Rückmeldung gebraucht wird.",
+  "summary": [
+    "Absenden und Fahrtbestätigung sind unterschiedliche Schritte.",
+    "Die Fahrt wird erst ausdrücklich bestätigt.",
+    "Bei zeitkritischen Rückfragen direkt anrufen, ohne eine Durchführung vorauszusetzen."
+  ],
+  "sections": [
+    {
+      "id": "uebermittelt",
+      "title": "Was nach dem Absenden feststeht",
+      "paragraphs": [
+        "Unser Formular dient einer unverbindlichen Fahrtanfrage. Nach den Datenschutzhinweisen wird sie an das Anfragepostfach des Betreibers übermittelt; es gibt keine automatische Buchungs- oder Eingangsbestätigung.",
+        "Eine Anzeige im Formular oder ein eigener Kalendereintrag ersetzt deshalb keine ausdrückliche Fahrtzusage. Unser Tipp: Kennzeichnen Sie die Fahrt zunächst als „angefragt“. So bleibt auch für Angehörige sichtbar, dass die Absprache noch aussteht."
+      ],
+      "sourceIds": [
+        "SERVICE-DATENSCHUTZ"
+      ]
+    },
+    {
+      "id": "geklaert",
+      "title": "Was vor der Bestätigung geklärt wird",
+      "paragraphs": [
+        "Im Ablauf werden Abholort, Ziel, Termin, Uhrzeit und eine mögliche Rückfahrt abgestimmt. Bei einer angefragten Abrechnung kommen die dafür benötigten Angaben hinzu. Die Fahrt ist erst nach ausdrücklicher Bestätigung vereinbart.",
+        "Wenn eine Rückmeldung nur eine Rückfrage enthält, beantworten Sie diese, statt daraus schon eine Zusage abzuleiten. Lassen Sie unklare Punkte wie einen offenen Eingang oder die Rückfahrt konkret klären. Eine bestätigte Hinfahrt ersetzt keine noch fehlende Rückfahrtabsprache."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "nachfragen",
+      "title": "Wann Sie nachfragen sollten",
+      "paragraphs": [
+        "Ist die Anfrage zeitkritisch, rufen Sie direkt an. Kurzfristige Fahrten hängen von der Verfügbarkeit ab. Dieser Beitrag nennt keine garantierte Antwortfrist und verspricht keine Annahme jeder Anfrage.",
+        "Für Ihre eigene Übersicht genügen drei Zustände: „angefragt“, „Rückfrage offen“ und „ausdrücklich bestätigt“. Diese Notiz ist eine Organisationshilfe, kein zusätzliches Buchungssystem. Ändern sich Termin oder Fahrtdaten, muss auch die Absprache erneut abgeglichen werden."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Ist die Erfolgsanzeige nach dem Formular schon eine Fahrzusage?",
+      "answer": "Nein. Eine Fahrt gilt erst nach ausdrücklicher Bestätigung als vereinbart."
+    },
+    {
+      "question": "Bekomme ich automatisch eine Bestätigungsmail?",
+      "answer": "Unser beschriebener Formularablauf sieht keine automatische Buchungs- oder Eingangsbestätigung vor. Bei zeitkritischen Rückfragen rufen Sie direkt an."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-DATENSCHUTZ",
+      "title": "Datenschutzerklärung – Kontaktaufnahme und Anfrageformular",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/datenschutz/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

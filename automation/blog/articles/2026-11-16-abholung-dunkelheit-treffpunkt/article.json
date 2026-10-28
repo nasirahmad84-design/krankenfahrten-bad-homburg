@@ -1,0 +1,82 @@
+{
+  "slug": "abholung-dunkelheit-treffpunkt",
+  "title": "Abholung bei Dunkelheit: Einen gut auffindbaren Treffpunkt vereinbaren",
+  "metadataTitle": "Abholung im Dunkeln: Treffpunkt klar vereinbaren",
+  "description": "Bei einer Abholung im Dunkeln hilft ein eindeutig vereinbarter Eingang. So stimmen Fahrgäste und Angehörige Zugang, Erreichbarkeit und Änderungen ab.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "Eine Hausnummer kann eindeutig sein, während der richtige Zugang im Dunkeln schwer zu erkennen ist. Für die Abstimmung hilft deshalb mehr als „vor dem Haus“. Ein vereinbarter Eingang und eine erreichbare Kontaktperson machen den Treffpunkt nachvollziehbar.",
+  "summary": [
+    "Den konkreten Zugang statt nur die Adresse nennen.",
+    "Unklare oder nicht nutzbare Zugänge vorab besprechen.",
+    "Treffpunktänderungen ausdrücklich abstimmen und nicht still voraussetzen."
+  ],
+  "sections": [
+    {
+      "id": "eingang",
+      "title": "Welcher Eingang ist gemeint?",
+      "paragraphs": [
+        "Unser organisatorischer Vorschlag: Benennen Sie Straße, Hausnummer und den vorgesehenen Eingang getrennt. Angaben wie „Eingang zur Seitenstraße“ können hilfreicher sein als ein nur tagsüber sichtbarer Orientierungspunkt. Verwenden Sie eine Beschreibung, die mit der tatsächlichen Adresse zusammenpasst.",
+        "Abholort und Uhrzeit werden individuell abgestimmt. Der vereinbarte Ort ist maßgeblich; eine eigene zusätzliche Notiz sollte ihn verständlicher machen, nicht einen neuen Treffpunkt festlegen."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "zugang",
+      "title": "Zugang und Unterstützung vorher klären",
+      "paragraphs": [
+        "Teilen Sie mit, wenn Stufen, ein geschlossenes Tor oder ein anderer Zugang die Abholung beeinflussen. Gehen Sie nicht davon aus, dass jede Hilfe an jedem Eingang möglich ist. Welche Unterstützung machbar ist, muss zum Fahrgast und zur Situation passen.",
+        "Krankenfahrten Bad Homburg bietet sitzende Beförderung ohne medizinische Betreuung. Rollstuhl-, Tragestuhl- und Liegendtransporte gehören nicht zum Angebot. Ein organisatorisch günstiger Treffpunkt ersetzt keine geeignete Beförderungsform."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "kontakt",
+      "title": "Erreichbar bleiben statt den Treffpunkt spontan wechseln",
+      "paragraphs": [
+        "Wenn Sie den vereinbarten Zugang nicht finden oder nutzen können, nehmen Sie Kontakt auf. Wechseln Sie nicht ohne Absprache auf die andere Gebäudeseite und erwarten Sie nicht, dass die Änderung automatisch bekannt ist.",
+        "Bei einer von Angehörigen organisierten Fahrt hilft eine klar benannte Rückrufperson. Stimmen Sie ab, wer im betreffenden Zeitfenster erreichbar ist. Der Text empfiehlt keine Wartezeit im Freien und enthält keine Zusage einer Abholung unter allen Umständen."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Soll ich schon lange vor der Abholung draußen warten?",
+      "answer": "Dazu gibt dieser Artikel keine pauschale Empfehlung. Klären Sie mit dem Fahrdienst, wie die konkrete Abholung am vereinbarten Ort abläuft."
+    },
+    {
+      "question": "Kann ich den Eingang kurzfristig ändern?",
+      "answer": "Teilen Sie den Änderungswunsch mit und stimmen Sie den neuen Treffpunkt ausdrücklich ab. Eine einseitige Änderung genügt nicht."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

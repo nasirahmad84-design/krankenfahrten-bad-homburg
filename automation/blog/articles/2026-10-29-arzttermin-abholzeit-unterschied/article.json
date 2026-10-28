@@ -1,0 +1,83 @@
+{
+  "slug": "arzttermin-abholzeit-unterschied",
+  "title": "Arzttermin und Abholzeit: Zwei Uhrzeiten mit unterschiedlicher Bedeutung",
+  "metadataTitle": "Arzttermin und Abholzeit richtig abstimmen",
+  "description": "Arzttermin und Abholung sind nicht dieselbe Uhrzeit. So halten Sie Ankunftswunsch, bestätigte Abholung und offene Rückfahrt klar auseinander.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-10-29",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "„Mein Termin ist um zehn“ ist eine wichtige Information, aber noch keine vereinbarte Abholzeit. Gerade wenn Angehörige die Fahrt organisieren, hilft eine klare Trennung der Uhrzeiten. So lässt sich im Gespräch nachvollziehen, wann der Fahrgast wo sein soll und welche Abholung tatsächlich bestätigt wurde.",
+  "summary": [
+    "Behandlungsbeginn, gewünschte Ankunft und Abholung getrennt notieren.",
+    "Keine Abholzeit selbst aus einer geschätzten Fahrtdauer ableiten.",
+    "Die bestätigte Absprache zählt, nicht allein der Eintrag im eigenen Kalender."
+  ],
+  "sections": [
+    {
+      "id": "termin",
+      "title": "Was steht auf der Terminbestätigung?",
+      "paragraphs": [
+        "Prüfen Sie, ob die Praxis einen Behandlungsbeginn oder eine frühere Anmeldung nennt. Geben Sie diese Vorgabe bei der Anfrage ausdrücklich an. Die Formulierung „Termin um 10 Uhr, Anmeldung laut Praxis um 9.45 Uhr“ ist eindeutiger als eine einzelne Uhrzeit.",
+        "Das ist eine organisatorische Empfehlung. Eine erforderliche Vorlaufzeit kann nur die behandelnde Stelle nennen; wir legen sie nicht pauschal für alle Praxen fest."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "abholung",
+      "title": "Abholung gemeinsam vereinbaren",
+      "paragraphs": [
+        "Beim Abstimmen der Fahrt werden Abholort, Ziel, Termin und Uhrzeit geklärt. Teilen Sie mit, welcher Eingang genutzt werden soll und ob vor dem Einsteigen etwas zu berücksichtigen ist. Daraus entsteht eine konkrete Absprache, keine allgemeine Zusage einer bestimmten Fahrtdauer.",
+        "Übernehmen Sie erst die ausdrücklich bestätigte Abholzeit in Ihren Plan. Beispiel für eine Notiz: „Arzttermin 10 Uhr; gewünschte Ankunft 9.45 Uhr; Abholung noch offen.“ Ersetzen Sie „noch offen“ erst nach der Rückmeldung."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "rueckfahrt",
+      "title": "Rückfahrt und Änderungen gesondert festhalten",
+      "paragraphs": [
+        "Ist das Ende der Behandlung noch unklar, kennzeichnen Sie auch die Rückfahrt als offen. Eine bestätigte Hinfahrt bedeutet nicht automatisch, dass eine beliebige Rückfahrtzeit verfügbar ist.",
+        "Wird der Termin verschoben, klären Sie die betroffene Fahrt erneut. Bei zeitnahen Änderungen ist ein Anruf sinnvoll. Verfügbarkeit und neue Abholzeit müssen abgestimmt werden; eine Nachricht allein ist keine Umbuchungsbestätigung."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ",
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Kann ich die Abholung einfach auf eine halbe Stunde vor dem Termin setzen?",
+      "answer": "Tragen Sie das höchstens als Wunsch ein. Die passende Abholung muss individuell abgestimmt und ausdrücklich bestätigt werden."
+    },
+    {
+      "question": "Welche Zeit nenne ich bei der Anfrage?",
+      "answer": "Nennen Sie den Behandlungstermin und gegebenenfalls eine von der Praxis verlangte frühere Anmeldung. Kennzeichnen Sie eigene Zeitwünsche als Wünsche."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "slug": "fahrtanfrage-nachricht-keine-diagnosen",
+  "title": "Fahrtanfrage per Nachricht: Keine Befunde und Diagnosen mitschicken",
+  "metadataTitle": "Fahrtanfrage: Fahrtdaten statt Befunde senden",
+  "description": "Für eine Fahrtanfrage zählen Fahrtdaten und erreichbare Kontakte. Erfahren Sie, welche medizinischen Unterlagen Sie uns nicht ungefragt mitschicken sollten.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-09",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "Für eine unverbindliche Fahrtanfrage müssen Sie nicht Ihre Krankengeschichte erklären. Hilfreich sind die Informationen zur Fahrt und zu erreichbaren Kontaktpersonen. Unsere Hinweise zeigen, wie Sie eine organisatorisch klare Nachricht schreiben, ohne unnötig medizinische Einzelheiten zu übermitteln.",
+  "summary": [
+    "Datum, Uhrzeit, Adressen und Rückrufmöglichkeit klar angeben.",
+    "Keine Diagnosen, Versicherungsnummern oder medizinischen Notfalldaten eingeben.",
+    "Benötigte Verordnungs- oder Abrechnungsangaben gesondert abstimmen."
+  ],
+  "sections": [
+    {
+      "id": "fahrtdaten",
+      "title": "Was die erste Nachricht leisten soll",
+      "paragraphs": [
+        "Beschreiben Sie die gewünschte Fahrt: Wann soll sie stattfinden, von wo nach wo und unter welcher Telefonnummer sind Sie für Rückfragen erreichbar? Kennzeichnen Sie eine gewünschte Rückfahrt als eigenen Abstimmungspunkt.",
+        "Im weiteren Ablauf werden Fahrtdaten und Voraussetzungen gemeinsam geklärt. Wenn eine Abrechnung angefragt wird, besprechen wir vorhandene Verordnung, Genehmigung und weitere erforderliche Angaben. Eine erste Nachricht muss nicht ungefragt sämtliche Unterlagen enthalten."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "keine-befunde",
+      "title": "Keine medizinischen Einzelheiten in das Freitextfeld",
+      "paragraphs": [
+        "Unsere Datenschutzhinweise bitten ausdrücklich darum, keine Diagnosen, Versicherungsnummern oder medizinischen Notfalldaten einzugeben. Beschreiben Sie organisatorisch relevante Bedürfnisse möglichst konkret, etwa einen noch zu klärenden Zugang, statt einen Befundtext zu kopieren.",
+        "Unser redaktioneller Tipp: Prüfen Sie eine Nachricht vor dem Absenden auf mitkopierte Anhänge oder vollständige Behandlungsschreiben. Wenn Unterlagen zur Abrechnung erforderlich sind, klären Sie zunächst, welche Angaben und welcher Übermittlungsweg gebraucht werden."
+      ],
+      "sourceIds": [
+        "SERVICE-DATENSCHUTZ"
+      ]
+    },
+    {
+      "id": "status",
+      "title": "Eine klare Nachricht ist noch keine Buchung",
+      "paragraphs": [
+        "Die Anfrage dient der Kontaktaufnahme und Abstimmung. Eine Fahrt gilt erst nach unserer ausdrücklichen Bestätigung als vereinbart. Halten Sie sich für Rückfragen erreichbar; ein möglichst ausführlicher medizinischer Text beschleunigt diese Bestätigung nicht automatisch.",
+        "Dieser Beitrag beschreibt unseren eigenen Anfrageablauf. Er ist keine allgemeine Rechtsberatung und keine Aussage darüber, welche Unterlagen andere Stellen benötigen. Für medizinische Notfälle ist das Anfrageformular nicht vorgesehen."
+      ],
+      "sourceIds": [
+        "SERVICE-DATENSCHUTZ",
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Soll ich ein Foto meines Befunds mitschicken?",
+      "answer": "Nicht ungefragt. Für die erste organisatorische Anfrage sind Fahrtdaten entscheidend. Benötigte Abrechnungsunterlagen stimmen Sie gesondert ab."
+    },
+    {
+      "question": "Darf ich den Unterstützungsbedarf erwähnen?",
+      "answer": "Nennen Sie die organisatorisch notwendige Hilfe, damit ihre Machbarkeit geklärt werden kann. Vermeiden Sie unnötige Diagnosen und medizinische Einzelheiten."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-DATENSCHUTZ",
+      "title": "Datenschutzerklärung – Kontaktaufnahme und Anfrageformular",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/datenschutz/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

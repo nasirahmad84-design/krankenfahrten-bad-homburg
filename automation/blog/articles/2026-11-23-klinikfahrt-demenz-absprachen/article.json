@@ -1,0 +1,89 @@
+{
+  "slug": "klinikfahrt-demenz-absprachen",
+  "title": "Klinikfahrt bei Demenz: Zuständigkeiten und Absprachen vorab klären",
+  "metadataTitle": "Klinikfahrt bei Demenz: Absprachen vorab klären",
+  "description": "Bei einer Klinikfahrt mit Demenz sollten Angehörige Begleitung, Kontakte und Übergabe vorab klären. Hinweise zur Organisation und zu unseren Leistungsgrenzen.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-23",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "Wenn Angehörige eine Klinikfahrt für einen Menschen mit Demenz organisieren, reicht die Zieladresse allein oft nicht als Absprache. Wer begleitet, wer am Ziel erreichbar ist und welche Hilfe benötigt wird, sollte vorher geklärt sein. Dieser Beitrag behandelt die Organisation, nicht die medizinische Eignung einer Fahrt.",
+  "summary": [
+    "Begleitung und erreichbare Kontaktpersonen vorher abstimmen.",
+    "Keine pflegerische oder medizinische Betreuung durch den Fahrdienst voraussetzen.",
+    "Bei Unsicherheit zur passenden Beförderung die behandelnde Stelle einbeziehen."
+  ],
+  "sections": [
+    {
+      "id": "kontakte",
+      "title": "Wer begleitet und wer nimmt Kontakt auf?",
+      "paragraphs": [
+        "Unser organisatorischer Vorschlag: Legen Sie fest, wer die Anfrage stellt, wer den Fahrgast begleitet und wer während der Fahrt für Rückfragen erreichbar ist. Klären Sie auch mit der Klinik, wie Ankunft und Abholung ablaufen sollen. Verlassen Sie sich nicht darauf, dass eine beliebige Person vor Ort automatisch zuständig ist.",
+        "Abholort, Ziel, Termin und mögliche Rückfahrt werden mit dem Fahrdienst abgestimmt. Für die eigene Übersicht genügt ein kurzer Plan mit Kontaktpersonen und offenen Punkten. Er ist keine Bestätigung, dass Betreuung oder eine persönliche Übergabe bereits vereinbart sind."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "grenzen",
+      "title": "Beförderung nicht mit Betreuung verwechseln",
+      "paragraphs": [
+        "Krankenfahrten Bad Homburg bietet sitzende Fahrten ohne medizinische Betreuung oder Überwachung. Rollstuhl-, Tragestuhl- und Liegendtransporte gehören nicht zum Angebot. Die Diagnose Demenz allein beantwortet weder, ob diese Beförderungsform passt, noch welche Begleitung erforderlich ist.",
+        "Besprechen Sie Unsicherheiten mit der behandelnden Stelle und klären Sie benötigte Unterstützung vor der Fahrt. Eine mitfahrende Begleitperson und organisatorische Hilfe dürfen nicht einfach vorausgesetzt werden. Dieser Ratgeber enthält keine pflegerischen oder medizinischen Handlungsanweisungen."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ"
+      ]
+    },
+    {
+      "id": "beratung",
+      "title": "Weitere Beratung von der Fahrtorganisation trennen",
+      "paragraphs": [
+        "Die Fachstelle Demenz des Hochtaunuskreises und der Stadt Bad Homburg ist eine Beratungsstelle. Sie informiert unter anderem zu Alltagsproblemen und Betreuungsangeboten. Ihre offizielle Seite ist ein Anlaufpunkt, wenn über die einzelne Fahrt hinaus Unterstützungsfragen bestehen.",
+        "Das ist ein unabhängiger Beratungshinweis, keine Kooperation oder Vermittlungszusage. Die Fachstelle bestätigt keine Fahrt für uns. Den konkreten Termin, die Begleitung und die mögliche Beförderung müssen die jeweils Beteiligten gesondert klären."
+      ],
+      "sourceIds": [
+        "HTK-DEMENZ"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Ist eine Fahrt bei Demenz automatisch möglich?",
+      "answer": "Nein. Der individuelle Unterstützungsbedarf und die passende Beförderungsform müssen geklärt werden. Der Fahrdienst bietet keine medizinische Betreuung oder Überwachung."
+    },
+    {
+      "question": "Übernimmt die Fachstelle Demenz die Buchung?",
+      "answer": "Dieser Artikel enthält nur einen Hinweis auf ihr Beratungsangebot. Eine Fahrt mit uns muss gesondert angefragt und ausdrücklich bestätigt werden."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "HTK-DEMENZ",
+      "title": "Fachstelle Demenz",
+      "publisher": "Hochtaunuskreis",
+      "url": "https://www.hochtaunuskreis.de/Themenfelder/Soziales-Integration/Beratung-Vorsorge/Fachstelle-Demenz/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

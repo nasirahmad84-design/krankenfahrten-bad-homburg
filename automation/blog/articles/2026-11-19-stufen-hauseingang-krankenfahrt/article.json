@@ -1,0 +1,84 @@
+{
+  "slug": "stufen-hauseingang-krankenfahrt",
+  "title": "Stufen am Hauseingang: Unterstützung vor der Krankenfahrt klären",
+  "metadataTitle": "Stufen am Hauseingang vor der Krankenfahrt klären",
+  "description": "Stufen zwischen Wohnung und Fahrzeug sollten vor einer Krankenfahrt angesprochen werden. Klären Sie Zugang, benötigte Hilfe und Grenzen des Angebots.",
+  "format": "Ratgeber",
+  "publishedAt": "2026-11-19",
+  "updatedAt": "2026-10-28",
+  "reviewedAt": "2026-10-28",
+  "readingTimeMinutes": 3,
+  "intro": "Der Weg zum Fahrzeug gehört zur Planung einer Krankenfahrt dazu. Wenn am Hauseingang Stufen liegen, sollte das nicht erst beim Eintreffen des Fahrzeugs auffallen. Beschreiben Sie die Situation vorab und klären Sie, ob die benötigte Unterstützung zu unserem Angebot passt.",
+  "summary": [
+    "Stufen und Zugang bei der Anfrage konkret nennen.",
+    "Hilfe beim Einsteigen ist keine pauschale Zusage eines Trage- oder Treppendienstes.",
+    "Bei ungeeigneter sitzender Beförderung eine passende Transportlösung mit der behandelnden Stelle klären."
+  ],
+  "sections": [
+    {
+      "id": "beschreiben",
+      "title": "Beschreiben, statt „ein wenig Hilfe“ vorauszusetzen",
+      "paragraphs": [
+        "Nennen Sie organisatorisch relevante Hindernisse: Liegen Stufen vor dem Eingang, gibt es einen anderen nutzbaren Zugang oder ist eine Begleitperson vorgesehen? Eine kurze Beschreibung hilft, Rückfragen gezielt zu klären. Versenden Sie dafür nicht ungefragt medizinische Befunde.",
+        "Im beschriebenen Ablauf werden Fahrtdaten und Voraussetzungen vor der Bestätigung besprochen. Eine Adresse allein macht den Zugang nicht eindeutig. Lassen Sie offen, was Sie nicht sicher wissen, statt die Situation günstiger darzustellen."
+      ],
+      "sourceIds": [
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "umfang",
+      "title": "Was unser Angebot nicht einschließt",
+      "paragraphs": [
+        "Wir bieten sitzende Krankenfahrten für Fahrgäste, die während der Fahrt sicher sitzen können. Medizinische Betreuung sowie Rollstuhl-, Tragestuhl- und Liegendtransporte gehören nicht zum Leistungsumfang. Daraus darf kein pauschaler Treppen- oder Tragedienst abgeleitet werden.",
+        "Hilfe beim Einsteigen ist nicht mit dem Tragen einer Person über Stufen gleichzusetzen. Klären Sie die konkret benötigte Hilfe vorab. Dieser Artikel beschreibt keine Technik zum Überwinden einer Treppe und empfiehlt keine improvisierte Beförderung."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ",
+        "SERVICE-ABLAUF"
+      ]
+    },
+    {
+      "id": "klaeren",
+      "title": "Wenn der bisherige Plan nicht passt",
+      "paragraphs": [
+        "Ist unklar, ob die Person den Weg zum Fahrzeug und die sitzende Fahrt bewältigen kann, muss die geeignete Beförderung vorab geklärt werden. Wenden Sie sich dafür an die behandelnde Stelle und schildern Sie dem Fahrdienst die organisatorischen Anforderungen.",
+        "Ein anderer Zugang oder eine Begleitperson kann nur Teil einer abgestimmten Lösung sein, nicht eine automatische Zusage. Erst nach Klärung und ausdrücklicher Bestätigung ist die konkrete Fahrt vereinbart."
+      ],
+      "sourceIds": [
+        "SERVICE-FAQ",
+        "SERVICE-ABLAUF"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Übernimmt der Fahrer das Tragen über die Treppe?",
+      "answer": "Ein solcher Dienst wird hier nicht zugesagt. Klären Sie den Bedarf vorab; Rollstuhl-, Tragestuhl- und Liegendtransporte gehören nicht zu unserem Angebot."
+    },
+    {
+      "question": "Muss ich Stufen trotz bestätigter Adresse erwähnen?",
+      "answer": "Ja, sprechen Sie relevante Zugangshindernisse gesondert an. Eine bekannte Adresse allein beschreibt nicht die benötigte Unterstützung."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SERVICE-ABLAUF",
+      "title": "Ablauf einer Krankenfahrt",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
+      "checkedAt": "2026-10-28"
+    },
+    {
+      "id": "SERVICE-FAQ",
+      "title": "Häufige Fragen",
+      "publisher": "Krankenfahrten Bad Homburg",
+      "url": "https://krankenfahrten-bad-homburg.de/faq/",
+      "checkedAt": "2026-10-28"
+    }
+  ],
+  "relatedServiceSlugs": [
+    "arzt-klinikfahrten",
+    "sitzende-krankenfahrten"
+  ]
+}

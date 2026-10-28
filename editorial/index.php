@@ -223,7 +223,7 @@ function editorial_render_index(array $runs, array $googlePlanned, string $csrfT
       <?php foreach ($runs as $run): if ($run['socialPlatform'] !== 'Google Business' || ($run['status']['scheduledDate'] ?? '') < '2026-09-28') continue; $approval = $run['googleApproval']; ?>
         <tr><td><?= editorial_date($run['status']['scheduledDate']) ?></td><td><?= editorial_escape($run['article']['title']) ?></td><td><?= ($approval['publishedState'] ?? '') === 'LIVE' ? 'Live' : (($approval['status'] ?? '') === 'approved' ? 'Text und Bild freigegeben' : (($approval['status'] ?? '') === 'text_approved_image_pending' ? 'Text freigegeben · Bild offen' : 'Google-Freigabe ausstehend')) ?></td><td><a href="/redaktion/artikel/<?= editorial_escape($run['article']['slug']) ?>/">Text ansehen</a></td></tr>
       <?php endforeach; ?>
-      <?php foreach ($googlePlanned as $item): ?>
+      <?php foreach ($googlePlanned as $item): if (in_array($item['slug'], array_column(array_column($runs, 'article'), 'slug'), true)) continue; ?>
         <tr><td><?= editorial_date($item['date']) ?></td><td><?= editorial_escape($item['title']) ?></td><td>Thema geplant · Recherche und Freigabe ausstehend</td><td>–</td></tr>
       <?php endforeach; ?>
       </tbody></table></div>
