@@ -29,5 +29,23 @@ jobs:
       - name: Repository laden
         uses: actions/checkout@v5
 
+      - name: Bestehende Alarmdateien sichern (ohne Secrets)
+        run: |
+          set -euo pipefail
+          for target in "$FTP_TEST_DIRECTORY" "$FTP_LIVE_DIRECTORY"; do
+            label="$(basename "$target")"
+            for item in api/blog-alert.php api/lib/blog-alert.php; do
+              mkdir -p "$RUNNER_TEMP/alert-backup/$label/$(dirname "$item")"
+              curl --silent --show-error --fail --connect-timeout 20 --max-time 60 --ssl-reqd --ftp-ssl-control --tls-max 1.2 --ftp-pasv \
+                --user "$FTP_USER:$FTP_PASSWORD" \
+                "ftp://$FTP_HOST/${target#/}$item" --output "$RUNNER_TEMP/alert-backup/$label/$item"
+            done
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: blog-alert-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/alert-backup/
+          retention-days: 30
+          if-no-files-found: error
       - name: Alarm-Endpunkt installieren und Testmail senden
         run: bash scripts/deploy-blog-alert-ftp.sh

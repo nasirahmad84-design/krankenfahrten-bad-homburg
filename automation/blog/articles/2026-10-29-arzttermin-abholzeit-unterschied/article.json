@@ -5,8 +5,8 @@
   "description": "Arzttermin und Abholung sind nicht dieselbe Uhrzeit. So halten Sie Ankunftswunsch, bestätigte Abholung und offene Rückfahrt klar auseinander.",
   "format": "Ratgeber",
   "publishedAt": "2026-10-29",
-  "updatedAt": "2026-10-28",
-  "reviewedAt": "2026-10-28",
+  "updatedAt": "2026-11-02",
+  "reviewedAt": "2026-11-02",
   "readingTimeMinutes": 3,
   "intro": "„Mein Termin ist um zehn“ ist eine wichtige Information, aber noch keine vereinbarte Abholzeit. Gerade wenn Angehörige die Fahrt organisieren, hilft eine klare Trennung der Uhrzeiten. So lässt sich im Gespräch nachvollziehen, wann der Fahrgast wo sein soll und welche Abholung tatsächlich bestätigt wurde.",
   "summary": [
@@ -66,14 +66,14 @@
       "title": "Ablauf einer Krankenfahrt",
       "publisher": "Krankenfahrten Bad Homburg",
       "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
-      "checkedAt": "2026-10-28"
+      "checkedAt": "2026-11-02"
     },
     {
       "id": "SERVICE-FAQ",
       "title": "Häufige Fragen",
       "publisher": "Krankenfahrten Bad Homburg",
       "url": "https://krankenfahrten-bad-homburg.de/faq/",
-      "checkedAt": "2026-10-28"
+      "checkedAt": "2026-11-02"
     }
   ],
   "relatedServiceSlugs": [

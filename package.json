@@ -10,7 +10,7 @@
     "lint": "eslint",
     "pretest": "node scripts/verify-blog-sources.mjs && node scripts/generate-blog-content.mjs && node scripts/generate-static-seo.mjs && node scripts/generate-editorial-cockpit.mjs",
     "test": "node --test --experimental-strip-types tests/*.test.mts",
-    "test:blog": "node --test --experimental-strip-types tests/blog-cloud.test.mts tests/blog-content.test.mts tests/blog-governance.test.mts tests/blog-pipeline.test.mts tests/blog-queue.test.mts",
+    "test:blog": "node --test --experimental-strip-types tests/blog-cloud.test.mts tests/blog-content.test.mts tests/blog-governance.test.mts tests/blog-pipeline.test.mts tests/blog-queue.test.mts tests/google-business*.test.mts",
     "test:export": "node tests/legal-export-check.mjs",
     "verify:deployment": "node scripts/verify-deployment.mjs",
     "verify:blog-export": "node scripts/verify-blog-export.mjs",

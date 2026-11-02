@@ -1,0 +1,30 @@
+name: Blog-Pipeline Regression
+
+on:
+  push:
+    branches: [main]
+    paths: ["scripts/**", "tests/**", "package*.json", "tsconfig.json", ".github/workflows/blog*.yml", ".github/workflows/google-business.yml"]
+  pull_request:
+    paths: ["scripts/**", "tests/**", "package*.json", "tsconfig.json", ".github/workflows/blog*.yml", ".github/workflows/google-business.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Blog und Google inklusive Regressionen prüfen
+        run: npm run test:blog
+      - name: TypeScript-Fehler vor dem Veröffentlichungstag erkennen
+        run: npx tsc --noEmit
+      - name: Alarmbündelung ohne echten Mailversand prüfen
+        run: php tests/php/blog-alert-test.php

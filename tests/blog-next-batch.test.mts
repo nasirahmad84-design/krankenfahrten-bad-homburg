@@ -38,7 +38,13 @@ test("acht ausdrücklich freigegebene Artikel werden geplant oder sind bereits v
 
 test("Prüflauf überspringt Veröffentlichung; externer Cron kann GitHub nicht abschalten", () => {
   const workflow = readFileSync(join(root, ".github/workflows/blog-manual.yml"), "utf8");
-  assert.equal((workflow.match(/if: steps\.queue\.outputs\.status == 'ready' && inputs\.dry_run != true/g) || []).length, 4);
+  for (const step of workflow.split("      - name:").slice(1)) {
+    if (/npm ci|deploy:blog:|blog:prepare-release|backup-blog-release|upload-artifact|git commit/.test(step)) {
+      assert.match(step, /if: steps\.queue\.outputs\.status == 'ready' && inputs\.dry_run != true/);
+    }
+  }
+  assert.ok(workflow.indexOf("backup-blog-release.mjs") < workflow.indexOf("deploy:blog:test"));
+  assert.ok(workflow.indexOf("name: blog-backup-") < workflow.indexOf("deploy:blog:test"));
   assert.doesNotMatch(workflow, /BLOG_EXTERNAL_SCHEDULER_ENABLED/);
   const config = JSON.parse(readFileSync(join(root, "automation/blog/external-schedule.example.json"), "utf8"));
   assert.equal(config.job.enabled, false);

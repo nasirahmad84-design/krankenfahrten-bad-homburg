@@ -31,7 +31,7 @@ catch (JsonException) { blog_alert_respond(400, ['success' => false]); }
 
 $event = validate_blog_alert_event($input);
 if ($event === null) blog_alert_respond(400, ['success' => false]);
-if (!send_blog_alert_email($event, $smtpConfig, $alertConfig)) blog_alert_respond(500, ['success' => false]);
+if (!send_deduplicated_blog_alert($event, $smtpConfig, $alertConfig)) blog_alert_respond(500, ['success' => false]);
 blog_alert_respond(204, []);
 
 function blog_alert_respond(int $status, array $payload, array $headers = []): never

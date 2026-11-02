@@ -106,6 +106,27 @@ test("Zustandsprüfung erkennt ausbleibende, übersprungene und gescheiterte Sta
   assert.throws(() => checkPublisherHeartbeat([{...healthy, conclusion: "failure"}], now), /nicht erfolgreich/);
 });
 
+test("ein veralteter Artikel sperrt keinen unabhängig geprüften späteren Artikel", () => {
+  const root = rootFixture();
+  try {
+    queueRun(root, "2026-08-24-veraltet", {revalidateAfter: "2026-08-24"});
+    const {directory, slug} = queueRun(root, "2026-08-24-aktuell");
+    for (const filename of ["article.json", "run-status.json"]) {
+      const path = join(directory, filename);
+      const data = JSON.parse(readFileSync(path, "utf8"));
+      if (filename === "article.json") data.publishedAt = "2026-08-25";
+      else data.scheduledDate = "2026-08-25";
+      writeFileSync(path, JSON.stringify(data));
+    }
+    const selected = selectDueRun(root, "2026-08-25");
+    assert.ok("slug" in selected);
+    assert.equal(selected.slug, slug);
+    assert.equal(selected.blocked.length, 1);
+    assert.match(selected.blocked[0].reason, /Aktualitätsfreigabe/);
+    assert.equal(existsSync(join(root, "automation/blog/published/veraltet.json")), false);
+  } finally { rmSync(root, {recursive: true, force: true}); }
+});
+
 test("wählt genau den freigegebenen und aktuellen Artikel des Tages", () => {
   const root = rootFixture();
   try {

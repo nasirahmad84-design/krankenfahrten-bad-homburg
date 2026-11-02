@@ -7,6 +7,7 @@ const publicationDate = process.env.BLOG_PUBLICATION_DATE || undefined;
 try {
   if (publicationDate && publicationDate !== berlinDate()) throw new Error("Live-Auswahl ist nur für das heutige Berliner Datum erlaubt.");
   const result = selectDueRun(process.cwd(), publicationDate);
+  for (const item of result.blocked ?? []) console.warn(`::warning::${item.reason}`);
   console.log(result.status === "ready"
     ? `Freigegebener Warteschlangenartikel: ${result.runId}`
     : `Kein freigegebener Warteschlangenartikel für ${result.publicationDate}.`);

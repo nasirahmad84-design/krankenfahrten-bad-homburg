@@ -5,8 +5,8 @@
   "description": "Für eine Klinikfahrt nach Usingen sind Standort und Eingang wichtig. So gleichen Sie Terminunterlagen, Zieladresse und vereinbarten Treffpunkt ab.",
   "format": "Ratgeber",
   "publishedAt": "2026-11-02",
-  "updatedAt": "2026-10-28",
-  "reviewedAt": "2026-10-28",
+  "updatedAt": "2026-11-02",
+  "reviewedAt": "2026-11-02",
   "readingTimeMinutes": 3,
   "intro": "„Zu den Hochtaunus-Kliniken“ ist als Ziel nicht immer eindeutig. Wer einen Termin in Usingen hat, sollte den Standort ausdrücklich nennen. Eine kurze Prüfung der Unterlagen hilft, Klinikadresse, Abteilung und Treffpunkt auseinanderzuhalten.",
   "summary": [
@@ -65,21 +65,21 @@
       "title": "Kontakt zu den Hochtaunus-Kliniken",
       "publisher": "Hochtaunus-Kliniken",
       "url": "https://www.hochtaunus-kliniken.de/kontakt",
-      "checkedAt": "2026-10-28"
+      "checkedAt": "2026-11-02"
     },
     {
       "id": "SERVICE-ABLAUF",
       "title": "Ablauf einer Krankenfahrt",
       "publisher": "Krankenfahrten Bad Homburg",
       "url": "https://krankenfahrten-bad-homburg.de/ablauf/",
-      "checkedAt": "2026-10-28"
+      "checkedAt": "2026-11-02"
     },
     {
       "id": "SERVICE-FAQ",
       "title": "Häufige Fragen",
       "publisher": "Krankenfahrten Bad Homburg",
       "url": "https://krankenfahrten-bad-homburg.de/faq/",
-      "checkedAt": "2026-10-28"
+      "checkedAt": "2026-11-02"
     }
   ],
   "relatedServiceSlugs": [

@@ -33,3 +33,7 @@ Abgleich mit dem veröffentlichten Bestand und der bisherigen Planung; Zeitumste
 ## Veröffentlichung und Recheck
 
 Finale Inhalts- und Veröffentlichungsfreigabe bleibt beim Betreiber. Vor dem Plantermin Quellen, Betreiberablauf und mögliche Änderungen erneut prüfen. Bei Verschiebung Datum und Recheck bewusst neu setzen; keine automatische Verlängerung. Der Google-Beitrag benötigt eigene Freigabe und einen bereits öffentlich erreichbaren Artikel. Keine kostenpflichtige OpenAI-API verwendet.
+
+## Nachprüfung und Nachholfreigabe 02.11.2026
+
+Alle oben genannten Quellen erneut geöffnet; Angaben zum Betreiberablauf und Leistungsumfang unverändert. Klinik Usingen weiterhin Weilburger Str. 48, 61250 Usingen auf der offiziellen Kontaktseite. Organisatorische Empfehlungen bleiben als solche erkennbar. Inhalt unverändert; Betreiberfreigabe 28.10.2026 und Nachholauftrag 02.11.2026. Aktualitätsfenster für diesen zeitlosen Grundlageninhalt bewusst bis 09.11.2026 gesetzt, keine automatische Verlängerung. Tatsächliches Veröffentlichungsdatum wird beim Live-Release gesetzt.

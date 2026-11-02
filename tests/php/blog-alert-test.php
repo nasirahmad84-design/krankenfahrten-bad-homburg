@@ -56,4 +56,23 @@ $invalidRecipient['recipient'] = "bad@example.test\r\nBcc: evil@example.test";
 alert_test_assert(!send_blog_alert_email($event, $smtpConfig, $invalidRecipient, static fn(): bool => true), 'Header-Injection im Empfänger wurde akzeptiert.');
 alert_test_assert(!send_blog_alert_email($event, [], $alertConfig, static fn(): bool => true), 'Fehlende SMTP-Konfiguration wurde akzeptiert.');
 
-echo "Blog-Alarm-Funktionstests erfolgreich\n";
+$directory = sys_get_temp_dir() . '/blog-alert-test-' . bin2hex(random_bytes(8));
+$sent = 0;
+$sender = static function () use (&$sent): bool { $sent++; return true; };
+try {
+    alert_test_assert(send_deduplicated_blog_alert($event, $smtpConfig, $alertConfig, $sender, $directory, 100000), 'Erster Alarm fehlt.');
+    $healthEvent = [...$event, 'eventName' => 'Blog-Publisher-Gesundheit / schedule', 'runId' => '123457'];
+    alert_test_assert(send_deduplicated_blog_alert($healthEvent, $smtpConfig, $alertConfig, $sender, $directory, 100010), 'Gesundheitsalarm nicht gebündelt.');
+    alert_test_assert($sent === 1, 'Publisher und Gesundheit erzeugen doppelte Mail.');
+    alert_test_assert(send_deduplicated_blog_alert($event, $smtpConfig, $alertConfig, $sender, $directory, 186400), 'Tageserinnerung fehlt.');
+    alert_test_assert($sent === 2, 'Erinnerung nach 24 Stunden wurde unterdrückt.');
+    $googleEvent = [...$event, 'eventName' => 'Google-Business-Pipeline / schedule'];
+    alert_test_assert(!send_deduplicated_blog_alert($googleEvent, $smtpConfig, $alertConfig, static fn(): bool => false, $directory, 100000), 'SMTP-Fehler verschluckt.');
+    alert_test_assert(send_deduplicated_blog_alert($googleEvent, $smtpConfig, $alertConfig, $sender, $directory, 100001), 'Fehlversand wurde als versendet markiert.');
+    alert_test_assert($sent === 3, 'Unabhängiger Google-Fehler wurde unterdrückt.');
+} finally {
+    foreach (glob($directory . '/*.json') ?: [] as $file) unlink($file);
+    if (is_dir($directory)) rmdir($directory);
+}
+
+echo "Blog-Alarm-Funktionstests erfolgreich (inklusive Duplikatschutz und SMTP-Wiederholung)\n";

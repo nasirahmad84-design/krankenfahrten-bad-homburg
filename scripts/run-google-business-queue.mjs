@@ -46,10 +46,13 @@ export async function runGoogleQueue(root, env = process.env) {
   console.log("Google-OAuth und Zielprofil erfolgreich geprüft.");
   if (enabled && !env.GBP_STATE_DIRECTORY) throw new Error("Persistentes Google-Zustandsverzeichnis fehlt.");
   let changed = false;
+  const errors = [];
   for (const item of items) {
+    try {
     if (!item.published) {
       console.log(item.article.slug + ": wartet auf bestätigten Artikel-Livegang.");
-      if (item.status.scheduledDate < today) throw new Error("Überfälliger Google-Beitrag: Artikel fehlt im Live-Register.");
+      // Blog health owns missing article alarms; this is not a Google failure.
+      if (item.status.scheduledDate < today) console.warn("::warning::Überfälliger Live-Artikel; Blog-Gesundheitsprüfung übernimmt den Alarm.");
       continue;
     }
     if (!enabled) { console.log(item.article.slug + ": geprüfte Vorschau, kein POST."); continue; }
@@ -64,9 +67,13 @@ export async function runGoogleQueue(root, env = process.env) {
     console.log(item.article.slug + ": " + result.status);
     if (JSON.stringify(before) !== JSON.stringify(result)) changed = true;
     if (result.status === "PROCESSING" && Date.now() - Date.parse(result.firstSeenAt) > 24 * 60 * 60 * 1000) throw new Error("Google-Beitrag seit über 24 Stunden in Prüfung.");
+    } catch (error) {
+      errors.push(`${item.article.slug}: ${error.message}`);
+    }
   }
   if (!items.length) console.log("Noch kein Google-Beitrag fällig; keine Veröffentlichung.");
   if (env.GITHUB_OUTPUT) appendFileSync(env.GITHUB_OUTPUT, "changed=" + changed + "\n");
+  if (errors.length) throw new Error(errors.join("\n"));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {

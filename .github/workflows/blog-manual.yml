@@ -60,6 +60,21 @@ jobs:
           npm ci
           npm run blog:prepare-release -- "${{ steps.queue.outputs.run_directory }}"
 
+      - name: Vorherigen Blog-Stand vor dem ersten Upload sichern
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
+        env:
+          BLOG_BACKUP_DIRECTORY: ${{ runner.temp }}/blog-backup
+        run: node scripts/backup-blog-release.mjs "${{ steps.queue.outputs.slug }}"
+
+      - name: Vorherigen Stand wiederherstellbar aufbewahren
+        if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-backup-${{ github.run_id }}
+          path: ${{ runner.temp }}/blog-backup/
+          retention-days: 30
+          if-no-files-found: error
+
       - name: Blog-Delta auf Testdomain veröffentlichen
         if: steps.queue.outputs.status == 'ready' && inputs.dry_run != true
         run: npm run deploy:blog:test -- "${{ steps.queue.outputs.slug }}"

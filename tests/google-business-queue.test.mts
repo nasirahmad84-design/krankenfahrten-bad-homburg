@@ -14,6 +14,7 @@ test("alle acht freigegebenen Payloads enthalten das exakte eigene JPEG und blei
   assert.equal(queue.length, 8);
   const images = JSON.parse(readFileSync("automation/blog/google-business-images.json", "utf8"));
   for (const item of queue) {
+    assert.ok(item.preview.payload.media, "Freigegebenes Bild fehlt im Payload.");
     const bytes = readFileSync("public" + new URL(item.preview.payload.media[0].sourceUrl).pathname);
     assert.equal(createHash("sha256").update(bytes).digest("hex"), item.approval.imageSha256);
     assert.equal(images[item.article.slug].width, 1200);

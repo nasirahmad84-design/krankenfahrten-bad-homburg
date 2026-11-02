@@ -75,14 +75,19 @@ export function selectDueRun(root, today = berlinDate()) {
   }
   const due = pending.filter(status => status.scheduledDate <= today)
     .sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate));
-  if (due.length) {
-    const oldest = due[0];
-    if (!DATE_PATTERN.test(oldest.revalidateAfter ?? "") || oldest.revalidateAfter < today) {
-      throw new Error(`Aktualitätsfreigabe abgelaufen: ${oldest.articleSlug}. Quellencheck und neue Terminierung erforderlich.`);
+  const blocked = [];
+  for (const candidate of due) {
+    try {
+      if (!DATE_PATTERN.test(candidate.revalidateAfter ?? "") || candidate.revalidateAfter < today) {
+        throw new Error(`Aktualitätsfreigabe abgelaufen: ${candidate.articleSlug}. Quellencheck erforderlich.`);
+      }
+      const selected = selectScheduledRun(root, candidate.scheduledDate);
+      return { ...selected, plannedDate: candidate.scheduledDate, publicationDate: today, blocked };
+    } catch (error) {
+      blocked.push({ slug: candidate.articleSlug, reason: error.message });
     }
-    const selected = selectScheduledRun(root, oldest.scheduledDate);
-    return { ...selected, plannedDate: oldest.scheduledDate, publicationDate: today };
   }
+  if (blocked.length) throw new Error(blocked.map(item => item.reason).join("\n"));
   const published = readdirSync(resolve(root, "automation/blog/published"))
     .filter(name => name.endsWith(".json"))
     .map(name => readJson(resolve(root, "automation/blog/published", name)));

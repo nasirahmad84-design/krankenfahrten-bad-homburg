@@ -66,6 +66,33 @@ function send_blog_alert_email(array $event, array $smtpConfig, array $alertConf
     return send_blog_alert_with_phpmailer($payload, $smtp);
 }
 
+// Persist successful delivery under a lock; publisher and health share one incident.
+function send_deduplicated_blog_alert(array $event, array $smtpConfig, array $alertConfig, ?callable $sender = null, ?string $directory = null, ?int $now = null): bool
+{
+    if ($event['conclusion'] === 'test') return send_blog_alert_email($event, $smtpConfig, $alertConfig, $sender);
+    $directory ??= sys_get_temp_dir() . '/kfbh-blog-alert-' . substr(hash('sha256', __DIR__), 0, 16);
+    $now ??= time();
+    $component = str_starts_with($event['eventName'], 'Google-Business-Pipeline') ? 'google' : 'blog';
+    $key = hash('sha256', $event['repository'] . ':' . $event['headSha'] . ':' . $component);
+    if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) return false;
+    $handle = @fopen($directory . '/' . $key . '.json', 'c+');
+    if ($handle === false) return false;
+    @chmod($directory . '/' . $key . '.json', 0600);
+    try {
+        if (!flock($handle, LOCK_EX)) return false;
+        $previous = json_decode(stream_get_contents($handle) ?: '{}', true);
+        $sentAt = is_array($previous) ? ($previous['sentAt'] ?? null) : null;
+        if (is_int($sentAt) && $now >= $sentAt && $now - $sentAt < 86400) return true;
+        if (!send_blog_alert_email($event, $smtpConfig, $alertConfig, $sender)) return false;
+        $state = json_encode(['sentAt' => $now, 'runId' => $event['runId']]);
+        rewind($handle);
+        return ftruncate($handle, 0) && fwrite($handle, $state) === strlen($state) && fflush($handle);
+    } finally {
+        flock($handle, LOCK_UN);
+        fclose($handle);
+    }
+}
+
 function send_blog_alert_with_phpmailer(array $payload, array $smtp): bool
 {
     $autoload = dirname(__DIR__) . '/vendor/autoload.php';
@@ -114,6 +141,8 @@ function build_blog_alert_text(array $event): string
         'Run-ID: ' . $event['runId'],
         'Commit: ' . $event['headSha'],
         'Details: ' . $event['runUrl'],
+        'Alle Abläufe: https://github.com/' . BLOG_ALERT_REPOSITORY . '/actions',
+        'Publisher und Gesundheitsprüfung können denselben Fehler melden. Wiederholungen zum selben Stand werden für 24 Stunden gebündelt.',
         '',
         'Diese Nachricht wurde automatisch versendet. Es wurden keine Artikel- oder Formulardaten übertragen.',
     ]);
