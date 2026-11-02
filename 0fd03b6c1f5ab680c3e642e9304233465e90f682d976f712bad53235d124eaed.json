@@ -3,8 +3,8 @@
   "parent": "accounts/111505448904866961656/locations/14639701242816410626",
   "payloadHash": "5f04e495efc4ce4c2ce05a8734b6ae4a2d1ecf57b0e187651eb225f7c6a448b5",
   "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/2112929989447157454",
-  "status": "PROCESSING",
+  "status": "LIVE",
   "firstSeenAt": "2026-11-02T09:53:27.283Z",
-  "checkedAt": "2026-11-02T09:53:27.283Z",
+  "checkedAt": "2026-11-02T18:36:08.093Z",
   "searchUrl": "https://local.google.com/place?id=12940249890188849313&use=posts&lpsid=CAIQACoeChxtc3BfaDp4UnE0UzJ5SFZFald6bUtkUmJtbFRn"
 }
