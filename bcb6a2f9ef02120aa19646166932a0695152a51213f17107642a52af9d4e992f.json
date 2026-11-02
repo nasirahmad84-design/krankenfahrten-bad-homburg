@@ -2,6 +2,9 @@
   "articleSlug": "klinikfahrt-usingen-richtiger-standort",
   "parent": "accounts/111505448904866961656/locations/14639701242816410626",
   "payloadHash": "0a96342b7afbed5ad8175ec6ebd559a34addbd107dbd6c32f359433d589735b2",
-  "status": "sending_unknown",
-  "attemptedAt": "2026-11-02T18:36:11.248Z"
+  "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/3468090983059956973",
+  "status": "PROCESSING",
+  "firstSeenAt": "2026-11-02T18:36:16.207Z",
+  "checkedAt": "2026-11-02T18:36:16.207Z",
+  "searchUrl": "https://local.google.com/place?id=12940249890188849313&use=posts&lpsid=CAIQACoeChxtc3BfaDpoZ21Vckd4NjQwUUJoUHA5UGVTd253"
 }
