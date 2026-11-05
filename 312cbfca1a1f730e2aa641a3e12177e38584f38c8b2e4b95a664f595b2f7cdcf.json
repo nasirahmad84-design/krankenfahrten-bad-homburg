@@ -2,6 +2,9 @@
   "articleSlug": "wetterwarnung-krankenfahrt-organisieren",
   "parent": "accounts/111505448904866961656/locations/14639701242816410626",
   "payloadHash": "6e04552667283d0286784c226542cb83eda0e1bbcfc4c4fcdadd5de0834fb68b",
-  "status": "sending_unknown",
-  "attemptedAt": "2026-11-05T16:36:50.792Z"
+  "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/7922668515810528704",
+  "status": "PROCESSING",
+  "firstSeenAt": "2026-11-05T16:36:55.935Z",
+  "checkedAt": "2026-11-05T16:36:55.935Z",
+  "searchUrl": "https://local.google.com/place?id=12940249890188849313&use=posts&lpsid=CAIQACoeChxtc3BfaDprb1dvREJQNU5HXzUzaUhnRjNUM0Z3"
 }
