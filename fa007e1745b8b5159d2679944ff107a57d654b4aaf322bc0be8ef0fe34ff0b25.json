@@ -2,6 +2,9 @@
   "articleSlug": "fahrtanfrage-nachricht-keine-diagnosen",
   "parent": "accounts/111505448904866961656/locations/14639701242816410626",
   "payloadHash": "bfdac8e9ebbd776a201ea1e4bf2d648d410dee296b62f5e468a1f98b4efabd4e",
-  "status": "sending_unknown",
-  "attemptedAt": "2026-11-09T18:59:51.828Z"
+  "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/2066169481358704595",
+  "status": "PROCESSING",
+  "firstSeenAt": "2026-11-09T18:59:56.077Z",
+  "checkedAt": "2026-11-09T18:59:56.077Z",
+  "searchUrl": "https://local.google.com/place?id=12940249890188849313&use=posts&lpsid=CAIQACoeChxtc3BfaDoyUFl3alRUNmU2S2Q1T0xxZlZTTUhB"
 }
