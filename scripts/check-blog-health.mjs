@@ -2,6 +2,16 @@ import {execFileSync} from "node:child_process";
 import {pathToFileURL} from "node:url";
 import {berlinDate, selectDueRun} from "./lib/blog-queue.mjs";
 
+// Last Google run: 13:10 UTC; allow four hours for delayed starts and publishing.
+// GitHub schedules use UTC; the editorial calendar uses Europe/Berlin.
+export function publicationCheckDate(now = new Date()) {
+  const today = berlinDate(now);
+  const deadline = Date.parse(today + "T17:10:00Z");
+  return now.getTime() >= deadline
+    ? today
+    : new Date(Date.parse(today + "T00:00:00Z") - 86_400_000).toISOString().slice(0, 10);
+}
+
 export function checkPublisherHeartbeat(runs, now = new Date()) {
   const latest = runs.filter(run => run.conclusion !== "skipped")
     .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))[0];
@@ -24,7 +34,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   if (state === "running") {
     console.log("Ein Publisher-Lauf arbeitet noch innerhalb des erlaubten Zeitfensters; keine Fehlalarmierung.");
   } else {
-    const queue = selectDueRun(process.cwd(), berlinDate());
+    const queue = selectDueRun(process.cwd(), publicationCheckDate());
     if (queue.status === "ready") throw new Error("Ein freigegebener Artikel ist weiterhin fällig, obwohl die Tagesläufe abgeschlossen sein sollten.");
     console.log("Publisher-Start, letzter Lauf und fällige Freigaben geprüft.");
   }

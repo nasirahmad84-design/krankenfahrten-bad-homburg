@@ -5,7 +5,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { selectScheduledRun, selectDueRun } from "../scripts/lib/blog-queue.mjs";
-import { checkPublisherHeartbeat } from "../scripts/check-blog-health.mjs";
+import { checkPublisherHeartbeat, publicationCheckDate } from "../scripts/check-blog-health.mjs";
 import { spawnSync } from "node:child_process";
 
 const projectRoot = process.cwd();
@@ -93,6 +93,14 @@ test("Nachholen sperrt abgelaufene Freigaben und meldet leere Veröffentlichungs
     assert.throws(() => selectDueRun(empty, "2026-08-24"), /Redaktionsvorrat leer/);
     assert.equal(selectDueRun(empty, "2026-08-25").status, "no_scheduled_article");
   } finally { rmSync(empty, {recursive: true, force: true}); }
+});
+
+test("Gesundheitsprüfung berücksichtigt heutige Beiträge erst nach dem letzten Lauf plus Puffer", () => {
+  assert.equal(publicationCheckDate(new Date("2026-11-11T23:42:36Z")), "2026-11-11");
+  assert.equal(publicationCheckDate(new Date("2026-11-12T17:09:59Z")), "2026-11-11");
+  assert.equal(publicationCheckDate(new Date("2026-11-12T17:10:00Z")), "2026-11-12");
+  assert.equal(publicationCheckDate(new Date("2026-07-01T00:00:00+02:00")), "2026-06-30");
+  assert.equal(publicationCheckDate(new Date("2026-07-01T19:10:00+02:00")), "2026-07-01");
 });
 
 test("Zustandsprüfung erkennt ausbleibende, übersprungene und gescheiterte Starts", () => {
