@@ -2,6 +2,9 @@
   "articleSlug": "klinikfahrt-demenz-absprachen",
   "parent": "accounts/111505448904866961656/locations/14639701242816410626",
   "payloadHash": "4d6cdcf5fcba3d4b2544d2eae8d7e98d42afc70cbb173ceba05fed17f49cfe09",
-  "status": "sending_unknown",
-  "attemptedAt": "2026-11-23T20:24:11.690Z"
+  "postName": "accounts/111505448904866961656/locations/14639701242816410626/localPosts/8459009251434236509",
+  "status": "PROCESSING",
+  "firstSeenAt": "2026-11-23T20:24:16.617Z",
+  "checkedAt": "2026-11-23T20:24:16.617Z",
+  "searchUrl": "https://local.google.com/place?id=12940249890188849313&use=posts&lpsid=CAIQACoeChxtc3BfaDowWUp3RUF2UFB6SExaQXMtRFlQejRB"
 }
